@@ -9,7 +9,7 @@ export default function NavBar() {
       <Link className={s.navImg} to="/home">
         <img className={s.logoImg} src={logo} alt='logo' />
       </Link>
-      <ul className={s.navUl}>
+      <ul className={s.navUl}> 
         <li>
           <Link className={s.navLink} to="/favs">
             Favs
