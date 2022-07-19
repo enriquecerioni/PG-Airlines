@@ -6,7 +6,11 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
+      autoIncrement: true
+    },
+    airlineId:{
+      type:DataTypes.INTEGER,
+      allowNull:false
     },
     origin: {
       type: DataTypes.STRING,

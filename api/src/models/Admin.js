@@ -5,6 +5,10 @@ module.exports = (sequelize) => {
         superAdmin: {
             type: DataTypes.BOOLEAN,
             defaultValue: false 
-        }
+        },
+        userId:{
+            type:DataTypes.INTEGER,
+            allowNull:false
+          },
     });
   };
