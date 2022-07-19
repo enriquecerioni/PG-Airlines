@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <div className={s.Home}>
-      {/* <div className={s.divImg}>
+      {/* <div className={s.divImg}> 
         <img
           className={s.img}
           src={
