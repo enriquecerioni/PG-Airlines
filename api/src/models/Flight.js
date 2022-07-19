@@ -1,40 +1,40 @@
-const { DataType } = req("sequelize");
+const { DataTypes } = require("sequelize");
 
-module.export = (sequelize) => {
+module.exports = (sequelize) => {
   sequelize.define("flight", {
     id: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      defaultValue: DataType.UUIDV4,
+      defaultValue: DataTypes.UUIDV4,
     },
     origin: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     destination: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     duration_estimated: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     price: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     tickets: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     departure_date: {
-      type: DataType.DATEONLY,
+      type: DataTypes.DATEONLY,
       allowNull: false,
-      defaultValue: DataType.NOW
+      defaultValue: DataTypes.NOW
     },
     arrival_date: {
-      type: DataType.DATEONLY,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
   });

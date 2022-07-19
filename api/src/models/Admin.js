@@ -1,9 +1,9 @@
-const { DataType } = req("sequelize");
+const { DataTypes } = require("sequelize");
 
-module.export = (sequelize) => {
+module.exports = (sequelize) => {
     sequelize.define("admin", {
         superAdmin: {
-            type: DataType.BOOLEAN,
+            type: DataTypes.BOOLEAN,
             defaultValue: false 
         }
     });

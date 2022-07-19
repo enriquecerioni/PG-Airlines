@@ -1,20 +1,20 @@
-const { DataType } = req("sequelize");
+const { DataTypes } = require("sequelize");
 
-module.export = (sequelize) => {
+module.exports = (sequelize) => {
   sequelize.define("order", {
     id: {
-      type: DataType.UUID,
+      type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,
-      defaultValue: DataType.UUIDV4,
+      defaultValue: DataTypes.UUIDV4,
     },
     price: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     //stocks = tickets
     stocks: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   });
