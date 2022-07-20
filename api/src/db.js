@@ -70,12 +70,47 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-// En sequelize.models están todos los modelos importados como propiedades
+// En sequelize.models están todos los modelos importados como propiedades 
 // Para relacionarlos hacemos un destructuring
-const { Videogame } = sequelize.models;
+const { Admin, Airline, Flight, Order, User ,Cart , Comment} = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+
+
+// UserModel.belongsTo(RoleModel, {foreignKey: 'roleId'});
+// RoleModel.hasMany(UserModel, {
+//   foreignKey: "roleId",
+// });
+
+User.hasMany(Order,{foreignKey:"userId"});
+Order.belongsTo(User,{foreignKey:"userId"});
+
+Airline.hasMany(User,{foreignKey:"userId"});
+User.belongsTo(Airline,{foreignKey:"userId"});
+
+
+User.hasOne(Admin,{foreignKey:"userId"});
+Admin.belongsTo(User,{foreignKey:"userId"});
+
+Airline.hasMany(Flight,{foreignKey:"airlineId"});
+Flight.belongsTo(Airline,{foreignKey:"airlineId"});
+
+Flight.belongsToMany(Order, {through:"flight-Order"});
+Order.belongsToMany(Flight,{through:"flight-Order"});
+
+User.hasOne(Cart, {foreignKey:"userId"});
+Cart.belongsTo(User, {foreignKey:"userId"});
+
+
+Cart.hasMany(Order, {foreignKey:"cartId"});
+Order.belongsTo(Cart, {foreignKey:"cartId"});
+
+
+Comment.belongsTo(Flight, {foreignKey:"flightId"});
+Flight.hasMany(Comment, {foreignKey:"flightId"});
+
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
