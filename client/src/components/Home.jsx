@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import s from "./styles/Home.module.css";
 import Display from '../components/Display'
 
+
 export default function Home() {
 
   return (
