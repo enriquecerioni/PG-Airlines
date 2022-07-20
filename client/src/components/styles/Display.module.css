@@ -12,4 +12,8 @@
 .filter_container {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+

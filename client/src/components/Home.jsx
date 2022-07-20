@@ -2,13 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import s from "./styles/Home.module.css";
 import Display from '../components/Display'
-import NavBar from '../components/NavBar'
 
 export default function Home() {
 
   return (
     <div className={s.Home}>
-      <NavBar />
       {/* <div className={s.divImg}> 
         <img
           className={s.img}
@@ -29,8 +27,8 @@ export default function Home() {
         <Link to="/login">
           <button className={s.btn}>Button</button>
         </Link>
-        <Display />
       </div>
+      <Display />
     </div>
   );
 }
