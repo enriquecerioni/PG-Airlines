@@ -17,6 +17,7 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+        
         case GET_ALL_FLIGHTS: 
         if (currrentFilter.length === 0) {
             return { ...state, flights: action.payload }
@@ -76,6 +77,7 @@ const rootReducer = (state = initialState, action) => {
             }
         }
         */
+
        /*
        case FILTER_SEATS: {
 

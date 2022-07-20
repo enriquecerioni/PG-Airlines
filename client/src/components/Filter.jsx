@@ -6,7 +6,7 @@ function Filter() {
   return (
     <div className={style.main_container}>
         <h3>Filtros</h3>
-        <label>Price</label>
+        {/* <label>Price</label>
             <input
                 type="range"
                 min='0'
@@ -29,8 +29,22 @@ function Filter() {
 
         <button>Lowest price</button>
         <button>The best option</button>
-        <button>Faster</button>
+        <button>Faster</button> */}
+        <h2>Filter by:</h2>
+        
 
+        <h2>Order:</h2>
+        <select>
+            <option value="price" disabled selected>Price</option>
+            <option value="high">High to low</option>
+            <option value="high">Low to High</option>
+        </select>
+
+        <select>
+            <option value="price" disabled selected>Alphabet</option>
+            <option value="asc">A - Z</option>
+            <option value="dsc">Z - A</option>
+        </select>
     </div>
   )
 }
