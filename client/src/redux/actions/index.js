@@ -28,7 +28,3 @@ export const getFlightInfo = () => {
 export const filterAlphabetically = (payload) => {
     return {type: FILTER_ALPHABETICALLY, payload}
 }
-
-export const orderByPrice = (payload) => {
-    return {type: ORDER_PRICE, payload}
-}
