@@ -33,7 +33,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_USER_INFO:
             return { ...state, user: action.payload }
 
-        // case ORDER_PRICE: {
+        // case ORDER_PRICE: {     
         //     let orderByPrice = action.payload === 'high' ? state.flights.sort((a, b) => {
         //      if (a.price > b.price) return 1;
         //     if (a.price < b.price) return -1;
@@ -47,8 +47,44 @@ const rootReducer = (state = initialState, action) => {
         //          ...state, 
         //          flights: orderByPrice 
         //      }
-
         // }
+
+        // case ORDER_ALPHABETICALLY: {
+        //     let orderAlphabetically = action.payload === 'asc' ? 
+        //     state.flights.sort((a, b) => {
+        //         if (a.airline > b.airline) return 1;
+        //         if (a.airline < b.airline) return -1;
+        //         else return 0; 
+        //     }) : state.flights.sort((a, b) => {
+        //         if (a.airline > b.airline) return -1;
+        //         if (a.airline < b.airline) return 1;
+        //         else return 0; 
+        //     })
+
+        //     return {
+        //         ...state, 
+        //         flights: orderAlphabetically
+        //     }
+        // }
+
+        /* 
+        case FILTER_AIRLINE: {
+
+            return {
+                ...state,
+                flights: 
+            }
+        }
+        */
+       /*
+       case FILTER_SEATS: {
+
+        return {
+            ...state,
+            flights:
+        }
+       }
+       */
 
         default: 
             return state;    
