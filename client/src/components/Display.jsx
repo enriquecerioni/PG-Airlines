@@ -125,7 +125,6 @@ const details =
             total={details.length}
         />     
     </div>
-
   )
 }
 
