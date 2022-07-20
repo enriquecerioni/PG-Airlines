@@ -3,6 +3,7 @@ GET_ALL_FLIGHTS,
 FILTER_ALPHABETICALLY,
 GET_FLIGHT_INFO,
 ORDER_PRICE,
+GET_USER_INFO
 // getAllFlights
 } from "../actions"
 
@@ -11,12 +12,13 @@ const initialState = {
     currrentFilter: [],
     flight: {},
     user: {}
-    
+
 
 }
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+<<<<<<< HEAD
         
         case GET_ALL_FLIGHTS: 
         if (currrentFilter.length === 0) {
@@ -24,9 +26,17 @@ const rootReducer = (state = initialState, action) => {
         } else {
             return { ...state, flights: [currrentFilter] }
         }
+=======
+>>>>>>> 5255c115893348593bf37fc741fcd155ec6432fb
 
-        case FILTER_ALPHABETICALLY: 
-            return { ...state, currrentFilter: [currrentFilter] }
+        case GET_ALL_FLIGHTS: {
+            return {
+                ...state,
+                flights: action.payload
+
+            }
+        }
+        
 
         case GET_FLIGHT_INFO:
             return { ...state, flight: action.payload }
@@ -42,15 +52,14 @@ const rootReducer = (state = initialState, action) => {
         // }) : state.flights.sort((a, b) => {
         //     if (a.price > b.price) return -1;
         //     if (a.price < b.price) return 1;
-        //     else return 0;  
+        //     else return 0;
         // });
         //      return {
         //          ...state, 
         //          flights: orderByPrice 
         //      }
         // }
-
-        // case ORDER_ALPHABETICALLY: {
+// case ORDER_ALPHABETICALLY: {
         //     let orderAlphabetically = action.payload === 'asc' ? 
         //     state.flights.sort((a, b) => {
         //         if (a.airline > b.airline) return 1;
@@ -89,7 +98,7 @@ const rootReducer = (state = initialState, action) => {
        */
 
         default: 
-            return state;    
+            return state;
     }
 }
 
