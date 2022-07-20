@@ -4,6 +4,8 @@ export const FILTER_ALPHABETICALLY = "FILTER_ALPHABETICALLY"
 export const GET_FLIGHT_INFO = "GET_FLIGHT_INFO"
 export const GET_USER_INFO = "GET_USER_INFO"
 
+export const ORDER_PRICE = 'ORDER_PRICE'
+
 export const getAllFlights = () => {
     return async function (dispatch) {
        fetch('LINK')
@@ -22,4 +24,8 @@ export const getFlightInfo = () => {
 
 export const filterAlphabetically = (payload) => {
     return {type: FILTER_ALPHABETICALLY, payload}
+}
+
+export const orderByPrice = (payload) => {
+    return {type: ORDER_PRICE, payload}
 }

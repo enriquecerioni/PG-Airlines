@@ -6,7 +6,7 @@ import logo from './styles/logo.png'
 export default function NavBar() {
   return (
     <nav>
-      <Link className={s.navImg} to="/home">
+      <Link className={s.navImg} to="/">
         <img className={s.logoImg} src={logo} alt='logo' />
       </Link>
       <ul className={s.navUl}> 
@@ -16,8 +16,8 @@ export default function NavBar() {
           </Link>
         </li>
         <li>
-          <Link className={s.navLink} to="/signin">
-            Sing In
+          <Link className={s.navLink} to="/login">
+            Log In
           </Link>
         </li>
         <li>

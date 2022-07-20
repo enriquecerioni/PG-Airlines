@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Ticket from './Ticket'
 import style from '../components/styles/Display.module.css'
 import Paginate from './Paginate'
+import Filter from './Filter'
 
 function Display() {
 
@@ -114,7 +115,7 @@ const details =
                 })}             
             </div>
             <div className={style.filter_container}>
-                <h3>Filtros</h3>
+                <Filter />
             </div>
         </div>   
 
