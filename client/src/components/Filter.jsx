@@ -1,9 +1,10 @@
 import React from 'react'
 import style from './styles/Display.module.css'
+import { orderByPrice } from '../redux/actions/index'
 
 function Filter() {
   return (
-    <div>
+    <div className={style.main_container}>
         <h3>Filtros</h3>
         <label>Price</label>
             <input
@@ -30,10 +31,6 @@ function Filter() {
         <button>The best option</button>
         <button>Faster</button>
 
-        <select>
-            <option>Price</option>
-            <option>Duration</option>
-        </select>
     </div>
   )
 }

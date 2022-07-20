@@ -23,10 +23,12 @@ function App() {
             <Details />
           </Route>
           <Route path="/register">
-            {user ? <Redirect to='/' /> : <Register />}
+            {/* {user ? <Redirect to='/' /> : <Register />} */}
+            <Register />
           </Route>
           <Route path="/login">
-            {user ? <Redirect to='/' /> : <LogIn />}
+            {/* {user ? <Redirect to='/' /> : <LogIn />} */}
+            <LogIn />
           </Route>
           <Route path="/favs">
             <Favs />
