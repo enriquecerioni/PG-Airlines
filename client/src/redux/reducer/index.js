@@ -18,16 +18,6 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
-<<<<<<< HEAD
-        
-        case GET_ALL_FLIGHTS: 
-        if (currrentFilter.length === 0) {
-            return { ...state, flights: action.payload }
-        } else {
-            return { ...state, flights: [currrentFilter] }
-        }
-=======
->>>>>>> 5255c115893348593bf37fc741fcd155ec6432fb
 
         case GET_ALL_FLIGHTS: {
             return {
