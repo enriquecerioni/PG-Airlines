@@ -234,7 +234,7 @@
         "durationEstimated": "08:10",
         "departureHour": "16:25",
         "arrivalHour": "05:35",
-        "destinarion": "Lisboa",
+        "destination": "Lisboa",
         "departureDate": "2022-07-23",
         "arrivalDate":"2022-07-24",
         "description":"Detail"
@@ -249,7 +249,7 @@
         "durationEstimated":"05:41",
         "departureHour":"18:55",
         "arrivalHour":"21:36",
-        "destinarion":"San Francisco",
+        "destination":"San Francisco",
         "departureDate":"2022-10-15",
         "arrivalDate":"2022-10-15",
         "description":"Detail"
@@ -264,7 +264,7 @@
         "durationEstimated":"7:55",
         "departureHour":"10:20",
         "arrivalHour":"16:15",
-        "destinarion":"Cancún",
+        "destination":"Cancún",
         "departureDate":"2023-01-06",
         "arrivalDate":"2023-01-06",
         "description":"Detail"
@@ -279,7 +279,7 @@
         "durationEstimated":"14:55",
         "departureHour":"07:00",
         "arrivalHour":"16:05",
-        "destinarion":"Madrid",
+        "destination":"Madrid",
         "departureDate":"2022-12-14",
         "arrivalDate":"2022-12-15",
         "description":"Detail"
@@ -294,7 +294,7 @@
         "durationEstimated":"08:25 ",
         "departureHour":"17:00",
         "arrivalHour":"06:25",
-        "destinarion":"Londres",
+        "destination":"Londres",
         "departureDate":"2022-11-16",
         "arrivalDate":"2022-11-17",
         "description":"Detail"
@@ -309,7 +309,7 @@
         "durationEstimated":"02:10",
         "departureHour":"15:20",
         "arrivalHour":"17:30",
-        "destinarion":"París",
+        "destination":"París",
         "departureDate":"2022-09-21",
         "arrivalDate":"2022-09-21",
         "description":"Detail"
@@ -324,7 +324,7 @@
         "durationEstimated":"03:00",
         "departureHour":"01:45",
         "arrivalHour":"05:45",
-        "destinarion":"Buenos Aires",
+        "destination":"Buenos Aires",
         "departureDate":"2022-08-05",
         "arrivalDate":"2022-08-05",
         "description":"Detail"
@@ -339,7 +339,7 @@
         "durationEstimated":"02:11",
         "departureHour":"06:44",
         "arrivalHour":"08:55",
-        "destinarion":"Ciudad de México",
+        "destination":"Ciudad de México",
         "departureDate":"2022-10-04",
         "arrivalDate":"2022-10-04",
         "description":"Detail"
@@ -354,7 +354,7 @@
         "durationEstimated":"35:10",
         "departureHour":"23:55",
         "arrivalHour":"17:05",
-        "destinarion":"Bucarest",
+        "destination":"Bucarest",
         "departureDate":"2022-07-26",
         "arrivalDate":"2022-07-28",
         "description":"Detail"
@@ -369,7 +369,7 @@
         "durationEstimated":"05:05",
         "departureHour":"01:20",
         "arrivalHour":"05:25",
-        "destinarion":"Ciudad de México",
+        "destination":"Ciudad de México",
         "departureDate":"2022-10-20",
         "arrivalDate":"2022-10-20",
         "description":"Detail"
@@ -384,7 +384,7 @@
         "durationEstimated":"20:30",
         "departureHour":"19:35",
         "arrivalHour":"15:05",
-        "destinarion":"Punta Cana",
+        "destination":"Punta Cana",
         "departureDate":"2022-12-12",
         "arrivalDate":"2022-12-13",
         "description":"Detail"
@@ -399,7 +399,7 @@
         "durationEstimated":"21:55",
         "departureHour":"05:20",
         "arrivalHour":"21:15",
-        "destinarion":"Ciudad de México",
+        "destination":"Ciudad de México",
         "departureDate":"2022-11-29",
         "arrivalDate":"2022-11-29",
         "description":"Detail"
@@ -414,7 +414,7 @@
         "durationEstimated":"24:55",
         "departureHour":"20:25",
         "arrivalHour":"20:25",
-        "destinarion":"Caracas",
+        "destination":"Caracas",
         "departureDate":"2023-03-01",
         "arrivalDate":"2023-03-02",
         "description":"Detail"
@@ -429,7 +429,7 @@
         "durationEstimated":"08:40",
         "departureHour":"15:05",
         "arrivalHour":"23:45",
-        "destinarion":"Foz de Iguazú",
+        "destination":"Foz de Iguazú",
         "departureDate":"2023-02-08",
         "arrivalDate":"2023-02-08",
         "description":"Detail"
@@ -444,7 +444,7 @@
         "durationEstimated":"23:15",
         "departureHour":"21:10",
         "arrivalHour":"16:25",
-        "destinarion":"Brasilia",
+        "destination":"Brasilia",
         "departureDate":"2023-02-08",
         "arrivalDate":"2023-02-09",
         "description":"Detail"
