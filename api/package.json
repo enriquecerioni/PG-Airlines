@@ -21,7 +21,6 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase": "^8.6.8",
-    "firebase-tools": "^11.3.0",
     "firestore-export-import": "^1.2.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
