@@ -9,7 +9,7 @@
         "durationEstimated": "6:00",
         "departureHour": "12:30",
         "arrivalHour": "19:030",
-        "destinarion": "Canada",
+        "destination": "Canada",
         "departureDate": "2022-09-23",
         "arrivalDate": "2022-09-23",
         "description": "Detail"
@@ -24,7 +24,7 @@
         "durationEstimated": "2:00",
         "departureHour": "16:30",
         "arrivalHour": "18:30",
-        "destinarion": "Spain",
+        "destination": "Spain",
         "departureDate": "2022-08-03",
         "arrivalDate": "2022-08-03",
         "description": "Detail"
@@ -39,7 +39,7 @@
         "durationEstimated": "12:00",
         "departureHour": "09:00",
         "arrivalHour": "22:00",
-        "destinarion": "Japan",
+        "destination": "Japan",
         "departureDate": "2022-09-10",
         "arrivalDate": "2022-09-10",
         "description": "Detail"
@@ -54,7 +54,7 @@
         "durationEstimated": "10:00",
         "departureHour": "23:00",
         "arrivalHour": "07:00",
-        "destinarion": "Mexico",
+        "destination": "Mexico",
         "departureDate": "2022-10-01",
         "arrivalDate": "2022-10-02",
         "description": "Detail"
@@ -69,7 +69,7 @@
         "durationEstimated": "17:00",
         "departureHour": "21:30",
         "arrivalHour": "13:40",
-        "destinarion": "Colombia",
+        "destination": "Colombia",
         "departureDate": "2022-11-02",
         "arrivalDate": "2022-11-03",
         "description": "Detail"
@@ -84,7 +84,7 @@
         "durationEstimated": "13",
         "departureHour": "12:30",
         "arrivalHour": "01:30",
-        "destinarion": "Canada",
+        "destination": "Canada",
         "departureDate": "2022-10-23",
         "arrivalDate": "2022-10-24",
         "description": "Detail"
@@ -99,7 +99,7 @@
         "durationEstimated": "3:00",
         "departureHour": "05:00",
         "arrivalHour": "08:00",
-        "destinarion": "Praga",
+        "destination": "Praga",
         "departureDate": "2022-06-24",
         "arrivalDate": "2022-06-24",
         "description": "Detail"
@@ -114,7 +114,7 @@
         "durationEstimated": "15:00",
         "departureHour": "09:00",
         "arrivalHour": "00:00",
-        "destinarion": "India",
+        "destination": "India",
         "departureDate": "2022-09-10",
         "arrivalDate": "2022-09-10",
         "description": "Detail"
@@ -129,7 +129,7 @@
         "durationEstimated": "01:25",
         "departureHour": "07:00",
         "arrivalHour": "08:25",
-        "destinarion": "Chile",
+        "destination": "Chile",
         "departureDate": "2022-07-14",
         "arrivalDate": "2022-07-14",
         "description": "Detail"
@@ -144,7 +144,7 @@
         "durationEstimated": "06:00",
         "departureHour": "18:00",
         "arrivalHour": "00:00",
-        "destinarion": "Brasil",
+        "destination": "Brasil",
         "departureDate": "2022-11-17",
         "arrivalDate": "2022-11-18",
         "description": "Detail"
@@ -159,7 +159,7 @@
         "durationEstimated": "14:00",
         "departureHour": "12:30",
         "arrivalHour": "02:30",
-        "destinarion": "Russia",
+        "destination": "Russia",
         "departureDate": "2022-09-17",
         "arrivalDate": "2022-09-18",
         "description": "Detail"
@@ -174,7 +174,7 @@
         "durationEstimated": "3:50",
         "departureHour": "19:00",
         "arrivalHour": "22:50",
-        "destinarion": "Munich",
+        "destination": "Munich",
         "departureDate": "2022-05-22",
         "arrivalDate": "2022-05-22",
         "description": "Detail"
@@ -189,7 +189,7 @@
         "durationEstimated": "16:00",
         "departureHour": "00:00",
         "arrivalHour": "16:00",
-        "destinarion": "Australia",
+        "destination": "Australia",
         "departureDate": "2022-06-01",
         "arrivalDate": "2022-06-01",
         "description": "Detail"
@@ -204,7 +204,7 @@
         "durationEstimated": "8:00",
         "departureHour": "06:00",
         "arrivalHour": "14:00",
-        "destinarion": "Chile",
+        "destination": "Chile",
         "departureDate": "2022-08-03",
         "arrivalDate": "2022-08-03",
         "description": "Detail"
@@ -219,7 +219,7 @@
         "durationEstimated": "04:00",
         "departureHour": "13:00",
         "arrivalHour": "17:00",
-        "destinarion": "Brasil",
+        "destination": "Brasil",
         "departureDate": "2022-11-04",
         "arrivalDate": "2022-11-04",
         "description": "Detail"
