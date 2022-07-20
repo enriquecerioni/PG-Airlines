@@ -10,4 +10,5 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 router.get('/flights', getAllFlight);
 
+
 module.exports = router;
