@@ -89,7 +89,7 @@ export const getAllFlights = () => {
 }
 
 export const getFlightInfo = () => {
-    return async function (dispatch) {
+    return async function (dispatch) { 
        fetch('LINK')
        .then(r => r.json())
        .then(data => dispatch({type: GET_FLIGHT_INFO, payload: data}));
