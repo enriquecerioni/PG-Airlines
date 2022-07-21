@@ -7,4 +7,3 @@ export const store = createStore(
   applyMiddleware(thunk)
 );
 // thunk nos permite trabajar con asincronismo en el front
-
