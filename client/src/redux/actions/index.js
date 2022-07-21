@@ -5,6 +5,7 @@ export const GET_FLIGHT_INFO = "GET_FLIGHT_INFO"
 export const GET_USER_INFO = "GET_USER_INFO"
 export const SEARCH_BY_DESTINATION = 'SEARCH_BY_DESTINATION'
 export const ORDER_PRICE = 'ORDER_PRICE'
+export const GET_FLIGHT_BY_ID = 'GET_FLIGHT_BY_ID'
 
 export const getAllFlights = () => {
     return function (dispatch) {
