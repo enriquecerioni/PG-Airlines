@@ -9,6 +9,7 @@ export const GET_FLIGHT_BY_ID = 'GET_FLIGHT_BY_ID'
 export const ORDER_ALPHABETICALLY = "ORDER_ALPHABETICALLY"
 export const RESET_FILTER = 'RESET_FILTER'
 export const FILTER_PRICE = 'FILTER_PRICE'
+export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN'
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -21,13 +22,19 @@ export const getAllFlights = () => {
     }
 }
 
-export const getFlightInfo = () => {
-    return async function (dispatch) {
-       fetch('LINK')
-       .then(r => r.json())
-       .then(data => dispatch({type: GET_FLIGHT_INFO, payload: data}));
+export function getFlightInfo(payload){
+    return {
+        type: FILTER_BY_ORIGIN,
+        payload
     }
 }
+// export const getFlightInfo = (search) => {
+//     return async function (dispatch) {
+//        fetch(`http://localhost:3001/flights/origen?origen=${search}`)
+//        .then(r => r.json())
+//        .then(data => dispatch({type: GET_FLIGHT_INFO, payload: data}));
+//     }
+// }
 
 export const orderAlphabetically = (payload) => {
     return {

@@ -1,14 +1,16 @@
 .inputSearch {
-    font-size: 10px;
-    color: #d87418;
+    font-size: 15px;
+    color: #DEA01E;
     border: none;
-    height: 2rem;
-    width: 14rem;
+    height: 2.5rem;
+    width: 18rem;
+    font-family: "Raleway", sans-serif;
     /* display: inline-block; */
     padding-left: 15px;
     border-radius: 5px;
     margin: 10px 0px;
-    background-color: #e0dad2;
+    background-color: white;
+    border: 2px solid #E6F4F1;
   }
   .inputSearch:focus {
     outline: none;
@@ -16,20 +18,20 @@
   }
   .btnSearch {
     margin: 0 1px;
-    font-size: 10px;
-    font-family: "Pokemon";
-    height: 2.1rem;
+    font-size: 15px;
+    font-family: "Raleway", sans-serif;
+    height: 2.5rem;
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    background-color: #b2886b;
+    background-color: #DEA01E;
   }
   .btnSearch:hover {
-    background: #402e32;
-    color: #d87418;
+    background: #daa93f;
+    color: white;
   }
   
   .inputSearch:hover {
-    background-color: #b2886b;
-    color: #fff7ed;
+    background-color: #E6F4F1;
+    color: black;
   }

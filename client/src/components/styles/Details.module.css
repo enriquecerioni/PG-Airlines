@@ -1,17 +1,166 @@
-.container {
-    height: 100vh;
-    width: 100%;
+.detail {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-left: 25%;
+  margin-top: 200px;
+  background-color: #e6f4f1;
+  color: black;
+  width: 700px;
+  height: 400px;
+  border-radius: 10px;
+  /* border: 3px solid black; */
+}
+
+.divA{
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    width: 97%;
+    height: 100px;
+    border-bottom: 2px solid #bcc9c6;
 }
-.detail{
+
+.btnDrop{
     display: flex;
-    margin-top: 200px;
-    background-color: #E6F4F1;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3px;
+    width: 50px;
+    height: 40px;
+    letter-spacing: 2px;
+    font-size: 26px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: 0px;
+    cursor: pointer;
+    background-color: rgba(219, 218, 218, 0.801);
+
+}
+
+.info{
+    display: flex;
+    padding: 10px;
+    width: 97%;
+    height: 100%;
+    /* border: 2px solid black; */
+}
+
+.logo {
+    display: flex;
+    width: 80px;
+    height: 50px;
+}
+
+.airline {
+    display:flex;
+    font-weight: 800;
+    font-family: 'Rubik', sans-serif; 
+}
+
+.departureDate {
+    display:flex;
+    margin-right: 200px;
+    font-weight: 800;
+    font-family: 'Roboto', sans-serif;
+}
+.arrivalHour {
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+}
+.departureDate {
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+}
+.departureHour {
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+}
+.description {
+    display:flex;
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    right: 350px;
+    font-family: 'Roboto', sans-serif;
+}
+.destination {
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+}
+.durationEstimated {
+    display:flex;
+}
+/* .flight {
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+} */
+.origin {
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+}
+.price {
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+}
+
+.divPrices{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    margin-left: 25%;
+    margin-top: 100px;
+    background-color: #e6f4f1;
     color: black;
     width: 700px;
-    /* height: 300px;
-    border-radius: 10px;:  */
+    height: 80px;
+    border-radius: 10px;
+    border: 2px solid #c9dbd659;
+    margin-bottom: 200px;
+}
+
+.logoPrice{
+    width: 100px;
+    height: 60px;
+}
+
+.airlinePrice{
+    display:flex;
+    margin-right: 200px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+}
+
+.priceP{
+    display:flex;
+    margin-left: 20px;
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3px;
+    width: 150px;
+    height: 40px;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 2px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0px;
+    color: white;
+    background: linear-gradient(279deg, rgba(252,93,19,1) 0%, rgba(182,68,19,1) 100%);
+    cursor: pointer;
+    transition: .5s ease;
+}
+
+.btn:hover{
+    transform: scale(1.1);
+    background: linear-gradient(279deg, rgb(253, 107, 39)  0%, rgb(253, 107, 39) 100%);
 }
