@@ -11,7 +11,7 @@ export default function SearchBar() {
   const handleInputChange = (e) => {
     e.preventDefault();
     setOrigin(e.target.value);
-  };
+  }; 
 
   const handleSubmit = (e) => {
     e.preventDefault();
