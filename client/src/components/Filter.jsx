@@ -2,19 +2,16 @@ import React from 'react'
 import style from './styles/Display.module.css'
 
 // {handlePrice, handleAlph}
-function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, handleFilterPrice}) {
+function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, handleFilterPrice, airlinesData, handleClick, handleSearchAirlines}) {
+
+    function handleReset(e) {
+        e.preventDefault();
+        window.location.reload(false)
+    }
 
   return (
     <div className={style.main_container}>
         {/* 
-        <label>Duration</label>
-            <input
-                type="range"
-                min='0'
-                max='10000'
-                step="0.01"
-            />
-
         <button>Lowest price</button>
         <button>The best option</button>
         <button>Faster</button> */}
@@ -25,6 +22,26 @@ function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, hand
             <button value='>20.000' onClick={handleFilterPrice}> &gt; $20.000</button>
             <button value='between' onClick={handleFilterPrice}> $20.000 - $40.000 </button>     
             <button value='<40.000' onClick={handleFilterPrice}> $40.000 &gt;</button>
+
+        <div>
+        <label>Airlines</label>
+            <input
+                id='search'
+                type="text"
+                placeholder='Search...'
+                onChange={(e) => { handleSearchAirlines(e)}}
+            />
+
+            {airlinesData.length != 0 ?
+                <div >
+                {airlinesData?.map(a => {
+                    return (<input value={a} type="text" onClick={e => { handleClick(e) }} />)
+                })}
+
+                </div>
+                :
+                <div></div>}
+        </div> 
         
         <h2>Order:</h2>
         <select onChange={e => handlePrice(e)} ref={orderPriceSelect} >
@@ -39,7 +56,7 @@ function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, hand
             <option value="dsc">Z - A</option>
         </select>
 
-        <button>RESET FILTER</button>
+        <button onClick={handleReset}>RESET FILTER</button>
     </div>
   )
 }
