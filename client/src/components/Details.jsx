@@ -1,12 +1,17 @@
 import React from 'react'
 import { useParams } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 function Details(props) {
   const { id }= useParams();
   // console.log(props)
 
   return (
-    <div>Details</div>
+    <div>
+      <Link>
+      </Link>
+      Details
+    </div>
   )
 }
 
