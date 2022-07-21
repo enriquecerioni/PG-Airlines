@@ -1,17 +1,19 @@
-import { 
-GET_ALL_FLIGHTS,
-FILTER_ALPHABETICALLY,
-GET_FLIGHT_INFO,
-ORDER_PRICE,
-GET_USER_INFO
-// getAllFlights
+import {
+    GET_ALL_FLIGHTS,
+    FILTER_ALPHABETICALLY,
+    GET_FLIGHT_INFO,
+    ORDER_PRICE,
+    GET_USER_INFO,
+    filterByAirlines
+    // getAllFlights
 } from "../actions"
 
 const initialState = {
     flights: [],
     currrentFilter: [],
     flight: {},
-    user: {}
+    user: {},
+    copyFlights: []
 
 
 }
@@ -20,13 +22,14 @@ const rootReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_ALL_FLIGHTS: {
+            state.copyFlights = action.payload
             return {
                 ...state,
                 flights: action.payload
 
             }
         }
-        
+
 
         case GET_FLIGHT_INFO:
             return { ...state, flight: action.payload }
@@ -49,7 +52,7 @@ const rootReducer = (state = initialState, action) => {
         //          flights: orderByPrice 
         //      }
         // }
-// case ORDER_ALPHABETICALLY: {
+        // case ORDER_ALPHABETICALLY: {
         //     let orderAlphabetically = action.payload === 'asc' ? 
         //     state.flights.sort((a, b) => {
         //         if (a.airline > b.airline) return 1;
@@ -86,8 +89,17 @@ const rootReducer = (state = initialState, action) => {
         }
        }
        */
+        case 'FILTER_BY_AIRLINES':
+            const airlines = action.payload;
+            const copyFlights = state.copyFlights;
+            const filterAirlines = copyFlights.filter(f => f.airline.toLowerCase().includes(airlines.toLowerCase()));
+            return {
+                ...state,
+                flights: filterAirlines
+            }
 
-        default: 
+
+        default:
             return state;
     }
 }

@@ -5,6 +5,7 @@ export const GET_FLIGHT_INFO = "GET_FLIGHT_INFO"
 export const GET_USER_INFO = "GET_USER_INFO"
 export const SEARCH_BY_DESTINATION = 'SEARCH_BY_DESTINATION'
 export const ORDER_PRICE = 'ORDER_PRICE'
+export const FILTER_BY_AIRLINES = 'FILTER_BY_AIRLINES'
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -27,4 +28,11 @@ export const getFlightInfo = () => {
 
 export const filterAlphabetically = (payload) => {
     return {type: FILTER_ALPHABETICALLY, payload}
+}
+
+export function filterByAirlines(payload){
+    return{
+        type: 'FILTER_BY_AIRLINES',
+        payload
+    }
 }

@@ -1,12 +1,13 @@
 import React from 'react'
 import style from './styles/Display.module.css'
 import { orderByPrice } from '../redux/actions/index'
+import FilterByAirlines from './subcomponents/FilterByAirlines.jsx'
 
 function Filter() {
-  return (
-    <div className={style.main_container}>
-        <h3>Filtros</h3>
-        <label>Price</label>
+    return (
+        <div className={style.main_container}>
+            <h3>Filtros</h3>
+            <label>Price</label>
             <input
                 type="range"
                 min='0'
@@ -14,7 +15,7 @@ function Filter() {
                 step="0.01"
             />
 
-        <label>Duration</label>
+            <label>Duration</label>
             <input
                 type="range"
                 min='0'
@@ -22,17 +23,17 @@ function Filter() {
                 step="0.01"
             />
 
-        <label>Airlines</label>
-            <input
-                type="checkbox"
-            />
+            <FilterByAirlines  />
+             
 
-        <button>Lowest price</button>
-        <button>The best option</button>
-        <button>Faster</button>
+            <button>Lowest price</button>
+            <button>The best option</button>
+            <button>Faster</button>
 
-    </div>
-  )
+            <button>Buscar</button>
+
+        </div>
+    )
 }
 
 export default Filter
