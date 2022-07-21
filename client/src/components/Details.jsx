@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getAllFlights } from "../redux/actions/index.js";
 import s from "./styles/Details.module.css";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import logo from './styles/logo.png'
 import NavBar from "./NavBar.jsx";
 
@@ -25,6 +25,9 @@ function Details() {
   return (
     <div>
       <div className={s.container}>
+        <Link className={s.links} to="/">
+          <button className={s.btnHome}>Go to Home</button>
+        </Link>
         {a ? (
           <div className={s.detail}>
             <div className={s.divA}>
@@ -50,8 +53,10 @@ function Details() {
         <div className={s.divPrices}>
           <img className={s.logoPrice} src={a.logo} alt="Img" />
           <div className={s.airlinePrice}>{a.airline}</div>
-          <div className={s.priceP}>{a.price}</div>
-          <button className={s.btn}>Reservar</button>
+          <div className={s.priceP}>${a.price}</div>
+          <Link className={s.links} to="/login">
+            <button className={s.btn}>Reservar</button>
+          </Link>
         </div>
       </div>
     </div>
