@@ -1,0 +1,35 @@
+.inputSearch {
+    font-size: 10px;
+    color: #d87418;
+    border: none;
+    height: 2rem;
+    width: 14rem;
+    /* display: inline-block; */
+    padding-left: 15px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    background-color: #e0dad2;
+  }
+  .inputSearch:focus {
+    outline: none;
+    font-weight: 900;
+  }
+  .btnSearch {
+    margin: 0 1px;
+    font-size: 10px;
+    font-family: "Pokemon";
+    height: 2.1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #b2886b;
+  }
+  .btnSearch:hover {
+    background: #402e32;
+    color: #d87418;
+  }
+  
+  .inputSearch:hover {
+    background-color: #b2886b;
+    color: #fff7ed;
+  }

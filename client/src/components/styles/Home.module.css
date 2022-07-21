@@ -2,7 +2,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
 /* font-family: 'Roboto', sans-serif; */
 /* font-family: 'Rubik', sans-serif; */
-
+section {
+    display: flex;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    background-color: #3985CB;
+}
 .home{
     display: flex;
     width: 100%;
@@ -19,6 +26,7 @@
     position: relative;
     /* align-content: center; */
     margin-right: 0px;
+    margin-left: 50px;
 }
 
 .img{
