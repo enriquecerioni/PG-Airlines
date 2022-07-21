@@ -31,7 +31,6 @@ function Details() {
         { details ? details.map(d => {
             return (
           <div key={d.flight} className={s.detail}>
-            <div className={s.detail}>
               <div className={s.divA}>
                 <img className={s.logo} src={d.logo} alt="Img" />
                 <div className={s.airline}>{d.airline}</div>
@@ -50,17 +49,17 @@ function Details() {
               </div> 
 
               <div className={s.divPrices}>
-                <img className={s.logoPrice} src={details.logo} alt="Img" />
-                <div className={s.airlinePrice}>{details.airline}</div>
-                <div className={s.priceP}>{details.price}</div>
+                <img className={s.logoPrice} src={d.logo} alt="Img" />
+                <div className={s.airlinePrice}>{d.airline}</div>
+                <div className={s.priceP}>{d.price}</div>
                 <button className={s.btn}>Reservar</button>
               </div> 
-            </div>
             </div>
           ) 
         }) 
         : (
           <h1>NADA</h1>
+          
         )}
 
       </div>
