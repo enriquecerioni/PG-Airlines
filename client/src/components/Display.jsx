@@ -5,26 +5,21 @@ import style from '../components/styles/Display.module.css'
 import Paginate from './Paginate'
 import Filter from './Filter'
 
-import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice} from '../redux/actions/index'
+import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines} from '../redux/actions/index'
 
 export default function Display() {
 // console.log(details)
     const dispatch = useDispatch()
 
     const details = useSelector((state) => state.flights)
-    console.log(details)
+    // console.log(details)
     const filterArray = useSelector(s => s.currrentFilter)
+    const orderState = useSelector(state => state.orderState)
 
-    // useEffect(() => {
-    //     dispatch(getAllFlights())
-    // }, [])
     useEffect(() => {
         if(filterArray.length !== 0) return filterArray
         else dispatch(getAllFlights())
     }, [])
-
-    const orderState = useSelector(state => state.orderState)
-    const reset = useSelector(state => state.reset)
 
     const orderPriceSelect = useRef('')
     const orderAlpSelect = useRef('')
@@ -40,34 +35,52 @@ export default function Display() {
 
     const indexOfLastCard = currentPage * cardPerPage;
     const indexOfFirstCard = indexOfLastCard - cardPerPage;
-    const paginateCards = details.slice(indexOfFirstCard, indexOfLastCard)
+    const paginateCards = filterArray.length ? filterArray.slice(indexOfFirstCard, indexOfLastCard) :
+    details.slice(indexOfFirstCard, indexOfLastCard)
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     // FILTER AND ORDER
+
+    let [airlinesData, setAirlines] = useState([]);
+
     function handleAlph(e) {
         e.preventDefault()
         dispatch(orderAlphabetically(e.target.value))
-        paginate(1)
+        setCurrentPage(1)
     }
 
     function handlePrice(e) {
         e.preventDefault()
         dispatch(orderByPrice(e.target.value))
-        paginate(1)
+        setCurrentPage(1)
     }   
 
     function handleFilterPrice(e) {
         e.preventDefault()
         dispatch(filterPrice(e.target.value))
-        paginate(1)
+        setCurrentPage(1)
     }
 
-    // function handleReset(e) {
-    //     e.preventDefault()
-    //     dispatch(resetFilter())
-    //     dispatch(orderByPrice('initial'))
-    // }
+    function handleClick(e) {
+        e.preventDefault()
+        dispatch(filterByAirlines(e.currentTarget.value));
+        document.getElementById('search').value = ''
+    }
+
+    function handleSearchAirlines(e) {
+        e.preventDefault()
+        const allAirlines = details.map(f => f.airline);
+        let airlines = allAirlines.filter((v, i) => {
+            return allAirlines.indexOf(v) === i;
+        })
+        if (e.target.value != '') {
+            airlines = airlines.filter(f => f.toLowerCase().includes(e.target.value.toLowerCase()));
+            setAirlines(airlines);
+        } else {
+            setAirlines([]);
+        }
+    }
 
   return (
     <div>
@@ -75,7 +88,7 @@ export default function Display() {
             <div className={style.ticket_container} >
                 { 
                 filterArray.length !== 0 ? 
-                filterArray.map(e => {
+                paginateCards.map(e => {
                     return (<Ticket 
                         key={e.flight}
                         id={e.flight}
@@ -84,6 +97,7 @@ export default function Display() {
                         price={e.price}
                         departureHour={e.departureHour}
                         arrivalHour={e.arrivalHour}
+                        origin={e.origin}
                     />)        
                 }) :
 
@@ -97,6 +111,7 @@ export default function Display() {
                         price={e.price}
                         departureHour={e.departureHour}
                         arrivalHour={e.arrivalHour}
+                        origin={e.origin}
                     />)        
                 })}  
                            
@@ -109,6 +124,9 @@ export default function Display() {
                 orderPriceSelect={orderPriceSelect}
                 orderAlpSelect={orderAlpSelect}
                 handleFilterPrice={handleFilterPrice}
+                handleClick={handleClick}
+                handleSearchAirlines={handleSearchAirlines}
+                airlinesData={airlinesData}
                 />
             </div>
         </div>   
@@ -116,7 +134,8 @@ export default function Display() {
         <Paginate
             cardPerPage={cardPerPage}
             paginate={paginate}
-            total={details.length}
+            total={ filterArray.length ? filterArray.length
+                : details.length}
         />     
     </div>
   )

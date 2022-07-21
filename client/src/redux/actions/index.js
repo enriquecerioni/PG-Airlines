@@ -10,6 +10,7 @@ export const ORDER_ALPHABETICALLY = "ORDER_ALPHABETICALLY"
 export const RESET_FILTER = 'RESET_FILTER'
 export const FILTER_PRICE = 'FILTER_PRICE'
 export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN'
+export const FILTER_BY_AIRLINES = 'FILTER_BY_AIRLINES'
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -61,5 +62,12 @@ export const filterPrice= (payload) => {
 export function resetFilter(){
     return{
         type: RESET_FILTER
+    }
+}
+
+export function filterByAirlines(payload){
+    return{
+        type: FILTER_BY_AIRLINES,
+        payload
     }
 }
