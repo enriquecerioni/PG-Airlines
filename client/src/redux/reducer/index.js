@@ -6,6 +6,7 @@ import {
   GET_USER_INFO,
   RESET_FILTER,
   FILTER_PRICE,
+  FILTER_BY_ORIGIN,
 } from "../actions";
 
 const initialState = {
@@ -41,6 +42,24 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
+
+    case FILTER_BY_ORIGIN: {
+      const searchFlight = state.flights.filter((e) =>
+        e.origin.toLowerCase().includes(action.payload.toLowerCase())
+      );
+      if (searchFlight.length > 0) {
+        return {
+          ...state,
+          flights: searchFlight,
+        };
+      } else {
+        alert("Recipe Not Found");
+        return {
+          ...state,
+          flights: state.copy,
+        };
+      }
+    }
 
     case ORDER_PRICE: {
       let orderByPrice =

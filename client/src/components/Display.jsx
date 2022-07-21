@@ -12,10 +12,15 @@ export default function Display() {
     const dispatch = useDispatch()
 
     const details = useSelector((state) => state.flights)
+    console.log(details)
     const filterArray = useSelector(s => s.currrentFilter)
 
+    // useEffect(() => {
+    //     dispatch(getAllFlights())
+    // }, [])
     useEffect(() => {
-        dispatch(getAllFlights())
+        if(filterArray.length !== 0) return filterArray
+        else dispatch(getAllFlights())
     }, [])
 
     const orderState = useSelector(state => state.orderState)
