@@ -35,7 +35,7 @@ function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, hand
             {airlinesData.length != 0 ?
                 <div >
                 {airlinesData?.map(a => {
-                    return (<input value={a} type="text" onClick={e => { handleClick(e) }} />)
+                    return (<input value={a} type="text" onClick={e => handleClick(e)} />)
                 })}
 
                 </div>
