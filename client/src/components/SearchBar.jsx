@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import {  } from "../actions/index";
+import { useDispatch, useSelector } from "react-redux";
+import { getFlightInfo } from "../redux/actions";
 import s from "./styles/SearchBar.module.css";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
-  const [destination, setDestination] = useState("");
+  const [origin, setOrigin] = useState("");
+  // const flights = useSelector((state) => state.flights);
 
   const handleInputChange = (e) => {
     e.preventDefault();
-    setDestination(e.target.value);
+    setOrigin(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch((departure));
-    setName("");
+    dispatch(getFlightInfo(origin));
+    setOrigin("");
   };
 
   return (

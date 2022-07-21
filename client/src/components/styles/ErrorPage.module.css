@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+/* font-family: 'Roboto', sans-serif; */
+/* font-family: 'Rubik', sans-serif; */
+
+.container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 80px;
+  color: white;
+  
+}
+
+.links{
+    text-decoration: none;
+}
+
+
+.h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(141, 141, 141);
+  transition: .5s ease;
+  letter-spacing: 0px;
+}
+
+.h1:hover{
+    transform: scale(1.1);
+    letter-spacing: 5px;
+    color: black;
+}
+
+.h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Rubik', sans-serif;
+  color: rgb(141, 141, 141);
+  transition: .5s ease;
+  letter-spacing: 0px;
+}
+
+.h2:hover{
+    transform: scale(1.1);
+    letter-spacing: 5px;
+    color: black;
+}
+
+.btnDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Rubik', sans-serif;
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 0px;
+    font-size: 20px;
+    color: black;
+
+    cursor: pointer;
+    transition: .6s ease;
+}
+
+.btn:hover{
+    transform: scale(1.1);
+    background-color: white;
+    color: black;
+}

@@ -1,13 +1,16 @@
 nav {
-  background-color: #ff9514;
+  background-color: #3985CB;
   padding: 7px 0;
   margin: 0;
   z-index: 500;
   width: 100%;
+  top: 0;
+  position: fixed;
   display: flex;
   justify-content: space-around;
   align-items: center;
   font-family: "Raleway", sans-serif;
+  font-size: large;
   font-weight: 700;
 }
 .logo {
@@ -30,7 +33,7 @@ img {
 .navLink {
   text-decoration: none;
   width: 100px;
-  color: black;
+  color: white;
   margin: 40px
 }
 .navLink:hover {
