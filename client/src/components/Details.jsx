@@ -28,7 +28,7 @@ function Details() {
   // console.log(a);
 
   // const detail = a.map(e => {
-  //   return e
+  //   return e 
   // })
   // console.log(detail)
   return (
@@ -52,7 +52,7 @@ function Details() {
               <div className={s.description}>{d.description}</div>
               <div className={s.destination}>{d.destination}</div>
               <div className={s.origin}>{d.origin}</div>
-            </div>
+            </div> 
 
             <div className={s.divPrices}>
               <img className={s.logoPrice} src={details.logo} alt="Img" />
