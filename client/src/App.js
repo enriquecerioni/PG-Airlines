@@ -6,6 +6,7 @@ import Register from './components/Register';
 import Details from './components/Details';
 import NavBar from './components/NavBar';
 import Favs from './components/Favs';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
   const user = true
@@ -33,6 +34,7 @@ function App() {
           <Route path="/favs">
             <Favs />
           </Route>
+          <Route component={ErrorPage} />
         </Switch>
       </div>
     </BrowserRouter>
