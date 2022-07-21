@@ -7,14 +7,16 @@ import {
   RESET_FILTER,
   FILTER_PRICE,
   FILTER_BY_ORIGIN,
-  FILTER_BY_AIRLINES
+  FILTER_BY_AIRLINES,
+  GET_FLIGHT_BY_ID,
+  CLEAN
 } from "../actions";
 
 const initialState = {
   flights: [], // todos los vuelos
   copy: [],
   currrentFilter: [],
-  flight: {}, // vuelo con detalles
+  flight: [], // vuelo con detalles
   user: {},
   ///////
   reset: true,
@@ -30,6 +32,13 @@ const rootReducer = (state = initialState, action) => {
         copy: action.payload,
         currrentFilter: [],
       };
+    }
+
+    case GET_FLIGHT_BY_ID: {
+      return {
+        ...state,
+        flight: action.payload
+      }
     }
 
     case GET_FLIGHT_INFO:
@@ -167,6 +176,13 @@ const rootReducer = (state = initialState, action) => {
             // currrentFilter: action.payload === "all" ? copyFlights : filterAirlines,
             flights : filterAirlines
         }
+
+    case CLEAN: {
+      return {
+        ...state,
+        flight: []
+      }
+    }
 
     default:
       return state;
