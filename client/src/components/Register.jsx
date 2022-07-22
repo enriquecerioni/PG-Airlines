@@ -1,10 +1,26 @@
 import React from 'react'
+import { ejecutar, singUp } from './scripts/auth'
 
 function Register() {
+  function handleSubmit(e){
+    e.preventDefault()
+    singUp(e.target.email.value,e.target.password.value)
+    console.log("ta?")
+  }
   return (
     <div>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+
+
+
       <h1>Register</h1>
-      <form>
+      <form onSubmit={(e)=>handleSubmit(e)}>
         <label>E-mail</label>
         <input name='email' type="email" />
 
@@ -22,6 +38,7 @@ function Register() {
 
         <button type='submit'>Register</button>
       </form>
+      <button onClick={()=>ejecutar()}>Register by Google</button>
     </div>
   )
 }
