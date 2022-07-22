@@ -12,14 +12,17 @@ export default function Display() {
     const dispatch = useDispatch()
 
     const details = useSelector((state) => state.flights)
-   // console.log(details)
+    // console.log(details)
     const filterArray = useSelector(s => s.currrentFilter)
     const orderState = useSelector(state => state.orderState)
-    
+   
     useEffect(() => {
         // if(filterArray.length !== 0) return filterArray
         // else 
         dispatch(getAllFlights())
+      setTimeout(()=> {
+        dispatch(filterPrice('all'));
+      },300)  
     }, [])
 
     const orderPriceSelect = useRef('')
