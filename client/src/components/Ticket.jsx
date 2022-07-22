@@ -7,10 +7,10 @@ import { CartContext } from './CartComponents/CartContext'
 import {useContext} from 'react'
 import { useSelector } from 'react-redux';
 
-function Ticket({logo, airline}) {
+function Ticket({logo, airline, id}) {
  
   // const item = (id, origin, price, image, airline, arrivalHour, departureHour) 
-  const item = (logo, airline)
+  const item = (logo, airline, id)
   // console.log(props)
 
   const {addProductToCart} = useContext(CartContext)
