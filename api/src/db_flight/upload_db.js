@@ -25,7 +25,7 @@ const migrar = async () => {
     return console.log("Los vuelos ya se cargaron.");
   }
   // ------------------
-  
+
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
