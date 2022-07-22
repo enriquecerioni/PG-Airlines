@@ -112,6 +112,7 @@ export default function Display() {
                         departureHour={e.departureHour}
                         arrivalHour={e.arrivalHour}
                         origin={e.origin}
+                        destination={e.destination}
                     />)        
                 })}  
                            
@@ -128,6 +129,7 @@ export default function Display() {
                 handleSearchAirlines={handleSearchAirlines}
                 airlinesData={airlinesData}
                 />
+
             </div>
         </div>   
 

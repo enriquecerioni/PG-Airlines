@@ -13,6 +13,8 @@ export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN'
 export const FILTER_BY_AIRLINES = 'FILTER_BY_AIRLINES'
 export const GET_FLIGHT_BY_ID = 'GET_FLIGHT_BY_ID'
 
+export const ADD_FAVORITE = 'ADD_FAVORITE'
+
 export const getAllFlights = () => {
     return function (dispatch) {
         axios('http://localhost:3001/flights').then((flight) => {
@@ -90,5 +92,17 @@ export function cleanDetails(payload) {
     return {
         type: CLEAN,
         payload
+    }
+}
+
+export function addToFavorite(id) {
+    return function (dispatch) {
+        axios(`http://localhost:3001/flights`)
+        .then((flight) => {
+            dispatch({
+                type: ADD_FAVORITE, 
+                payload: flight.data.filter(e => e.flight === id)
+            })
+        })
     }
 }

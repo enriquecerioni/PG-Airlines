@@ -24,7 +24,7 @@ export default function SearchBar() {
       <input
         className={s.inputSearch}
         type="text"
-        placeholder="Search destination"
+        placeholder="Search origin"
         onChange={(e) => handleInputChange(e)}
       />
       <button

@@ -1,19 +1,29 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import style from './styles/Ticket.module.css'
 import { Link } from 'react-router-dom'
+import { addToFavorite } from '../redux/actions/index'
 
-function Ticket({airline, id, logo, departureHour, arrivalHour, price, origin}) {
+function Ticket({airline, id, logo, departureHour, arrivalHour, price, origin, destination}) {
     const source = 'https://media.istockphoto.com/vectors/airplane-fly-out-logo-plane-taking-off-stylized-sign-vector-id1137971264?k=20&m=1137971264&s=612x612&w=0&h=_Mds3bkTPPoIBHsa9orqQCW6gO7dka96d3BJvdh7sHg='
     // console.log(flight)
+
+    const dispatch = useDispatch()
+  
+    function addFav(e) {
+      e.preventDefault()
+      dispatch(addToFavorite(id))
+    }
 
   return (
     <div className={style.cards} key={id} >
         <li className={style.cards_item}>
+        <button onClick={addFav}>Favorite</button> 
         <div className={style.card}>
             <div className="card_image"><img src={logo} width='100px' height='100px'/></div>
             <div className={style.card_content}>
             <h2 className={style.card_title}>{airline}</h2>
-            <h4>🏁 {origin}</h4>
+            <h5>Origin: {origin} | Destination: {destination} </h5>
             <p className="card_text">{departureHour} / {arrivalHour}</p>
             </div>
             <div>

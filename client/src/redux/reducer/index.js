@@ -9,7 +9,8 @@ import {
   FILTER_BY_ORIGIN,
   FILTER_BY_AIRLINES,
   GET_FLIGHT_BY_ID,
-  CLEAN
+  CLEAN,
+  ADD_FAVORITE,
 } from "../actions";
 
 const initialState = {
@@ -21,6 +22,9 @@ const initialState = {
   ///////
   reset: true,
   orderState: "initial",
+  ///////
+  favorite: false,
+  favoriteList: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -37,7 +41,8 @@ const rootReducer = (state = initialState, action) => {
     case GET_FLIGHT_BY_ID: {
       return {
         ...state,
-        flight: action.payload
+        flight: action.payload,
+        favorite: false
       }
     }
 
@@ -175,7 +180,7 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             // currrentFilter: action.payload === "all" ? copyFlights : filterAirlines,
             flights : filterAirlines
-        }
+    }
 
       case CLEAN: {
         return {
@@ -184,8 +189,19 @@ const rootReducer = (state = initialState, action) => {
         }
       }
 
-    default:
-      return state;
+      case ADD_FAVORITE: {
+        let flightFav = state.flight.filter(e => e.flight)
+        console.log(flightFav)
+
+        return {
+          ...state,
+          favoriteList : !state.favoriteList.includes(flightFav) ? state.favoriteList.concat(flightFav) : []
+        }
+      }
+
+      default:
+        return state
+
     }
 };
 
