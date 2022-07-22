@@ -95,14 +95,9 @@ export function cleanDetails(payload) {
     }
 }
 
-export function addToFavorite(id) {
-    return function (dispatch) {
-        axios(`http://localhost:3001/flights`)
-        .then((flight) => {
-            dispatch({
-                type: ADD_FAVORITE, 
-                payload: flight.data.filter(e => e.flight === id)
-            })
-        })
+export function addToFavorite(payload) {
+    return {
+        type: ADD_FAVORITE, 
+        payload
     }
 }

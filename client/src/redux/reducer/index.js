@@ -23,7 +23,6 @@ const initialState = {
   reset: true,
   orderState: "initial",
   ///////
-  favorite: false,
   favoriteList: [],
 };
 
@@ -190,12 +189,10 @@ const rootReducer = (state = initialState, action) => {
       }
 
       case ADD_FAVORITE: {
-        let flightFav = state.flight.filter(e => e.flight)
-        console.log(flightFav)
 
         return {
           ...state,
-          favoriteList : !state.favoriteList.includes(flightFav) ? state.favoriteList.concat(flightFav) : []
+          favoriteList : state.favoriteList.concat(action.payload)
         }
       }
 

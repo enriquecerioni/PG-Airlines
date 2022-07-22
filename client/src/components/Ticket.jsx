@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import style from './styles/Ticket.module.css'
 import { Link } from 'react-router-dom'
@@ -9,10 +9,18 @@ function Ticket({airline, id, logo, departureHour, arrivalHour, price, origin, d
     // console.log(flight)
 
     const dispatch = useDispatch()
+
+    const flightList = useSelector(state => state.favoriteList)
+    const item = {airline, id, logo, departureHour, arrivalHour, price, origin, destination}
   
     function addFav(e) {
       e.preventDefault()
-      dispatch(addToFavorite(id))
+      if (!flightList.includes(item.id)) {
+        dispatch(addToFavorite(item));
+        console.log(`agregaste ${id} `)
+      } else {
+        console.log('ya agregado')
+      }
     }
 
   return (
