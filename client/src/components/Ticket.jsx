@@ -9,6 +9,15 @@ function Ticket({airline, id, logo, departureHour, arrivalHour, price, origin}) 
   return (
     <div className={style.cards} key={id} >
         <li className={style.cards_item}>
+        <div className={style.info}>
+              
+              <button className={style.button}>i </button>
+              <div className={style.propiedades}>
+                <h5 className={style.a}>{departureHour} / {arrivalHour} </h5>
+                <h5 className={style.a}> {origin} </h5>
+              </div>
+
+            </div>
         <div className={style.card}>
             <div className="card_image"><img src={logo} width='100px' height='100px'/></div>
             <div className={style.card_content}>
@@ -17,11 +26,17 @@ function Ticket({airline, id, logo, departureHour, arrivalHour, price, origin}) 
             <p className="card_text">{departureHour} / {arrivalHour}</p>
             </div>
             <div>
+              
             <p className={style.card_text}>${price} | price | price</p>
             <Link to={`/ticket/${id}`} >
               <button className={style.btn}>View Deal</button> 
             </Link>
             </div>
+
+            
+          
+
+
         </div>
         </li>
     </div>
