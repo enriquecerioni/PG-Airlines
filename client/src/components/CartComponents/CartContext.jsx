@@ -13,49 +13,56 @@ const CartProvider = ({ children }) => {
   });
   useEffect(() => {
     localStorage.setItem("cartProducts", JSON.stringify(products));
-    console.log(products);
+    console.log(localStorage)
+    console.log(products)
+    // console.log(products.products[0].product);
+
     // const cartProductArray = localStorage.getItem("cartProducts");
   }, [products]);
 
-  const addProductToCart = (product) => {
-    const inCart = products.find((p) => p.id === product.id);
+  const addProductToCart = (logo, airline, id) => {
+    console.log(products)
+    console.log((products.length))
+    // const inCart = products.products.find((p) => p.id === product.id);
+    // const inCart = products.map(p=>p)
+    //console.log(inCart)
 
     //console.log("inCart: ", inCart);
-    if (inCart) {
+    //this always adds amount +1 because the ID remains the same, without changing the array or adding any more items
+    if (false) {
       setProducts(
         products.map((p) => {
-          if (p.id === product.id) {
-            return { ...inCart, amount: inCart.amount + 1 };
+          if (p.id === id) {
+            // return { ...inCart, amount: inCart.amount + 1 };
           } else return p;
         })
       );
-    } else {
-      setProducts((products) => [...products, { ...product, amount: 1 }]);
+    } else {      
+      setProducts( [...products, { logo, airline, id, amount: 1}] )
     }
   };
 
-  const deleteProductCart = (product) => {
-    const inCart = products.find((p) => p.id === product.id);
+  // const deleteProductCart = (product) => {
+  //   const inCart = products.find((p) => p.id === product.id);
 
-    if (inCart.amount === 1) {
-      setProducts(products.filter((p) => p.id !== product.id));
-    }
-    if (inCart.amount > 1) {
-      setProducts(
-        products.map((p) => {
-          if (p.id === product.id) {
-            return { ...inCart, amount: inCart.amount - 1 };
-          }
-          return p;
-        })
-      );
-    }
-
-  };
+  //   if (inCart.amount === 1) {
+  //     setProducts(products.filter((p) => p.id !== product.id));
+  //   }
+  //   if (inCart.amount > 1) {
+  //     setProducts(
+  //       products.map((p) => {
+  //         if (p.id === product.id) {
+  //           return { ...inCart, amount: inCart.amount - 1 };
+  //         }
+  //         return p;
+  //       })
+  //     );
+  //   }
+  // };
 
   return (
     <CartContext.Provider
-      value={{ addProductToCart, deleteProductCart }}
+      value={{ addProductToCart, /*deleteProductCart*/ }}
     >
       {children}
     </CartContext.Provider>
