@@ -9,11 +9,17 @@ import {
   FILTER_BY_ORIGIN,
   FILTER_BY_AIRLINES,
   GET_FLIGHT_BY_ID,
-  CLEAN
+  CLEAN,
+  ADD_CART,
+  RESET_CART,
 } from "../actions";
 
 const initialState = {
   flights: [], // todos los vuelos
+  // cart: localStorage.getItem("cart")
+  //   ? JSON.parse(localStorage.getItem("cart"))
+  //   : [],
+  cart: [],
   copy: [],
   currrentFilter: [],
   flight: [], // vuelo con detalles
@@ -37,8 +43,8 @@ const rootReducer = (state = initialState, action) => {
     case GET_FLIGHT_BY_ID: {
       return {
         ...state,
-        flight: action.payload
-      }
+        flight: action.payload,
+      };
     }
 
     case GET_FLIGHT_INFO:
@@ -52,7 +58,48 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
+    case ADD_CART: {
+      let tempcart = state.cart.filter((item) => item.id === action.payload);
+      console.log(tempcart)
 
+      if (tempcart < 1) {
+        let pushToCart = [...state.cart]
+        pushToCart.push(action.payload) 
+        console.log(state.cart)
+        return {
+          ...state, 
+          cart: pushToCart};
+      } else {
+        return state.cart;
+      }
+
+      // return {
+      //   ...state, 
+      //   cart: !tempcart ? state.cart.push(action.payload) : return [...state.cart]
+      // }
+
+      // if (action.type === "REMOVE") {
+      //   return state.cart.filter((item) => item.id !== action.payload.id);
+      // }
+      // if (action.type === "INCREASE") {
+      //   let tempcart = state.cart.map((item) => {
+      //     if (item.id === action.payload.id) {
+      //       return { ...item, quantity: item.quantity + 1 };
+      //     }
+      //     return item;
+      //   });
+      //   return tempcart;
+      // }
+      // if (action.type === "DECREASE") {
+      //   let tempcart = state.cart.map((item) => {
+      //     if (item.id === action.payload.id) {
+      //       return { ...item, quantity: item.quantity - 1 };
+      //     }
+      //     return item;
+      //   });
+      //   return tempcart;
+      // }
+    }
     case FILTER_BY_ORIGIN: {
       const searchFlight = state.flights.filter((e) =>
         e.origin.toLowerCase().includes(action.payload.toLowerCase())
@@ -74,29 +121,29 @@ const rootReducer = (state = initialState, action) => {
     case ORDER_PRICE: {
       let orderByPrice =
         action.payload === "low"
-            ? state.flights.sort((a, b) => {
-                if (a.price > b.price) return 1;
-                if (a.price < b.price) return -1;
-                else return 0;
+          ? state.flights.sort((a, b) => {
+              if (a.price > b.price) return 1;
+              if (a.price < b.price) return -1;
+              else return 0;
             })
-            : state.flights.sort((a, b) => {
-                if (a.price > b.price) return -1;
-                if (a.price < b.price) return 1;
-                else return 0;
+          : state.flights.sort((a, b) => {
+              if (a.price > b.price) return -1;
+              if (a.price < b.price) return 1;
+              else return 0;
             });
 
-        let orderFiltered = 
-        state.currrentFilter.length && action.payload === "low" 
-        ? state.currrentFilter.sort((a, b) => {
-            if (a.price > b.price) return 1;
-            if (a.price < b.price) return -1;
-            else return 0;
-          })
-        : state.currrentFilter.sort((a, b) => {
-            if (a.price > b.price) return -1;
-            if (a.price < b.price) return 1;
-            else return 0;
-          });
+      let orderFiltered =
+        state.currrentFilter.length && action.payload === "low"
+          ? state.currrentFilter.sort((a, b) => {
+              if (a.price > b.price) return 1;
+              if (a.price < b.price) return -1;
+              else return 0;
+            })
+          : state.currrentFilter.sort((a, b) => {
+              if (a.price > b.price) return -1;
+              if (a.price < b.price) return 1;
+              else return 0;
+            });
 
       return {
         ...state,
@@ -120,17 +167,18 @@ const rootReducer = (state = initialState, action) => {
               else return 0;
             });
 
-        let orderFiltered =
-        state.currrentFilter.length && (action.payload === "asc" || action.payload === "initial")
-            ? state.currrentFilter.sort((a, b) => {
-                if (a.airline > b.airline) return 1;
-                if (a.airline < b.airline) return -1;
-                else return 0;
+      let orderFiltered =
+        state.currrentFilter.length &&
+        (action.payload === "asc" || action.payload === "initial")
+          ? state.currrentFilter.sort((a, b) => {
+              if (a.airline > b.airline) return 1;
+              if (a.airline < b.airline) return -1;
+              else return 0;
             })
-            : state.currrentFilter.sort((a, b) => {
-                if (a.airline > b.airline) return -1;
-                if (a.airline < b.airline) return 1;
-                else return 0;
+          : state.currrentFilter.sort((a, b) => {
+              if (a.airline > b.airline) return -1;
+              if (a.airline < b.airline) return 1;
+              else return 0;
             });
 
       return {
@@ -169,24 +217,26 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case FILTER_BY_AIRLINES:
-        const copyFlights = state.copy;
-        const filterAirlines = copyFlights.filter(f => f.airline.toLowerCase().includes(action.payload.toLowerCase()));
-        return {
-            ...state,
-            // currrentFilter: action.payload === "all" ? copyFlights : filterAirlines,
-            flights : filterAirlines
-        }
+      const copyFlights = state.copy;
+      const filterAirlines = copyFlights.filter((f) =>
+        f.airline.toLowerCase().includes(action.payload.toLowerCase())
+      );
+      return {
+        ...state,
+        // currrentFilter: action.payload === "all" ? copyFlights : filterAirlines,
+        flights: filterAirlines,
+      };
 
-      case CLEAN: {
-        return {
-          ...state,
-          flight: []
-        }
-      }
+    case CLEAN: {
+      return {
+        ...state,
+        flight: [],
+      };
+    }
 
     default:
       return state;
-    }
+  }
 };
 
 export default rootReducer;
