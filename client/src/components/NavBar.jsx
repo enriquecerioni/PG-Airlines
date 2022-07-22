@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import s from "./styles/NavBar.module.css";
-import logo from './styles/logo.png'
+import logo from "./styles/logo.png";
+import shoppingCart from "./styles/shopping-cart.png";
+
 
 export default function NavBar() {
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const handleCart = (e) => {
+    e.preventDefault();
+    setCartOpen(!cartOpen);
+  };
   return (
     <nav>
       <Link className={s.navImg} to="/">
-        <img className={s.logoImg} src={logo} alt='logo' />
+        <img className={s.logoImg} src={logo} alt="logo" />
       </Link>
-      <ul className={s.navUl}> 
+      <ul className={s.navUl}>
         <li>
           <Link className={s.navLink} to="/favs">
             Favs
@@ -25,6 +33,18 @@ export default function NavBar() {
             Register
           </Link>
         </li>
+        <div className={s.bkg}>
+          <li>
+            <img className={s.cart} src={shoppingCart} onClick={handleCart} />
+            {/* {cartOpen ? (
+              <div className={s.cartOpen}>
+                <BoxCart onClick={handleCart} />
+              </div>
+            ) : (
+              <></>
+            )} */}
+          </li>
+        </div>
       </ul>
     </nav>
   );
