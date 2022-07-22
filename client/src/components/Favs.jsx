@@ -3,18 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import s from './styles/Favs.module.css'
 import style from './styles/Ticket.module.css'
 import { Link } from 'react-router-dom';
-
+import { deleteFavorite } from '../redux/actions/index'
 
 function Favs() {
 
-  // function removeFavorite(id) {
-  //   let index = favorite.indexOf(id);
-  //   let res = [...favorite.slice(0, index), ...favorite.slice(index + 1)];
-  //   setFavorite(res);
-  // }
+  const dispatch = useDispatch()
 
   const flightList = useSelector(state => state.favoriteList)
-  console.log(flightList)
+  // console.log(flightList)
+
+  function removeFavorite(i) {
+    let data = [...flightList]
+    data.splice(i, 1);
+    dispatch(deleteFavorite(data));
+  }  
 
   return (
     <div className={s.favs_containers}>
@@ -37,10 +39,11 @@ function Favs() {
                 </div>
             </div>
             </li>
+            <button onClick={removeFavorite}>DELETE</button>
         </div>)      
         })
         :
-        <h1>Add tickets to you favorite list!</h1>
+        <h1>Add tickets to your favorite list!</h1>
         }        
     </div>
   )

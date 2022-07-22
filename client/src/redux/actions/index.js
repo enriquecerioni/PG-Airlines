@@ -14,6 +14,8 @@ export const FILTER_BY_AIRLINES = 'FILTER_BY_AIRLINES'
 export const GET_FLIGHT_BY_ID = 'GET_FLIGHT_BY_ID'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
+export const DELETE_FAVORITE = 'DELETE_FAVORITE'
+export const ADD_TO_CART = 'ADD_TO_CART'
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -67,9 +69,16 @@ export const orderByPrice = (payload) => {
     }
 }
 
-export const filterPrice= (payload) => {
+export const filterPrice = (payload) => {
     return {
         type: FILTER_PRICE,
+        payload
+    }
+}
+
+export const addToCart = (payload) => {
+    return {
+        type: ADD_TO_CART,
         payload
     }
 }
@@ -98,6 +107,13 @@ export function cleanDetails(payload) {
 export function addToFavorite(payload) {
     return {
         type: ADD_FAVORITE, 
+        payload
+    }
+}
+
+export function deleteFavorite(payload) {
+    return {
+        type: DELETE_FAVORITE,
         payload
     }
 }

@@ -25,6 +25,11 @@ export default function NavBar() {
             Register
           </Link>
         </li>
+        <li>
+          <Link className={s.navLink} to="/cart">
+            🛒
+          </Link>
+        </li>
       </ul>
     </nav>
   );

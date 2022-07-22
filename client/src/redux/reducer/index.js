@@ -11,6 +11,8 @@ import {
   GET_FLIGHT_BY_ID,
   CLEAN,
   ADD_FAVORITE,
+  DELETE_FAVORITE,
+  ADD_TO_CART,
 } from "../actions";
 
 const initialState = {
@@ -19,11 +21,10 @@ const initialState = {
   currrentFilter: [],
   flight: [], // vuelo con detalles
   user: {},
-  ///////
   reset: true,
   orderState: "initial",
-  ///////
   favoriteList: [],
+  shoppingCart: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -193,6 +194,22 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           favoriteList : state.favoriteList.concat(action.payload)
+        }
+      }
+
+      case DELETE_FAVORITE: {
+
+        return {
+          ...state,
+          favoriteList : action.payload
+        }
+      }
+
+      case ADD_TO_CART: {
+
+        return {
+          ...state,
+          shoppingCart : state.shoppingCart.concat(action.payload)
         }
       }
 
