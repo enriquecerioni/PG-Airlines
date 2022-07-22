@@ -24,7 +24,7 @@ function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, hand
             <button value='<40.000' onClick={handleFilterPrice}> $40.000 &gt;</button>
 
         <div>
-        <label>Airlines</label>
+        <label>Airlines: </label>
             <input
                 id='search'
                 type="text"

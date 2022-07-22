@@ -12,13 +12,14 @@ export default function Display() {
     const dispatch = useDispatch()
 
     const details = useSelector((state) => state.flights)
-    // console.log(details)
+   // console.log(details)
     const filterArray = useSelector(s => s.currrentFilter)
     const orderState = useSelector(state => state.orderState)
-
+    
     useEffect(() => {
-        if(filterArray.length !== 0) return filterArray
-        else dispatch(getAllFlights())
+        // if(filterArray.length !== 0) return filterArray
+        // else 
+        dispatch(getAllFlights())
     }, [])
 
     const orderPriceSelect = useRef('')
@@ -51,7 +52,7 @@ export default function Display() {
     }
 
     function handlePrice(e) {
-        e.preventDefault()
+         e.preventDefault()
         dispatch(orderByPrice(e.target.value))
         setCurrentPage(1)
     }   
@@ -63,14 +64,15 @@ export default function Display() {
     }
 
     function handleClick(e) {
-        e.preventDefault()
-        dispatch(filterByAirlines(e.currentTarget.value));
-        document.getElementById('search').value = ''
+        e.preventDefault();
+         dispatch(filterByAirlines(e.target.value));
+        document.getElementById('search').value = e.target.value;
+        setAirlines([]);
     }
 
     function handleSearchAirlines(e) {
-        e.preventDefault()
-        const allAirlines = details.map(f => f.airline);
+        e.preventDefault();      
+        const allAirlines = filterArray.map(f => f.airline);
         let airlines = allAirlines.filter((v, i) => {
             return allAirlines.indexOf(v) === i;
         })
@@ -78,7 +80,8 @@ export default function Display() {
             airlines = airlines.filter(f => f.toLowerCase().includes(e.target.value.toLowerCase()));
             setAirlines(airlines);
         } else {
-            setAirlines([]);
+               dispatch(filterByAirlines('all'));
+               setAirlines([]);
         }
     }
 
@@ -100,20 +103,21 @@ export default function Display() {
                         origin={e.origin}
                     />)        
                 }) :
-
-                paginateCards
-                .map(e => {
-                    return (<Ticket 
-                        key={e.flight}
-                        id={e.flight}
-                        airline={e.airline}
-                        logo={e.logo}
-                        price={e.price}
-                        departureHour={e.departureHour}
-                        arrivalHour={e.arrivalHour}
-                        origin={e.origin}
-                    />)        
-                })}  
+                  <p>Vuelos no encontrados, te invitamos a volver a buscar!</p>
+                // paginateCards
+                // .map(e => {
+                //     return (<Ticket 
+                //         key={e.flight}
+                //         id={e.flight}
+                //         airline={e.airline}
+                //         logo={e.logo}
+                //         price={e.price}
+                //         departureHour={e.departureHour}
+                //         arrivalHour={e.arrivalHour}
+                //         origin={e.origin}
+                //     />)        
+                // })
+            }  
                            
             </div>
             <div className={style.filter_container}>
