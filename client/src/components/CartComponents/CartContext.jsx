@@ -13,32 +13,26 @@ const CartProvider = ({ children }) => {
   });
   useEffect(() => {
     localStorage.setItem("cartProducts", JSON.stringify(products));
-    console.log(localStorage)
     console.log(products)
-    // console.log(products.products[0].product);
+    
 
     // const cartProductArray = localStorage.getItem("cartProducts");
   }, [products]);
 
-  const addProductToCart = (logo, airline, id) => {
-    console.log(products)
-    console.log((products.length))
-    // const inCart = products.products.find((p) => p.id === product.id);
-    // const inCart = products.map(p=>p)
-    //console.log(inCart)
+  const addProductToCart = ({id, origin, price, logo, airline, arrivalHour, departureHour}) => {
 
-    //console.log("inCart: ", inCart);
-    //this always adds amount +1 because the ID remains the same, without changing the array or adding any more items
-    if (false) {
+    let inCart = products && products.filter((p) => p.id === id);
+
+    if (inCart.length >0) {
       setProducts(
         products.map((p) => {
           if (p.id === id) {
-            // return { ...inCart, amount: inCart.amount + 1 };
+            return { ...p, amount: p.amount + 1 };
           } else return p;
         })
       );
     } else {      
-      setProducts( [...products, { logo, airline, id, amount: 1}] )
+      setProducts( [...products, { id, origin, price, logo, airline, arrivalHour, departureHour, amount: 1}] )
     }
   };
 

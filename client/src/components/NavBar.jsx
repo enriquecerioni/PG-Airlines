@@ -28,7 +28,7 @@ export default function NavBar() {
             Log In
           </Link>
         </li>
-        <li>
+         <li>
           <Link className={s.navLink} to="/register">
             Register
           </Link>
