@@ -27,4 +27,4 @@ conn.sync({ force: true }).then(() => {
     migrar();
     console.log("%s listening at 3001"); // eslint-disable-line no-console
   });
-}); 
+});

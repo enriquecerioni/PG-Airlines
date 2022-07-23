@@ -77,6 +77,15 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour}) 
   return (
     <div className={style.cards}>
         <li className={style.cards_item}>
+        <div className={style.info}>
+              
+              <button className={style.button}>i </button>
+              <div className={style.propiedades}>
+                <h5 className={style.a}>{departureHour} / {arrivalHour} </h5>
+                <h5 className={style.a}> {origin} </h5>
+              </div>
+
+            </div>
         <div className={style.card}>
             <div className="card_image"><img src={logo} w idth='100px' height='100px'/></div>
             {/* <div className={style.card_content}> */}
