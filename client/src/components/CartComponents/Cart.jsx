@@ -6,6 +6,7 @@ const CartDemo = () => {
   const cart = useSelector((state) => state.cart);
   console.log(cart);
   const dispatch = useDispatch();
+  
   const addition = (acc, currentvalue) => {
     return acc + currentvalue.price * currentvalue.quantity;
   };

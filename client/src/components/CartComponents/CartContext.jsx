@@ -3,6 +3,7 @@ export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   // console.log(children)
+
   const [products, setProducts] = useState(() => {
     try {
       const productosLocalStorage = localStorage.getItem("cartProducts");
@@ -18,9 +19,10 @@ const CartProvider = ({ children }) => {
     // const cartProductArray = localStorage.getItem("cartProducts");
   }, [products]);
 
-  const addProductToCart = ({id, origin, price, logo, airline, arrivalHour, departureHour}) => {
+  function addProductToCart ({id, origin, price, logo, airline, arrivalHour, departureHour}) {
+    console.log({id, origin, price, logo, airline, arrivalHour, departureHour})
     let inCart = products && products.filter((p) => p.id === id);
-    // console.log(inCart)
+    console.log(inCart)
 
     if (inCart.length > 0) {
       setProducts(
@@ -42,10 +44,13 @@ const CartProvider = ({ children }) => {
       setProducts(
         products.map((p) => {
           if (p.id === id && p.amount > 1) {
-            return { ...p, amount: p.amount - 1 };
+            return { 
+              ...p, 
+              amount: p.amount - 1 };
           } else return p;
         })
-      );
+      )
+      localStorage.removeItem("cartProducts")
     } 
   };
 
@@ -55,7 +60,7 @@ const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ addProductToCart, substractdProductFromCart, deleteProductFromCart, products }}
+      value={{ addProductToCart, substractdProductFromCart, deleteProductFromCart, products}}
     >
       {children}
     </CartContext.Provider>

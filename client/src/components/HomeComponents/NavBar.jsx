@@ -13,7 +13,6 @@ export default  function NavBar() {
 
   const [stateCart, setStateCart] = useState(products.length);
   
-   
   useEffect(() => {
     setStateCart(products.length);
     console.log("Carrito Actualizado.");

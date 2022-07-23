@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../styles/Ticket.module.css'
 import { Link } from 'react-router-dom'
-import { addToFavorite, addToCart } from '../../redux/actions/index' 
+import { addToFavorite } from '../../redux/actions/index' 
 import { CartContext } from '../CartComponents/CartContext'
-import {useContext} from 'react'
+import { useContext } from 'react'
 
 function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour, destination}) {
 
@@ -16,27 +16,6 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour, d
     e.preventDefault()
     addProductToCart(item)
   }
-
-  // const cartItem = useSelector((state) => state.cart)
-  // let [cart, setCart] = useState([])
-
-  // setCart = cartItem
-  
-  // let localCart = localStorage.getItem("cart");
-  // console.log(localCart)
-
-
-  // //this is called on component mount
-  // useEffect(() => {
-  //   //turn it into js
-  //   console.log(localCart)
-  //   localCart = JSON.parse(localCart);
-  //   //load persisted cart into state if it exists
-  //   if(localCart) setCart(localCart)
-  // }, []) //the empty array ensures useEffect only runs once
-
-    // const flightList = useSelector(state => state.favoriteList)
-    // let item = {airline, id, logo, departureHour, arrivalHour, price, origin, destination}
   
     // function addFav(e) {
     //   e.preventDefault()
