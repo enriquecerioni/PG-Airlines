@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import s from "./styles/NavBar.module.css";
 import logo from "./styles/logo.png";
 import shoppingCart from "./styles/shopping-cart.png";
+import { logOut } from "./scripts/auth";
 
 
 export default function NavBar() {
@@ -32,6 +33,9 @@ export default function NavBar() {
           <Link className={s.navLink} to="/register">
             Register
           </Link>
+        </li>
+        <li>
+          <button onClick={()=>logOut()}>Log Out</button>
         </li>
         <div className={s.bkg}>
           <li>

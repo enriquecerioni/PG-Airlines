@@ -13,6 +13,7 @@ export const FILTER_BY_AIRLINES = 'FILTER_BY_AIRLINES'
 export const GET_FLIGHT_BY_ID = 'GET_FLIGHT_BY_ID'
 export const ADD_CART = 'ADD_CART'
 export const RESET_CART = 'RESET_CART'
+export const CREATE_USER='CREATE_USER'
 
 
 export const getAllFlights = () => {
@@ -91,5 +92,19 @@ export function cleanDetails(payload) {
     return {
         type: CLEAN,
         payload
+    }
+}
+export function createUser(payload){
+    return function (dispatch){
+        axios.post('http://localhost:3001/user/create',payload)
+        .then((response)=>{
+            dispatch({
+                type:CREATE_USER,
+                payload:response.data
+            })
+        })
+        .catch((error)=>{
+            alert(error)
+        })
     }
 }

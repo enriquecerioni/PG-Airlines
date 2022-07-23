@@ -1,10 +1,15 @@
 import React from 'react'
 import { ejecutar, logIn } from './scripts/auth'
 
+
 function LogIn() {
 function handleSubmit(e){
   e.preventDefault();
   logIn(e.target.email.value,e.target.password.value)
+}
+
+ function handleClick(){
+  ejecutar()
 }
   return (
     <div>
@@ -26,7 +31,7 @@ function handleSubmit(e){
 
         <button type='submit'  >Log In</button>
       </form>
-      <button onClick={()=>ejecutar()}>
+      <button onClick={()=>handleClick()}>
         Log in with Google
       </button>
     </div>

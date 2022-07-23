@@ -1,4 +1,6 @@
 import firebase from 'firebase'
+import {store} from '../../redux/store/index'
+import {createUser} from '../../redux/actions/index'
 
 const firebaseConfig = {
     apiKey: "AIzaSyBGr8PQQDvTRK484636fOa1XJVhIJ0lmqA",
@@ -62,11 +64,17 @@ export function  logIn(email,password){
     
       
 }
-export function ejecutar(){
+export  function ejecutar(){
+
     let google_provider= new firebase.auth.GoogleAuthProvider();
      firebase.auth().signInWithPopup(google_provider)
-    .then(()=>{
-        
+    .then((data)=>{
+      let email=data.user.email
+      let name=data.user.displayName 
+      let photo=data.user.photoURL
+      
+      store.dispatch(createUser(email,name,photo))
+     
       }).catch((error) => {
        console.log(error.message)
       });

@@ -12,13 +12,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    surname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     phone: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     image: {
       type: DataTypes.TEXT,
@@ -34,3 +30,8 @@ module.exports = (sequelize) => {
     },
   });
 };
+
+    // surname: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // },

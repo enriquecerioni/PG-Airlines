@@ -12,6 +12,7 @@ import {
   CLEAN,
   ADD_CART,
   RESET_CART,
+  CREATE_USER
 } from "../actions";
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
   currrentFilter: [],
   flight: [], // vuelo con detalles
   user: {},
+  allUsers:[],
   ///////
   reset: true,
   orderState: "initial",
@@ -58,6 +60,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
+    case CREATE_USER:
+      return{
+        ...state,
+        allUsers:[...state.allUsers,action.payload]
+      }
     case ADD_CART: {
       let tempcart = state.cart.filter((item) => item.id === action.payload);
       console.log(tempcart)
