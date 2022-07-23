@@ -21,6 +21,7 @@ const Cart = () => {
           return (
             <div className="cartcad" key={item.id}>
               <div>
+                
                 <img src={item.image} alt="cart" />
                 <h4>{item.origin}</h4>
                 <p> price: $ {item.price}</p>
