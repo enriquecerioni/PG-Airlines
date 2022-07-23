@@ -42,9 +42,7 @@ export function singUp(email,password){
 
 export function logOut(){
 
-      auth.signOut().then(()=>{
-       
-      })
+      auth.signOut().then(()=>{})
 
 }
 
@@ -64,22 +62,20 @@ export function  logIn(email,password){
     
       
 }
-export  function ejecutar(){
-
+export async function ejecutar(){
+try{
     let google_provider= new firebase.auth.GoogleAuthProvider();
-     firebase.auth().signInWithPopup(google_provider)
-    .then((data)=>{
-      let email=data.user.email
-      let name=data.user.displayName 
-      let photo=data.user.photoURL
-      
-      store.dispatch(createUser(email,name,photo))
-     
-      }).catch((error) => {
+     let data = await firebase.auth().signInWithPopup(google_provider)
+      var email=data.user.email
+      var name=data.user.displayName 
+      var photo=data.user.photoURL
+      await store.dispatch(createUser({email,name,photo}))
+ }catch(error)  {
        console.log(error.message)
-      });
+      };
 
 }
+
 
 export function logeado(){
     auth.onAuthStateChanged(user=>{
