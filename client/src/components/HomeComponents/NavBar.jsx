@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import s from '../styles/NavBar.module.css'
-import logo from "../styles/logo.png";
-import shoppingCart from "../styles/shopping-cart.png";
-import { logOut } from "../scripts/auth";
-
+import s from '../styles/NavBar.module.css';
+import logo from '../styles/logo.png';
+import shoppingCart from '../styles/shopping-cart.png';
+import { logOut } from '../scripts/auth';
+import { CartContext } from '../CartComponents/CartContext';
 
 export default function NavBar() {
   const [cartOpen, setCartOpen] = useState(false);
+
+  const { products } = useContext(CartContext);
+
+  const [stateCart, setStateCart] = useState(products.length);
+
+  useEffect(() => {
+    setStateCart(products.length);
+    console.log("Carrito Actualizado.");
+  }, [products]);
 
   const handleCart = (e) => {
     e.preventDefault();
@@ -50,8 +59,8 @@ export default function NavBar() {
               <></>
             )} */}
           </li>
-
+          <h5>N°{stateCart}</h5>
       </ul>
-    </nav>
+    </nav> 
   );
 }
