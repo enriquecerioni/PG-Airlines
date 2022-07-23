@@ -15,12 +15,10 @@ const CartProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("cartProducts", JSON.stringify(products));
     // console.log(products)
-
     // const cartProductArray = localStorage.getItem("cartProducts");
   }, [products]);
 
   const addProductToCart = ({id, origin, price, logo, airline, arrivalHour, departureHour}) => {
-
     let inCart = products && products.filter((p) => p.id === id);
     // console.log(inCart)
 
@@ -38,7 +36,6 @@ const CartProvider = ({ children }) => {
   };
 
   const substractdProductFromCart = ({id}) => {
-    
     let inCart = products && products.filter((p) => p.id === id);
 
     if (inCart.length > 0) {
@@ -58,7 +55,7 @@ const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ addProductToCart, /*substractdProductFromCart*/ products }}
+      value={{ addProductToCart, substractdProductFromCart, deleteProductFromCart, products }}
     >
       {children}
     </CartContext.Provider>

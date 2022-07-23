@@ -15,13 +15,14 @@ export default function NavBar() {
 
   useEffect(() => {
     setStateCart(products.length);
-    console.log("Carrito Actualizado.");
+    // console.log("Carrito Actualizado.");
   }, [products]);
 
-  const handleCart = (e) => {
-    e.preventDefault();
-    setCartOpen(!cartOpen);
-  };
+  // const handleCart = (e) => {
+  //   e.preventDefault();
+  //   setCartOpen(!cartOpen);
+  // };
+
   return (
     <nav>
       <Link className={s.navImg} to="/">

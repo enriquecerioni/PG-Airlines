@@ -12,15 +12,6 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour, d
 
   const {addProductToCart} = useContext(CartContext)
 
-  // const cart = useSelector((state) => state.cart)
-  // const dispatch = useDispatch()
-
-  // const handleAddCart = (e) => {
-  //   e.preventDefault()
-  //   dispatch(addToCart(item))
-  //   console.log("Se agrego item:", item.id)
-  // }
-
   const handleAddCart = (e) => {
     e.preventDefault()
     addProductToCart(item)
@@ -44,11 +35,6 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour, d
   //   if(localCart) setCart(localCart)
   // }, []) //the empty array ensures useEffect only runs once
 
-
-    // const dispatch = useDispatch()
-
-    // const cart = useSelector(state => state.shoppingCart)
-
     // const flightList = useSelector(state => state.favoriteList)
     // let item = {airline, id, logo, departureHour, arrivalHour, price, origin, destination}
   
@@ -63,24 +49,12 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour, d
     //   }
     // }
 
-    // function handleAddToCart(event) {
-    //   event.preventDefault()
-
-    //   if (!cart.includes(id)) {
-    //     dispatch(addToCart(item));
-    //     console.log(`agregaste ${id} `)
-    //   } else {
-    //     console.log('ya agregado')
-    //   }
-    // }
-
   return (
     <div className={style.cards}>
         <li className={style.cards_item}>
-        {/* <button onClick={addFav}>Favorite</button> 
+        {/* <button onClick={addFav}>Favorite</button> */}
 
-        <button onClick={handleAddToCart}>Add to cart</button>  */}
-
+        <button className={style.btnCart} onClick={handleAddCart}>Add to cart</button>
         <div className={style.card}>
             <div className="card_image"><img src={logo} alt='#'/></div>
             <div className={style.card_content}>
@@ -97,7 +71,6 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour, d
             </div>
         </div>
         </li>
-        <button className={style.btnCart} onClick={handleAddCart}>Add to cart</button>
     </div> 
   )
 }
