@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Ticket from './Ticket'
-import style from '../components/styles/Display.module.css'
-import Paginate from './Paginate'
-import Filter from './Filter'
-
-import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines} from '../redux/actions/index'
+import style from '../styles/Display.module.css'
+import Paginate from './Paginate';
+import Filter from '../Filter'
+// import Filter from './Filter'
+import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines} from '../../redux/actions/index'
 
 export default function Display() {
 // console.log(details)
@@ -15,22 +15,16 @@ export default function Display() {
     // console.log(details)
     const filterArray = useSelector(s => s.currrentFilter)
     const orderState = useSelector(state => state.orderState)
-   
-    useEffect(() => {
-        // if(filterArray.length !== 0) return filterArray
-        // else 
-        dispatch(getAllFlights())
-      setTimeout(()=> {
-        dispatch(filterPrice('all'));
-      },300)  
-    }, [])
 
     const orderPriceSelect = useRef('')
     const orderAlpSelect = useRef('')
 
     useEffect(() => {
+        if(filterArray.length !== 0) return filterArray
+        else dispatch(getAllFlights())
+
         orderPriceSelect.current.value = orderState
-        orderAlpSelect.current.value = orderState
+        orderAlpSelect.current.value = orderState        
     }, [])
 
     // PAGINATE
@@ -79,7 +73,7 @@ export default function Display() {
         let airlines = allAirlines.filter((v, i) => {
             return allAirlines.indexOf(v) === i;
         })
-        if (e.target.value != '') {
+        if (e.target.value !== '') {
             airlines = airlines.filter(f => f.toLowerCase().includes(e.target.value.toLowerCase()));
             setAirlines(airlines);
         } else {
@@ -92,6 +86,7 @@ export default function Display() {
     <div>
         <div className={style.container_ticket}>
             <div className={style.ticket_container} >
+                
                 { 
                 filterArray.length !== 0 ? 
                 paginateCards.map(e => {
@@ -104,25 +99,27 @@ export default function Display() {
                         departureHour={e.departureHour}
                         arrivalHour={e.arrivalHour}
                         origin={e.origin}
-                    />)        
-                }) :
-                  <p>Vuelos no encontrados, te invitamos a volver a buscar!</p>
-                // paginateCards
-                // .map(e => {
-                //     return (<Ticket 
-                //         key={e.flight}
-                //         id={e.flight}
-                //         airline={e.airline}
-                //         logo={e.logo}
-                //         price={e.price}
-                //         departureHour={e.departureHour}
-                //         arrivalHour={e.arrivalHour}
-                //         origin={e.origin}
-                //     />)        
-                // })
-            }  
+                        
+                    />) 
                            
+                }) :
+
+                paginateCards
+                .map(e => {
+                    return (<Ticket 
+                        key={e.flight}
+                        id={e.flight}
+                        airline={e.airline}
+                        logo={e.logo}
+                        price={e.price}
+                        departureHour={e.departureHour}
+                        arrivalHour={e.arrivalHour}
+                        origin={e.origin}
+                        destination={e.destination}
+                    />)        
+                })}  
             </div>
+                           
             <div className={style.filter_container}>
                 
                 <Filter
@@ -135,6 +132,7 @@ export default function Display() {
                 handleSearchAirlines={handleSearchAirlines}
                 airlinesData={airlinesData}
                 />
+
             </div>
         </div>   
 

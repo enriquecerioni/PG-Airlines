@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getFlightInfo } from "../redux/actions";
-import s from "./styles/SearchBar.module.css";
+import { useDispatch } from "react-redux";
+import { getFlightInfo } from '../../redux/actions/index'
+import s from '../styles/SearchBar.module.css'
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ export default function SearchBar() {
   const handleInputChange = (e) => {
     e.preventDefault();
     setOrigin(e.target.value);
-  };
+  }; 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ export default function SearchBar() {
       <input
         className={s.inputSearch}
         type="text"
-        placeholder="Search destination"
+        placeholder="Search origin"
         onChange={(e) => handleInputChange(e)}
       />
       <button

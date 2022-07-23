@@ -4,7 +4,6 @@ export const GET_FLIGHT_INFO = "GET_FLIGHT_INFO"
 export const GET_USER_INFO = "GET_USER_INFO"
 export const SEARCH_BY_DESTINATION = 'SEARCH_BY_DESTINATION'
 export const CLEAN = 'CLEAN'
-
 export const ORDER_PRICE = 'ORDER_PRICE'
 export const ORDER_ALPHABETICALLY = "ORDER_ALPHABETICALLY"
 export const RESET_FILTER = 'RESET_FILTER'
@@ -12,6 +11,15 @@ export const FILTER_PRICE = 'FILTER_PRICE'
 export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN'
 export const FILTER_BY_AIRLINES = 'FILTER_BY_AIRLINES'
 export const GET_FLIGHT_BY_ID = 'GET_FLIGHT_BY_ID'
+export const ADD_CART = 'ADD_CART'
+export const RESET_CART = 'RESET_CART'
+export const CREATE_USER='CREATE_USER'
+
+
+export const ADD_FAVORITE = 'ADD_FAVORITE'
+export const DELETE_FAVORITE = 'DELETE_FAVORITE'
+export const ADD_TO_CART = 'ADD_TO_CART'
+export const DELETE_FROM_CART = 'DELETE_FROM_CART'
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -43,13 +51,12 @@ export function getFlightByID(id) {
     }
 }
 
-// export const getFlightInfo = (search) => {
-//     return async function (dispatch) {
-//        fetch(`http://localhost:3001/flights/origen?origen=${search}`)
-//        .then(r => r.json())
-//        .then(data => dispatch({type: GET_FLIGHT_INFO, payload: data}));
-//     }
-// }
+export const addToCart = (payload) => {
+    return {
+        type: ADD_CART,
+        payload
+    }
+}
 
 export const orderAlphabetically = (payload) => {
     return {
@@ -65,12 +72,19 @@ export const orderByPrice = (payload) => {
     }
 }
 
-export const filterPrice= (payload) => {
+export const filterPrice = (payload) => {
     return {
         type: FILTER_PRICE,
         payload
     }
 }
+
+// export const addToCart = (payload) => {
+//     return {
+//         type: ADD_TO_CART,
+//         payload
+//     }
+// }
 
 /////////
 export function resetFilter(){
@@ -90,5 +104,41 @@ export function cleanDetails(payload) {
     return {
         type: CLEAN,
         payload
+    }
+}
+
+export function addToFavorite(payload) {
+    return {
+        type: ADD_FAVORITE, 
+        payload
+    }
+}
+
+export function deleteFavorite(payload) {
+    return {
+        type: DELETE_FAVORITE,
+        payload
+    }
+}
+
+export function deleteFromCart(payload) {
+    return {
+        type: DELETE_FROM_CART,
+        payload
+    }
+}    
+
+export function createUser(payload){
+    return function (dispatch){
+        axios.post('http://localhost:3001/user/create',payload)
+        .then((response)=>{
+            dispatch({
+                type:CREATE_USER,
+                payload:response.data
+            })
+        })
+        .catch((error)=>{
+            alert(error)
+        })
     }
 }
