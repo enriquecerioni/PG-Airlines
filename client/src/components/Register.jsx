@@ -3,46 +3,70 @@ import { useState } from 'react'
 import style from './styles/Forms.module.css'
 import Input from './Input'
 
-function Register() {
+// function Register() {
   
-  const [validForm, setValidForm] = useState(null)
+//   const [validForm, setValidForm] = useState(null)
 
-  const [ name, setName ] = useState({value:'', valid: null})
-  const [ surname, setSurname ] = useState({value:'', valid: null})
-  const [ phone, setPhone ] = useState({value:'', valid: null})
-  const [ email, setEmail ] = useState({value:'', valid: null})
-  const [ password, setPassword ] = useState({value:'', valid: null})
-  const [ password2, setPassword2 ] = useState({value:'', valid: null})
+//   const [ name, setName ] = useState({value:'', valid: null})
+//   const [ surname, setSurname ] = useState({value:'', valid: null})
+//   const [ phone, setPhone ] = useState({value:'', valid: null})
+//   const [ email, setEmail ] = useState({value:'', valid: null})
+//   const [ password, setPassword ] = useState({value:'', valid: null})
+//   const [ password2, setPassword2 ] = useState({value:'', valid: null})
 
-  function handleSubmit(e) {
+//   function handleSubmit(e) {
+//     e.preventDefault()
+//     if(
+//       name.valid === 'true' && 
+//       surname.valid === 'true' && 
+//       phone.valid === 'true' && 
+//       email.valid === 'true' &&
+//       password.valid === 'true'
+//     ) { 
+//       setValidForm(true)
+//       console.log('Enviado')
+//     } else {
+//       setValidForm(false)
+//     }
+//   }
+
+//   const expression = {
+//     name: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+//     surname: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+//     email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, //eslint-disable-line
+//     phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/, //eslint-disable-line
+//     password: /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,12}$/, //eslint-disable-line
+//     // 8-12 caracteres, un simbolo especial, al menos un digito, al menos una letra en minuscula y al menos una letra en mayuscula
+//   }
+
+//   return (
+//     <div className={style.container}>
+//       <form className={style.form_container} onSubmit={handleSubmit} >
+//       <h1>Register</h1>
+import { ejecutar, singUp } from './scripts/auth'
+
+function Register() {
+  function handleSubmit(e){
     e.preventDefault()
-    if(
-      name.valid === 'true' && 
-      surname.valid === 'true' && 
-      phone.valid === 'true' && 
-      email.valid === 'true' &&
-      password.valid === 'true'
-    ) { 
-      setValidForm(true)
-      console.log('Enviado')
-    } else {
-      setValidForm(false)
-    }
+    singUp(e.target.email.value,e.target.password.value)
+    console.log("ta?")
   }
-
-  const expression = {
-    name: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
-    surname: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
-    email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, //eslint-disable-line
-    phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/, //eslint-disable-line
-    password: /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,12}$/, //eslint-disable-line
-    // 8-12 caracteres, un simbolo especial, al menos un digito, al menos una letra en minuscula y al menos una letra en mayuscula
-  }
-
   return (
-    <div className={style.container}>
-      <form className={style.form_container} onSubmit={handleSubmit} >
+    <div>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+
+
+
       <h1>Register</h1>
+      <form onSubmit={(e)=>handleSubmit(e)}>
+        <label>E-mail</label>
+        <input name='email' type="email" />
 
       <Input
         state={name}
@@ -114,6 +138,7 @@ function Register() {
         {validForm === true && <span>Thank you!</span>}
 
       </form>
+      <button onClick={()=>ejecutar()}>Register by Google</button>
     </div>
   )
 }
