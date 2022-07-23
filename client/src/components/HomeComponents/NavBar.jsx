@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import s from "./styles/NavBar.module.css";
-import logo from "./styles/logo.png";
-import shoppingCart from "./styles/shopping-cart.png";
-import { logOut } from "./scripts/auth";
-import { CartContext } from "./CartComponents/CartContext";
+import s from '../styles/NavBar.module.css';
+import logo from '../styles/logo.png';
+import shoppingCart from '../styles/shopping-cart.png';
+import { logOut } from '../scripts/auth';
+import { CartContext } from '../CartComponents/CartContext';
 
 export default function NavBar() {
   const [cartOpen, setCartOpen] = useState(false);
@@ -44,11 +44,12 @@ export default function NavBar() {
           </Link>
         </li>
         <li>
-          <button onClick={() => logOut()}>Log Out</button>
+          <button className={s.navLink_logout} onClick={()=>logOut()}>Log Out</button>
         </li>
-        <div className={s.bkg}>
-          <li>
-            <img className={s.cart} src={shoppingCart} onClick={handleCart} />
+        <li>
+          <Link className={s.navLink} to="/cart"  >
+            <img className={s.cart} src={shoppingCart}/>
+          </Link>
 
             {/* {cartOpen ? (
               <div className={s.cartOpen}>
@@ -59,8 +60,7 @@ export default function NavBar() {
             )} */}
           </li>
           <h5>N°{stateCart}</h5>
-        </div>
       </ul>
-    </nav>
+    </nav> 
   );
 }

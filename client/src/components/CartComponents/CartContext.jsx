@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from "react";
-
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
+  // console.log(children)
   const [products, setProducts] = useState(() => {
     try {
       const productosLocalStorage = localStorage.getItem("cartProducts");
@@ -11,10 +11,10 @@ const CartProvider = ({ children }) => {
       return [];
     }
   });
+
   useEffect(() => {
     localStorage.setItem("cartProducts", JSON.stringify(products));
-    console.log(products)
-    
+    // console.log(products)
 
     // const cartProductArray = localStorage.getItem("cartProducts");
   }, [products]);
@@ -58,11 +58,11 @@ const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ addProductToCart, products/*substractdProductFromCart*/ }}
+      value={{ addProductToCart, /*substractdProductFromCart*/ products }}
     >
       {children}
     </CartContext.Provider>
   );
-};
+}; 
 
 export default CartProvider;

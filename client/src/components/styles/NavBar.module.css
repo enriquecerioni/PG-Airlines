@@ -16,14 +16,17 @@ nav {
   font-size: large;
   font-weight: 700;
 }
+
 .logo {
   background-image: url("./logo.png");
 }
+
 img {
   height: 60px;
   padding: 0;
   /* margin-left: 600px; */
 }
+
 .navUl {
   display: flex;
   flex-direction: row;
@@ -33,19 +36,23 @@ img {
   /* padding: 10px 0; */
   margin-right: 230px;
 }
+
 .navLink {
   text-decoration: none;
   width: 100px;
   color: white;
   margin-left: 80px;
 }
+
 .navLink:hover {
   color: #dea01e;
 }
+
 .cart {
   height: 40px;
   filter: invert(100%);
 }
+
 .bkg {
   margin-left: 80px;
   /* border: 2px solid black; */
@@ -55,7 +62,26 @@ img {
   align-items: center;
   justify-content: center;
 }
+
 .bkg:hover {
   background-color: #e6f4f146;
   border-radius: 50%;
+}
+
+.navLink_logout {
+  color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+  text-decoration: none;
+  width: 100px;
+  color: white;
+  margin-left: 80px;
+  background-color: transparent;
+}
+
+.navLink_logout:hover {
+  color: #dea01e;
 }

@@ -5,7 +5,6 @@ import { getFlightByID, cleanDetails } from "../redux/actions/index.js";
 import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 // import logo from './styles/logo.png'
-import NavBar from "./NavBar.jsx";
 
 function Details() {
   const { id } = useParams();
@@ -18,7 +17,7 @@ function Details() {
     return () => {
       dispatch(cleanDetails())
     }
-  }, [])
+  }, [dispatch, id])
 
   return (
     <div>

@@ -50,6 +50,12 @@
     padding: 1rem;
 }
 
+.card_image img {
+    height: 50%;
+    width: 6rem;
+    object-fit: cover;
+}
+
 .card_title {
     font-size: 1.1rem;
     font-weight: 700;
