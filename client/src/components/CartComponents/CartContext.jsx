@@ -22,8 +22,9 @@ const CartProvider = ({ children }) => {
   const addProductToCart = ({id, origin, price, logo, airline, arrivalHour, departureHour}) => {
 
     let inCart = products && products.filter((p) => p.id === id);
+    console.log(inCart)
 
-    if (inCart.length >0) {
+    if (inCart.length > 0) {
       setProducts(
         products.map((p) => {
           if (p.id === id) {
@@ -36,27 +37,28 @@ const CartProvider = ({ children }) => {
     }
   };
 
-  // const deleteProductCart = (product) => {
-  //   const inCart = products.find((p) => p.id === product.id);
+  const substractdProductFromCart = ({id}) => {
+    
+    let inCart = products && products.filter((p) => p.id === id);
 
-  //   if (inCart.amount === 1) {
-  //     setProducts(products.filter((p) => p.id !== product.id));
-  //   }
-  //   if (inCart.amount > 1) {
-  //     setProducts(
-  //       products.map((p) => {
-  //         if (p.id === product.id) {
-  //           return { ...inCart, amount: inCart.amount - 1 };
-  //         }
-  //         return p;
-  //       })
-  //     );
-  //   }
-  // };
+    if (inCart.length > 0) {
+      setProducts(
+        products.map((p) => {
+          if (p.id === id && p.amount > 1) {
+            return { ...p, amount: p.amount - 1 };
+          } else return p;
+        })
+      );
+    } 
+  };
+
+  const deleteProductFromCart = ({id}) => {
+    setProducts(products.filter((p) => p.id !== id))
+  }
 
   return (
     <CartContext.Provider
-      value={{ addProductToCart, /*deleteProductCart*/ }}
+      value={{ addProductToCart, /*substractdProductFromCart*/ }}
     >
       {children}
     </CartContext.Provider>
