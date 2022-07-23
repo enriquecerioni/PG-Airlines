@@ -56,11 +56,17 @@ function Ticket({airline, id, logo, departureHour, arrivalHour, price, origin, d
             <p className="card_text">{departureHour} / {arrivalHour}</p>
             </div>
             <div>
+              
             <p className={style.card_text}>${price} | price | price</p>
-            <Link to={`/ticket/${id}`} >
+            <Link to={`/ticket/${id}`} > 
               <button className={style.btn}>View Deal</button> 
             </Link>
             </div>
+
+            
+          
+
+
         </div>
         </li>
     </div>

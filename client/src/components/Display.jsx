@@ -84,6 +84,7 @@ export default function Display() {
     <div>
         <div className={style.container_ticket}>
             <div className={style.ticket_container} >
+                
                 { 
                 filterArray.length !== 0 ? 
                 paginateCards.map(e => {
@@ -96,7 +97,9 @@ export default function Display() {
                         departureHour={e.departureHour}
                         arrivalHour={e.arrivalHour}
                         origin={e.origin}
-                    />)        
+                        
+                    />) 
+                           
                 }) :
 
                 paginateCards
@@ -113,8 +116,8 @@ export default function Display() {
                         destination={e.destination}
                     />)        
                 })}  
-                           
             </div>
+                           
             <div className={style.filter_container}>
                 
                 <Filter
