@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
 import style from './styles/Ticket.module.css'
 import css from './styles/Cart.module.css'
 import { Link } from 'react-router-dom'
-import { deleteFromCart } from '../redux/actions/index'
-import {useContext} from 'react'
+import { useContext } from 'react'
 import { CartContext } from './CartComponents/CartContext'
+import { deleteFromCart } from '../redux/actions/index'
+import { useDispatch } from 'react-redux'
 
 function Cart() {
-
-    const dispatch = useDispatch()
   //  const cart = useSelector(state => console.log(state.shoppingCart))
     
+  const dispatch = useDispatch()
 
-    const { products,substractdProductFromCart ,deleteProductFromCart} = useContext(CartContext)
+    const { products, addProductToCart, substractdProductFromCart , deleteProductFromCart} = useContext(CartContext)
    // console.log(products)
 
     // useEffect(() => {
@@ -33,6 +32,17 @@ function Cart() {
     dispatch(deleteFromCart(id));
     deleteProductFromCart(id);
   }
+
+  function handleSum(id) {
+    substractdProductFromCart(id, 'suma')
+    // console.log('no llego')
+  }
+
+  function handleRest(id) {
+    // console.log('no llego')
+    substractdProductFromCart(id, 'resta')
+  }
+
     return (
         <div className={css.cart_container}>
             <Link to='/'>
@@ -57,19 +67,27 @@ function Cart() {
                     </div>
                     <button onClick={()=>handleDelete(c.id)}>X</button>
                 </div>
+                <span>{c.amount}</span>
                 </li>
+                <div>
+                  <button onClick={() => handleSum(c.id)}>+</button>
+                    {c.amount}
+                  <button onClick={() => handleRest(c.id)}>-</button>
+                </div>
                 {/* <button onClick={removeItem}>DELETE</button> */}
+
             </div>)      
             })
             :
             <h1>Add tickets to your cart!</h1>
-            }   
+            }     
+
             <div>
                 <h1>Order Summary</h1>
                 <h5>Subtotal</h5><span>subtotal</span>
                 <h5>Fees</h5><span>fees</span>
                 <h5>Total</h5><span>subtotal + fees</span>
-            </div>            
+            </div>          
         </div>
       )
 }

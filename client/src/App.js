@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import Favs from "./components/Favs";
 import ErrorPage from "./components/ErrorPage";
 import CartProvider from "./components/CartComponents/CartContext";
+// import CartDemo from './components/CartComponents/Cart'
 import Cart from "./components/Cart";
 
 function App() {

@@ -21,9 +21,6 @@ import {
 
 const initialState = {
   flights: [], // todos los vuelos
-  // cart: localStorage.getItem("cart")
-  //   ? JSON.parse(localStorage.getItem("cart"))
-  //   : [],
   cart: [],
   copy: [],
   currrentFilter: [],

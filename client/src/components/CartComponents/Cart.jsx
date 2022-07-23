@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-const Cart = () => {
+const CartDemo = () => {
   const cart = useSelector((state) => state.cart);
   console.log(cart);
   const dispatch = useDispatch();
+  
   const addition = (acc, currentvalue) => {
     return acc + currentvalue.price * currentvalue.quantity;
   };
@@ -61,4 +62,4 @@ const Cart = () => {
   
 };
 
-export default Cart;
+export default CartDemo;
