@@ -10,7 +10,7 @@ async function createUser(req,res){
                 let user=await User.findAll({
                     where:{email:email}
                 })
-                if(user.length) return res.status(400).json("This user has been created before")
+                if(user.length){} //return res.status(400).json("This user has been created before")
                 else{
                 let userCreated = await User.create({
                     email:email,
