@@ -5,8 +5,9 @@ import { getFlightByID, cleanDetails } from "../redux/actions/index.js";
 import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 
+// import  addProductToCart  from './CartComponents/CartContext.jsx'
 import { CartContext } from './CartComponents/CartContext'
-import {useContext} from 'react'
+import { useContext } from 'react'
 
 function Details() {
   const { id } = useParams();
@@ -15,24 +16,25 @@ function Details() {
   const details = useSelector((state) => state.flight);
   // console.log(details)
 
-  const item = details.map(e => {
-        let obj = {
-          id: e.flight, 
-          origin: e.origin, 
-          price: e.price, 
-          logo: e.logo, 
-          airline: e.airline, 
-          arrivalHour: e.arrivalHour, 
-          departureHour: e.departureHour,
-    }
-    return obj
-  })
-  console.log(item)
+  // const item = details.map(e => {
+  //       let obj = {
+  //         id: e.flight, 
+  //         origin: e.origin, 
+  //         price: e.price, 
+  //         logo: e.logo, 
+  //         airline: e.airline, 
+  //         arrivalHour: e.arrivalHour, 
+  //         departureHour: e.departureHour,
+  //   }
+  //   return obj
+  // })
+  // console.log(item)
 
   const { addProductToCart } = useContext(CartContext)
 
-  const handleAddToCart = (item) => {
-    addProductToCart(item)
+  const handleAddToCart = ({id, origin, price, logo, airline, arrivalHour, departureHour}) => {
+    // console.log({id, origin, price, logo, airline, arrivalHour, departureHour})
+    addProductToCart({id, origin, price, logo, airline, arrivalHour, departureHour})
     alert('Added to cart')
   }
 
@@ -76,7 +78,15 @@ function Details() {
                       <img className={s.logoPrice} src={d.logo} alt="Img" />
                       <div className={s.airlinePrice}>{d.airline}</div>
                       <div className={s.priceP}>{d.price}</div>
-                      <button className={s.btn} onClick={handleAddToCart(d.id)}>Reservar</button>
+                      <button className={s.btn} onClick={() => handleAddToCart({
+                        id: d.flight,
+                        origin: d.origin, 
+                        price: d.price, 
+                        logo: d.logo,
+                        airline: d.airline,
+                        arrivalHour: d.arrivalHour, 
+                        departureHour: d.departureHour}
+                           )}>Reservar</button>
                     </div>                  
               </div>
           ) 

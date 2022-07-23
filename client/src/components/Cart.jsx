@@ -2,16 +2,17 @@ import React, { useEffect } from 'react'
 import style from './styles/Ticket.module.css'
 import css from './styles/Cart.module.css'
 import { Link } from 'react-router-dom'
-import {useContext} from 'react'
+import { useContext } from 'react'
 import { CartContext } from './CartComponents/CartContext'
+import { deleteFromCart } from '../redux/actions/index'
+import { useDispatch } from 'react-redux'
 
 function Cart() {
-
-    const dispatch = useDispatch()
   //  const cart = useSelector(state => console.log(state.shoppingCart))
     
+  const dispatch = useDispatch()
 
-    const { products,substractdProductFromCart ,deleteProductFromCart} = useContext(CartContext)
+    const { products, addProductToCart, substractdProductFromCart , deleteProductFromCart} = useContext(CartContext)
    // console.log(products)
 
     // useEffect(() => {
@@ -31,6 +32,17 @@ function Cart() {
     dispatch(deleteFromCart(id));
     deleteProductFromCart(id);
   }
+
+  function handleSum(id) {
+    substractdProductFromCart(id, 'suma')
+    // console.log('no llego')
+  }
+
+  function handleRest(id) {
+    // console.log('no llego')
+    substractdProductFromCart(id, 'resta')
+  }
+
     return (
         <div className={css.cart_container}>
             <Link to='/'>
@@ -57,7 +69,12 @@ function Cart() {
                 </div>
                 <span>{c.amount}</span>
                 </li>
-                <button onClick={removeItem}>DELETE</button>
+                <div>
+                  <button onClick={() => handleSum(c.id)}>+</button>
+                    {c.amount}
+                  <button onClick={() => handleRest(c.id)}>-</button>
+                </div>
+                {/* <button onClick={removeItem}>DELETE</button> */}
 
             </div>)      
             })
