@@ -1,30 +1,33 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import style from './styles/Ticket.module.css'
+import css from './styles/Cart.module.css'
 import { Link } from 'react-router-dom'
-import { addToFavorite, addToCart } from '../redux/actions/index'
+import { deleteFromCart } from '../redux/actions/index'
 
 function Cart() {
 
     const dispatch = useDispatch()
     const cart = useSelector(state => state.shoppingCart)
-    console.log(cart)
+    // console.log(cart)
 
-    useEffect(() => {
-        const res = JSON.parse(localStorage.getItem('cart'))
-        if(res) {
-            dispatch(addToCart(res))
-        }
-    }, [])
+    function removeItem(i) {
+        let data = [...cart]
+        data.splice(i, 1);
+        dispatch(deleteFromCart(data));
+      }  
 
     return (
-        <div>
+        <div className={css.cart_container}>
+            <Link to='/home'>
+            Keep shopping
+            </Link>
             { cart.length ? 
             cart.map(c => {
               return (<div className={style.cards} key={c.id}>
                 <li className={style.cards_item}>
                 <div className={style.card}>
-                    <div className="card_image"><img src={c.logo} width='100px' height='100px'/></div>
+                    <div className="card_image"><img src={c.logo} alt='#' width='100px' height='100px'/></div>
                     <div className={style.card_content}>
                     <h2 className={style.card_title}>{c.airline}</h2>
                     <h5>Origin: {c.origin} | Destination: {c.destination} </h5>
@@ -38,11 +41,18 @@ function Cart() {
                     </div>
                 </div>
                 </li>
+                <button onClick={removeItem}>DELETE</button>
             </div>)      
             })
             :
             <h1>Add tickets to your cart!</h1>
-            }               
+            }   
+            <div>
+                <h1>Order Summary</h1>
+                <h5>Subtotal</h5><span>subtotal</span>
+                <h5>Fees</h5><span>fees</span>
+                <h5>Total</h5><span>subtotal + fees</span>
+            </div>            
         </div>
       )
 }

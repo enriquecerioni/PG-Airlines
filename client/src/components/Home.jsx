@@ -17,7 +17,7 @@ export default function Home() {
             lines.
           </p>
           <Link to="/login">
-            <button className={s.btn}>Button</button>
+            <button className={s.btn}>Log In</button>
           </Link>
         </div>
         <div className={s.divImg}>
@@ -26,7 +26,7 @@ export default function Home() {
             src={
               "https://teelindy.com/wp-content/uploads/2019/03/default_image.png"
             }
-            alt=""
+            alt="#"
           />
         </div>
       </section>

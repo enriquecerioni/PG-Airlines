@@ -16,6 +16,7 @@ export const GET_FLIGHT_BY_ID = 'GET_FLIGHT_BY_ID'
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const DELETE_FAVORITE = 'DELETE_FAVORITE'
 export const ADD_TO_CART = 'ADD_TO_CART'
+export const DELETE_FROM_CART = 'DELETE_FROM_CART'
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -114,6 +115,13 @@ export function addToFavorite(payload) {
 export function deleteFavorite(payload) {
     return {
         type: DELETE_FAVORITE,
+        payload
+    }
+}
+
+export function deleteFromCart(payload) {
+    return {
+        type: DELETE_FROM_CART,
         payload
     }
 }

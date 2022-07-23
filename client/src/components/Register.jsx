@@ -33,9 +33,10 @@ function Register() {
   const expression = {
     name: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
     surname: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
-    email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-    phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-    password: /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,12}$/, // 8-12 caracteres, un simbolo especial, al menos un digito, al menos una letra en minuscula y al menos una letra en mayuscula
+    email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, //eslint-disable-line
+    phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/, //eslint-disable-line
+    password: /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,12}$/, //eslint-disable-line
+    // 8-12 caracteres, un simbolo especial, al menos un digito, al menos una letra en minuscula y al menos una letra en mayuscula
   }
 
   return (

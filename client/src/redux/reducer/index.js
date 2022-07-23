@@ -13,6 +13,7 @@ import {
   ADD_FAVORITE,
   DELETE_FAVORITE,
   ADD_TO_CART,
+  DELETE_FROM_CART,
 } from "../actions";
 
 const initialState = {
@@ -158,12 +159,9 @@ const rootReducer = (state = initialState, action) => {
       let arrPrice = state.copy;
 
       let filterPrice =
-        action.payload === ">20.000"
-          ? arrPrice.filter((e) => e.price < 20000)
-          : action.payload === "between"
-          ? arrPrice.filter((e) => 20000 <= e.price < 40000)
-          : action.payload === "<40.000"
-          ? arrPrice.filter((e) => 40000 <= e.price)
+        action.payload === ">20.000" ? arrPrice.filter((e) => e.price <= 20000)
+          : action.payload === "between" ? arrPrice.filter((e) => (20000 < e.price > 40000))
+          : action.payload === "<40.000" ? arrPrice.filter((e) => 40000 <= e.price)
           : arrPrice;
 
       return {
@@ -190,10 +188,12 @@ const rootReducer = (state = initialState, action) => {
       }
 
       case ADD_FAVORITE: {
+        let copyFlights = state.copy;
+        let lista = copyFlights.filter(i => copyFlights.includes(i.id))
 
         return {
           ...state,
-          favoriteList : state.favoriteList.concat(action.payload)
+          favoriteList: state.favoriteList.concat(lista)
         }
       }
 
@@ -210,6 +210,14 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           shoppingCart : state.shoppingCart.concat(action.payload)
+        }
+      }
+
+      case DELETE_FROM_CART: {
+
+        return {
+          ...state,
+          shoppingCart : action.payload
         }
       }
 

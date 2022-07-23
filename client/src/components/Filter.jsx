@@ -32,7 +32,7 @@ function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, hand
                 onChange={(e) => { handleSearchAirlines(e)}}
             />
 
-            {airlinesData.length != 0 ?
+            {airlinesData.length !== 0 ?
                 <div >
                 {airlinesData?.map(a => {
                     return (<input value={a} type="text" onClick={e => handleClick(e)} />)

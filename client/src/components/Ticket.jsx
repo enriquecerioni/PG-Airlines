@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import style from './styles/Ticket.module.css'
 import { Link } from 'react-router-dom'
 import { addToFavorite, addToCart } from '../redux/actions/index'
 
 function Ticket({airline, id, logo, departureHour, arrivalHour, price, origin, destination}) {
-    const source = 'https://media.istockphoto.com/vectors/airplane-fly-out-logo-plane-taking-off-stylized-sign-vector-id1137971264?k=20&m=1137971264&s=612x612&w=0&h=_Mds3bkTPPoIBHsa9orqQCW6gO7dka96d3BJvdh7sHg='
+    // const source = 'https://media.istockphoto.com/vectors/airplane-fly-out-logo-plane-taking-off-stylized-sign-vector-id1137971264?k=20&m=1137971264&s=612x612&w=0&h=_Mds3bkTPPoIBHsa9orqQCW6gO7dka96d3BJvdh7sHg='
     // console.log(flight)
 
     const dispatch = useDispatch()
@@ -18,7 +18,7 @@ function Ticket({airline, id, logo, departureHour, arrivalHour, price, origin, d
     function addFav(e) {
       e.preventDefault()
 
-      if (!flightList.includes(id)) {
+      if (!flightList.includes(e.target.value)) {
         dispatch(addToFavorite(item));
         console.log(`agregaste ${id} `)
       } else {
@@ -49,7 +49,7 @@ function Ticket({airline, id, logo, departureHour, arrivalHour, price, origin, d
         <button onClick={handleAddToCart}>Add to cart</button> 
 
         <div className={style.card}>
-            <div className="card_image"><img src={logo} width='100px' height='100px'/></div>
+            <div className="card_image"><img src={logo} alt='#' width='100px' height='100px'/></div>
             <div className={style.card_content}>
             <h2 className={style.card_title}>{airline}</h2>
             <h5>Origin: {origin} | Destination: {destination} </h5>

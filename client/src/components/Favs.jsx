@@ -25,7 +25,7 @@ function Favs() {
           return (<div className={style.cards} key={c.id}>
             <li className={style.cards_item}>
             <div className={style.card}>
-                <div className="card_image"><img src={c.logo} width='100px' height='100px'/></div>
+                <div className="card_image"><img src={c.logo} alt='#' width='100px' height='100px'/></div>
                 <div className={style.card_content}>
                 <h2 className={style.card_title}>{c.airline}</h2>
                 <h5>Origin: {c.origin} | Destination: {c.destination} </h5>

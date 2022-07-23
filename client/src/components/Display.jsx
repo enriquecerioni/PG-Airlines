@@ -16,17 +16,15 @@ export default function Display() {
     const filterArray = useSelector(s => s.currrentFilter)
     const orderState = useSelector(state => state.orderState)
 
-    useEffect(() => {
-        if(filterArray.length !== 0) return filterArray
-        else dispatch(getAllFlights())
-    }, [])
-
     const orderPriceSelect = useRef('')
     const orderAlpSelect = useRef('')
 
     useEffect(() => {
+        if(filterArray.length !== 0) return filterArray
+        else dispatch(getAllFlights())
+
         orderPriceSelect.current.value = orderState
-        orderAlpSelect.current.value = orderState
+        orderAlpSelect.current.value = orderState        
     }, [])
 
     // PAGINATE
@@ -74,7 +72,7 @@ export default function Display() {
         let airlines = allAirlines.filter((v, i) => {
             return allAirlines.indexOf(v) === i;
         })
-        if (e.target.value != '') {
+        if (e.target.value !== '') {
             airlines = airlines.filter(f => f.toLowerCase().includes(e.target.value.toLowerCase()));
             setAirlines(airlines);
         } else {

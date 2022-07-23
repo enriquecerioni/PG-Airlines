@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, /*Redirect,*/ Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import LogIn from './components/LogIn';
 import Register from './components/Register';
@@ -10,7 +10,7 @@ import ErrorPage from './components/ErrorPage';
 import Cart from './components/Cart';
 
 function App() {
-  const user = true
+  // const user = true
 
   return (
     <>
