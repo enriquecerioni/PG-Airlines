@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import style from './styles/Ticket.module.css'
 import css from './styles/Cart.module.css'
 import { Link } from 'react-router-dom'
@@ -43,6 +43,12 @@ function Cart() {
     substractdProductFromCart(id, 'resta')
   }
 
+  const [subTotal, setSubTotal] = useState()
+
+  useEffect(() => {
+    setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))
+  }, [handleSum, handleRest])
+
     return (
         <div className={css.cart_container}>
             <Link to='/'>
@@ -81,10 +87,10 @@ function Cart() {
             :
             <h1>Add tickets to your cart!</h1>
             }     
-
+            
             <div>
                 <h1>Order Summary</h1>
-                <h5>Subtotal</h5><span>subtotal</span>
+                <h5>Subtotal</h5><span> $ {subTotal}</span>
                 <h5>Fees</h5><span>fees</span>
                 <h5>Total</h5><span>subtotal + fees</span>
             </div>          
