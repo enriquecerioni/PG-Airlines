@@ -1,5 +1,9 @@
 import { createContext, useEffect, useState } from "react";
+import { addToCart } from "../../redux/actions";
+import {store} from '../../redux/store/index'
+
 export const CartContext = createContext();
+
 
 const CartProvider = ({ children }) => {
   // console.log(children)
@@ -19,8 +23,8 @@ const CartProvider = ({ children }) => {
     // const cartProductArray = localStorage.getItem("cartProducts");
   }, [products]);
 
-  function addProductToCart ({id, origin, price, logo, airline, arrivalHour, departureHour}) {
-    console.log({id, origin, price, logo, airline, arrivalHour, departureHour})
+  const addProductToCart = async ({id, origin, price, logo, airline, arrivalHour, departureHour}) => {
+
     let inCart = products && products.filter((p) => p.id === id);
     console.log(inCart)
 
@@ -34,10 +38,12 @@ const CartProvider = ({ children }) => {
       );
     } else {      
       setProducts( [...products, { id, origin, price, logo, airline, arrivalHour, departureHour, amount: 1}] )
+      await store.dispatch(addToCart({id,origin,price,logo,airline,arrivalHour,departureHour,amount: 1}))
     }
   };
 
-  const substractdProductFromCart = ({id}) => {
+  function substractdProductFromCart (id)  {
+    
     let inCart = products && products.filter((p) => p.id === id);
 
     if (inCart.length > 0) {
@@ -52,15 +58,16 @@ const CartProvider = ({ children }) => {
       )
       localStorage.removeItem("cartProducts")
     } 
+
   };
 
-  const deleteProductFromCart = ({id}) => {
+  function deleteProductFromCart  (id)  {
     setProducts(products.filter((p) => p.id !== id))
   }
 
   return (
     <CartContext.Provider
-      value={{ addProductToCart, substractdProductFromCart, deleteProductFromCart, products}}
+      value={{ addProductToCart,substractdProductFromCart,products,deleteProductFromCart }}
     >
       {children}
     </CartContext.Provider>

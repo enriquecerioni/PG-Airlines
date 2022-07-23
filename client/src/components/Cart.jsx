@@ -7,14 +7,30 @@ import { CartContext } from './CartComponents/CartContext'
 
 function Cart() {
 
-    const { products, substractdProductFromCart, deleteProductFromCart } = useContext(CartContext)
-    console.log(products)
+    const dispatch = useDispatch()
+  //  const cart = useSelector(state => console.log(state.shoppingCart))
     
-    function removeItem(e) {
-        e.preventDefault()
-        substractdProductFromCart(products);
-      }  
 
+    const { products,substractdProductFromCart ,deleteProductFromCart} = useContext(CartContext)
+   // console.log(products)
+
+    // useEffect(() => {
+    //   // localStorage.setItem("cartProducts", JSON.stringify(products));
+    //   // console.log(products)
+  
+    //   localStorage.getItem("cartProducts");
+    // }, [products]);
+    
+    // function removeItem(i) {
+    //     let data = [...cart]
+    //     data.splice(i, 1);
+    //     dispatch(deleteFromCart(data));
+    //   }  
+  function handleDelete(id){
+    console.log(id)
+    dispatch(deleteFromCart(id));
+    deleteProductFromCart(id);
+  }
     return (
         <div className={css.cart_container}>
             <Link to='/'>
@@ -37,6 +53,7 @@ function Cart() {
                       <button className={style.btn}>View Deal</button> 
                     </Link>
                     </div>
+                    <button onClick={()=>handleDelete(c.id)}>X</button>
                 </div>
                 <span>{c.amount}</span>
                 </li>

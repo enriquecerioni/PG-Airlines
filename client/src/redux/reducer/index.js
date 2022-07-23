@@ -69,7 +69,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         allUsers:[...state.allUsers,action.payload]
       }
-    case ADD_CART: {
+    case ADD_CART: 
       let tempcart = state.cart.filter((item) => item.id === action.payload);
       console.log(tempcart)
 
@@ -83,6 +83,15 @@ const rootReducer = (state = initialState, action) => {
       } else {
         return state.cart;
       }
+
+
+
+
+
+      
+
+
+ 
 
       // return {
       //   ...state, 
@@ -110,7 +119,7 @@ const rootReducer = (state = initialState, action) => {
       //   });
       //   return tempcart;
       // }
-    }
+    
     case FILTER_BY_ORIGIN: {
       const searchFlight = state.flights.filter((e) =>
         e.origin.toLowerCase().includes(action.payload.toLowerCase())
@@ -267,14 +276,24 @@ const rootReducer = (state = initialState, action) => {
     //     }
     //   }
 
-    //   case ADD_TO_CART: {
+      case ADD_TO_CART: {
+        
+        return {
+          ...state,
+          shoppingCart : [...state.shoppingCart,action.payload]
+        }
+      }
 
-    //     return {
-    //       ...state,
-    //       shoppingCart : state.shoppingCart.concat(action.payload)
-    //     }
-    //   }
 
+    case DELETE_FROM_CART: 
+    console.log(action.payload)
+      console.log(state.shoppingCart)
+    let newArray = state.shoppingCart.filter((flight)=>flight.id!=action.payload)
+    console.log(newArray)
+    return{
+     ...state,
+      shoppingCart:newArray
+    }
     //   case DELETE_FROM_CART: {
 
     //     return {
