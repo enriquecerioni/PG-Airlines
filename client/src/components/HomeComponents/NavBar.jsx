@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import s from "./styles/NavBar.module.css";
-import logo from "./styles/logo.png";
-import shoppingCart from "./styles/shopping-cart.png";
-import { logOut } from "./scripts/auth";
+import s from '../styles/NavBar.module.css'
+import logo from "../styles/logo.png";
+import shoppingCart from "../styles/shopping-cart.png";
+import { logOut } from "../scripts/auth";
 
 
 export default function NavBar() {
@@ -29,21 +29,19 @@ export default function NavBar() {
             Log In
           </Link>
         </li>
-      <li>
+        <li>
           <Link className={s.navLink} to="/register">
             Register
           </Link>
         </li>
         <li>
-        {/* //   <Link className={s.navLink} to="/cart">
-        //     🛒
-        //   </Link>
-        // </li> */}
-          <button onClick={()=>logOut()}>Log Out</button>
+          <button className={s.navLink_logout} onClick={()=>logOut()}>Log Out</button>
         </li>
-        <div className={s.bkg}>
-          <li>
-            <img className={s.cart} src={shoppingCart} onClick={handleCart} />
+        <li>
+          <Link className={s.navLink} to="/cart"  >
+            <img className={s.cart} src={shoppingCart}/>
+          </Link>
+
             {/* {cartOpen ? (
               <div className={s.cartOpen}>
                 <BoxCart onClick={handleCart} />
@@ -52,7 +50,7 @@ export default function NavBar() {
               <></>
             )} */}
           </li>
-        </div>
+
       </ul>
     </nav>
   );

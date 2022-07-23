@@ -1,16 +1,17 @@
 import "./App.css";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import Home from "./components/Home";
+import Home from "./components/HomeComponents/Home";
+import NavBar from "./components/HomeComponents/NavBar";
+import Details from "./components/Details";
 import LogIn from "./components/LogIn";
 import Register from "./components/Register";
-import Details from "./components/Details";
-import NavBar from "./components/NavBar";
 import Favs from "./components/Favs";
 import ErrorPage from "./components/ErrorPage";
 import CartProvider from "./components/CartComponents/CartContext";
+import Cart from "./components/Cart";
 
 function App() {
-  const user = true;
+  // const user = true;
 
   return (
     <>
@@ -35,6 +36,9 @@ function App() {
               </Route>
               <Route path="/favs">
                 <Favs />
+              </Route>
+              <Route path="/cart">
+                <Cart />
               </Route>
               <Route component={ErrorPage} />
             </Switch>

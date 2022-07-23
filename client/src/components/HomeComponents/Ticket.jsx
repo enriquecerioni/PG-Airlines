@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import style from './styles/Ticket.module.css'
+import style from '../styles/Ticket.module.css'
 import { Link } from 'react-router-dom'
-import { addToFavorite, addToCart } from '../redux/actions/index' 
-import { CartContext } from './CartComponents/CartContext'
+import { addToFavorite, addToCart } from '../../redux/actions/index' 
+import { CartContext } from '../CartComponents/CartContext'
 import {useContext} from 'react'
 
-function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour}) {
+function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour, destination}) {
 
   const item = {id, origin, price, logo, airline, arrivalHour, departureHour}
 
@@ -33,32 +33,6 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour}) 
   
   // let localCart = localStorage.getItem("cart");
   // console.log(localCart)
-  
-  // function addItem(item) {
-  
-  //   //create a copy of our cart state, avoid overwritting existing state
-  //   let cartCopy = [...cart];
-    
-  //   //assuming we have an ID field in our item
-  //   let { id } = item;
-    
-  //   //look for item in cart array
-  //   let existingItem = cartCopy.find(cartItem => cartItem.id == id);
-    
-  //   //if item already exists
-  //   if (existingItem) {
-  //       existingItem.quantity += item.quantity //update item
-  //   } else { //if item doesn't exist, simply add it
-  //     cartCopy.push(item)
-  //   }
-    
-  //   //update app state
-  //   setCart(cartCopy)
-    
-  //   //make cart a string and store in local space
-  //   let stringCart = JSON.stringify(cartCopy);
-  //   localStorage.setItem("cart", stringCart)
-  // }
 
 
   // //this is called on component mount
@@ -100,19 +74,15 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour}) 
     //   }
     // }
 
-    // useEffect(() => {
-    //   localStorage.setItem('cart', JSON.stringify(item))
-    // }, [item])
-
   return (
     <div className={style.cards}>
         <li className={style.cards_item}>
-        <button onClick={addFav}>Favorite</button> 
+        {/* <button onClick={addFav}>Favorite</button> 
 
-        <button onClick={handleAddToCart}>Add to cart</button> 
+        <button onClick={handleAddToCart}>Add to cart</button>  */}
 
         <div className={style.card}>
-            <div className="card_image"><img src={logo} alt='#' width='100px' height='100px'/></div>
+            <div className="card_image"><img src={logo} alt='#'/></div>
             <div className={style.card_content}>
             <h2 className={style.card_title}>{airline}</h2>
             <h5>Origin: {origin} | Destination: {destination} </h5>

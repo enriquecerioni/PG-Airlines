@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import s from "./styles/Home.module.css";
-import Display from "../components/Display";
-import SearchBar from "../components/SearchBar";
+import s from "../styles/Home.module.css";
+import Display from "./Display";
+import SearchBar from "./SearchBar";
 
 export default function Home() {
   return (

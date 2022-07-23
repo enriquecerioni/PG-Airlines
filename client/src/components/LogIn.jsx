@@ -1,12 +1,9 @@
-// import React, { useState } from 'react'
-// import Input from './Input.jsx'
-// import style from './styles/Forms.module.css'
+import React, { useState } from 'react'
+import Input from './Input'
+import { ejecutar, logIn } from './scripts/auth'
+import style from './styles/Forms.module.css'
 
 // function LogIn() {
-//   const [validForm, setValidForm] = useState(null)
-
-//   const [ emailLogIn, setEmailLogIn ] = useState({value:'', valid: null})
-//   const [ passwordLogIn, setPasswordLogIn ] = useState({value:'', valid: null})
 
 //   function handleSubmit(e) {
 //     e.preventDefault()
@@ -47,20 +44,18 @@
 //         // regularExpression={expression.password}
 //         />
 
-//         {validForm === false && <span>Please complete all fields correctly</span>}
-
-//         <button type='submit'>Log In</button>
-
-//         {validForm === true && <span>Welcome back</span>}
-
-import React from 'react'
-import { ejecutar, logIn } from './scripts/auth'
-import style from './styles/Forms.module.css'
-
 
 function LogIn() {
+
+  const [validForm, setValidForm] = useState(null)
+
+  const [ emailLogIn, setEmailLogIn ] = useState({value:'', valid: null})
+  const [ passwordLogIn, setPasswordLogIn ] = useState({value:'', valid: null})
+
 function handleSubmit(e){
   e.preventDefault();
+
+
   logIn(e.target.email.value,e.target.password.value)
 }
 
@@ -69,24 +64,37 @@ function handleSubmit(e){
 }
   return (
     <div className={style.container}>
-          <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      
       <h1>Log In</h1>
-      <form onSubmit={(e)=>handleSubmit(e)} id="sing-up">
-        <label>Email</label>
-        <input id='singup-email' name='email' type="text" />
+      <form className={style.form_container}  onSubmit={(e)=>handleSubmit(e)} id="sing-up">
+        <Input 
+        state={emailLogIn}
+        setState={setEmailLogIn}
+        label='Email'
+        id='singup-email' 
+        name='email' 
+        type="text" 
+        placeholder='Enter email'
+        />
         
-        <label>Password</label>
-        <input id='singup-password' name='password' type="password" />
+        <Input 
+        state={passwordLogIn}
+        setState={setPasswordLogIn}
+        label='Pasword'
+        id='singup-password' 
+        name='password' 
+        type="password" 
+        placeholder='Enter password'
+        />
 
-        <button type='submit'  >Log In</button>
-      </form>
+        {validForm === false && <span>Please complete all fields correctly</span>}
+
+        <button type='submit'>Log In</button>
+
+        {validForm === true && <span>Welcome back</span>}
+
+        </form>
+
+
       <button onClick={()=>handleClick()}>
         Log in with Google
       </button>

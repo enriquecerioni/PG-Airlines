@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Ticket from './Ticket'
-import style from '../components/styles/Display.module.css'
-import Paginate from './Paginate'
-import Filter from './Filter'
-
-import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines} from '../redux/actions/index'
+import style from '../styles/Display.module.css'
+import Paginate from './Paginate';
+import Filter from '../Filter'
+// import Filter from './Filter'
+import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines} from '../../redux/actions/index'
 
 export default function Display() {
 // console.log(details)
