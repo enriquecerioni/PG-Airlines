@@ -51,9 +51,9 @@ export function getFlightByID(id) {
     }
 }
 
-export const addToCart = (payload) => {
-    return {
-        type: ADD_CART,
+export function addToCart(payload){
+    return{
+        type: ADD_TO_CART,
         payload
     }
 }
