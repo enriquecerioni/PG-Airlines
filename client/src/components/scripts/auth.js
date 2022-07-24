@@ -20,16 +20,20 @@ const firebaseConfig = {
 
   const auth = firebase.auth();
   auth.onAuthStateChanged(user=>{
-    if(user) console.log("usser log in: ",user.displayName,user.email)
-    else console.log('user logged out')
+    if(user){
+      console.log("usser log in: ",user.displayName,user.email)
+      document.getElementById('logIn').style.display="none"
+      document.getElementById('register').style.display="none"
+      document.getElementById('logOut').style.display=""
+    }
+    else {
+      console.log('user logged out')
+      document.getElementById('logOut').style.display="none"
+      document.getElementById('logIn').style.display=""
+      document.getElementById('register').style.display=""
+    }
   })
 
-  export function estadoUsuario(){
-    auth.onAuthStateChanged(user=>{
-      if(user) return true
-      return false
-    })
-  }
 //--------------------------------------------------------
 
 export function singUp(email,password){
@@ -77,12 +81,7 @@ try{
 }
 
 
-export function logeado(){
-    auth.onAuthStateChanged(user=>{
-        if(user) return true
-        return false
-      })
-}
+
 
 
 

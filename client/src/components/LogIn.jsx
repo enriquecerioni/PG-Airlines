@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import Input from './Input'
 import { ejecutar, logIn } from './scripts/auth'
 import style from './styles/Forms.module.css'
+import { useHistory } from "react-router-dom";
+
+
+ 
 
 // function LogIn() {
 
@@ -46,7 +50,7 @@ import style from './styles/Forms.module.css'
 
 
 function LogIn() {
-
+  let navigate = useHistory();
   const [validForm, setValidForm] = useState(null)
 
   const [ emailLogIn, setEmailLogIn ] = useState({value:'', valid: null})
@@ -54,13 +58,12 @@ function LogIn() {
 
 function handleSubmit(e){
   e.preventDefault();
-
-
   logIn(e.target.email.value,e.target.password.value)
 }
 
- function handleClick(){
-  ejecutar()
+ async function handleClick(){
+  await ejecutar()
+  navigate.goBack();
 }
   return (
     <div className={style.container}>
