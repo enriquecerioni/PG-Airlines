@@ -43,10 +43,12 @@ function Cart() {
     substractdProductFromCart(id, 'resta')
   }
 
-  const [subTotal, setSubTotal] = useState()
+  const [subTotal, setSubTotal] = useState(0)
 
   useEffect(() => {
-    setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))
+    if (products.length>0) {
+      setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))            
+    }    
   }, [handleSum, handleRest])
 
     return (
