@@ -63,7 +63,7 @@ function handleSubmit(e){
 
  async function handleClick(){
   await ejecutar()
-  navigate.push("/")
+  navigate.goBack();
 }
   return (
     <div className={style.container}>

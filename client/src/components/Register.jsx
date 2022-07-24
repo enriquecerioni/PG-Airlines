@@ -3,6 +3,7 @@ import { useState } from 'react'
 import style from './styles/Forms.module.css'
 import Input from './Input'
 import { ejecutar, singUp } from './scripts/auth'
+import { useHistory } from 'react-router-dom'
 
 //   function handleSubmit(e) {
 //     e.preventDefault()
@@ -23,6 +24,7 @@ import { ejecutar, singUp } from './scripts/auth'
 function Register() {
 
     const [validForm, setValidForm] = useState(null)
+  const navigate=useHistory();
 
   const [ name, setName ] = useState({value:'', valid: null})
   const [ surname, setSurname ] = useState({value:'', valid: null})
@@ -44,6 +46,15 @@ function Register() {
     e.preventDefault()
     singUp(e.target.email.value,e.target.password.value)
     console.log("ta?")
+  }
+  function handleClick (){
+    try {
+      ejecutar();
+      navigate.goBack();
+    } catch (error) {
+      alert(error)
+    }
+    
   }
 
   return (
@@ -124,7 +135,7 @@ function Register() {
         {validForm === true && <span>Thank you!</span>}
 
       </form>
-      <button onClick={()=>ejecutar()}>Register by Google</button>
+      <button onClick={()=>handleClick()}>Register by Google</button>
     </div>
   )
 }
