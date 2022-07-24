@@ -13,7 +13,9 @@ function Cart() {
   const dispatch = useDispatch()
 
     const { products, addProductToCart, substractdProductFromCart , deleteProductFromCart} = useContext(CartContext)
-   // console.log(products)
+    const [subTotal, setSubTotal] = useState(0)
+
+    // console.log(products)
 
     // useEffect(() => {
     //   // localStorage.setItem("cartProducts", JSON.stringify(products));
@@ -28,9 +30,11 @@ function Cart() {
     //     dispatch(deleteFromCart(data));
     //   }  
   function handleDelete(id){
-    console.log(id)
+    let productToDelete= products.filter((p)=>p.id===id)
+    setSubTotal(subTotal-productToDelete[0].amount*productToDelete[0].price)
     dispatch(deleteFromCart(id));
     deleteProductFromCart(id);
+    
   }
 
   function handleSum(id) {
@@ -43,7 +47,6 @@ function Cart() {
     substractdProductFromCart(id, 'resta')
   }
 
-  const [subTotal, setSubTotal] = useState(0)
 
   useEffect(() => {
     if (products.length>0) {
