@@ -41,7 +41,6 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour, d
               </div>
 
             </div>
-ñ
         <button className={style.btnCart} onClick={handleAddCart}>Add to cart</button>
         <div className={style.card}>
             <div className="card_image"><img src={logo} alt='#'/></div>
