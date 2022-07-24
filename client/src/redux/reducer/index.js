@@ -222,7 +222,11 @@ const rootReducer = (state = initialState, action) => {
 
       let filterPrice =
         action.payload === ">20.000" ? arrPrice.filter((e) => e.price <= 20000)
-          : action.payload === "between" ? arrPrice.filter((e) => (20000 < e.price > 40000))
+        : action.payload === "between"
+        ? arrPrice.filter((e) => {
+          if (e.price >= 20000 && e.price <= 40000)
+            return e.price
+        })
           : action.payload === "<40.000" ? arrPrice.filter((e) => 40000 <= e.price)
           : arrPrice;
 
