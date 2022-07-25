@@ -7,9 +7,13 @@ const getAllFlight = async (req, res) => {
     let obj = [];
     let vuelos = await dbFirestore.collection("db").get();
     vuelos.docs.map((doc) => {
+      //console.log(doc);
       obj.push(doc.data());
     });
+
     res.send(obj);
+
+
     console.log("Llego la info");
   } catch (err) {
     console.log(err);

@@ -6,9 +6,9 @@ import { addToFavorite } from '../../redux/actions/index'
 import { CartContext } from '../CartComponents/CartContext'
 import { useContext } from 'react'
 
-function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour, destination}) {
+function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,stock, destination}) {
 
-  const item = { id, origin, price, logo, airline, arrivalHour, departureHour }
+  const item = { id, origin, price, logo, airline, arrivalHour, departureHour,stock }
 
   const {addProductToCart} = useContext(CartContext)
 

@@ -7,10 +7,11 @@ import css from './styles/Payment.module.css'
 import { Link, useHistory } from 'react-router-dom'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import axios from 'axios';
+import firebase from 'firebase'
 
 function Payment() {
     const user = useSelector(state => state.user)
-    const { products } = useContext(CartContext)
+    const { products,setProducts ,setPay} = useContext(CartContext)
 
     const history = useHistory()
 
@@ -24,8 +25,13 @@ function Payment() {
     const [ processing, setProcessing ] = useState("")
     const [ clientSecret, setClientSecret ] = useState(true)
 
-    async function handleSubmit(e) {
+
+    ///------------------------------
+   
+
+    async function handleSubmit(e) {     //
         e.preventDefault()
+      
         setProcessing(true)
 
         // }).then(({ paymentIntent }) => {
@@ -48,22 +54,60 @@ function Payment() {
             try {
                 const { data } = await axios.post('http://localhost:3001/checkout', {
                     id, 
-                    amount: subTotal * 100 // lo tengo que mandar en centavos
+                    amount: subTotal * 100 // lo tengo que mandar en centavos                           //1 METODO
                 });
                 // console.log(data)
+                
                 setSucceeded(true)
                 setError(null)
-                setProcessing(false)    
-                elements.getElement(CardElement).clear();
-                history.replace('/orders')
+                setProcessing(false)
+                elements.getElement(CardElement).clear();  //1 METODO
+                await deleteStockFirebase()
+                  //localStorage.clear()
+                  setPay(true)
+                  setProducts([])
+                window.localStorage.clear()
+                history.push('/orders')
+                //console.log("a ver",localStorage.getItem("cartProducts"))
             } catch (error) {
                 console.log(error)
             }
         }
     }
 
+    
+
+    function deleteStockFirebase(){
+       let dbs= firebase.firestore()
+        products.map((flight)=>{
+            if(flight.amount < flight.stock){
+                dbs.collection("db").doc(flight.id).update({
+                    stock:flight.stock-flight.amount
+                })
+                .then(() => {
+                    setProducts({
+                        ...flight,
+                        stock:flight.stock-flight.amount
+                    })
+                    console.log("stock modificado",products.stock)
+                })
+                .catch((error) => {
+
+                    console.log( error);
+                });
+            }else{
+                dbs.collection("db").doc(flight.id).delete()
+                .then(()=>{
+                    console.log("flight completed")
+                })
+                
+            }
+        })
+        
+    }
+
     function handleChange(e) {
-        setDisabled(e.empty)
+        setDisabled(e.empty)                           //1 METODO
         setError(e.error ? e.error.message : "")
     }
 
@@ -105,7 +149,7 @@ function Payment() {
         <h1>Payment Method</h1>
         <form className={css.form_container} onSubmit={handleSubmit}>
 
-            <CardElement onChange={handleChange}/>
+            <CardElement onChange={handleChange}/>            //1 METODO
 
             <div>
             <h5>Order Total:</h5>{ subTotal && <span>${subTotal}</span>}
