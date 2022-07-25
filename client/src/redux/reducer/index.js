@@ -231,11 +231,15 @@ const rootReducer = (state = initialState, action) => {
         })
           : action.payload === "<40.000" ? arrPrice.filter((e) => 40000 <= e.price)
           : arrPrice;
-
-      return {
-        ...state,
-        // flights: action.payload === 'all' ? arrPrice : filterPrice
-        currrentFilter: filterPrice
+          if (state.filterAirlinesData != '' && state.filterAirlinesData != 'all') {
+            filterPrice = filterPrice.filter(f => f.airline.toLowerCase().includes(state.filterAirlinesData.toLowerCase()));
+          }
+          state.filterPrecioData = action.payload;
+    
+          return {
+            ...state,
+            // flights: action.payload === 'all' ? arrPrice : filterPrice
+            currrentFilter: filterPrice
       };
     }
 
