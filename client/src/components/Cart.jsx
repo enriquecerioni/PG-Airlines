@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import style from './styles/Ticket.module.css'
 import css from './styles/Cart.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useContext } from 'react'
 import { CartContext } from './CartComponents/CartContext'
 import { deleteFromCart } from '../redux/actions/index'
@@ -9,44 +9,31 @@ import { useDispatch } from 'react-redux'
 
 function Cart() {
   //  const cart = useSelector(state => console.log(state.shoppingCart))
-    
+
+  const history = useHistory()  
   const dispatch = useDispatch()
 
-    const { products, addProductToCart, substractdProductFromCart , deleteProductFromCart} = useContext(CartContext)
+    const { products, substractdProductFromCart , deleteProductFromCart} = useContext(CartContext)
    // console.log(products)
-
-    // useEffect(() => {
-    //   // localStorage.setItem("cartProducts", JSON.stringify(products));
-    //   // console.log(products)
-  
-    //   localStorage.getItem("cartProducts");
-    // }, [products]);
     
-    // function removeItem(i) {
-    //     let data = [...cart]
-    //     data.splice(i, 1);
-    //     dispatch(deleteFromCart(data));
-    //   }  
   function handleDelete(id){
-    console.log(id)
+    // console.log(id)
     dispatch(deleteFromCart(id));
     deleteProductFromCart(id);
   }
 
   function handleSum(id) {
     substractdProductFromCart(id, 'suma')
-    // console.log('no llego')
   }
 
   function handleRest(id) {
-    // console.log('no llego')
     substractdProductFromCart(id, 'resta')
   }
 
   const [subTotal, setSubTotal] = useState()
 
   useEffect(() => {
-    setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))
+    if(products.length !== 0) setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))
   }, [handleSum, handleRest])
 
     return (
@@ -66,7 +53,7 @@ function Cart() {
                     <p className="card_text">{c.departureHour} / {c.arrivalHour}</p>
                     </div>
                     <div>
-                    <p className={style.card_text}>${c.price} | price | price</p>
+                    <p className={style.card_text}>${c.price}</p>
                     <Link to={`/ticket/${c.id}`} >
                       <button className={style.btn}>View Deal</button> 
                     </Link>
@@ -80,7 +67,6 @@ function Cart() {
                     {c.amount}
                   <button onClick={() => handleRest(c.id)}>-</button>
                 </div>
-                {/* <button onClick={removeItem}>DELETE</button> */}
 
             </div>)      
             })
@@ -88,12 +74,16 @@ function Cart() {
             <h1>Add tickets to your cart!</h1>
             }     
             
-            <div>
+
+          {subTotal && <div>
                 <h1>Order Summary</h1>
-                <h5>Subtotal</h5><span> $ {subTotal}</span>
-                <h5>Fees</h5><span>fees</span>
-                <h5>Total</h5><span>subtotal + fees</span>
-            </div>          
+                <h5>Subtotal</h5>{ subTotal && <span>${subTotal}</span>}
+                <h5>Fees</h5>{ subTotal && <span>${(subTotal*0.1)/100}</span>} 
+                <h5>Total</h5>{subTotal && <span>${(subTotal + ((subTotal*0.1)/100))}</span>}
+               <button onClick={e => history.push('/payment')}>Proceed to Checkout</button>
+             </div>    
+          }    
+          
         </div>
       )
 }

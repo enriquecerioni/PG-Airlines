@@ -10,12 +10,12 @@ function Favs() {
   const dispatch = useDispatch()
 
   const flightList = useSelector(state => state.favoriteList)
-  // console.log(flightList)
+  console.log(flightList)
 
-  function removeFavorite(i) {
-    let data = [...flightList]
-    data.splice(i, 1);
-    dispatch(deleteFavorite(data));
+  // funciona
+  function removeFavorite(id) {
+    // console.log(id)
+    dispatch(deleteFavorite(id))
   }  
 
   return (
@@ -39,7 +39,7 @@ function Favs() {
                 </div>
             </div>
             </li>
-            <button onClick={removeFavorite}>DELETE</button>
+            <button onClick={() => removeFavorite(c.id)}>DELETE</button>
         </div>)      
         })
         :

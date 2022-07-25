@@ -27,7 +27,6 @@ const initialState = {
   flight: [], // vuelo con detalles
   user: {},
   allUsers:[],
-  ///////
   reset: true,
   orderState: "initial",
   favoriteList: [],
@@ -48,8 +47,7 @@ const rootReducer = (state = initialState, action) => {
     case GET_FLIGHT_BY_ID: {
       return {
         ...state,
-        flight: action.payload,
-        favorite: false
+        flight: action.payload
       }
       };
 
@@ -84,41 +82,6 @@ const rootReducer = (state = initialState, action) => {
         return state.cart;
       }
 
-
-
-
-
-      
-
-
- 
-
-      // return {
-      //   ...state, 
-      //   cart: !tempcart ? state.cart.push(action.payload) : return [...state.cart]
-      // }
-
-      // if (action.type === "REMOVE") {
-      //   return state.cart.filter((item) => item.id !== action.payload.id);
-      // }
-      // if (action.type === "INCREASE") {
-      //   let tempcart = state.cart.map((item) => {
-      //     if (item.id === action.payload.id) {
-      //       return { ...item, quantity: item.quantity + 1 };
-      //     }
-      //     return item;
-      //   });
-      //   return tempcart;
-      // }
-      // if (action.type === "DECREASE") {
-      //   let tempcart = state.cart.map((item) => {
-      //     if (item.id === action.payload.id) {
-      //       return { ...item, quantity: item.quantity - 1 };
-      //     }
-      //     return item;
-      //   });
-      //   return tempcart;
-      // }
     
     case FILTER_BY_ORIGIN: {
       const searchFlight = state.flights.filter((e) =>
@@ -222,7 +185,7 @@ const rootReducer = (state = initialState, action) => {
 
       let filterPrice =
         action.payload === ">20.000" ? arrPrice.filter((e) => e.price <= 20000)
-          : action.payload === "between" ? arrPrice.filter((e) => (20000 < e.price > 40000))
+          : action.payload === "between" ? arrPrice.filter((e) => (20000 < e.price) > 40000)
           : action.payload === "<40.000" ? arrPrice.filter((e) => 40000 <= e.price)
           : arrPrice;
 
@@ -258,54 +221,40 @@ const rootReducer = (state = initialState, action) => {
       };
     }
 
-    //   case ADD_FAVORITE: {
-    //     let copyFlights = state.copy;
-    //     let lista = copyFlights.filter(i => copyFlights.includes(i.id))
-
-    //     return {
-    //       ...state,
-    //       favoriteList: state.favoriteList.concat(lista)
-    //     }
-    //   }
-
-    //   case DELETE_FAVORITE: {
-
-    //     return {
-    //       ...state,
-    //       favoriteList : action.payload
-    //     }
-    //   }
-
-      case ADD_TO_CART: {
+    case ADD_TO_CART: {
         
-        return {
-          ...state,
-          shoppingCart : [...state.shoppingCart,action.payload]
-        }
+      return {
+        ...state,
+        shoppingCart : [...state.shoppingCart,action.payload]
       }
-
+    }
 
     case DELETE_FROM_CART: 
-    console.log(action.payload)
-      console.log(state.shoppingCart)
-    let newArray = state.shoppingCart.filter((flight)=>flight.id!=action.payload)
-    console.log(newArray)
+    // console.log(action.payload)
+    // console.log(state.shoppingCart)
+    let newArray = state.shoppingCart.filter((flight)=>flight.id !== action.payload)
+    // console.log(newArray)
     return{
      ...state,
       shoppingCart:newArray
     }
-    //   case DELETE_FROM_CART: {
 
-    //     return {
-    //       ...state,
-    //       shoppingCart : action.payload
-    //     }
-    //   }
+    case ADD_FAVORITE: {
 
-    //   default:
-    //     return state
+      return {
+        ...state,
+        favoriteList: [action.payload, ...state.favoriteList]
+      }
+    }
 
-    // }
+    case DELETE_FAVORITE: {
+      let newArray = state.favoriteList.filter((item)=> item.id !== action.payload)
+
+      return {
+        ...state,
+        favoriteList : newArray
+      }
+    }
 
     default:
       return state;

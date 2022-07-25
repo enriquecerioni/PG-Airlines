@@ -15,7 +15,6 @@ export const ADD_CART = 'ADD_CART'
 export const RESET_CART = 'RESET_CART'
 export const CREATE_USER='CREATE_USER'
 
-
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const DELETE_FAVORITE = 'DELETE_FAVORITE'
 export const ADD_TO_CART = 'ADD_TO_CART'
@@ -107,20 +106,6 @@ export function cleanDetails(payload) {
     }
 }
 
-export function addToFavorite(payload) {
-    return {
-        type: ADD_FAVORITE, 
-        payload
-    }
-}
-
-export function deleteFavorite(payload) {
-    return {
-        type: DELETE_FAVORITE,
-        payload
-    }
-}
-
 export function deleteFromCart(payload) {
     return {
         type: DELETE_FROM_CART,
@@ -140,5 +125,19 @@ export function createUser(payload){
         .catch((error)=>{
             alert(error)
         })
+    }
+}
+
+export function addToFavorite(payload) {
+    return {
+        type: ADD_FAVORITE, 
+        payload
+    }
+}
+
+export function deleteFavorite(payload) {
+    return {
+        type: DELETE_FAVORITE,
+        payload
     }
 }
