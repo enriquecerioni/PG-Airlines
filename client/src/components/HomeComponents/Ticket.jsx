@@ -18,7 +18,7 @@ function Ticket({
   destination,
 }) {
   const item = { id, origin, price, logo, airline, arrivalHour, departureHour };
-
+ 
   const { addProductToCart } = useContext(CartContext);
 
   const handleAddCart = (e) => {
