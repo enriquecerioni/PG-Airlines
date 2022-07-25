@@ -25,7 +25,7 @@ export default function Display() {
         dispatch(getAllFlights())
         setTimeout(() => {
             dispatch(filterPrice('all'));
-        }, 500)
+        }, 1000)
 
         orderPriceSelect.current.value = orderState
         orderAlpSelect.current.value = orderState        
