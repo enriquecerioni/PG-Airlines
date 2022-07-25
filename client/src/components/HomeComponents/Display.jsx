@@ -110,7 +110,7 @@ export default function Display() {
                 { 
                 filterArray.length !== 0 ? 
                 paginateCards.map(e => {
-                    return (<Ticket 
+                    if(e.stock)return (<Ticket 
                         key={e.flight}
                         id={e.flight}
                         airline={e.airline}
@@ -119,6 +119,7 @@ export default function Display() {
                         departureHour={e.departureHour}
                         arrivalHour={e.arrivalHour}
                         origin={e.origin}
+                        stock={e.stock}
                         
                     />) 
                            

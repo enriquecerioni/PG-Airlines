@@ -1,5 +1,5 @@
 const migrar = async () => {
-  const firebase = require("firebase");
+   const firebase = require("firebase");
   // const admin = require("firebase-admin");
   // const data = require("./db.json");
   // const serviceAccount = require("./key_service_account.json");
@@ -38,7 +38,7 @@ const migrar = async () => {
   //   Object.keys(data).forEach((docKey) => {
   //     firestore
   //       .collection(collectionKey)
-  //       .doc(docKey)
+  //       .doc(docKey) 
   //       .set(data[docKey])
   //       .then((res) => {
   //         console.log("Document " + docKey + " successfully written!");
