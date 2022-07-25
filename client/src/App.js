@@ -11,7 +11,8 @@ import CartProvider from "./components/CartComponents/CartContext";
 // import CartDemo from './components/CartComponents/Cart'
 import Cart from "./components/Cart";
 import Payment from "./components/Payment";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
@@ -19,7 +20,7 @@ const promise = loadStripe('pk_test_51LOWloHpIoeoktUtIVJXPVwS0wwgOLL4jWid6ymn1ZW
 
 function App() {
   // const user = true;
-
+  // const notify = () => toast("Wow so easy!");
   return (
     <>
       <BrowserRouter>
@@ -55,6 +56,7 @@ function App() {
               <Route component={ErrorPage} />
             </Switch>
           </CartProvider>
+          <ToastContainer />
         </div>
       </BrowserRouter>
     </>
