@@ -32,6 +32,8 @@ const initialState = {
   orderState: "initial",
   favoriteList: [],
   shoppingCart: [],
+  filterPrecioData: '',
+  filterAirlinesData: ''
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -238,22 +240,31 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case FILTER_BY_AIRLINES:
-    //     const copyFlights = state.copy;
-    //     const filterAirlines = copyFlights.filter(f => f.airline.toLowerCase().includes(action.payload.toLowerCase()));
-    //     return {
-    //         ...state,
-    //         // currrentFilter: action.payload === "all" ? copyFlights : filterAirlines,
-    //         flights : filterAirlines
-    // }
-      const copyFlights = state.copy;
-      const filterAirlines = copyFlights.filter((f) =>
-        f.airline.toLowerCase().includes(action.payload.toLowerCase())
-      );
+      let copyFlights = state.copy;
+      const filterData = state.filterPrecioData;
+
+      if (action.payload != 'all')
+        copyFlights = copyFlights.filter(f => f.airline.toLowerCase().includes(action.payload.toLowerCase()));
+
+      if (filterData != '' && filterData != 'all') {
+        copyFlights =
+          filterData === ">20.000"
+            ? copyFlights.filter((e) => e.price < 20000)
+            : filterData === "between"
+              ? copyFlights.filter((e) => {
+                if (e.price >= 20000 && e.price <= 40000)
+                  return e.price
+              })
+              : filterData === "<40.000"
+                ? copyFlights.filter((e) => 40000 <= e.price)
+                : copyFlights;
+      }
+      state.filterAirlinesData = action.payload;
       return {
         ...state,
-        // currrentFilter: action.payload === "all" ? copyFlights : filterAirlines,
-        flights: filterAirlines,
-      };
+        currrentFilter: copyFlights
+        //flights : filterAirlines
+      }
 
     case CLEAN: {
       return {
