@@ -60,8 +60,24 @@ export default function Display() {
 
     function handleFilterPrice(e) {
         e.preventDefault()
-        dispatch(filterPrice(e.target.value))
+       // dispatch(filterPrice(e.target.value))
         setCurrentPage(1)
+        switch (e.target.value) {
+            case 10:
+                dispatch(filterPrice(">20.000"));
+                break;
+            case 45:
+                dispatch(filterPrice("between"));
+                break;
+            case 80:
+                dispatch(filterPrice("<40.000"));
+                break;
+            case 100:
+                dispatch(filterPrice('all'));
+                break;
+            default:
+                break
+        }
     }
 
     function handleClick(e) {
