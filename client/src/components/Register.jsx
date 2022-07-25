@@ -47,10 +47,10 @@ function Register() {
     singUp(e.target.email.value,e.target.password.value)
     console.log("ta?")
   }
-  function handleClick (){
+  async function handleClick (){
     try {
-      ejecutar();
-      navigate.goBack();
+      await ejecutar();
+      navigate.goBack(); //asyn await
     } catch (error) {
       alert(error)
     }
