@@ -33,11 +33,7 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour, d
   return (
     <div className={style.cards}>
         <li className={style.cards_item}>
-<<<<<<< HEAD
-
         <button id='mailBTN' disabled={listDisabled} onClick={() => addFav(item)}>Favorite</button>
-=======
-        {/* <button onClick={addFav}>Favorite</button> */}
         <div className={style.info}>
               
               <button className={style.button}>i </button>
@@ -45,7 +41,6 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour, d
                 <h5 className={style.a}>{departureHour} / {arrivalHour} </h5>
                 <h5 className={style.a}> {origin} </h5>
               </div>
->>>>>>> f63e6da2cdb901500fb4ef85eda770ba042637e5
 
             </div>
         <button className={style.btnCart} onClick={handleAddCart}>Add to cart</button>
