@@ -21,33 +21,33 @@ const migrar = async () => {
 
   // const initializeApp = require("firebase/app");
 
-  // // ------------------Validate Flights
+  // ------------------Validate Flights
   // let vuelos = await dbFirestore.collection("db").get();
   // if (vuelos.docs.length) {
   //   return console.log("Los vuelos ya se cargaron.");
   // }
-  // // ------------------
+  // ------------------
   
-//   admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount),
-//   });
-//   const firestore = admin.firestore();
-//   const settings = { timestampsInSnapshots: true };
-//   firestore.settings(settings);
-//   if (data && typeof data === "object") {
-//     Object.keys(data).forEach((docKey) => {
-//       firestore
-//         .collection(collectionKey)
-//         .doc(docKey)
-//         .set(data[docKey])
-//         .then((res) => {
-//           console.log("Document " + docKey + " successfully written!");
-//         })
-//         .catch((error) => {
-//           console.error("Error writing document: ", error);
-//         });
-//     });
-//   }
+  // admin.initializeApp({
+  //   credential: admin.credential.cert(serviceAccount),
+  // });
+  // const firestore = admin.firestore();
+  // const settings = { timestampsInSnapshots: true };
+  // firestore.settings(settings);
+  // if (data && typeof data === "object") {
+  //   Object.keys(data).forEach((docKey) => {
+  //     firestore
+  //       .collection(collectionKey)
+  //       .doc(docKey)
+  //       .set(data[docKey])
+  //       .then((res) => {
+  //         console.log("Document " + docKey + " successfully written!");
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error writing document: ", error);
+  //       });
+  //   });
+  // }
 };
 module.exports = {
   migrar,

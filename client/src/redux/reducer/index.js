@@ -126,16 +126,18 @@ const rootReducer = (state = initialState, action) => {
       const searchFlight = state.flights.filter((e) =>
         e.origin.toLowerCase().includes(action.payload.toLowerCase())
       );
-      if (searchFlight.length > 0) {
+      console.log(searchFlight)
+
+      if (searchFlight.length ) {
         return {
           ...state,
-          flights: searchFlight,
+          currrentFilter: searchFlight,
         };
       } else {
         alert("Origin Not Found");
         return {
           ...state,
-          flights: state.copy,
+          currrentFilter: state.copy,
         };
       }
     }
