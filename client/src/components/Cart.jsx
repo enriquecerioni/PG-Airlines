@@ -7,6 +7,9 @@ import { CartContext } from './CartComponents/CartContext'
 import { deleteFromCart } from '../redux/actions/index'
 import { useDispatch } from 'react-redux'
 
+
+import firebase from 'firebase'
+
 function Cart() {
   //  const cart = useSelector(state => console.log(state.shoppingCart))
 
@@ -49,6 +52,9 @@ function Cart() {
     }    
   }, [handleSum, handleRest])
 
+
+
+ 
     return (
         <div className={css.cart_container}>
             <Link to='/'>

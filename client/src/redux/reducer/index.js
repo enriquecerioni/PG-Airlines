@@ -38,6 +38,7 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_FLIGHTS: {
+     // console.log("que es action.payload",action.payload)
       return {
         ...state,
         flights: action.payload,
@@ -71,12 +72,12 @@ const rootReducer = (state = initialState, action) => {
       }
     case ADD_CART: 
       let tempcart = state.cart.filter((item) => item.id === action.payload);
-      console.log(tempcart)
+      //console.log(tempcart)
 
       if (tempcart < 1) {
         let pushToCart = [...state.cart]
         pushToCart.push(action.payload) 
-        console.log(state.cart)
+        //console.log(state.cart)
         return {
           ...state, 
           cart: pushToCart};
@@ -89,7 +90,7 @@ const rootReducer = (state = initialState, action) => {
       const searchFlight = state.flights.filter((e) =>
         e.origin.toLowerCase().includes(action.payload.toLowerCase())
       );
-      console.log(searchFlight)
+     // console.log(searchFlight)
 
       if (searchFlight.length ) {
         return {

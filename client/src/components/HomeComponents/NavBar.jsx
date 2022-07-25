@@ -47,7 +47,7 @@ export default  function NavBar() {
             <img className={s.cart} src={shoppingCart}/>
           </Link>
           </li>
-          <h5 className={s.price}>{stateCart}</h5>
+          <h5 className={s.price}>{stateCart ? stateCart : 0}</h5>
       </ul>
     </nav> 
   );
