@@ -6,17 +6,24 @@ import s from '../styles/SearchBar.module.css'
 export default function SearchBar() {
   const dispatch = useDispatch();
   const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
   // const flights = useSelector((state) => state.flights);
 
   const handleInputChange = (e) => {
     e.preventDefault();
-    setOrigin(e.target.value);
+    if (e.target.name === "origin") {
+      setOrigin(e.target.value);
+    }
+    if (e.target.name === "destination") {
+      setDestination(e.target.value);
+    }    
   }; 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getFlightInfo(origin));
+    dispatch(getFlightInfo({origin: origin, destination: destination}));
     setOrigin("");
+    setDestination("");
   };
 
   return (
@@ -24,7 +31,15 @@ export default function SearchBar() {
       <input
         className={s.inputSearch}
         type="text"
-        placeholder="Search origin"
+        name="origin"
+        placeholder="Search origin"        
+        onChange={(e) => handleInputChange(e)}
+      />
+      <input
+        className={s.inputSearch}
+        type="text"
+        name="destination"
+        placeholder="Search destination"
         onChange={(e) => handleInputChange(e)}
       />
       <button
