@@ -20,8 +20,12 @@ export default function Display() {
     const orderAlpSelect = useRef('')
 
     useEffect(() => {
-        if(filterArray.length !== 0) return filterArray
-        else dispatch(getAllFlights())
+        // if(filterArray.length !== 0) return filterArray
+        // else 
+        dispatch(getAllFlights())
+        setTimeout(() => {
+            dispatch(filterPrice('all'));
+        }, 500)
 
         orderPriceSelect.current.value = orderState
         orderAlpSelect.current.value = orderState        
@@ -103,21 +107,22 @@ export default function Display() {
                     />) 
                            
                 }) :
-
-                paginateCards
-                .map(e => {
-                    return (<Ticket 
-                        key={e.flight}
-                        id={e.flight}
-                        airline={e.airline}
-                        logo={e.logo}
-                        price={e.price}
-                        departureHour={e.departureHour}
-                        arrivalHour={e.arrivalHour}
-                        origin={e.origin}
-                        destination={e.destination}
-                    />)        
-                })}  
+                <p>Vuelos no encontrados, te invitamos a volver a buscar!</p>
+                // paginateCards
+                // .map(e => {
+                //     return (<Ticket 
+                //         key={e.flight}
+                //         id={e.flight}
+                //         airline={e.airline}
+                //         logo={e.logo}
+                //         price={e.price}
+                //         departureHour={e.departureHour}
+                //         arrivalHour={e.arrivalHour}
+                //         origin={e.origin}
+                //         destination={e.destination}
+                //     />)        
+                // })
+            }  
             </div>
                            
             <div className={style.filter_container}>
