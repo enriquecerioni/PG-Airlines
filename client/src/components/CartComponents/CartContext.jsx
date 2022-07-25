@@ -34,7 +34,7 @@ const CartProvider = ({ children }) => {
     if(pay && products!==[]){
       setTimeout(() => {
         setProducts([])
-      }, "1500")
+      }, "3000")
       
     }
     // else localStorage.setItem("cartProducts", JSON.stringify([]))
