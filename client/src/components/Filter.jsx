@@ -1,5 +1,14 @@
 import React from 'react'
 import style from './styles/Display.module.css'
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+
+const marks = [
+    {value: 10, label: '< $20.000'},
+    {value: 45, label: '$20.000 - $40.000'},
+    {value: 80, label: '> $40.000'},
+    {value: 100, label: 'All'}
+];
 
 // {handlePrice, handleAlph}
 function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, handleFilterPrice, airlinesData, handleClick, handleSearchAirlines}) {
@@ -7,6 +16,10 @@ function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, hand
     function handleReset(e) {
         e.preventDefault();
         window.location.reload(false)
+    }
+
+    function valuetext(value) {
+        return `${value}`;
     }
 
   return (
@@ -18,13 +31,22 @@ function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, hand
 
         <h2>Filter by:</h2>
         <label>Price: </label>
-            <button value='all' onClick={handleFilterPrice}>All</button>
+            {/* <button value='all' onClick={handleFilterPrice}>All</button>
             <button value='>20.000' onClick={handleFilterPrice}> &gt; $20.000</button>
             <button value='between' onClick={handleFilterPrice}> $20.000 - $40.000 </button>     
-            <button value='<40.000' onClick={handleFilterPrice}> $40.000 &gt;</button>
-
+            <button value='<40.000' onClick={handleFilterPrice}> $40.000 &gt;</button> */}
+        <Box sx={{ width: 300 }}>
+                <Slider
+                    aria-label="Custom marks"
+                    defaultValue={100}
+                    getAriaValueText={valuetext}
+                    step={null}
+                    marks={marks}
+                    onChange={handleFilterPrice}
+                />
+            </Box>
         <div>
-        <label>Airlines</label>
+        <label>Airlines: </label>
             <input
                 id='search'
                 type="text"

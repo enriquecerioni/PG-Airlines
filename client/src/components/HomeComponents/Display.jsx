@@ -20,8 +20,12 @@ export default function Display() {
     const orderAlpSelect = useRef('')
 
     useEffect(() => {
-        if(filterArray.length !== 0) return filterArray
-        else dispatch(getAllFlights())
+        // if(filterArray.length !== 0) return filterArray
+        // else 
+        dispatch(getAllFlights())
+        setTimeout(() => {
+            dispatch(filterPrice('all'));
+        }, 1000)
 
         orderPriceSelect.current.value = orderState
         orderAlpSelect.current.value = orderState        
@@ -49,26 +53,43 @@ export default function Display() {
     }
 
     function handlePrice(e) {
-        e.preventDefault()
+         e.preventDefault()
         dispatch(orderByPrice(e.target.value))
         setCurrentPage(1)
     }   
 
     function handleFilterPrice(e) {
         e.preventDefault()
-        dispatch(filterPrice(e.target.value))
+       // dispatch(filterPrice(e.target.value))
         setCurrentPage(1)
+        switch (e.target.value) {
+            case 10:
+                dispatch(filterPrice(">20.000"));
+                break;
+            case 45:
+                dispatch(filterPrice("between"));
+                break;
+            case 80:
+                dispatch(filterPrice("<40.000"));
+                break;
+            case 100:
+                dispatch(filterPrice('all'));
+                break;
+            default:
+                break
+        }
     }
 
     function handleClick(e) {
-        e.preventDefault()
-        dispatch(filterByAirlines(e.currentTarget.value));
-        document.getElementById('search').value = ''
+        e.preventDefault();
+         dispatch(filterByAirlines(e.target.value));
+        document.getElementById('search').value = e.target.value;
+        setAirlines([]);
     }
 
     function handleSearchAirlines(e) {
-        e.preventDefault()
-        const allAirlines = details.map(f => f.airline);
+        e.preventDefault();      
+        const allAirlines = filterArray.map(f => f.airline);
         let airlines = allAirlines.filter((v, i) => {
             return allAirlines.indexOf(v) === i;
         })
@@ -76,7 +97,8 @@ export default function Display() {
             airlines = airlines.filter(f => f.toLowerCase().includes(e.target.value.toLowerCase()));
             setAirlines(airlines);
         } else {
-            setAirlines([]);
+               dispatch(filterByAirlines('all'));
+               setAirlines([]);
         }
     }
 
@@ -101,21 +123,22 @@ export default function Display() {
                     />) 
                            
                 }) :
-
-                paginateCards
-                .map(e => {
-                    return (<Ticket 
-                        key={e.flight}
-                        id={e.flight}
-                        airline={e.airline}
-                        logo={e.logo}
-                        price={e.price}
-                        departureHour={e.departureHour}
-                        arrivalHour={e.arrivalHour}
-                        origin={e.origin}
-                        destination={e.destination}
-                    />)        
-                })}  
+                <p>Vuelos no encontrados, te invitamos a volver a buscar!</p>
+                // paginateCards
+                // .map(e => {
+                //     return (<Ticket 
+                //         key={e.flight}
+                //         id={e.flight}
+                //         airline={e.airline}
+                //         logo={e.logo}
+                //         price={e.price}
+                //         departureHour={e.departureHour}
+                //         arrivalHour={e.arrivalHour}
+                //         origin={e.origin}
+                //         destination={e.destination}
+                //     />)        
+                // })
+            }  
             </div>
                            
             <div className={style.filter_container}>

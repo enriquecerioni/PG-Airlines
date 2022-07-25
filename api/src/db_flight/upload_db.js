@@ -18,7 +18,8 @@ const migrar = async () => {
    const dbFirestore = firebase.firestore();
   dbFirestore.settings({ timestampsInSnapshots: true });
 
-  // // const initializeApp = require("firebase/app");
+
+  // const initializeApp = require("firebase/app");
 
   // // ------------------Validate Flights
   // let vuelos = await dbFirestore.collection("db").get();
@@ -27,26 +28,26 @@ const migrar = async () => {
   // }
   // // ------------------
   
-  // admin.initializeApp({
-  //   credential: admin.credential.cert(serviceAccount),
-  // });
-  // const firestore = admin.firestore();
-  // const settings = { timestampsInSnapshots: true };
-  // firestore.settings(settings);
-  // if (data && typeof data === "object") {
-  //   Object.keys(data).forEach((docKey) => {
-  //     firestore
-  //       .collection(collectionKey)
-  //       .doc(docKey)
-  //       .set(data[docKey])
-  //       .then((res) => {
-  //         console.log("Document " + docKey + " successfully written!");
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error writing document: ", error);
-  //       });
-  //   });
-  // }
+//   admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+//   });
+//   const firestore = admin.firestore();
+//   const settings = { timestampsInSnapshots: true };
+//   firestore.settings(settings);
+//   if (data && typeof data === "object") {
+//     Object.keys(data).forEach((docKey) => {
+//       firestore
+//         .collection(collectionKey)
+//         .doc(docKey)
+//         .set(data[docKey])
+//         .then((res) => {
+//           console.log("Document " + docKey + " successfully written!");
+//         })
+//         .catch((error) => {
+//           console.error("Error writing document: ", error);
+//         });
+//     });
+//   }
 };
 module.exports = {
   migrar,

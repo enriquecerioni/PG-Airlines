@@ -13,13 +13,25 @@ function Cart() {
   const history = useHistory()  
   const dispatch = useDispatch()
 
-    const { products, substractdProductFromCart , deleteProductFromCart} = useContext(CartContext)
-   // console.log(products)
+    const { products, addProductToCart, substractdProductFromCart , deleteProductFromCart} = useContext(CartContext)
+    const [subTotal, setSubTotal] = useState(0)
+
+    // console.log(products)
+
+    // useEffect(() => {
+    //   // localStorage.setItem("cartProducts", JSON.stringify(products));
+    //   // console.log(products)
+  
+    //   localStorage.getItem("cartProducts");
+    // }, [products]);
     
   function handleDelete(id){
     // console.log(id)
+    let productToDelete= products.filter((p)=>p.id===id)
+    setSubTotal(subTotal-productToDelete[0].amount*productToDelete[0].price)
     dispatch(deleteFromCart(id));
     deleteProductFromCart(id);
+    
   }
 
   function handleSum(id) {
@@ -30,10 +42,11 @@ function Cart() {
     substractdProductFromCart(id, 'resta')
   }
 
-  const [subTotal, setSubTotal] = useState()
 
   useEffect(() => {
-    if(products.length !== 0) setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))
+    if (products.length>0) {
+      setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))            
+    }    
   }, [handleSum, handleRest])
 
     return (
