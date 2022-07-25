@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 import s from '../styles/NavBar.module.css';
 import logo from '../styles/logo.png';
 import shoppingCart from '../styles/shopping-cart.png';
-import { estadoUsuario, logOut } from '../scripts/auth';
+import { logOut } from '../scripts/auth';
 import { CartContext } from '../CartComponents/CartContext';
 
 export default  function NavBar() {
-  // const [cartOpen, setCartOpen] = useState(false);
 
   const { products } = useContext(CartContext);
 
@@ -15,7 +14,7 @@ export default  function NavBar() {
   
   useEffect(() => {
     setStateCart(products.length);
-    console.log("Carrito Actualizado.");
+    // console.log("Carrito Actualizado.");
   }, [products]);
 
 
@@ -43,22 +42,23 @@ export default  function NavBar() {
         <li>
           <button id="logOut" className={s.navLink_logout} onClick={()=>logOut()}>Log Out</button>
         </li>
-        <li>
+        <li className={s.cart_container}>
           <Link className={s.navLink} to="/cart"  >
             <img className={s.cart} src={shoppingCart}/>
           </Link>
-
-            {/* {cartOpen ? (
-              <div className={s.cartOpen}>
-                <BoxCart onClick={handleCart} />
-              </div>
-            ) : (
-              <></>
-            )} */}
-        
           </li>
-          <h5>N°{stateCart}</h5>
+          <h5 className={s.price}>{stateCart}</h5>
       </ul>
     </nav> 
   );
 }
+
+/*
+    {cartOpen ? (
+      <div className={s.cartOpen}>
+        <BoxCart onClick={handleCart} />
+      </div>
+    ) : (
+      <></>
+    )}
+*/

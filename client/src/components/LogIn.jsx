@@ -4,9 +4,6 @@ import { ejecutar, logIn } from './scripts/auth'
 import style from './styles/Forms.module.css'
 import { useHistory } from "react-router-dom";
 
-
- 
-
 // function LogIn() {
 
 //   function handleSubmit(e) {
@@ -26,27 +23,6 @@ import { useHistory } from "react-router-dom";
 //     <div className={style.container}>
 //       <h1>Log In</h1>
 //       <form className={style.form_container} onSubmit={handleSubmit} >
-//         <Input
-//         state={emailLogIn}
-//         setState={setEmailLogIn}
-//         label='Email'
-//         type='email'
-//         name='emailLogIn'
-//         placeholder='Enter email'
-//         // error='This email is not valid'
-//         // regularExpression={expression.email}
-//         />
-
-//         <Input
-//         state={passwordLogIn}
-//         setState={setPasswordLogIn}
-//         label='Password'
-//         type='password'
-//         name='passwordLogIn'
-//         placeholder='Enter password'
-//         // error='Incorrect password'
-//         // regularExpression={expression.password}
-//         />
 
 
 function LogIn() {
@@ -74,9 +50,11 @@ function handleSubmit(e){
         setState={setEmailLogIn}
         label='Email'
         id='singup-email' 
-        name='email' 
-        type="text" 
+        name='emailLogIn' 
+        type="email" 
         placeholder='Enter email'
+        // error='This email is not valid'
+        // regularExpression={expression.email}
         />
         
         <Input 
@@ -84,9 +62,11 @@ function handleSubmit(e){
         setState={setPasswordLogIn}
         label='Pasword'
         id='singup-password' 
-        name='password' 
+        name='passwordLogIn' 
         type="password" 
         placeholder='Enter password'
+        // error='Incorrect password'
+        // regularExpression={expression.password}        
         />
 
         {validForm === false && <span>Please complete all fields correctly</span>}
