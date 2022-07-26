@@ -27,14 +27,18 @@ const firebaseConfig = {
       let a=await dbFirebase.collection("users").doc(`${user.email}`).get()
       let userAdmin =  a ? a.data().admin : null
       if(userAdmin){
+        document.getElementById('catalog').style.display=""
         document.getElementById('logOut').style.display=""
         document.getElementById('myProfile').style.display=""
         document.getElementById('addAirline').style.display=""
         document.getElementById('logIn').style.display="none"
         document.getElementById('register').style.display="none"
         document.getElementById('favs').style.display="none"
+        document.getElementById('offers').style.display="none"
       }else{
       console.log("usser log in: ",user.displayName,user.email)
+      document.getElementById('offers').style.display=""
+      document.getElementById('catalog').style.display="none"
       document.getElementById('logIn').style.display="none"
       document.getElementById('register').style.display="none"
       document.getElementById('logOut').style.display=""
@@ -46,6 +50,8 @@ const firebaseConfig = {
     }
     else {
       console.log('user logged out')
+      document.getElementById('offers').style.display=""
+      document.getElementById('catalog').style.display="none"
       document.getElementById('logOut').style.display="none"
       document.getElementById('logIn').style.display=""
       document.getElementById('register').style.display=""
@@ -73,7 +79,7 @@ export function singUp(email,password){
 
 export function logOut(){
       auth.signOut()
-      store.dispatch(logOutUser())
+      // store.dispatch(logOutUser())
 }
 
 export function logIn(email,password){

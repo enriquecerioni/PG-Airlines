@@ -29,7 +29,8 @@ function LogIn() {
 
 function handleSubmit(e){
   e.preventDefault();
-  logIn(e.target.email.value,e.target.password.value)
+  logIn(e.target.emailLogIn.value,e.target.passwordLogIn.value);
+  navigate.push('/');
 }
 
 async function handleClick(){

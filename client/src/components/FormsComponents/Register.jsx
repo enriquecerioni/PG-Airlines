@@ -56,7 +56,7 @@ function Register() {
     singUp(e.target.email.value,e.target.password.value)
     navigate.goBack()
   }
-  async function handleClick (){
+  async function handleClick (e){
     try {
       singUp(e.target.email.value, e.target.password.value)
     } catch (error) {

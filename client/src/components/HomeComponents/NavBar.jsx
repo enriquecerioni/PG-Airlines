@@ -35,13 +35,12 @@ export default function NavBar() {
         <img className={s.logoImg} src={logo} alt="logo" />
       </Link>
       <ul className={s.navUl}>
-        <li>
+        <li id="catalog">
           <Link className={s.navLink} to="/catalog">
             Catalog
           </Link>
         </li>
-        <li>
-          <button id="logOut" className={s.navLink_logout} onClick={() => handleLogOut()}>Log Out</button>
+        <li id="offers">
           <Box sx={{ color: 'action.active' }}>
             <Link className={s.navLink} to="/offers">
               <Badge color="secondary" badgeContent={5}>
@@ -66,8 +65,8 @@ export default function NavBar() {
               Register
             </Link>
           </li>
-          <li>
-            <button id="logOut" className={s.navLink_logout} onClick={() => logOut()}>Log Out</button>
+          <li id="logOut">
+            <button className={s.navLink_logout} onClick={() => logOut()}>Log Out</button>
           </li>
           {/* --------------------------------------------------------------------  */}
           <li>
