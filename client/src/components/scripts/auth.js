@@ -15,32 +15,60 @@ const firebaseConfig = {
  }else {
     firebase.app(); // if already initialized, use that one
  }
+ const dbFirebase=firebase.firestore();
 
 //---------------------estado del usuraio------------------
 
   const auth = firebase.auth();
-  auth.onAuthStateChanged(user=>{
+
+  auth.onAuthStateChanged(async (user)=>{
+    //console.log(user)
     if(user){
+      let a=await dbFirebase.collection("users").doc(`${user.email}`).get()
+      let userAdmin =  a ? a.data().admin : null
+      if(userAdmin){
+        document.getElementById('logOut').style.display=""
+        document.getElementById('myProfile').style.display=""
+        document.getElementById('addAirline').style.display=""
+        document.getElementById('logIn').style.display="none"
+        document.getElementById('register').style.display="none"
+        document.getElementById('favs').style.display="none"
+      }else{
       console.log("usser log in: ",user.displayName,user.email)
       document.getElementById('logIn').style.display="none"
       document.getElementById('register').style.display="none"
       document.getElementById('logOut').style.display=""
+      document.getElementById('myProfile').style.display="none"
+      document.getElementById('addAirline').style.display="none"
+      document.getElementById('favs').style.display=""
+
+      }
     }
     else {
       console.log('user logged out')
       document.getElementById('logOut').style.display="none"
       document.getElementById('logIn').style.display=""
       document.getElementById('register').style.display=""
+      document.getElementById('myProfile').style.display="none"
+      document.getElementById('addAirline').style.display="none"
+      document.getElementById('favs').style.display=""
+
     }
   })
 
 //--------------------------------------------------------
 
 export function singUp(email,password){
-  // console.log(email, password)
-    auth.createUserWithEmailAndPassword(email,password).then((cred)=>{
-        console.log(cred)
-      })     
+
+    auth.createUserWithEmailAndPassword(email,password).then((cred)=>{  
+      console.log(cred)
+      return dbFirebase.collection("users").doc(cred.user.email).set({
+        email: cred.user.email,
+        admin: false ,
+        photo: cred.user.photoURL
+      })
+    })
+      
 }
 
 export function logOut(){
@@ -86,12 +114,21 @@ export async function getUser() {
 
 export async function ejecutar(){
 try{
+
     let google_provider= new firebase.auth.GoogleAuthProvider();
      let data = await firebase.auth().signInWithPopup(google_provider)
-      var email=data.user.email
-      var name=data.user.displayName 
-      var photo=data.user.photoURL
+      let email=data.user.email
+      let name=data.user.displayName 
+      let photo=data.user.photoURL
+      let hay= await dbFirebase.collection("users").doc(email).get()
+      if(!hay.data()){
       await store.dispatch(createUser({email,name,photo}))
+      return dbFirebase.collection("users").doc(email).set({
+        email: email,
+        admin: false ,
+        photo: photo
+      })
+    }
  }catch(error)  {
        console.log(error.message)
       };

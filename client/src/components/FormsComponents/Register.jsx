@@ -53,6 +53,10 @@ function Register() {
     // } else {
     //   singUp(e.target.email.value, e.target.password.value)
     // }
+    singUp(e.target.email.value,e.target.password.value)
+    navigate.goBack()
+  }
+  async function handleClick (){
     try {
       singUp(e.target.email.value, e.target.password.value)
     } catch (error) {

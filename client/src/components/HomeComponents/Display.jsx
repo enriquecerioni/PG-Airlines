@@ -124,7 +124,7 @@ export default function Display() {
                         arrivalHour={e.arrivalHour}
                         origin={e.origin}
                         destination={e.destination}
-                        stock={e.stock}
+                        stock={e.stock}              
                     />) 
                            
                 }) :

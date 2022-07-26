@@ -99,16 +99,35 @@ const rootReducer = (state = initialState, action) => {
         return state.cart;
       }
 
-    case FILTER_BY_ORIGIN: {
-      const searchFlight = state.flights.filter((e) =>
-        e.origin.toLowerCase().includes(action.payload.toLowerCase())
+    
+    case FILTER_BY_ORIGIN: {  
+      const searchFlightByOrigin = state.flights.filter((e) =>
+        e.origin.toLowerCase()===(action.payload.origin.toLowerCase() )
       );
      // console.log(searchFlight)
+      const originAndDest = searchFlightByOrigin.filter((e) =>
+        e.destination.toLowerCase().includes(action.payload.destination.toLowerCase())
+      );
+      const searchFlightByDestination = state.flights.filter((e) =>
+      e.destination.toLowerCase().includes(action.payload.destination.toLowerCase())
+      )
 
-      if (searchFlight.length ) {
+      console.log(state.flights.map(e => e.origin.toLowerCase()/**.includes(action.payload.origin.toLowerCase()) */ ), action.payload)
+
+      console.log(searchFlightByOrigin)
+      console.log(originAndDest)
+      console.log(searchFlightByDestination)
+
+      if(originAndDest.length) {
         return {
           ...state,
-          currrentFilter: searchFlight,
+          currrentFilter: originAndDest,
+        };
+      }
+      else if (searchFlightByOrigin.length || searchFlightByDestination.length ) {
+        return {
+          ...state,
+          currrentFilter: [...searchFlightByOrigin, ...searchFlightByDestination],
         };
       } else {
         alert("Origin Not Found");

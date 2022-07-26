@@ -11,6 +11,7 @@ import CartProvider from "./components/CartComponents/CartContext";
 // import CartDemo from './components/CartComponents/Cart'
 import Cart from "./components/CartComponents/Cart";
 import Payment from "./components/CartComponents/Payment";
+import Catalog from './components/CatalogComponents/Catalog';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loadStripe } from '@stripe/stripe-js'
@@ -60,6 +61,9 @@ function App() {
                 <Elements stripe={promise} >
                   <Payment />
                 </Elements>
+              </Route>
+              <Route path="/catalog">
+                  <Catalog />
               </Route>
               <Route component={ErrorPage} />
             </Switch>
