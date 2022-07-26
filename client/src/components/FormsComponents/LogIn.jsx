@@ -27,7 +27,7 @@ function LogIn() {
   const [ emailLogIn, setEmailLogIn ] = useState({value:'', valid: null})
   const [ passwordLogIn, setPasswordLogIn ] = useState({value:'', valid: null})
 
-function handleSubmit(e){
+ function handleSubmit(e){
   e.preventDefault();
   logIn(e.target.emailLogIn.value,e.target.passwordLogIn.value);
   navigate.push('/');

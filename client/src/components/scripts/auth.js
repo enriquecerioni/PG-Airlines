@@ -20,10 +20,11 @@ const firebaseConfig = {
 //---------------------estado del usuraio------------------
 
   const auth = firebase.auth();
-
+  let EstadoUsuario=false
   auth.onAuthStateChanged(async (user)=>{
     //console.log(user)
     if(user){
+      EstadoUsuario=true
       let a=await dbFirebase.collection("users").doc(`${user.email}`).get()
       let userAdmin =  a ? a.data().admin : null
       if(userAdmin){
@@ -49,6 +50,7 @@ const firebaseConfig = {
       }
     }
     else {
+      EstadoUsuario=false
       console.log('user logged out')
       document.getElementById('offers').style.display=""
       document.getElementById('catalog').style.display="none"
@@ -77,14 +79,16 @@ export function singUp(email,password){
       
 }
 
-export function logOut(){
-      auth.signOut()
+ export async function logOut(){
+     await auth.signOut()
+     EstadoUsuario=false
       // store.dispatch(logOutUser())
 }
-
-export function logIn(email,password){
-    auth.onAuthStateChanged(user=>{
-        if(user) console.log('Usuario ya ingresado')
+let num=0
+export  function logIn(email,password){
+    num++
+    console.log(num);
+        if(EstadoUsuario) console.log('Usuario ya ingresado')
         else {
         auth.signInWithEmailAndPassword(email,password)
         .then(()=>{
@@ -94,7 +98,6 @@ export function logIn(email,password){
             alert(error.message)
           })
         }
-      })   
 }
 
 export async function getUser() {
@@ -106,9 +109,9 @@ export async function getUser() {
     const email = user.email;
     const photoURL = user.photoURL;
     const emailVerified = user.emailVerified;
-    const uid = user.uid;
+   const uid = user.uid;
 
-    await store.dispatch(createUser(displayName, email, photoURL, emailVerified, uid))
+    await store.dispatch(createUser(displayName, email, photoURL, emailVerified,uid))
   }
   // auth.listUsers(maxResults)
   // .then((userRecords) => {
