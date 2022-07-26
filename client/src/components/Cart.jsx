@@ -6,6 +6,10 @@ import { useContext } from 'react'
 import { CartContext } from './CartComponents/CartContext'
 import { deleteFromCart } from '../redux/actions/index'
 import { useDispatch } from 'react-redux'
+import {toast} from 'react-toastify'
+
+
+import firebase from 'firebase'
 
 function Cart() {
   //  const cart = useSelector(state => console.log(state.shoppingCart))
@@ -31,7 +35,16 @@ function Cart() {
     setSubTotal(subTotal-productToDelete[0].amount*productToDelete[0].price)
     dispatch(deleteFromCart(id));
     deleteProductFromCart(id);
-    
+    toast.error("Deleted from cart", {
+      icon: "❌",
+      position: "bottom-left",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 
   function handleSum(id) {
@@ -49,6 +62,9 @@ function Cart() {
     }    
   }, [handleSum, handleRest])
 
+
+
+ 
     return (
         <div className={css.cart_container}>
             <Link to='/'>
