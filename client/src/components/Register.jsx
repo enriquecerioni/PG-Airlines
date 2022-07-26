@@ -45,7 +45,7 @@ function Register() {
   function handleSubmit(e){
     e.preventDefault()
     singUp(e.target.email.value,e.target.password.value)
-    console.log("ta?")
+    navigate.goBack()
   }
   async function handleClick (){
     try {
