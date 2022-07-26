@@ -13,7 +13,7 @@ import firebase from 'firebase'
 
 function Cart() {
   //  const cart = useSelector(state => console.log(state.shoppingCart))
-
+  const auth = firebase.auth();
   const history = useHistory()  
   const dispatch = useDispatch()
 
@@ -61,7 +61,17 @@ function Cart() {
       setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))            
     }    
   }, [handleSum, handleRest])
-
+  function handleCheckout(){
+    auth.onAuthStateChanged(user=>{
+      if(user){
+        history.push('/payment')
+      }
+      else {
+        alert("You need to be logged to buy")
+        history.push('/login')
+      }
+    })
+  }
 
 
  
@@ -109,7 +119,7 @@ function Cart() {
                 <h5>Subtotal</h5>{ subTotal && <span>${subTotal}</span>}
                 <h5>Fees</h5>{ subTotal && <span>${(subTotal*0.1)/100}</span>} 
                 <h5>Total</h5>{subTotal && <span>${(subTotal + ((subTotal*0.1)/100))}</span>}
-               <button onClick={e => history.push('/payment')}>Proceed to Checkout</button>
+               <button onClick={() => handleCheckout()}>Proceed to Checkout</button>
              </div>    
           }    
           
