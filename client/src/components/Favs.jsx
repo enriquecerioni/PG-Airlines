@@ -10,7 +10,7 @@ function Favs() {
   const dispatch = useDispatch()
 
   const flightList = useSelector(state => state.favoriteList)
-  console.log(flightList)
+  // console.log(flightList)
 
   // funciona
   function removeFavorite(id) {

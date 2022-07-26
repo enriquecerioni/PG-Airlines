@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from "react-redux";
 import { useContext } from 'react'
-import { CartContext } from './CartComponents/CartContext'
-import style from './styles/Ticket.module.css'
-import css from './styles/Payment.module.css'
+import { CartContext } from './CartContext'
+import style from '../styles/Ticket.module.css'
+import css from '../styles/Payment.module.css'
 import { Link, useHistory } from 'react-router-dom'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import axios from 'axios';
 
 function Payment() {
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.allUsers)
     const { products } = useContext(CartContext)
 
     const history = useHistory()
@@ -28,15 +28,6 @@ function Payment() {
         e.preventDefault()
         setProcessing(true)
 
-        // }).then(({ paymentIntent }) => {
-        //     // paymentIntent = confirmacion de pago
-        //     setSucceeded(true)
-        //     setError(null)
-        //     setProcessing(false)
-
-        //     history.replace('/orders')
-        // })
-
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card: elements.getElement(CardElement)
@@ -50,12 +41,25 @@ function Payment() {
                     id, 
                     amount: subTotal * 100 // lo tengo que mandar en centavos
                 });
+
                 // console.log(data)
+                // db.collection('users')
+                //.doc(user?.id)
+                //.colection('orders')
+                //.doc(data.id)
+                //.set({
+                //  basket: data.basket,
+                // amount: data.amount,
+                // created: data.created  
+                //})
+
                 setSucceeded(true)
                 setError(null)
                 setProcessing(false)    
-                elements.getElement(CardElement).clear();
-                history.replace('/orders')
+                elements.getElement(CardElement).clear()
+                alert('Payment successful')
+                window.localStorage.clear()
+                history.replace('/success')
             } catch (error) {
                 console.log(error)
             }

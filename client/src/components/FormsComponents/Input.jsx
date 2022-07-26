@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './styles/Forms.module.css'
+import style from '../styles/Forms.module.css'
 
 function Input({state, setState, type, label, placeholder, name, error, regularExpression}) {
     

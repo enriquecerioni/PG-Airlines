@@ -14,11 +14,14 @@ export const GET_FLIGHT_BY_ID = 'GET_FLIGHT_BY_ID'
 export const ADD_CART = 'ADD_CART'
 export const RESET_CART = 'RESET_CART'
 export const CREATE_USER='CREATE_USER'
+export const LOGOUT_USER = 'LOGOUT_USER'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const DELETE_FAVORITE = 'DELETE_FAVORITE'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const DELETE_FROM_CART = 'DELETE_FROM_CART'
+export const ERROR_USER = 'ERROR_USER'
+
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -78,13 +81,6 @@ export const filterPrice = (payload) => {
     }
 }
 
-// export const addToCart = (payload) => {
-//     return {
-//         type: ADD_TO_CART,
-//         payload
-//     }
-// }
-
 /////////
 export function resetFilter(){
     return{
@@ -123,8 +119,18 @@ export function createUser(payload){
             })
         })
         .catch((error)=>{
-            alert(error)
+            dispatch({
+                type: ERROR_USER,
+                payload: 'Usuario ya creado, login'
+            })
         })
+    }
+}
+
+export function logOutUser(payload) {
+    return {
+        type: LOGOUT_USER,
+        payload
     }
 }
 

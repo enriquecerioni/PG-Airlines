@@ -25,7 +25,7 @@ const CartProvider = ({ children }) => {
   const addProductToCart = async ({id, origin, price, logo, airline, arrivalHour, departureHour}) => {
 
     let inCart = products && products.filter((p) => p.id === id);
-    console.log(inCart)
+    // console.log(inCart)
 
     if (inCart.length > 0) {
       setProducts(

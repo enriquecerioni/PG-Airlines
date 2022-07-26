@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Input from './Input'
-import { ejecutar, logIn } from './scripts/auth'
-import style from './styles/Forms.module.css'
+import { ejecutar, logIn } from '../scripts/auth'
+import style from '../styles/Forms.module.css'
 import { useHistory } from "react-router-dom";
+import { Button } from '@mui/material';
 
 // function LogIn() {
 
@@ -19,12 +20,6 @@ import { useHistory } from "react-router-dom";
 //     }
 //   }
 
-//   return (
-//     <div className={style.container}>
-//       <h1>Log In</h1>
-//       <form className={style.form_container} onSubmit={handleSubmit} >
-
-
 function LogIn() {
   let navigate = useHistory();
   const [validForm, setValidForm] = useState(null)
@@ -37,10 +32,11 @@ function handleSubmit(e){
   logIn(e.target.email.value,e.target.password.value)
 }
 
- async function handleClick(){
+async function handleClick(){
   await ejecutar()
   navigate.goBack();
 }
+
   return (
     <div className={style.container}>
       <h1>Log In</h1>
@@ -71,16 +67,18 @@ function handleSubmit(e){
 
         {validForm === false && <span>Please complete all fields correctly</span>}
 
-        <button type='submit'>Log In</button>
+        <Button type='submit' variant="contained">Log In</Button>
 
         {validForm === true && <span>Welcome back</span>}
 
         </form>
 
+      <br />
+      <hr className={style.separator}/>
+      <br />
 
-      <button onClick={()=>handleClick()}>
-        Log in with Google
-      </button>
+      <button className={style.google_btn} onClick={()=>handleClick()}>Log in with Google</button>
+
     </div>
   )
 } 

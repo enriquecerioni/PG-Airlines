@@ -5,18 +5,26 @@ import logo from '../styles/logo.png';
 import shoppingCart from '../styles/shopping-cart.png';
 import { logOut } from '../scripts/auth';
 import { CartContext } from '../CartComponents/CartContext';
+import { Alert } from '@mui/material';
 
 export default  function NavBar() {
 
   const { products } = useContext(CartContext);
 
+  const [ alert, setAlert] = useState(false)
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+
   const [stateCart, setStateCart] = useState(products.length);
   
   useEffect(() => {
     setStateCart(products.length);
-    // console.log("Carrito Actualizado.");
   }, [products]);
 
+  function handleLogOut() {
+    logOut()
+    setAlert(true)
+  }
 
   return (
     <nav >
@@ -40,7 +48,7 @@ export default  function NavBar() {
           </Link>
         </li>
         <li>
-          <button id="logOut" className={s.navLink_logout} onClick={()=>logOut()}>Log Out</button>
+          <button id="logOut" className={s.navLink_logout} onClick={() => handleLogOut()}>Log Out</button>
         </li>
         <li className={s.cart_container}>
           <Link className={s.navLink} to="/cart"  >
@@ -49,16 +57,7 @@ export default  function NavBar() {
           </li>
           <h5 className={s.price}>{stateCart}</h5>
       </ul>
+      { alert && <Alert onClose={() => setAlert(false)} severity="info">Log out successfully!</Alert>}
     </nav> 
   );
 }
-
-/*
-    {cartOpen ? (
-      <div className={s.cartOpen}>
-        <BoxCart onClick={handleCart} />
-      </div>
-    ) : (
-      <></>
-    )}
-*/

@@ -8,7 +8,7 @@ import { useContext } from 'react'
 
 function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour, destination}) {
 
-  const item = { id, origin, price, logo, airline, arrivalHour, departureHour }
+  const item = { id, origin, price, logo, airline, arrivalHour, departureHour, destination }
 
   const {addProductToCart} = useContext(CartContext)
 
