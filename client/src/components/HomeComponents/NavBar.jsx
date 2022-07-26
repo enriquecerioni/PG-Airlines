@@ -24,7 +24,8 @@ export default function NavBar() {
     setStateCart(products.length);
   }, [products]);
 
-  function handleLogOut() {
+  function handleLogOut(e) {
+    e.preventDefault()
     logOut()
     setAlert(true)
   }
@@ -66,7 +67,7 @@ export default function NavBar() {
             </Link>
           </li>
           <li id="logOut">
-            <button className={s.navLink_logout} onClick={() => logOut()}>Log Out</button>
+            <button className={s.navLink_logout} onClick={(e) => handleLogOut(e)}>Log Out</button>
           </li>
           {/* --------------------------------------------------------------------  */}
           <li>
