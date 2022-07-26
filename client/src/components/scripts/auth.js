@@ -24,24 +24,8 @@ const firebaseConfig = {
   auth.onAuthStateChanged(async (user)=>{
     //console.log(user)
     if(user){
-     
-    //   docRef.get().then((doc) => {
-    //       if (doc.exists) {
-    //           console.log("Document data:", doc.data());
-    //       } else {
-    //           // doc.data() will be undefined in this case
-    //           console.log("No such document!");
-    //       }
-    //   }).catch((error) => {
-    //       console.log("Error getting document:", error);
-    //   });
-
-
-
-
-
       let a=await dbFirebase.collection("users").doc(`${user.email}`).get()
-      let userAdmin =a.data().admin
+      let userAdmin =  a ? a.data().admin : null
       if(userAdmin){
         document.getElementById('logOut').style.display=""
         document.getElementById('myProfile').style.display=""
@@ -78,7 +62,7 @@ export function singUp(email,password){
 
     auth.createUserWithEmailAndPassword(email,password).then((cred)=>{  
       console.log(cred)
-      return dbFirebase.collection("users").doc(cred.user.uid).set({
+      return dbFirebase.collection("users").doc(cred.user.email).set({
         email: cred.user.email,
         admin: false ,
         photo: cred.user.photoURL
