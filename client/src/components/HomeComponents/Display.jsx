@@ -121,6 +121,7 @@ export default function Display() {
                         origin={e.origin}
                         stock={e.stock}
                         
+                        destination={e.destination}                        
                     />) 
                            
                 }) :
