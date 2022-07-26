@@ -1,227 +1,400 @@
 ::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #E6F4F1;
-    
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(0deg, rgba(57,133,203,1) 0%, rgba(0,39,96,1) 100%);
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    border-right: 2px solid #E6F4F1;;
-    border-left: 2px solid #E6F4F1;;
-    transition: 0.5s ease;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #1150ad;
-  }
+  width: 2.2vh;
+}
 
-.links{
-    text-decoration: none;
+::-webkit-scrollbar-track {
+  background: #e6f4f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    0deg,
+    rgba(57, 133, 203, 1) 0%,
+    rgba(0, 39, 96, 1) 100%
+  );
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border-right: 2px solid #e6f4f1;
+  border-left: 2px solid #e6f4f1;
+  transition: 0.5s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #1150ad;
+}
+
+.links {
+  text-decoration: none;
+}
+
+.flight{
+    display:flex;
+    justify-content: center;
 }
 
 .detail {
+  /* display: flex; */
+  flex-direction: column;
+  /* padding: 10px; */
+  margin-left: 25%;
+  margin-top: 100px;
+  margin-bottom: 50px;
+  /* background-color: #e6f4f1; */
+  color: black;
+  /* width: 700px; */
+  max-width: 700px;
+  max-height: 400px;
+  border-radius: 10px;
+  /* border: 2px solid #c9dbd659; */
+  overflow: hidden;
+  font-weight: 500;
+  transition: .5s ease;
+}
+
+.detail:hover{
+    transform: scale(1.1);
+    /* margin-bottom: 100px; */
+}
+
+.btnHome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px;
+  margin-left: 50px;
+  margin-right: 3px;
+  width: 150px;
+  height: 40px;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 2px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5px;
+  border: 0px;
+  color: rgba(252, 93, 19, 1);
+  background: rgb(255, 181, 146);
+  border: 2px solid rgba(252, 93, 19, 1);
+  /* background:#DEA01E; */
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+.btnHome:hover {
+  transform: scale(1.1);
+  color: white;
+  background: rgba(252, 93, 19, 1);
+}
+
+.divA {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 30px 10px 10px;
+  width: 97%;
+  height: 100px;
+  /* border-bottom: 2px solid #bcc9c6; */
+  /* max-width: 450px; */
+
+}
+
+.detail .input {
+  display: none;
+}
+
+.detail .label {
+  position: relative;
+  /* font-weight: 600; */
+  background: #e6f4f1;
+  /* box-shadow: 0 5px 11px 0 rgb(0, 0, 0, 0.1), 0 4px 11px 0 rgb(0, 0, 0, 0.08); */
+  color: black;
+  /* font-size: 30px; */
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 15px 10px;
+  border-radius: 5px;
+  font-family: "Rubik", sans-serif;
+  z-index: 1;
+}
+
+.detail .label:after {
+  content: "";
+  position: absolute;
+  margin-top: 5%;
+  right: 3vh;
+  top: 20px;
+  width: 20px;
+  height: 20px;
+  background: url("arrow.svg") no-repeat 0 0;
+  transition: all 0.5s ease;
+}
+
+.detail .input:checked + .label:after {
+  transform: rotate(90deg);
+}
+
+/* ------------------------ */
+/* .collapsible {
+  max-width: 450px;
+  overflow: hidden;
+  font-weight: 500;
+}
+
+.collapsible .input {
+  display: none;
+}
+
+.collapsible .label {
+  position: relative;
+  font-weight: 600;
+  background: rgba(50, 44, 129, 0.267);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 5px 11px 0 rgb(0, 0, 0, 0.1), 0 4px 11px 0 rgb(0, 0, 0, 0.08);
+  color: rgb(255, 255, 255);
+  font-size: 30px;
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 15px 10px;
+  border-radius: 5px;
+  font-family: "Rubik", sans-serif;
+  z-index: 1;
+}
+
+.collapsible .label:after {
+  content: "";
+  position: absolute;
+  right: 15px;
+  top: 20px;
+  width: 20px;
+  height: 20px;
+  background: url("./arrow.svg") no-repeat 0 0;
+  transition: all 0.5s ease;
+}
+
+.collapsible input:checked + .title:after {
+  transform: rotate(90deg);
+}
+
+.collapsible-text {
+  max-height: 1px;
+  overflow: hidden;
+  border-radius: 5px;
+  line-height: 1.4;
+  position: relative;
+  top: -100%;
+  opacity: 0.5;
+  transition: all 0.5s ease;
+}
+
+.collapsible input:checked ~ .collapsible-text {
+  max-height: 300px;
+  padding-bottom: 25px;
+  background: rgba(181, 217, 250, 0.171);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 5px 11px 0 rgb(0, 0, 0, 0.1), 0 4px 11px 0 rgb(0, 0, 0, 0.08);
+  opacity: 1;
+  top: 0;
+}
+
+.collapsible-text h2 {
+  margin-bottom: 10px;
+  padding: 15px 15px 0;
+  color: rgb(255, 255, 255);
+}
+
+.collapsible-text p {
+  padding-left: 15px;
+  padding-right: 15px;
+} */
+/* ------------------------ */
+
+.btnDrop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 3px;
+  width: 50px;
+  height: 40px;
+  letter-spacing: 2px;
+  font-size: 26px;
+  font-weight: 500;
+  border-radius: 5px;
+  border: 0px;
+  cursor: pointer;
+  background-color: rgba(219, 218, 218, 0.801);
+}
+
+.info {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  margin-left: 25%;
-  margin-top: 100px;
-  background-color: #e6f4f1;
-  color: black;
-  width: 700px;
-  height: 400px;
-  border-radius: 10px;
-  border: 2px solid #c9dbd659;
+  width: 100%;
+  height: 100%;
+  /* border: 2px solid black; */
+  max-height: 1px;
+  overflow: hidden;
+  border-radius: 5px;
+  line-height: 1.4;
+  position: relative;
+  top: -100%;
+  opacity: 0.5;
+  transition: all 0.5s ease;
 }
 
-.btnHome{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 150px;
-    margin-left: 50px;
-    margin-right: 3px;
-    width: 150px;
-    height: 40px;
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 2px;
-    font-size: 15px;
-    font-weight: 600;
-    border-radius: 5px;
-    border: 0px;
-    color: rgba(252,93,19,1);
-    background:rgb(255, 181, 146);
-    border: 2px solid rgba(252,93,19,1);
-    /* background:#DEA01E; */
-    cursor: pointer;
-    transition: .5s ease;
-}
+.detail input:checked ~ .info {
+    max-height: 300px;
+    padding-bottom: 25px;
+    background: rgba(181, 217, 250, 0.171);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 5px 11px 0 rgb(0, 0, 0, 0.1), 0 4px 11px 0 rgb(0, 0, 0, 0.08);
+    opacity: 1;
+    top: 0;
+    margin-bottom: 100px;
+  }
 
-.btnHome:hover{
-    transform: scale(1.1);
-    color: white;
-    background: rgba(252,93,19,1);
-}
-
-.divA{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    width: 97%;
-    height: 100px;
-    border-bottom: 2px solid #bcc9c6;
-}
-
-.btnDrop{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 3px;
-    width: 50px;
-    height: 40px;
-    letter-spacing: 2px;
-    font-size: 26px;
-    font-weight: 500;
-    border-radius: 5px;
-    border: 0px;
-    cursor: pointer;
-    background-color: rgba(219, 218, 218, 0.801);
-
-}
-
-.info{
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    width: 97%;
-    height: 100%;
-    /* border: 2px solid black; */
-}
+  .info div {
+    margin-bottom: 10px;
+    padding: 15px 15px 0;
+    color: black;
+  }
+  
+  .info div {
+    padding-left: 15px;
+    padding-right: 15px;
+  } 
 
 .logo {
-    display: flex;
-    width: 100px;
-    height: 60px;
-    border-radius: 10px;
+  display: flex;
+  width: 100px;
+  height: 60px;
+  border-radius: 10px;
 }
 
 .airline {
-    display:flex;
-    font-weight: 800;
-    font-family: 'Rubik', sans-serif; 
+  display: flex;
+  font-weight: 800;
+  font-family: "Rubik", sans-serif;
 }
 
 .departureDate {
-    display:flex;
-    margin-right: 200px;
-    font-weight: 800;
-    font-family: 'Roboto', sans-serif;
+  display: flex;
+  margin-right: 200px;
+  font-weight: 800;
+  font-family: "Roboto", sans-serif;
 }
 .arrivalHour {
-    display:flex;
-    font-family: 'Roboto', sans-serif;
+  display: flex;
+  font-family: "Roboto", sans-serif;
 }
 .departureDate {
-    display:flex;
-    font-family: 'Roboto', sans-serif;
+  display: flex;
+  font-family: "Roboto", sans-serif;
 }
 .departureHour {
-    display:flex;
-    font-family: 'Roboto', sans-serif;
+  display: flex;
+  font-family: "Roboto", sans-serif;
 }
 
-.arrivalDate{
-    display:flex;
-    font-family: 'Roboto', sans-serif;
+.arrivalDate {
+  display: flex;
+  font-family: "Roboto", sans-serif;
 }
 
 .description {
-    display:flex;
-    position: absolute;
-    width: 200px;
-    height: 100px;
-    right: 350px;
-    font-family: 'Roboto', sans-serif;
+  display: flex;
+  position: absolute;
+  width: 200px;
+  height: 100px;
+  right: 350px;
+  font-family: "Roboto", sans-serif;
 }
 .destination {
-    display:flex;
-    font-family: 'Roboto', sans-serif;
+  display: flex;
+  font-family: "Roboto", sans-serif;
 }
 .durationEstimated {
-    display:flex;
+  display: flex;
 }
 
 .origin {
-    display:flex;
-    font-family: 'Roboto', sans-serif;
+  display: flex;
+  font-family: "Roboto", sans-serif;
 }
 .price {
-    display:flex;
-    font-family: 'Roboto', sans-serif;
+  display: flex;
+  font-family: "Roboto", sans-serif;
 }
 
-.divPrices{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    margin-left: 25%;
-    margin-top: 100px;
-    background-color: #e6f4f1;
-    color: black;
-    width: 680px;
-    height: 80px;
-    border-radius: 10px;
-    border: 2px solid #c9dbd659;
-    margin-bottom: 200px;
+.divPrices {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  margin-left: 25%;
+  margin-top: 0px;
+  background-color: #e6f4f1;
+  color: black;
+  width: 52%;
+  height: 80px;
+  border-radius: 10px;
+  border: 2px solid #c9dbd659;
+  margin-bottom: 200px;
 }
 
-.logoPrice{
-    width: 120px;
-    height: 70px;
-    border-radius: 10px;
+.logoPrice {
+  width: 120px;
+  height: 70px;
+  border-radius: 10px;
 }
 
-.airlinePrice{
-    display:flex;
-    margin-right: 150px;
-    font-size: 18px;
-    font-weight: 700;
-    font-family: 'Roboto', sans-serif;
+.airlinePrice {
+  display: flex;
+  margin-right: 150px;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: "Roboto", sans-serif;
 }
 
-.priceP{
-    display:flex;
-    margin-left: 20px;
-    font-weight: 700;
-    font-family: 'Roboto', sans-serif;
+.priceP {
+  display: flex;
+  margin-left: 10px;
+  font-weight: 700;
+  font-family: "Roboto", sans-serif;
 }
 
-.btn{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 3px;
-    width: 150px;
-    height: 40px;
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 2px;
-    font-size: 15px;
-    font-weight: 600;
-    border-radius: 5px;
-    border: 0px;
-    color: white;
-    background: linear-gradient(279deg, rgba(252,93,19,1) 0%, rgba(182,68,19,1) 100%);
-    cursor: pointer;
-    transition: .5s ease;
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 3px;
+  margin-left: 20px;
+  width: 150px;
+  height: 40px;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 2px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5px;
+  border: 0px;
+  color: white;
+  background: linear-gradient(
+    279deg,
+    rgba(252, 93, 19, 1) 0%,
+    rgba(182, 68, 19, 1) 100%
+  );
+  cursor: pointer;
+  transition: 0.5s ease;
 }
 
-.btn:hover{
-    transform: scale(1.1);
-    background: linear-gradient(279deg, rgb(253, 107, 39)  0%, rgb(253, 107, 39) 100%);
+.btn:hover {
+  transform: scale(1.1);
+  background: linear-gradient(
+    279deg,
+    rgb(253, 107, 39) 0%,
+    rgb(253, 107, 39) 100%
+  );
 }

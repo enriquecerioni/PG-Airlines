@@ -83,6 +83,8 @@ function Details() {
             return (
               <div key={d.flight}>
                 <div className={s.detail}>
+                  <input className={s.input} type="checkbox" id="collapsible-checkbox" />
+                  <label className={s.label} for="collapsible-checkbox">
                   <div className={s.divA}>
                     <img className={s.logo} src={d.logo} alt="Img" />
                     <div className={s.airline}>{d.airline}</div>
@@ -91,9 +93,9 @@ function Details() {
                     <div className={s.durationEstimated}>
                       {d.durationEstimated}
                     </div>
-                    <button className={s.btnDrop}>˅</button>
                   </div>
-                  <div className={s.info}>
+                  </label>
+                  <div className={s.info}> 
                     <div className={s.arrivalHour}>{d.arrivalHour}</div>
                     <div className={s.arrivalDate}>{d.arrivalDate}</div>
                     <div className={s.departureHour}>{d.departureHour}</div>
@@ -105,7 +107,7 @@ function Details() {
                 <div key={d.flight} className={s.divPrices}>
                   <img className={s.logoPrice} src={d.logo} alt="Img" />
                   <div className={s.airlinePrice}>{d.airline}</div>
-                  <div className={s.priceP}>{d.price}</div>
+                  <div className={s.priceP}>${d.price}</div>
                   <button
                     className={s.btn}
                     onClick={() =>
