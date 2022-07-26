@@ -1,0 +1,37 @@
+.inputSearch {
+    font-size: 15px;
+    color: #DEA01E;
+    border: none;
+    height: 2.5rem;
+    width: 18rem;
+    font-family: "Raleway", sans-serif;
+    /* display: inline-block; */
+    padding-left: 15px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    background-color: white;
+    border: 2px solid #E6F4F1;
+  }
+  .inputSearch:focus {
+    outline: none;
+    font-weight: 900;
+  }
+  .btnSearch {
+    margin: 0 1px;
+    font-size: 15px;
+    font-family: "Raleway", sans-serif;
+    height: 2.5rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #DEA01E;
+  }
+  .btnSearch:hover {
+    background: #daa93f;
+    color: white;
+  }
+  
+  .inputSearch:hover {
+    background-color: #E6F4F1;
+    color: black;
+  }

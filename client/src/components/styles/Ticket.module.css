@@ -1,3 +1,7 @@
+*{
+    text-decoration: none;
+}
+
 .cards {
     list-style: none;
     justify-content: center;
@@ -22,7 +26,9 @@
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-around;
-    box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.014), 0 6.7px 5.3px rgba(0, 0, 0, 0.02),
+    0 12.5px 10px rgba(0, 0, 0, 0.025), 0 22.3px 17.9px rgba(0, 0, 0, 0.03),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.036), 0 100px 80px rgba(0, 0, 0, 0.05);
     padding: 1rem;
 }
 
@@ -64,4 +70,40 @@ img {
     height: auto;
     max-width: 100%;
     vertical-align: middle;
-  }
+}
+
+
+.button{
+    background-color: #3985CB;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border: none;
+    font-size: 18.5px;
+    border-radius: 50%;
+    font-size: 20px;
+}
+.propiedades {
+    color:black;
+    position: absolute;
+    padding: none;
+    display: none;
+}
+.propiedades .a{
+     /* background-color: #f9f9f9; */
+    background-color:#3985CB;
+    width: 220%;
+    margin: 0;
+    
+}
+.propiedades:hover{
+    background-color: white;
+}
+
+.info:hover .propiedades{
+    display: block;
+}
+.info{
+    position: absolute;
+    margin: 0% 0% 0% 45%;
+}
