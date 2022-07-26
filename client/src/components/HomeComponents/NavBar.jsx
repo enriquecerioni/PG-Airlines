@@ -24,7 +24,7 @@ export default  function NavBar() {
         <img className={s.logoImg} src={logo} alt="logo" />
       </Link>
       <ul className={s.navUl}>
-        <li>
+        <li id="favs">
           <Link className={s.navLink} to="/favs">
             Favs
           </Link>
@@ -42,12 +42,20 @@ export default  function NavBar() {
         <li>
           <button id="logOut" className={s.navLink_logout} onClick={()=>logOut()}>Log Out</button>
         </li>
-        <li className={s.cart_container}>
+        {/* --------------------------------------------------------------------  */}
+        <li>
+          <button id="addAirline">Add airline</button>
+        </li>
+        <li>
+          <button id="myProfile">My profile</button>
+        </li>
+        {/* --------------------------------------------------------------------  */}
+        <li id="carrito" className={s.cart_container}>
           <Link className={s.navLink} to="/cart"  >
             <img className={s.cart} src={shoppingCart}/>
           </Link>
           </li>
-          <h5 className={s.price}>{stateCart ? stateCart : 0}</h5>
+          <h5 id="nCarrito" className={s.price}>{stateCart ? stateCart : 0}</h5>
       </ul>
     </nav> 
   );
