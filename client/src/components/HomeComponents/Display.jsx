@@ -164,6 +164,7 @@ export default function Display() {
 
         <Paginate
             cardPerPage={cardPerPage}
+            currentPage={currentPage}
             paginate={paginate}
             total={ filterArray.length ? filterArray.length
                 : details.length}
