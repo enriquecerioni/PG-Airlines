@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,stock, destination}) {
 
-  const item = { id, origin, price, logo, airline, arrivalHour, departureHour,stock }
+  const item = { id, origin, price, logo, airline, arrivalHour, departureHour, destination }
 
   const {addProductToCart} = useContext(CartContext)
 
@@ -90,6 +90,7 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
             </Link>
           </div>
         </div>
+        { stock < 40 ? <span>{`Solo ${stock} asientos disponibles`}</span> : <></> }
       </li>
     </div>
   );

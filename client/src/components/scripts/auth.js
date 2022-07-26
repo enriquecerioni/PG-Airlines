@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 import {store} from '../../redux/store/index'
-import {createUser} from '../../redux/actions/index'
+import {createUser , logOutUser} from '../../redux/actions/index'
 
 const firebaseConfig = {
     apiKey: "AIzaSyBGr8PQQDvTRK484636fOa1XJVhIJ0lmqA",
@@ -72,12 +72,11 @@ export function singUp(email,password){
 }
 
 export function logOut(){
-
-      auth.signOut().then(()=>{})
-
+      auth.signOut()
+      store.dispatch(logOutUser())
 }
 
-export function  logIn(email,password){
+export function logIn(email,password){
     auth.onAuthStateChanged(user=>{
         if(user) console.log('Usuario ya ingresado')
         else {
@@ -89,10 +88,30 @@ export function  logIn(email,password){
             alert(error.message)
           })
         }
-      })
-    
-      
+      })   
 }
+
+export async function getUser() {
+  let user = auth.currentUser
+  console.log(user)
+
+  if(user !== null) {
+    const displayName = user.displayName;
+    const email = user.email;
+    const photoURL = user.photoURL;
+    const emailVerified = user.emailVerified;
+    const uid = user.uid;
+
+    await store.dispatch(createUser(displayName, email, photoURL, emailVerified, uid))
+  }
+  // auth.listUsers(maxResults)
+  // .then((userRecords) => {
+  //   userRecords.users.forEach((user) => console.log(user.toJSON()));
+  //   res.end('Retrieved users list successfully.');
+  // })
+  // .catch((error) => console.log(error));
+}
+
 export async function ejecutar(){
 try{
 
@@ -115,11 +134,3 @@ try{
       };
 
 }
-
-
-
-
-
-
-
-

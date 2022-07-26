@@ -34,13 +34,17 @@ export default function Display() {
     // PAGINATE
     const [currentPage, setCurrentPage] = useState(1)
     const [cardPerPage, /*setCardPerPage*/] = useState(6)
+    const [isActive, setIsActive] = useState(false);
 
     const indexOfLastCard = currentPage * cardPerPage;
     const indexOfFirstCard = indexOfLastCard - cardPerPage;
     const paginateCards = filterArray.length ? filterArray.slice(indexOfFirstCard, indexOfLastCard) :
     details.slice(indexOfFirstCard, indexOfLastCard)
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const paginate = (pageNumber) => { 
+        setIsActive(true)
+        setCurrentPage(pageNumber)
+    };
 
     // FILTER AND ORDER
 
@@ -119,9 +123,8 @@ export default function Display() {
                         departureHour={e.departureHour}
                         arrivalHour={e.arrivalHour}
                         origin={e.origin}
-                        stock={e.stock}
-                        
-                        destination={e.destination}                        
+                        destination={e.destination}
+                        stock={e.stock}              
                     />) 
                            
                 }) :
@@ -164,6 +167,7 @@ export default function Display() {
             paginate={paginate}
             total={ filterArray.length ? filterArray.length
                 : details.length}
+            isActive={isActive}    
         />     
     </div>
   )

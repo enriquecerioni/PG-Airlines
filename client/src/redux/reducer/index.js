@@ -16,7 +16,9 @@ import {
   DELETE_FROM_CART,
   ADD_CART,
   RESET_CART,
-  CREATE_USER
+  CREATE_USER,
+  LOGOUT_USER,
+  ERROR_USER,
 } from "../actions";
 
 const initialState = {
@@ -32,7 +34,8 @@ const initialState = {
   favoriteList: [],
   shoppingCart: [],
   filterPrecioData: '',
-  filterAirlinesData: ''
+  filterAirlinesData: '',
+  error: ''
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -65,11 +68,22 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
+      
     case CREATE_USER:
+
       return{
         ...state,
-        allUsers:[...state.allUsers,action.payload]
+        error: '',
+        allUsers: [...state.allUsers,action.payload]
+    }
+
+    case LOGOUT_USER: {
+      return { 
+        ...state,
+        allUsers: []
       }
+    }  
+
     case ADD_CART: 
       let tempcart = state.cart.filter((item) => item.id === action.payload);
       //console.log(tempcart)
@@ -293,6 +307,14 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         favoriteList : newArray
+      }
+    }
+
+    case ERROR_USER: {
+      return {
+        ...state,
+        allUsers: [],
+        error: action.payload
       }
     }
 

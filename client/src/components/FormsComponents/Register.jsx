@@ -1,9 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
-import style from './styles/Forms.module.css'
+import style from '../styles/Forms.module.css'
 import Input from './Input'
-import { ejecutar, singUp } from './scripts/auth'
+import { ejecutar, singUp } from '../scripts/auth'
 import { useHistory } from 'react-router-dom'
+import { Button } from '@mui/material';
+import { useSelector } from 'react-redux'
 
 //   function handleSubmit(e) {
 //     e.preventDefault()
@@ -23,8 +25,9 @@ import { useHistory } from 'react-router-dom'
 
 function Register() {
 
-    const [validForm, setValidForm] = useState(null)
-  const navigate=useHistory();
+  const [validForm, setValidForm] = useState(null)
+  const navigate = useHistory();
+  const error = useSelector(state => state.error)
 
   const [ name, setName ] = useState({value:'', valid: null})
   const [ surname, setSurname ] = useState({value:'', valid: null})
@@ -38,32 +41,43 @@ function Register() {
     surname: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
     email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, //eslint-disable-line
     phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/, //eslint-disable-line
-    password: /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,12}$/, //eslint-disable-line
-    // 8-12 caracteres, un simbolo especial, al menos un digito, al menos una letra en minuscula y al menos una letra en mayuscula
+    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 
+    // Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character (*)
   }
 
   function handleSubmit(e){
     e.preventDefault()
+    // if(e.target.email.value && e.target.password.value) {
+    //   alert('Ya te regisrtaste, anda a Log In')
+    //   navigate.replace('/login')
+    // } else {
+    //   singUp(e.target.email.value, e.target.password.value)
+    // }
     singUp(e.target.email.value,e.target.password.value)
     navigate.goBack()
   }
   async function handleClick (){
     try {
-      await ejecutar();
-      navigate.goBack(); //asyn await
+      singUp(e.target.email.value, e.target.password.value)
     } catch (error) {
-      alert(error)
+      alert('Usuario ya registrado')
     }
     
   }
 
+  async function handleClick (){
+    try {
+      await ejecutar();
+      navigate.replace('/'); //asyn await
+    } catch (error) {
+      alert(error)
+    }
+  }
+
   return (
     <div className={style.container}>
-
       <form onSubmit={(e)=>handleSubmit(e)} className={style.form_container}>
-      <h1>Register</h1>
-        {/* <label>E-mail</label>
-        <input name='email' type="email" /> */}
+      <h1>Create your account</h1>
 
       <Input
         state={name}
@@ -131,11 +145,17 @@ function Register() {
         {password2.value !== password.value && <span>Password does not match</span>}
 
         {validForm === false && <span>Please complete all fields correctly</span>}
-        <button type='submit'>Register</button>
+
+        <Button type='submit' variant="contained">Register</Button>
+
         {validForm === true && <span>Thank you!</span>}
 
       </form>
-      <button onClick={()=>handleClick()}>Register by Google</button>
+      <br />
+      <hr className={style.separator}/>
+      <br />
+      <button className={style.google_btn} onClick={()=>handleClick()}>Register with Google</button>
+      {error && <span>{error}</span>}
     </div>
   )
 }

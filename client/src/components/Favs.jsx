@@ -9,8 +9,8 @@ import { toast } from "react-toastify";
 function Favs() {
   const dispatch = useDispatch();
 
-  const flightList = useSelector((state) => state.favoriteList);
-  console.log(flightList);
+  const flightList = useSelector(state => state.favoriteList)
+  // console.log(flightList)
 
   // funciona
   function removeFavorite(id) {

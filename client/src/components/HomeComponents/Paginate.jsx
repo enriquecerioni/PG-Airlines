@@ -1,6 +1,7 @@
 import React, { useState } from "react"; 
+import style from '../styles/Display.module.css'
 
-export default function Paginate({cardPerPage, total, paginate}) {
+export default function Paginate({cardPerPage, total, paginate, isActive}) {
 
     const [actual, setActual] = useState(1)
     const pageNumbers = []
@@ -8,6 +9,7 @@ export default function Paginate({cardPerPage, total, paginate}) {
     for(let i=1; i <= Math.ceil(total / cardPerPage); i++) {
         pageNumbers.push(i)
     }
+
 
     function handlePrev(e) {
         e.preventDefault();
@@ -30,19 +32,19 @@ export default function Paginate({cardPerPage, total, paginate}) {
     }
 
     return (
-        <div>
+        <div className={style.paginate_container}>
             <div>
-                <button onClick={e => handlePrev(e)}>Previous</button>
+                <button id={style.btns_paginate} onClick={e => handlePrev(e)}>Previous</button>
             </div>
 
         {pageNumbers.map(num => {
-            return (<li key={num}>
+            return (<li className={style.li_numbers} key={num}>
                 <button value={num} onClick={() => paginate(num)}>{num}</button>
             </li>)
         })}
 
             <div>
-                <button onClick={e => handleNext(e)}>Next</button>
+                <button id={style.btns_paginate} onClick={e => handleNext(e)}>Next</button>
             </div>
         </div>
     )
