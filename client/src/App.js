@@ -11,7 +11,7 @@ import CartProvider from "./components/CartComponents/CartContext";
 // import CartDemo from './components/CartComponents/Cart'
 import Cart from "./components/Cart";
 import Payment from "./components/Payment";
-
+import Catalog from './components/CatalogComponents/Catalog';
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
@@ -51,6 +51,9 @@ function App() {
                 <Elements stripe={promise} >
                   <Payment />
                 </Elements>
+              </Route>
+              <Route path="/catalog">
+                  <Catalog />
               </Route>
               <Route component={ErrorPage} />
             </Switch>
