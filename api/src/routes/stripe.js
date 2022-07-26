@@ -8,16 +8,18 @@ const stripe = new StripeFunction(process.env.STRIPE_KEY)
 
 stripeRouter.post('/', async (req, res) => {
   try {
-    const { id, amount } = req.body
+    const { id, amount, email, phone } = req.body
 
     const payment = await stripe.paymentIntents.create({
       amount, 
       currency: 'USD', 
       payment_method: id, 
-      confirm: true
+      confirm: true,
+      email,
+      phone
     })
   
-    // console.log(payment)
+    console.log(payment)
     res.send({message: 'succesfull payment'})
   } catch (error) {
     res.json({message: error.raw.message})

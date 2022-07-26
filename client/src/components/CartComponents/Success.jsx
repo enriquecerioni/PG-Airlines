@@ -7,11 +7,11 @@ function Success() {
     setTimeout(() => {
         window.location.reload(false);
         history.replace('/orders')
-    }, 5000)    
+    }, 2000)    
 
   return (
-    <div>
-        <img src="https://c.tenor.com/0J_5oo80U3wAAAAC/pingu.gif" style={ {marginTop: 5 + 'rem'}} width='600px' height='700px' alt="#" />
+    <div style={ {marginTop: 5 + 'rem'}}>
+      <h1>PAGO EXITOSO</h1>
     </div>
   )
 }

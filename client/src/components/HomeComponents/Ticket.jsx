@@ -90,6 +90,7 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
             </Link>
           </div>
         </div>
+        { stock < 40 ? <span>{`Solo ${stock} asientos disponibles`}</span> : <></> }
       </li>
     </div>
   );

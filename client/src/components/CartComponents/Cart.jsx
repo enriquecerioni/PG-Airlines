@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import style from '../styles/Ticket.module.css'
 import css from '../styles/Cart.module.css'
 import { Link, useHistory } from 'react-router-dom'
@@ -7,12 +6,14 @@ import { useContext } from 'react'
 import { CartContext } from './CartContext'
 import { deleteFromCart } from '../../redux/actions/index'
 import { useDispatch } from 'react-redux'
-import { Alert } from '@mui/material';
+import {toast} from 'react-toastify'
+ 
+
+import firebase from 'firebase'
 
 function Cart() {
-  const user = useSelector(state => state.allUsers)
-  console.log(user)
-
+  //  const cart = useSelector(state => console.log(state.shoppingCart))
+  const auth = firebase.auth();
   const history = useHistory()  
   const dispatch = useDispatch()
 
@@ -34,7 +35,16 @@ function Cart() {
     setSubTotal(subTotal-productToDelete[0].amount*productToDelete[0].price)
     dispatch(deleteFromCart(id));
     deleteProductFromCart(id);
-    
+    toast.error("Deleted from cart", {
+      icon: "❌",
+      position: "bottom-left",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 
   function handleSum(id) {
@@ -51,7 +61,20 @@ function Cart() {
       setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))            
     }    
   }, [handleSum, handleRest])
+  function handleCheckout(){
+    auth.onAuthStateChanged(user=>{
+      if(user){
+        history.push('/payment')
+      }
+      else {
+        alert("You need to be logged to buy")
+        history.push('/login')
+      }
+    })
+  }
 
+
+ 
     return (
         <div className={css.cart_container}>
             <Link to='/'>
@@ -96,10 +119,10 @@ function Cart() {
                 <h5>Subtotal</h5>{ subTotal && <span>${subTotal}</span>}
                 <h5>Fees</h5>{ subTotal && <span>${(subTotal*0.1)/100}</span>} 
                 <h5>Total</h5>{subTotal && <span>${(subTotal + ((subTotal*0.1)/100))}</span>}
-               <button onClick={e => history.push('/payment')}>Proceed to Checkout</button>
+               <button onClick={() => handleCheckout()}>Proceed to Checkout</button>
              </div>    
           }    
-          {subTotal && !user && <Alert severity="error">This is an error alert — check it out!</Alert>}
+          
         </div>
       )
 }

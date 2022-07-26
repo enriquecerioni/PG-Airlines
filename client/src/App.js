@@ -9,8 +9,8 @@ import Favs from "./components/Favs";
 import ErrorPage from "./components/ErrorPage";
 import CartProvider from "./components/CartComponents/CartContext";
 // import CartDemo from './components/CartComponents/Cart'
-import Cart from "./components/Cart";
-import Payment from "./components/Payment";
+import Cart from "./components/CartComponents/Cart";
+import Payment from "./components/CartComponents/Payment";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loadStripe } from '@stripe/stripe-js'

@@ -25,7 +25,8 @@ function Payment() {
     const [ processing, setProcessing ] = useState("")
     const [ clientSecret, setClientSecret ] = useState(true)
 
-
+    const [ email, setEmail ] = useState('')
+    const [ phone, setPhone ] = useState('')
     ///------------------------------
    
 
@@ -45,8 +46,12 @@ function Payment() {
             try {
                 const { data } = await axios.post('http://localhost:3001/checkout', {
                     id, 
-                    amount: subTotal * 100 // lo tengo que mandar en centavos                           //1 METODO
+                    amount: subTotal * 100, // lo tengo que mandar en centavos  //1 METODO
+                    email,
+                    phone
                 });
+
+                console.log(data)
 
                 // console.log(data)
                 // db.collection('users')
@@ -77,7 +82,6 @@ function Payment() {
         }
     }
 
-    
 
     function deleteStockFirebase(){
        let dbs= firebase.firestore()
@@ -150,9 +154,24 @@ function Payment() {
         {/* PAYMENT METHOD */}
         <h1>Payment Method</h1>
         <form className={css.form_container} onSubmit={handleSubmit}>
+            <label>Email</label>
+            <input 
+            type="text" 
+            value={email} 
+            name='email'
+            onChange={e => setEmail(e.target.value)}
+            />
 
-            <CardElement onChange={handleChange}/>            //1 METODO
-
+            <label>Phone</label>
+            <input 
+            type="text" 
+            value={phone} 
+            name='phone'
+            onChange={e => setPhone(e.target.value)}
+            />
+            <br />
+            <CardElement onChange={handleChange}/>
+            <br />
             <div>
             <h5>Order Total:</h5>{ subTotal && <span>${subTotal}</span>}
             </div>
