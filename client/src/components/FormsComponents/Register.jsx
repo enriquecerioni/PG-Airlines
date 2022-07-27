@@ -6,6 +6,8 @@ import { ejecutar, singUp } from '../scripts/auth'
 import { useHistory } from 'react-router-dom'
 import { Button } from '@mui/material';
 import { useSelector } from 'react-redux'
+import { LoadingButton } from '@mui/lab';
+import GoogleIcon from '@mui/icons-material/Google';
 
 //   function handleSubmit(e) {
 //     e.preventDefault()
@@ -36,6 +38,8 @@ function Register() {
   const [ password, setPassword ] = useState({value:'', valid: null})
   const [ password2, setPassword2 ] = useState({value:'', valid: null})
 
+  const [loading, setLoading] = useState(false);
+
     const expression = {
     name: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
     surname: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
@@ -47,27 +51,26 @@ function Register() {
 
   function handleSubmit(e){
     e.preventDefault()
-    // if(e.target.email.value && e.target.password.value) {
-    //   alert('Ya te regisrtaste, anda a Log In')
-    //   navigate.replace('/login')
-    // } else {
-    //   singUp(e.target.email.value, e.target.password.value)
-    // }
+    setLoading(true)
     singUp(e.target.email.value,e.target.password.value)
+    setLoading(false)
     navigate.goBack()
   }
-  async function handleClick (e){
-    try {
-      singUp(e.target.email.value, e.target.password.value)
-    } catch (error) {
-      alert('Usuario ya registrado')
-    }
-    
-  }
+
+  // async function handleClick (e){
+  //   try {
+
+  //     singUp(e.target.email.value, e.target.password.value)
+  //   } catch (error) {
+  //     alert('Usuario ya registrado')
+  //   }
+  // }
 
   async function handleClick (){
     try {
+      setLoading(true)
       await ejecutar();
+      setLoading(false)
       navigate.replace('/'); //asyn await
     } catch (error) {
       alert(error)
@@ -146,7 +149,13 @@ function Register() {
 
         {validForm === false && <span>Please complete all fields correctly</span>}
 
-        <Button type='submit' variant="contained">Register</Button>
+        <LoadingButton
+          type='submit' 
+          endIcon='✔'
+          loading={loading}
+          loadingPosition="end"
+          variant="contained"
+          >Register</LoadingButton>
 
         {validForm === true && <span>Thank you!</span>}
 
@@ -154,7 +163,14 @@ function Register() {
       <br />
       <hr className={style.separator}/>
       <br />
-      <button className={style.google_btn} onClick={()=>handleClick()}>Register with Google</button>
+      <LoadingButton 
+        onClick={()=>handleClick()}
+        endIcon= {<GoogleIcon />}
+        loading={loading}
+        loadingPosition="end"
+        variant="contained"
+      >Log in with Google</LoadingButton>
+
       {error && <span>{error}</span>}
     </div>
   )

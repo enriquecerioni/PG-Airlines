@@ -3,7 +3,8 @@ import Input from './Input'
 import { ejecutar, logIn } from '../scripts/auth'
 import style from '../styles/Forms.module.css'
 import { useHistory } from "react-router-dom";
-import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import GoogleIcon from '@mui/icons-material/Google';
 
 // function LogIn() {
 
@@ -24,17 +25,28 @@ function LogIn() {
   let navigate = useHistory();
   const [validForm, setValidForm] = useState(null)
 
+  const [loading, setLoading] = useState(false);
+
   const [ emailLogIn, setEmailLogIn ] = useState({value:'', valid: null})
   const [ passwordLogIn, setPasswordLogIn ] = useState({value:'', valid: null})
 
 function handleSubmit(e){
   e.preventDefault();
-  logIn(e.target.emailLogIn.value,e.target.passwordLogIn.value);
-  navigate.push('/');
+  setLoading(true)
+  if(e.target.emailLogIn.value && e.target.passwordLogIn.value) {
+    logIn(e.target.emailLogIn.value,e.target.passwordLogIn.value)
+    navigate.push('/')
+  } else {
+    setLoading(false)
+    alert('enter valid email')
+  } 
 }
 
-async function handleClick(){
+async function handleClick(e){
+  e.preventDefault()
+  setLoading(true)
   await ejecutar()
+  setLoading(false)
   navigate.goBack();
 }
 
@@ -68,7 +80,13 @@ async function handleClick(){
 
         {validForm === false && <span>Please complete all fields correctly</span>}
 
-        <Button type='submit' variant="contained">Log In</Button>
+        <LoadingButton
+          type='submit' 
+          endIcon='✔'
+          loading={loading}
+          loadingPosition="end"
+          variant="contained"
+          >Log In</LoadingButton>
 
         {validForm === true && <span>Welcome back</span>}
 
@@ -78,7 +96,13 @@ async function handleClick(){
       <hr className={style.separator}/>
       <br />
 
-      <button className={style.google_btn} onClick={()=>handleClick()}>Log in with Google</button>
+      <LoadingButton 
+      onClick={()=>handleClick()}
+      endIcon= {<GoogleIcon />}
+      loading={loading}
+      loadingPosition="end"
+      variant="contained"
+      >Log in with Google</LoadingButton>
 
     </div>
   )

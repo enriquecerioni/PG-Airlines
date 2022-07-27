@@ -9,6 +9,7 @@ import { Alert } from '@mui/material';
 import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import { toast } from "react-toastify";
 
 export default function NavBar() {
 
@@ -26,7 +27,15 @@ export default function NavBar() {
 
   function handleLogOut() {
     logOut()
-    setAlert(true)
+    toast.success('✔ Log out!', {
+      // position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
   }
 
   return (
@@ -66,7 +75,7 @@ export default function NavBar() {
             </Link>
           </li>
           <li id="logOut">
-            <button className={s.navLink_logout} onClick={() => logOut()}>Log Out</button>
+            <button className={s.navLink_logout} onClick={() => handleLogOut()}>Log Out</button>
           </li>
           {/* --------------------------------------------------------------------  */}
           <li>
