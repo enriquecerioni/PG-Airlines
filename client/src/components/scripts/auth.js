@@ -66,15 +66,18 @@ const firebaseConfig = {
 
 //--------------------------------------------------------
 
-export function singUp(email,password){
-
-    auth.createUserWithEmailAndPassword(email,password).then((cred)=>{  
+export async function singUp(email,photo,name){
+  
+  await store.dispatch(createUser(email, name,photo))
+  
+    auth.createUserWithEmailAndPassword(email,photo).then((cred)=>{  
       console.log(cred)
       return dbFirebase.collection("users").doc(cred.user.email).set({
         email: cred.user.email,
         admin: false ,
         photo: cred.user.photoURL
       })
+      
     })
       
 }
