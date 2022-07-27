@@ -10,7 +10,7 @@ export default function Paginate({cardPerPage, currentPage, total, paginate, isA
         pageNumbers.push(i)
     }
 
-
+ 
     function handlePrev(e) {
         e.preventDefault();
         if(actual === 1) {
