@@ -1,7 +1,7 @@
 import React, { useState } from "react"; 
 import style from '../styles/Display.module.css'
 
-export default function Paginate({cardPerPage, total, paginate, isActive}) {
+export default function Paginate({cardPerPage, currentPage, total, paginate, isActive}) {
 
     const [actual, setActual] = useState(1)
     const pageNumbers = []
@@ -10,7 +10,7 @@ export default function Paginate({cardPerPage, total, paginate, isActive}) {
         pageNumbers.push(i)
     }
 
-
+ 
     function handlePrev(e) {
         e.preventDefault();
         if(actual === 1) {
@@ -39,7 +39,7 @@ export default function Paginate({cardPerPage, total, paginate, isActive}) {
 
         {pageNumbers.map(num => {
             return (<li className={style.li_numbers} key={num}>
-                <button value={num} onClick={() => paginate(num)}>{num}</button>
+                <button className={currentPage === num ? style.numberBtn : style.btn} value={num} onClick={() => paginate(num)}>{num}</button>
             </li>)
         })}
 
