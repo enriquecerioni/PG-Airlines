@@ -1,3 +1,5 @@
+//import { getUser } from "../../components/scripts/auth";
+
 const axios = require ("axios");
 export const GET_ALL_FLIGHTS = "GET_ALL_FLIGHTS"
 export const GET_FLIGHT_INFO = "GET_FLIGHT_INFO"
@@ -126,6 +128,8 @@ export function createUser(payload){
         })
     }
 }
+
+// getUser()
 
 export function logOutUser(payload) {
     return {

@@ -74,7 +74,9 @@ export default function NavBar() {
             <button id="addAirline">Add airline</button>
           </li>
           <li>
-            <button id="myProfile">My profile</button>
+            <Link to="/profile">
+              <button id="myProfile">My profile</button>
+            </Link>
           </li>
           {/* --------------------------------------------------------------------  */}
           <li id="carrito" className={s.cart_container}>
