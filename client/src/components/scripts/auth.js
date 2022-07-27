@@ -63,7 +63,7 @@ auth.onAuthStateChanged(async (user) => {
     document.getElementById("addAirline").style.display = "none";
     document.getElementById("favs").style.display = "";
   }
-});
+}); 
 
 //--------------------------------------------------------
 
