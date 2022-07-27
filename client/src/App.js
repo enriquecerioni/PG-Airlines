@@ -12,6 +12,7 @@ import CartProvider from "./components/CartComponents/CartContext";
 import Cart from "./components/CartComponents/Cart";
 import Payment from "./components/CartComponents/Payment";
 import Catalog from './components/CatalogComponents/Catalog';
+import RegisterAirline from "./components/FormsComponents/RegisterAirline";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loadStripe } from '@stripe/stripe-js'
@@ -43,10 +44,14 @@ function App() {
               <Route path="/ticket/:id">
                 <Details />
               </Route>
+              <Route exact path='/register/airline'>
+                <RegisterAirline />
+              </Route>
               <Route path="/register">
                 {/* {user ? <Redirect to='/' /> : <Register />} */}
                 <Register />
               </Route>
+              
               <Route path="/login">
                 {/* {user ? <Redirect to='/' /> : <LogIn />} */}
                 <LogIn />
@@ -65,7 +70,7 @@ function App() {
               <Route path="/catalog">
                   <Catalog />
               </Route>
-              <Route component={ErrorPage} />
+              <Route component={ErrorPage} /> 
             </Switch>
           </CartProvider>
           <ToastContainer />
