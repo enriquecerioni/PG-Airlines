@@ -53,8 +53,8 @@ function Register() {
     // } else {
     //   singUp(e.target.email.value, e.target.password.value)
     // }
-    singUp(e.target.email.value,e.target.password.value)
-    navigate.goBack()
+    singUp(e.target.email.value,e.target.password.value,`${e.target.name.value} ${e.target.surname.value}`)
+    navigate.push('/')
   }
   async function handleClick (e){
     try {

@@ -35,7 +35,7 @@ function LogIn() {
 
 async function handleClick(){
   await ejecutar()
-  navigate.goBack();
+  navigate.push('/');
 }
 
   return (
