@@ -28,7 +28,16 @@ export default function NavBar() {
   function handleLogOut(e) {
     e.preventDefault()
     logOut()
-    setAlert(true)
+    // setAlert(true)
+    toast("Log out successfully!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeButton: false,
+        newestOnTop: true,
+        progress: undefined,
+        type: "info",
+    });
   }
 
   return (
@@ -85,7 +94,7 @@ export default function NavBar() {
           </li>
           <h5 id="nCarrito" className={s.price}>{stateCart ? stateCart : 0}</h5>
       </ul>
-      { alert && <Alert onClose={() => setAlert(false)} severity="info">Log out successfully!</Alert>}
+      {/* { alert && <Alert onClose={() => setAlert(false)} severity="info">Log out successfully!</Alert>} */}
       {/* {alert && toast("Log out successfully!", {
         position: "top-right",
         autoClose: 5000,

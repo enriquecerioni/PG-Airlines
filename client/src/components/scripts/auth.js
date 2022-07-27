@@ -28,6 +28,7 @@ auth.onAuthStateChanged(async (user) => {
     let a = await dbFirebase.collection("users").doc(`${user.email}`).get();
     let userAdmin = a ? a.data().admin : null;
     if (userAdmin) {
+      document.getElementById("btnHomeGuest").style.display = "none";
       document.getElementById("catalog").style.display = "";
       document.getElementById("logOut").style.display = "";
       document.getElementById("myProfile").style.display = "";
@@ -38,8 +39,7 @@ auth.onAuthStateChanged(async (user) => {
       document.getElementById("offers").style.display = "none";
     } else {
       console.log("usser log in: ", user.displayName, user.email);
-      document.getElementById("btnHomeGuest").style.display = "none";
-      document.getElementById("btnHomeUser").style.display = "";
+      // document.getElementById("btnHomeGuest").style.display = "none";
       document.getElementById("offers").style.display = "";
       document.getElementById("catalog").style.display = "none";
       document.getElementById("logIn").style.display = "none";
@@ -51,8 +51,7 @@ auth.onAuthStateChanged(async (user) => {
     }
   } else {
     EstadoUsuario = false;
-    document.getElementById("btnHomeUser").style.display = "none";
-    document.getElementById("btnHomeGuest").style.display = "";
+    // document.getElementById("btnHomeGuest").style.display = "";
     console.log("user logged out");
     document.getElementById("offers").style.display = "";
     document.getElementById("catalog").style.display = "none";
