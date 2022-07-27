@@ -91,17 +91,24 @@ function Details() {
                     <div className={s.departureDate}>{d.departureDate}</div>
 
                     <div className={s.durationEstimated}>
-                      {d.durationEstimated}
+                      {d.durationEstimated}h
                     </div>
                   </div>
                   </label>
                   <div className={s.info}> 
-                    <div className={s.arrivalHour}>{d.arrivalHour}</div>
-                    <div className={s.arrivalDate}>{d.arrivalDate}</div>
-                    <div className={s.departureHour}>{d.departureHour}</div>
-                    <div className={s.description}>{d.description}</div>
-                    <div className={s.destination}>{d.destination}</div>
-                    <div className={s.origin}>{d.origin}</div>
+                  <div className={s.divInfo1}>
+
+                    <div className={s.departureHour}>Departure Hour: {d.departureHour}</div>
+                    <div className={s.durationEstimated}>
+                      {d.durationEstimated}h
+                    </div>
+                    <div className={s.arrivalHour}>Arrival Hour: {d.arrivalHour}</div>
+                  </div>
+                  <div className={s.divInfo2}>
+                    <div className={s.origin}>Origin: {d.origin}</div>
+                    <div className={s.description}>Description: {d.description}</div>
+                    <div className={s.destination}>Destination: {d.destination}</div>
+                  </div>
                   </div>
                 </div>
                 <div key={d.flight} className={s.divPrices}>

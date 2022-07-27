@@ -19,6 +19,7 @@ const dbFirebase = firebase.firestore();
 
 //---------------------estado del usuraio------------------
 
+
 const auth = firebase.auth();
 let EstadoUsuario = false;
 auth.onAuthStateChanged(async (user) => {
@@ -48,6 +49,8 @@ auth.onAuthStateChanged(async (user) => {
       document.getElementById("myProfile").style.display = "none";
       document.getElementById("addAirline").style.display = "none";
       document.getElementById("favs").style.display = "";
+
+
     }
   } else {
     EstadoUsuario = false;
@@ -66,15 +69,23 @@ auth.onAuthStateChanged(async (user) => {
 
 //--------------------------------------------------------
 
-export function singUp(email, password) {
-  auth.createUserWithEmailAndPassword(email, password).then((cred) => {
-    console.log(cred);
-    return dbFirebase.collection("users").doc(cred.user.email).set({
-      email: cred.user.email,
-      admin: false,
-      photo: cred.user.photoURL,
-    });
-  });
+export async function singUp(email,photo,name){
+  try {
+    let cred=await auth.createUserWithEmailAndPassword(email,photo)  
+      console.log(cred)
+       dbFirebase.collection("users").doc(cred.user.email).set({
+        email: cred.user.email,
+        admin: false ,
+        photo: cred.user.photoURL
+      })
+      await store.dispatch(createUser(email, name,photo))
+      return cred;
+  } catch (error) {
+    return `${error.message}`
+  }
+ 
+  
+    
 }
 
 export async function logOut() {
@@ -82,21 +93,23 @@ export async function logOut() {
   EstadoUsuario = false;
   // store.dispatch(logOutUser())
 }
-let num = 0;
-export function logIn(email, password) {
-  num++;
-  console.log(num);
-  if (EstadoUsuario) console.log("Usuario ya ingresado");
-  else {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log("usuario ingresado");
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  }
+
+export async function logIn(email,password){
+try {
+  // if(EstadoUsuario) console.log('Usuario ya ingresado')
+        
+        let user=await auth.signInWithEmailAndPassword(email,password)
+       
+            console.log("usuario ingresado");
+            return user
+        
+} catch (error) {
+  // alert(error.message)
+            return `${error.message}`
+}
+        
+          
+          
 }
 
 export async function getUser() {

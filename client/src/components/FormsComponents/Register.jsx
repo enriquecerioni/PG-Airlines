@@ -47,7 +47,7 @@ function Register() {
     // Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character (*)
   }
 
-  function handleSubmit(e){
+  async function handleSubmit(e){
     e.preventDefault()
     // if(e.target.email.value && e.target.password.value) {
     //   alert('Ya te regisrtaste, anda a Log In')
@@ -55,8 +55,12 @@ function Register() {
     // } else {
     //   singUp(e.target.email.value, e.target.password.value)
     // }
-    singUp(e.target.email.value,e.target.password.value)
-    navigate.goBack()
+
+    let type=await singUp(e.target.email.value,e.target.password.value,`${e.target.name.value} ${e.target.surname.value}`)
+   if(typeof type=="string"){
+    alert(type)
+  }else  navigate.push('/')
+ 
   }
   async function handleClick (e){
     try {

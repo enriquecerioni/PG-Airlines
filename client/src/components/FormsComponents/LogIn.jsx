@@ -31,16 +31,27 @@ function LogIn() {
     valid: null,
   });
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    logIn(e.target.emailLogIn.value, e.target.passwordLogIn.value);
-    navigate.push("/");
+ async function handleSubmit(e){
+  
+  e.preventDefault();
+  let type= await logIn(e.target.emailLogIn.value,e.target.passwordLogIn.value)
+  if(typeof type=="string"){
+    alert(type)
+  }else  navigate.push('/')
+  
+  
+
+}
+
+async function handleClick(){
+  try {
+    await ejecutar()
+    navigate.push('/');
+  } catch (error) {
+    alert(error)
   }
 
-  async function handleClick() {
-    await ejecutar();
-    navigate.goBack();
-  }
+}
 
   return (
     <div className={style.container}>

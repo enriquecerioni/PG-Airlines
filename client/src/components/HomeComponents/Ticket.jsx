@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,stock, destination}) {
 
-  const item = { id, origin, price, logo, airline, arrivalHour, departureHour, destination }
+  const item = { id, origin, price, logo, airline, arrivalHour, departureHour,stock, destination }
 
   const {addProductToCart} = useContext(CartContext)
 
