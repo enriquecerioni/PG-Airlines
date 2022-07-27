@@ -27,15 +27,26 @@ function LogIn() {
   const [ emailLogIn, setEmailLogIn ] = useState({value:'', valid: null})
   const [ passwordLogIn, setPasswordLogIn ] = useState({value:'', valid: null})
 
- function handleSubmit(e){
+ async function handleSubmit(e){
+  
   e.preventDefault();
-  logIn(e.target.emailLogIn.value,e.target.passwordLogIn.value);
-  navigate.push('/');
+  let type= await logIn(e.target.emailLogIn.value,e.target.passwordLogIn.value)
+  if(typeof type=="string"){
+    alert(type)
+  }else  navigate.push('/')
+ 
+  
+
 }
 
 async function handleClick(){
-  await ejecutar()
-  navigate.push('/');
+  try {
+    await ejecutar()
+    navigate.push('/');
+  } catch (error) {
+    alert(error)
+  }
+
 }
 
   return (
