@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import s from "../styles/Home.module.css";
 import Display from "./Display";
 import SearchBar from "./SearchBar";
 import test from "../styles/assets/test3.png";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllFlights } from "../../redux/actions";
+import Loader from './Loader'
+import NavBar from "./NavBar";
+
 
 export default function Home() {
-  return (
+  const [isDisplayed, setIsDisplayed] = useState(false);
+
+useEffect(() => {
+  setInterval(() => {
+    setIsDisplayed(true);
+    
+  }, 2000);
+}, []);
+  // useEffect(()=>{
+  //   dispatch(getAllFlights())
+  // },[])
+
+  
+  return(
+    <>
+    {  !isDisplayed ? ( <Loader/>) : 
+
     <div className={s.Home}>
+      {/* <NavBar /> */}
       <div id="sec-1" className={s.sec1}>
         <div className={s.container}>
           <h1 className={s.title}>
@@ -50,5 +72,7 @@ export default function Home() {
         <Display />
       </div>
     </div>
+        }
+        </>
   );
 }
