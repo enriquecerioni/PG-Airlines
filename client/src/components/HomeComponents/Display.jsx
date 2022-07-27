@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Ticket from './Ticket'
 import style from '../styles/Display.module.css'
 import Paginate from './Paginate';
+import Loading from '../Loading';
 import Filter from '../Filter'
 // import Filter from './Filter'
 import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines} from '../../redux/actions/index'
@@ -112,9 +113,10 @@ export default function Display() {
             <div className={style.ticket_container} >
                 
                 { 
-                filterArray.length !== 0 ? 
-                paginateCards.map(e => {
-                    if(e.stock)return (<Ticket 
+                filterArray.length !== 0 ? (
+
+                    paginateCards.map(e => {
+                        if(e.stock)return (<Ticket 
                         key={e.flight}
                         id={e.flight}
                         airline={e.airline}
@@ -125,10 +127,12 @@ export default function Display() {
                         origin={e.origin}
                         destination={e.destination}
                         stock={e.stock}              
-                    />) 
-                           
-                }) :
-                <p>Vuelos no encontrados, te invitamos a volver a buscar!</p>
+                        />) 
+                        
+                    })
+                    ) : (
+                        // <Loading/>
+                        <p>Vuelos no encontrados, te invitamos a volver a buscar!</p>
                 // paginateCards
                 // .map(e => {
                 //     return (<Ticket 
@@ -143,7 +147,8 @@ export default function Display() {
                 //         destination={e.destination}
                 //     />)        
                 // })
-            }  
+                )
+            }
             </div>
                            
             <div className={style.filter_container}>

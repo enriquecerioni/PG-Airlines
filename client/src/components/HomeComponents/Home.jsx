@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import s from "../styles/Home.module.css";
 import Display from "./Display";
 import SearchBar from "./SearchBar";
+import NavBar from "./NavBar"
 import test from "../styles/assets/test3.png";
+import Loading from "../Loading";
 
 export default function Home() {
   return (
     <div className={s.Home}>
+      <Loading/>
+      <NavBar />
       <div id="sec-1" className={s.sec1}>
         <div className={s.container}>
           <h1 className={s.title}>

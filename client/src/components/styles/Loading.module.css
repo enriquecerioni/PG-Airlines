@@ -1,0 +1,59 @@
+
+
+.mensaje{
+    padding: 50px;
+    font-size: 30px;
+    color:#1D3557 ;
+    background-color: #A8DADC;
+}
+.fondo{
+    height: 100vh;
+    width: 100%;
+    /* z-index: 500; */
+    background-color: #A8DADC;
+}
+.fondo h3{
+    color: #1D3557;
+    padding: 10px;
+
+}
+.tainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #A8DADC;
+    position: relative;
+
+}
+.tainer .load{
+    width: 100px;
+    height: 100px;
+    border: solid 5px #064555;
+    border-top: solid 5px #7cd6ec;
+    border-radius: 50%;
+    animation: load .8s linear infinite;
+}
+@keyframes load{
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.tainer .message{
+    position: absolute;
+    color: #1D3557;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: message 1s alternate infinite ease-in-out;
+}
+@keyframes message {
+    0%{
+        opacity: .2;
+    }
+    100%{
+        opacity: 1;
+    }
+}
