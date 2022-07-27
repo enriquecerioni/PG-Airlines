@@ -5,6 +5,7 @@ import { getFlightByID, cleanDetails } from "../redux/actions/index.js";
 import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
+import NavBar from './HomeComponents/NavBar';
 
 // import  addProductToCart  from './CartComponents/CartContext.jsx'
 import { CartContext } from "./CartComponents/CartContext";
@@ -73,6 +74,7 @@ function Details() {
 
   return (
     <div>
+      <NavBar />
       <div className={s.container}>
         <Link className={s.links} to="/">
           <button className={s.btnHome}>Go to Home</button>
