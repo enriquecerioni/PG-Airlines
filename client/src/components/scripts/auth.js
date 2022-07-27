@@ -67,18 +67,22 @@ const firebaseConfig = {
 //--------------------------------------------------------
 
 export async function singUp(email,photo,name){
-  
-  await store.dispatch(createUser(email, name,photo))
-  
-    auth.createUserWithEmailAndPassword(email,photo).then((cred)=>{  
+  try {
+    let cred=await auth.createUserWithEmailAndPassword(email,photo)  
       console.log(cred)
-      return dbFirebase.collection("users").doc(cred.user.email).set({
+       dbFirebase.collection("users").doc(cred.user.email).set({
         email: cred.user.email,
         admin: false ,
         photo: cred.user.photoURL
       })
-      
-    })
+      await store.dispatch(createUser(email, name,photo))
+      return cred;
+  } catch (error) {
+    return `${error.message}`
+  }
+ 
+  
+    
       
 }
 
@@ -87,20 +91,23 @@ export async function singUp(email,photo,name){
      EstadoUsuario=false
       // store.dispatch(logOutUser())
 }
-let num=0
-export  function logIn(email,password){
-    num++
-    console.log(num);
-        if(EstadoUsuario) console.log('Usuario ya ingresado')
-        else {
-        auth.signInWithEmailAndPassword(email,password)
-        .then(()=>{
+
+export async function logIn(email,password){
+try {
+  // if(EstadoUsuario) console.log('Usuario ya ingresado')
+        
+        let user=await auth.signInWithEmailAndPassword(email,password)
+       
             console.log("usuario ingresado");
-          })
-          .catch((error)=>{
-            alert(error.message)
-          })
-        }
+            return user
+        
+} catch (error) {
+  // alert(error.message)
+            return `${error.message}`
+}
+        
+          
+          
 }
 
 export async function getUser() {
