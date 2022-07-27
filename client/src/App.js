@@ -30,7 +30,7 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <CartProvider>
-            <NavBar />
+             <NavBar /> 
             <Switch>
               <Route exact path="/">
                 <Home />

@@ -21,13 +21,13 @@ const dbFirebase = firebase.firestore();
 
 
 const auth = firebase.auth();
-let EstadoUsuario = false;
+
 auth.onAuthStateChanged(async (user) => {
   //console.log(user)
+
   if (user) {
-    EstadoUsuario = true;
     let a = await dbFirebase.collection("users").doc(`${user.email}`).get();
-    let userAdmin = a ? a.data().admin : null;
+    let userAdmin = a.data() ? a.data().admin : null;
     if (userAdmin) {
       document.getElementById("btnHomeGuest").style.display = "none";
       document.getElementById("catalog").style.display = "";
@@ -49,11 +49,9 @@ auth.onAuthStateChanged(async (user) => {
       document.getElementById("myProfile").style.display = "none";
       document.getElementById("addAirline").style.display = "none";
       document.getElementById("favs").style.display = "";
-
-
     }
   } else {
-    EstadoUsuario = false;
+
     // document.getElementById("btnHomeGuest").style.display = "";
     console.log("user logged out");
     document.getElementById("offers").style.display = "";
@@ -90,7 +88,7 @@ export async function singUp(email,photo,name){
 
 export async function logOut() {
   await auth.signOut();
-  EstadoUsuario = false;
+  // EstadoUsuario = false;
   // store.dispatch(logOutUser())
 }
 
