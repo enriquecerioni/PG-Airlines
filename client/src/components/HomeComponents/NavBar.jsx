@@ -9,6 +9,7 @@ import { Alert } from '@mui/material';
 import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import {toast} from 'react-toastify';
 
 export default function NavBar() {
 
@@ -63,7 +64,7 @@ export default function NavBar() {
           </li>
           <li id="register">
             <Link className={s.navLink} to="/register">
-              Register
+              Sign In
             </Link>
           </li>
           <li id="logOut">
@@ -71,7 +72,7 @@ export default function NavBar() {
           </li>
           {/* --------------------------------------------------------------------  */}
           <li>
-            <button id="addAirline">Add airline</button>
+            <button id="addAirline"><Link to='/register/airline'>Add your airline</Link></button>
           </li>
           <li>
             <button id="myProfile">My profile</button>
@@ -85,6 +86,15 @@ export default function NavBar() {
           <h5 id="nCarrito" className={s.price}>{stateCart ? stateCart : 0}</h5>
       </ul>
       { alert && <Alert onClose={() => setAlert(false)} severity="info">Log out successfully!</Alert>}
+      {/* {alert && toast("Log out successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeButton: false,
+        newestOnTop: true,
+        progress: undefined,
+        type: "info",
+      })} */}
     </nav> 
   );
 }
