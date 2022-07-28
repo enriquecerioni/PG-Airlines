@@ -5,11 +5,18 @@ import data from "./ColumnsDG.js";
 
 const columns = data
 
-function CatalogFlights({rows}) {
-    
+function CatalogFlights({ rows }) {
+
     return (
         <Box sx={{ height: 400, width: '100%' }}>
             <DataGrid
+                onCellDoubleClick={(params, event) => {
+                    if (!event.ctrlKey) {
+                        console.log('dentro')
+                        event.defaultMuiPrevented = true;
+                        console.log('fuera')
+                    }
+                }}
                 rows={rows}
                 columns={columns}
                 pageSize={5}

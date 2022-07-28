@@ -1,4 +1,3 @@
-//import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -9,8 +8,9 @@ import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import CatalogFlights from './CatalogFlights';
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect } from 'react'
-import { getAllFlights } from '../../redux/actions/index'
+import React, { useEffect } from 'react';
+import { getAllFlights } from '../../redux/actions/index';
+import ModalAdd from './ModalAdd'
 
 function TabPanel(props) {
 
@@ -50,12 +50,13 @@ export function Catalog() {
     const dispatch = useDispatch();
 
 
+
     useEffect(() => {
         dispatch(getAllFlights());
     }, [dispatch]);
 
     const Flights = useSelector((state) => state.flights)
-   
+
     const allFlights = Flights.map((f) => {
         return {
             id: f.flight,
@@ -101,6 +102,10 @@ export function Catalog() {
                     <h1>Flights</h1>
                     <CatalogFlights
                         rows={allFlights} />
+                    <div id="btnAddAL">
+                        <ModalAdd />
+
+                    </div>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     Offers
