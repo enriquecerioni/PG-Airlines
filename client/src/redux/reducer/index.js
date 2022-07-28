@@ -4,6 +4,7 @@ import {
   GET_FLIGHT_INFO,
   ORDER_PRICE,
   GET_USER_INFO,
+  GET_USERS,
   RESET_FILTER,
   FILTER_PRICE,
   FILTER_BY_ORIGIN,
@@ -69,7 +70,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
-      
+    case GET_USERS:
+      return {
+        ...state,
+        allUsers: action.payload
+      }
     case CREATE_USER:
 
       return{
