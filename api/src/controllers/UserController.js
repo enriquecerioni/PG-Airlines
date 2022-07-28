@@ -4,9 +4,9 @@ const {User} = require("../db");
 
 
 async function createUser(req,res){
-    const  {email,name,photo}=req.body
+    const  {email,name}=req.body
         try {
-            if(email && name && photo){
+            if(email && name ){
                 let user=await User.findAll({
                     where:{email:email}
                 })
@@ -15,7 +15,6 @@ async function createUser(req,res){
                 let userCreated = await User.create({
                     email:email,
                     name:name,
-                    image:photo
                 })
                 return res.status(201).json(userCreated)
             }
@@ -25,7 +24,25 @@ async function createUser(req,res){
         }
 }
 
+async function updateToAdmin(req,res){
+    try {
+        const {email}=req.body;
+        let user= await User.update(
+        {
+            permissions:true,
+        },
+        {
+            where:{email:email},
+        }
+        );
+      
+        res.send("nashe")
+    } catch (error) {
+        alert(error)
+    }
+}
 module.exports = {
     createUser,
+    updateToAdmin
    
   };
