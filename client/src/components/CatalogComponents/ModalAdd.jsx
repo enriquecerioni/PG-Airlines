@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
 const style = {
+    
     position: "absolute",
     top: "35%",
     left: "50%",
@@ -52,7 +53,7 @@ export default function AddModal() {
                 <Box sx={style} className={st.container}>
                     <button className={s.button} onClick={handleClose}>x</button>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add new Flight ✈️
+                        Add new Flight 
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         <form className={st.form_container}>
@@ -81,7 +82,7 @@ export default function AddModal() {
                                 state={logo}
                                 setState={setLogo}
                                 name='logo'
-                                type="file"
+                                type="text"
                                 label='Logo'
                                 placeholder='Image'
                                 // error='...'
