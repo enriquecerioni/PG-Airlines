@@ -21,6 +21,7 @@ export const DELETE_FAVORITE = 'DELETE_FAVORITE'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const DELETE_FROM_CART = 'DELETE_FROM_CART'
 export const ERROR_USER = 'ERROR_USER'
+export const UPDATE_USER="UPDATE_USER"
 
 
 export const getAllFlights = () => {
@@ -126,7 +127,17 @@ export function createUser(payload){
         })
     }
 }
-
+export function makeAdminPostgres(payload){
+    return function (dispatch){
+        axios.put('http://localhost:3001/user/update',payload)
+        .then((response)=>{
+            dispatch({
+                type:UPDATE_USER,
+                payload:response.data
+            })
+        })
+    }
+}
 export function logOutUser(payload) {
     return {
         type: LOGOUT_USER,

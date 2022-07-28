@@ -24,7 +24,25 @@ async function createUser(req,res){
         }
 }
 
+async function updateToAdmin(req,res){
+    try {
+        const {email}=req.body;
+        let user= await User.update(
+        {
+            permissions:true,
+        },
+        {
+            where:{email:email},
+        }
+        );
+      
+        res.send("nashe")
+    } catch (error) {
+        alert(error)
+    }
+}
 module.exports = {
     createUser,
+    updateToAdmin
    
   };

@@ -19,6 +19,7 @@ import {
   CREATE_USER,
   LOGOUT_USER,
   ERROR_USER,
+  UPDATE_USER,
 } from "../actions";
 
 const initialState = {
@@ -76,7 +77,11 @@ const rootReducer = (state = initialState, action) => {
         error: '',
         allUsers: [...state.allUsers,action.payload]
     }
-
+    case UPDATE_USER:
+      return{
+        ...state,
+        allUsers: state.allUsers.map((user)=>user.email ===action.payload ? {...user,permissions:true} : user)
+      }
     case LOGOUT_USER: {
       return { 
         ...state,

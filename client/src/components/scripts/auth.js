@@ -1,6 +1,6 @@
 import firebase from "firebase";
 import { store } from "../../redux/store/index";
-import { createUser, logOutUser } from "../../redux/actions/index";
+import { createUser,makeAdminPostgres, logOutUser} from "../../redux/actions/index";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGr8PQQDvTRK484636fOa1XJVhIJ0lmqA",
@@ -148,8 +148,16 @@ export async function ejecutar() {
         admin: false,
         photo: photo,
       });
-    }
+     }
   } catch (error) {
     console.log(error.message);
   }
+}
+
+
+export async function makeAdmin(email){
+  await dbFirebase.collection("users").doc(email).update({
+    admin:true
+  })
+  await store.dispatch(makeAdminPostgres({email}))
 }
