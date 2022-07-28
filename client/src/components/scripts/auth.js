@@ -41,17 +41,21 @@ auth.onAuthStateChanged(async (user) => {
       document.getElementById("register").style.display = "none";
       document.getElementById("favs").style.display = "none";
       document.getElementById("offers").style.display = "none";
+      // document.getElementById("MyAirline").style.display = "";
+      // document.getElementById("OwnFlights").style.display = "";
     } else {
-      console.log("usser log in: ", user.displayName, user.email);
+      console.log("user logged-in: ", user.displayName, user.email, user);
       // document.getElementById("btnHomeGuest").style.display = "none";
       document.getElementById("offers").style.display = "";
       document.getElementById("catalog").style.display = "none";
       document.getElementById("logIn").style.display = "none";
       document.getElementById("register").style.display = "none";
       document.getElementById("logOut").style.display = "";
-      document.getElementById("myProfile").style.display = "none";
+      document.getElementById("myProfile").style.display = "";
       document.getElementById("addAirline").style.display = "none";
       document.getElementById("favs").style.display = "";
+      document.getElementById("MyAirline").style.display = "none";
+      document.getElementById("OwnFlights").style.display = "none";
     }
   } else {
     // document.getElementById("btnHomeGuest").style.display = "";
@@ -64,6 +68,8 @@ auth.onAuthStateChanged(async (user) => {
     document.getElementById("myProfile").style.display = "none";
     document.getElementById("addAirline").style.display = "none";
     document.getElementById("favs").style.display = "";
+    document.getElementById("MyAirline").style.display = "none";
+    document.getElementById("OwnFlights").style.display = "none";
   }
 });
 

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function ProfileNav () {
     return (
-        <nav style={{marginTop:5+"rem"}}>
+        <nav style={{marginTop:5+"rem"}}>            
             <ul>
                 <li id="AccInfo">
                     <Link to="/profile" >
@@ -15,11 +15,19 @@ export default function ProfileNav () {
                         My Scheduled Flights 
                     </Link>
                 </li>
-                <li id="MyAirline" /*Admin Only page, manage perfil de Airline*/>
-                    Manage Airline
+                {/* user.permissions === true*/}
+                {/*Admin Only page, manage perfil de Airline*/}
+                {/*PODER DEJAR REVIEW A LA EMPRESA*/}
+                <li id="MyAirline" >
+                    <Link to="/airlineProfile">
+                        Manage Airline
+                    </Link>                                   
                 </li>
-                <li id="OwnFlights" /*Admin Only page, donde postear vuelos*/> 
-                    Manage Airline Flights
+                {/*Admin Only page, donde postear vuelos*/}
+                <li id="OwnFlights"> 
+                    <Link to="/catalog">
+                        Manage Airline Flights
+                    </Link>    
                 </li>
                 {/* <li id="ManageUsers" /* SUPER ADMIN ONLY Page manage users > */}
                     {/* Manage Users */}

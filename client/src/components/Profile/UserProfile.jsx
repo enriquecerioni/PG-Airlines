@@ -13,7 +13,7 @@ export default function UserProfile () {
             {/* <h3>Date of Birth:</h3> */}
             <h3>Phone:</h3>
             <h3>Origin country:</h3>
-            <h3>Language(s):</h3>
+            <h3>Display Language:</h3>
             <h3>Change Password:</h3>
         </div>
     )
