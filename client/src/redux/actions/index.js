@@ -66,7 +66,7 @@ export function getAllUsers(){
         })
         .catch((error) => {
             console.log("Users not found");
-        })
+        }) 
     }
 }
 
