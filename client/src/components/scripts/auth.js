@@ -67,17 +67,17 @@ auth.onAuthStateChanged(async (user) => {
 
 //--------------------------------------------------------
 
-export async function singUp(email,photo,name){
+export async function singUp(email,password,name){
   try {
-    let cred=await auth.createUserWithEmailAndPassword(email,photo)  
+    let cred=await auth.createUserWithEmailAndPassword(email,password)  
       console.log(cred)
        dbFirebase.collection("users").doc(cred.user.email).set({
         email: cred.user.email,
         admin: false ,
         photo: cred.user.photoURL
       })
-      await store.dispatch(createUser(email, name,photo))
-      return cred;
+      await store.dispatch(createUser({email, name}))
+      
   } catch (error) {
     return `${error.message}`
   }
@@ -112,17 +112,17 @@ try {
 
 export async function getUser() {
   let user = auth.currentUser;
-  console.log(user);
+  console.log("este es getUser",user);
 
   if (user !== null) {
-    const displayName = user.displayName;
+    const name = user.displayName;
     const email = user.email;
-    const photoURL = user.photoURL;
-    const emailVerified = user.emailVerified;
-    const uid = user.uid;
+    // const photoURL = user.photoURL;
+    // const emailVerified = user.emailVerified;
+    // const uid = user.uid;
 
     await store.dispatch(
-      createUser(displayName, email, photoURL, emailVerified, uid)
+      createUser( email,name)
     );
   }
   // auth.listUsers(maxResults)
@@ -142,7 +142,7 @@ export async function ejecutar() {
     let photo = data.user.photoURL;
     let hay = await dbFirebase.collection("users").doc(email).get();
     if (!hay.data()) {
-      await store.dispatch(createUser({ email, name, photo }));
+      await store.dispatch(createUser({ email, name}));
       return dbFirebase.collection("users").doc(email).set({
         email: email,
         admin: false,
