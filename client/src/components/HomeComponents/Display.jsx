@@ -11,6 +11,8 @@ export default function Display() {
 // console.log(details)
     const dispatch = useDispatch()
 
+    // const [price, setPrice] = React.useState('');
+
     const details = useSelector((state) => state.flights)
     // console.log(details)
     const filterArray = useSelector(s => s.currrentFilter)
