@@ -6,7 +6,7 @@
 }
 .fondo{
     height: 100vh;
-    background-color: #d2e9ff;
+    background-color: #d2e9ff; 
     z-index:1000 ;
     position: absolute;
     width: 100vw;
