@@ -2,6 +2,7 @@ const axios = require ("axios");
 export const GET_ALL_FLIGHTS = "GET_ALL_FLIGHTS"
 export const GET_FLIGHT_INFO = "GET_FLIGHT_INFO"
 export const GET_USER_INFO = "GET_USER_INFO"
+export const GET_USERS = 'GET_USERS'
 export const SEARCH_BY_DESTINATION = 'SEARCH_BY_DESTINATION'
 export const CLEAN = 'CLEAN'
 export const ORDER_PRICE = 'ORDER_PRICE'
@@ -50,6 +51,21 @@ export function getFlightByID(id) {
                 type: GET_FLIGHT_BY_ID, 
                 payload: flight.data.filter(e => e.flight === id)
             })
+        })
+    }
+}
+
+export function getAllUsers(){
+    return function (dispatch) {
+        axios(`http://localhost:3001/user`)
+        .then((res) => {
+            dispatch({
+                type: GET_USERS, 
+                payload: res.data
+            })
+        })
+        .catch((error) => {
+            console.log("Users not found");
         })
     }
 }

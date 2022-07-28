@@ -1,6 +1,10 @@
 import firebase from "firebase";
 import { store } from "../../redux/store/index";
-import { createUser,makeAdminPostgres, logOutUser} from "../../redux/actions/index";
+import {
+  createUser,
+  makeAdminPostgres,
+  logOutUser,
+} from "../../redux/actions/index";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGr8PQQDvTRK484636fOa1XJVhIJ0lmqA",
@@ -18,7 +22,6 @@ if (!firebase.apps.length) {
 const dbFirebase = firebase.firestore();
 
 //---------------------estado del usuraio------------------
-
 
 const auth = firebase.auth();
 
@@ -51,7 +54,6 @@ auth.onAuthStateChanged(async (user) => {
       document.getElementById("favs").style.display = "";
     }
   } else {
-
     // document.getElementById("btnHomeGuest").style.display = "";
     console.log("user logged out");
     document.getElementById("offers").style.display = "";
@@ -67,23 +69,19 @@ auth.onAuthStateChanged(async (user) => {
 
 //--------------------------------------------------------
 
-export async function singUp(email,password,name){
+export async function singUp(email, password, name) {
   try {
-    let cred=await auth.createUserWithEmailAndPassword(email,password)  
-      console.log(cred)
-       dbFirebase.collection("users").doc(cred.user.email).set({
-        email: cred.user.email,
-        admin: false ,
-        photo: cred.user.photoURL
-      })
-      await store.dispatch(createUser({email, name}))
-      
+    let cred = await auth.createUserWithEmailAndPassword(email, password);
+    console.log(cred);
+    dbFirebase.collection("users").doc(cred.user.email).set({
+      email: cred.user.email,
+      admin: false,
+      photo: cred.user.photoURL,
+    });
+    await store.dispatch(createUser({ email, name }));
   } catch (error) {
-    return `${error.message}`
+    return `${error.message}`;
   }
- 
-  
-    
 }
 
 export async function logOut() {
@@ -92,45 +90,18 @@ export async function logOut() {
   // store.dispatch(logOutUser())
 }
 
-export async function logIn(email,password){
-try {
-  // if(EstadoUsuario) console.log('Usuario ya ingresado')
-        
-        let user=await auth.signInWithEmailAndPassword(email,password)
-       
-            console.log("usuario ingresado");
-            return user
-        
-} catch (error) {
-  // alert(error.message)
-            return `${error.message}`
-}
-        
-          
-          
-}
+export async function logIn(email, password) {
+  try {
+    // if(EstadoUsuario) console.log('Usuario ya ingresado')
 
-export async function getUser() {
-  let user = auth.currentUser;
-  console.log("este es getUser",user);
+    let user = await auth.signInWithEmailAndPassword(email, password);
 
-  if (user !== null) {
-    const name = user.displayName;
-    const email = user.email;
-    // const photoURL = user.photoURL;
-    // const emailVerified = user.emailVerified;
-    // const uid = user.uid;
-
-    await store.dispatch(
-      createUser( email,name)
-    );
+    console.log("usuario ingresado");
+    return user;
+  } catch (error) {
+    // alert(error.message)
+    return `${error.message}`;
   }
-  // auth.listUsers(maxResults)
-  // .then((userRecords) => {
-  //   userRecords.users.forEach((user) => console.log(user.toJSON()));
-  //   res.end('Retrieved users list successfully.');
-  // })
-  // .catch((error) => console.log(error));
 }
 
 export async function ejecutar() {
@@ -142,22 +113,21 @@ export async function ejecutar() {
     let photo = data.user.photoURL;
     let hay = await dbFirebase.collection("users").doc(email).get();
     if (!hay.data()) {
-      await store.dispatch(createUser({ email, name}));
+      await store.dispatch(createUser({ email, name }));
       return dbFirebase.collection("users").doc(email).set({
         email: email,
         admin: false,
         photo: photo,
       });
-     }
+    }
   } catch (error) {
     console.log(error.message);
   }
 }
 
-
-export async function makeAdmin(email){
+export async function makeAdmin(email) {
   await dbFirebase.collection("users").doc(email).update({
-    admin:true
-  })
-  await store.dispatch(makeAdminPostgres({email}))
+    admin: true,
+  });
+  await store.dispatch(makeAdminPostgres({ email }));
 }
