@@ -29,7 +29,7 @@ auth.onAuthStateChanged(async (user) => {
     let a = await dbFirebase.collection("users").doc(`${user.email}`).get();
     let userAdmin = a.data() ? a.data().admin : null;
     if (userAdmin) {
-      document.getElementById("btnHomeGuest").style.display = "none";
+      // document.getElementById("btnHomeGuest").style.display = "none";
       document.getElementById("catalog").style.display = "";
       document.getElementById("logOut").style.display = "";
       document.getElementById("myProfile").style.display = "";

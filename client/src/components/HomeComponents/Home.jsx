@@ -17,7 +17,7 @@ useEffect(() => {
   setInterval(() => {
     setIsDisplayed(true);
     
-  }, 3000);
+  }, 2000);
 }, []);
   // useEffect(()=>{
   //   dispatch(getAllFlights())
