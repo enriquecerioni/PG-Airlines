@@ -8,46 +8,26 @@ import { Button } from '@mui/material';
 import { useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 
-
-//   function handleSubmit(e) {
-//     e.preventDefault()
-//     if(
-//       name.valid === 'true' && 
-//       surname.valid === 'true' && 
-//       phone.valid === 'true' && 
-//       email.valid === 'true' &&
-//       password.valid === 'true'
-//     ) { 
-//       setValidForm(true)
-//       console.log('Enviado')
-//     } else {
-//       setValidForm(false)
-//     }
-//   }
-
-function Register() {
+export default function RegisterAirline() {
 
   const [validForm, setValidForm] = useState(null)
   const navigate = useHistory();
   const error = useSelector(state => state.error)
 
   const [ name, setName ] = useState({value:'', valid: null})
-  const [ surname, setSurname ] = useState({value:'', valid: null})
+  const [ image, setImage ] = useState({value:'', valid: null})
   const [ phone, setPhone ] = useState({value:'', valid: null})
   const [ email, setEmail ] = useState({value:'', valid: null})
-  const [ password, setPassword ] = useState({value:'', valid: null})
-  const [ password2, setPassword2 ] = useState({value:'', valid: null})
 
     const expression = {
     name: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
-    surname: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
     email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, //eslint-disable-line
     phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/, //eslint-disable-line
-    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 
+    image: /\.(jpe?g|png|gif|bmp)$/i,
     // Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character (*)
   }
 
-  async function handleSubmit(e){
+  function handleSubmit(e){
     e.preventDefault()
     // if(e.target.email.value && e.target.password.value) {
     //   alert('Ya te regisrtaste, anda a Log In')
@@ -55,12 +35,8 @@ function Register() {
     // } else {
     //   singUp(e.target.email.value, e.target.password.value)
     // }
-
-    let type=await singUp(e.target.email.value,e.target.password.value,`${e.target.name.value} ${e.target.surname.value}`)
-   if(typeof type=="string"){
-    alert(type)
-  }else  navigate.push('/')
- 
+    singUp(e.target.email.value,e.target.password.value)
+    navigate.goBack()
   }
   async function handleClick (e){
     try {
@@ -82,89 +58,62 @@ function Register() {
 
   return (
     <div className={style.container}>
+
       <form onSubmit={(e)=>handleSubmit(e)} className={style.form_container}>
-      <h1>Create your account</h1>
+      <h1>Add your Airline ✈️</h1>
 
       <Input
         state={name}
         setState={setName}
         type='text'
-        label='First Name'
-        placeholder='First Name'
+        label='Airline Name'
+        placeholder='Airline Name'
         name='name'
         error='Your first name cannot contain numbers or special characters'
         regularExpression={expression.name}
         />
 
-      <Input
-        state={surname}
-        setState={setSurname}
-        name='surname' 
-        type="text" 
-        label='Last Name'
-        placeholder='Last Name'
-        error='Your last name cannot contain numbers or special characters'
-        regularExpression={expression.surname}
+        {/* Con la misma lógica de que la empresa debe tener su número propio, debería tener su email propio */}
+       <Input
+        state={image}
+        setState={setImage}
+        name='image' 
+        type="file" 
+        label='Image'
+        placeholder='image'
+        error='Please provide an image for your airline'
+        regularExpression={expression.image}
         />
 
-      <Input
+       <Input
         state={email}
         setState={setEmail}
         name='email' 
         type="email" 
-        label='E-mail'
+        label='email'
         placeholder='E-mail'
         error='Please enter a valid email'
         regularExpression={expression.email}
-        />
+       />
 
       <Input
         state={phone}
         setState={setPhone}
         name='phone' 
         type="number" 
-        label='Phone'
+        label='Airline Phone'
         placeholder='Phone'
         error='Please enter a valid phone number'
         regularExpression={expression.phone}
         />
 
-      <Input
-        state={password}
-        setState={setPassword}
-        name='password' 
-        type="password"
-        label='Password'
-        placeholder='Password'
-        error='Your passwords needs 8-12 characters, one special symbol, one number, at least one lowercase letter and at least one uppercase letter'
-        regularExpression={expression.password}
-        />
-
-      <Input
-        state={password2}
-        setState={setPassword2}
-        name='confirm-password' 
-        type="password" 
-        label='Confirm password'
-        placeholder='Confirm password'
-        />
-        {password2.value !== password.value && <span>Password does not match</span>}
-
         {validForm === false && <span>Please complete all fields correctly</span>}
 
-        <Button type='submit' variant="contained">Register</Button>
+        <Button type='submit' variant="contained">Register Airline</Button>
 
         {validForm === true && <span>Thank you!</span>}
 
       </form>
-      <br />
-      <hr className={style.separator}/>
-      <br />
-      <button className={style.google_btn} onClick={()=>handleClick()}>Register with Google</button>
-      {error && <span>{error}</span>}
-      <p><Link className={style.sing} to='/login'>Already have an account? Log in</Link></p>
     </div>
   )
 }
-
-export default Register
