@@ -19,7 +19,6 @@ const dbFirebase = firebase.firestore();
 
 //---------------------estado del usuraio------------------
 
-
 const auth = firebase.auth();
 
 auth.onAuthStateChanged(async (user) => {
