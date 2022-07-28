@@ -54,8 +54,8 @@ auth.onAuthStateChanged(async (user) => {
       document.getElementById("myProfile").style.display = "";
       document.getElementById("addAirline").style.display = "none";
       document.getElementById("favs").style.display = "";
-      document.getElementById("MyAirline").style.display = "none";
-      document.getElementById("OwnFlights").style.display = "none";
+      // document.getElementById("MyAirline").style.display = "none";
+      // document.getElementById("OwnFlights").style.display = "none";
     }
   } else {
     // document.getElementById("btnHomeGuest").style.display = "";
@@ -68,8 +68,8 @@ auth.onAuthStateChanged(async (user) => {
     document.getElementById("myProfile").style.display = "none";
     document.getElementById("addAirline").style.display = "none";
     document.getElementById("favs").style.display = "";
-    document.getElementById("MyAirline").style.display = "none";
-    document.getElementById("OwnFlights").style.display = "none";
+    // document.getElementById("MyAirline").style.display = "none";
+    // document.getElementById("OwnFlights").style.display = "none";
   }
 });
 

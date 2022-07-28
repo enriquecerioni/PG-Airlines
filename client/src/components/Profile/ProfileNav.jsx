@@ -18,7 +18,7 @@ export default function ProfileNav () {
                 {/* user.permissions === true*/}
                 {/*Admin Only page, manage perfil de Airline*/}
                 {/*PODER DEJAR REVIEW A LA EMPRESA*/}
-                <li id="MyAirline" >
+                <li id="MyAirline">
                     <Link to="/airlineProfile">
                         Manage Airline
                     </Link>                                   
