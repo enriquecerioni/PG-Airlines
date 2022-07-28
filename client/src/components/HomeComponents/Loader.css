@@ -1,34 +1,36 @@
 .mensaje{
-    padding: 50px;
+    margin-top: 20%;
     font-size: 30px;
-    color:#1D3557 ;
-    background-color: #A8DADC;
+    color:#002460 ;
+    background-color: transparent;
 }
 .fondo{
     height: 100vh;
-    background-color: #A8DADC;
+    background-color: #d2e9ff;
     z-index:1000 ;
     position: absolute;
     width: 100vw;
 }
 .fondo h3{
-    color: #1D3557;
+    color: #002460;
     padding: 10px;
-    
 }
 .tainer{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #A8DADC;
+    background-color: transparent;
     position: relative;
-
+    top: 10%;
+}
+.message {
+  font-size: 35px;
 }
 .tainer .load{
-    width: 100px;
-    height: 100px;
-    border: solid 5px #064555;
-    border-top: solid 5px #7cd6ec;
+    width: 200px;
+    height: 200px;
+    /* border: solid 10px ; */
+    border-top: solid 10px #002460;
     border-radius: 50%;    
     animation: load .8s linear infinite;
 }
