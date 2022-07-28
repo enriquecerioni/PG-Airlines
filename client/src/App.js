@@ -19,6 +19,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import Orders from "./components/CartComponents/Orders";
 import Success from "./components/CartComponents/Success";
+import UserProfile from "./components/Profile/UserProfile";
 
 const promise = loadStripe('pk_test_51LOWloHpIoeoktUtIVJXPVwS0wwgOLL4jWid6ymn1ZWdhL69T0JQxkwADRmqwnQ1RHGPiVTnTlHTnhrLWPbDASPr006V4SPmtp')
 
@@ -55,6 +56,9 @@ function App() {
               <Route path="/login">
                 {/* {user ? <Redirect to='/' /> : <LogIn />} */}
                 <LogIn />
+              </Route>
+              <Route path="/profile">
+                <UserProfile/>
               </Route>
               <Route path="/favs">
                 <Favs />
