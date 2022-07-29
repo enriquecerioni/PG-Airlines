@@ -23,7 +23,8 @@ export const ADD_TO_CART = 'ADD_TO_CART'
 export const DELETE_FROM_CART = 'DELETE_FROM_CART'
 export const ERROR_USER = 'ERROR_USER'
 export const UPDATE_USER="UPDATE_USER"
-
+export const DELETE_USER="DELETE_USER"
+export const CURRENT_USER="CURRENT_USER"
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -143,6 +144,13 @@ export function createUser(payload){
         })
     }
 }
+export function currentUser(payload){
+    return {
+            type:CURRENT_USER,
+            payload
+        }
+    
+}
 export function makeAdminPostgres(payload){
     return function (dispatch){
         axios.put('http://localhost:3001/user/update',payload)
@@ -154,6 +162,33 @@ export function makeAdminPostgres(payload){
         })
     }
 }
+export function deleteUser(payload){
+    console.log(payload);
+    return function (dispatch){
+        axios.delete(`http://localhost:3001/user/delete/${payload}`)
+        .then((response)=>{
+            dispatch({
+                type:DELETE_USER,
+                payload:response.data
+            })
+        })
+        .catch((error)=>{
+            alert(error.message);
+        })
+    }
+}
+export function deleteUserAuth(payload){
+    return function (){
+        axios.delete(`http://localhost:3001/user/auth/${payload}`)
+        .then(()=>{
+           console.log("user auth firebase eliminated");
+        })
+        .catch(()=>{
+            console.log("error al borrar el auth user");
+        })
+    }
+}
+
 export function logOutUser(payload) {
     return {
         type: LOGOUT_USER,

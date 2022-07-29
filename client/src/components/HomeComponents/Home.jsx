@@ -4,8 +4,8 @@ import s from "../styles/Home.module.css";
 import Display from "./Display";
 import SearchBar from "./SearchBar";
 import test from "../styles/assets/test3.png";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllFlights } from "../../redux/actions/index";
+import { useDispatch } from "react-redux";
+import {  getAllUsers } from "../../redux/actions/index";
 import Loader from "./Loader";
 import NavBar from "./NavBar";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
@@ -19,8 +19,10 @@ export default function Home() {
   useEffect(() => {
     setInterval(() => {
       setIsDisplayed(true);
-    }, 2000);
+    }, 3000);
+    dispatch(getAllUsers());
   }, []);
+
 
   return (
     <>

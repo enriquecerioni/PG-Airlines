@@ -20,7 +20,7 @@ export default function UserProfile() {
           <ul>
             <li id="AccInfo">
               <Link className={s.link} to="/profile">
-                Account Information
+                <span className={s.span}>Account Information</span>
               </Link>
             </li>
             <li id="TicketsBought">
@@ -28,7 +28,7 @@ export default function UserProfile() {
                 className={s.link}
                 to="/purchases" /*PODER DEJAR REVIEW A LA EMPRESA*/
               >
-                My Scheduled Flights
+                <span className={s.span}>My Scheduled Flights</span>
               </Link>
             </li>
             {/* user.permissions === true*/}
@@ -36,13 +36,13 @@ export default function UserProfile() {
             {/*PODER DEJAR REVIEW A LA EMPRESA*/}
             <li id="MyAirline">
               <Link className={s.link} to="/airlineProfile">
-                Manage Airline
+                <span className={s.span}>Manage Airline</span>
               </Link>
             </li>
             {/*Admin Only page, donde postear vuelos*/}
             <li id="OwnFlights">
               <Link className={s.link} to="/catalog">
-                Manage Airline Flights
+                <span className={s.span}>Manage Airline Flights</span>
               </Link>
             </li>
             {/* <li id="ManageUsers" /* SUPER ADMIN ONLY Page manage users > */}
@@ -57,7 +57,9 @@ export default function UserProfile() {
       {/* <h1>image</h1> */}
       <div className={s.infoContainer}>
         <h1 className={s.title}>Account Information</h1>
-        <span className={s.text}>Manage your account settings and other information</span>
+        <span className={s.text}>
+          Manage your account settings and other information
+        </span>
         <div className={s.info}>
           <h1>Profile Information</h1>
           <h4>Email:</h4>

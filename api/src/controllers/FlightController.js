@@ -11,12 +11,12 @@ const getAllFlight = async (req, res) => {
       obj.push(doc.data());
     });
 
-    res.send(obj);
+    res.json(obj);
 
 
-    console.log("Llego la info");
-  } catch (err) {
-    console.log(err);
+    // console.log("Llego la info");
+  } catch (error) {
+    next(error.message);
   }
 };
 
@@ -25,15 +25,15 @@ async function getOriginFlight(req,res){
     const {origen}= req.query;
     const dbFirestore = firebase.firestore();
     
-    if(!origen)res.send("write a origin")
+    if(!origen)res.json({message:"write a origin"})
     else{
     let vuelos = await dbFirestore.collection("db").get()
     let arrayDatos= vuelos.docs.filter(element => element.data().origin.toLowerCase().includes(origen.toLowerCase()));
     let vuelosFiltrados = arrayDatos.map(arr => arr._delegate._document.data.value.mapValue.fields);
-      vuelosFiltrados.length ? res.send(vuelosFiltrados) : res.send("Origin not found")
+      vuelosFiltrados.length ? res.status(200).json(vuelosFiltrados) : res.status(404).json({error:"Origin not found"})
     
   }} catch (error) {
-    console.log(error)
+    next(error.message)
   }
 }
 

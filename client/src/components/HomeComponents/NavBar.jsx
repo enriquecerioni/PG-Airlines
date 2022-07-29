@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import s from '../styles/NavBar.module.css';
 import logo from '../styles/logo.png';
 import shoppingCart from '../styles/shopping-cart.png';
@@ -18,7 +18,7 @@ export default function NavBar() {
   const [ alert, setAlert] = useState(false)
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
-
+  const navigate=useHistory();
   const [stateCart, setStateCart] = useState(products.length);
 
   useEffect(() => {
@@ -29,15 +29,17 @@ export default function NavBar() {
     e.preventDefault()
     logOut()
     // setAlert(true)
-    toast("Log out successfully!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeButton: false,
-        newestOnTop: true,
-        progress: undefined,
-        type: "info",
-    });
+    window.location.reload()
+    // toast("Log out successfully!", {
+    //     position: "top-right",
+    //     autoClose: 2000,
+    //     hideProgressBar: false,
+    //     closeButton: false,
+    //     newestOnTop: true,
+    //     progress: undefined,
+    //     type: "info",
+    // });
+    
   }
 
   return (

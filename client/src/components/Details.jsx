@@ -16,6 +16,7 @@ function Details() {
 
   const dispatch = useDispatch();
   const details = useSelector((state) => state.flight);
+  const user = useSelector((state=>state.currentUser))
   // console.log(details)
 
   // const item = details.map(e => {
@@ -118,7 +119,7 @@ function Details() {
                   <img className={s.logoPrice} src={d.logo} alt="Img" />
                   <div className={s.airlinePrice}>{d.airline}</div>
                   <div className={s.priceP}>${d.price}</div>
-                  <button
+                  { !user.permissions ? <button
                     className={s.btn}
                     onClick={() =>
                       handleAddToCart({
@@ -130,10 +131,13 @@ function Details() {
                         arrivalHour: d.arrivalHour,
                         departureHour: d.departureHour,
                       })
+                      
                     }
                   >
                     Reservar
                   </button>
+                  : null  
+                }
                 </div>
                
               </div>
