@@ -16,10 +16,11 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getAllUsers());
     setInterval(() => {
       setIsDisplayed(true);
     }, 3000);
-    dispatch(getAllUsers());
+   
   }, []);
 
 

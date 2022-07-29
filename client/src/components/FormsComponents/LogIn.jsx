@@ -39,7 +39,7 @@ function LogIn() {
     let type= await logIn(e.target.emailLogIn.value,e.target.passwordLogIn.value)
     if(typeof type=="string"){
       alert(type)
-    }else  navigate.push('/')
+    }else  navigate.replace('/')
 
   } else {
     setLoading(false)
@@ -50,7 +50,7 @@ function LogIn() {
 async function handleClick(e){
 
   await ejecutar()
-
+  navigate.replace('/')
 }
 
   return (

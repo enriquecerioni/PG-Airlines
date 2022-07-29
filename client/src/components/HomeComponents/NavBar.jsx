@@ -28,16 +28,17 @@ export default function NavBar() {
   function handleLogOut(e) {
     e.preventDefault()
     logOut()
-    toast.success('✔ Log out!', {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      type: "info",
-      });
+    document.URL==="http://localhost:3000/" ? window.location.reload() :  navigate.replace('/')  // cambiar "locahost:3000/"   por heroku
+    // toast.success('✔ Log out!', {
+    //   position: "top-right",
+    //   autoClose: 2000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   type: "info",
+    //   });
   }
 
   return (
@@ -77,7 +78,7 @@ export default function NavBar() {
             </Link>
           </li>
           <li id="logOut">
-            <button className={s.navLink_logout} onClick={() => handleLogOut()}>Log Out</button>
+            <button className={s.navLink_logout} onClick={(e) => handleLogOut(e)}>Log Out</button>
           </li>
           {/* --------------------------------------------------------------------  */}
           <li>
