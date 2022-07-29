@@ -46,7 +46,7 @@ const CartProvider = ({ children }) => {
 
 
   const addProductToCart = async ({id, origin, price, logo, airline, arrivalHour, departureHour,stock}) => {
-    //console.log("productos actuales",products.id)
+    console.log("stock" ,stock)
     //console.log(products)
     let inCart = products && products.filter((p) => p.id === id);
     //console.log(inCart)

@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+/* font-family: 'Roboto', sans-serif; */
+/* font-family: 'Rubik', sans-serif; */
+
 .container_ticket {
     display: grid;
     grid-template-columns: 20% 80%;
@@ -39,7 +44,45 @@
     padding: .7rem;
 }
 
-.paginate_container button {
+.numberBtn{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    padding: .5rem .7rem;
+    background-color: #3985CB;
+    border-radius: 50%;
+    border: none;
+    border: 1px solid #3985CB;
+    color: white;
+    font-size: 15px;
+    transition: .5s ease;
+    
+  }
+  
+  .numberBtn:hover{
+    color: black;
+    background-color: transparent
+  }
+
+.btn{
+    font-family: 'Roboto', sans-serif;
+    padding: .5rem .7rem;
+    font-weight: 600;
+    background-color: transparent;
+    border-radius: 50%;
+    border: none;
+    border: 1px solid #3985CB;
+    color: black;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .5s ease;
+  }
+
+  .btn:hover{
+    color: black;
+    background-color: #3985CB;
+  }
+
+/* .paginate_container .numberBtn {
     font-weight: 600;
     border: none;
     border: 1px solid #3985CB;
@@ -49,23 +92,52 @@
     transition: all .1s ease-in;
 }
 
-.paginate_container button:hover {
+.paginate_container .numberBtn:hover {
     background-color: #3985CB;
     border: 1px solid #3985CB;
     cursor: pointer;
     color: #FFFFFF;
 }
+  
+  .numberBtn:hover{
+    color: black;
+    background-color: #3985CB;
+  }
+
+.btn{
+    font-weight: 600;
+    border: none;
+    border: 1px solid #3985CB;
+    padding: .5rem .7rem;
+    background-color: transparent;
+    border-radius: 50%;
+    transition: all .1s ease-in;
+    transition: .5s ease;
+  }
+
+  .btn:hover{
+    color: black;
+    background-color: #3985CB;
+  } */
 
 #btns_paginate {
     border: none;
+    background-color: transparent;
+    font-family: 'Roboto', sans-serif;
+    width: 5rem;
+    height: 2rem;
     border-bottom: 1px solid #3985CB;
-    border-radius: 0%;
-    transition: all .1s ease-in;
+    border-radius: 0px;
+    color: black;
+    cursor: pointer;
+    transition: all .2s ease;
 }
 
 #btns_paginate:hover {
     border: none;
     border-bottom: 1px solid #3985CB;
+    color: white;
     background-color: #3985CB;
-    border-radius: 20%;
+    border-radius: 8px;
 }
+

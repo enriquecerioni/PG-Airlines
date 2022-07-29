@@ -8,6 +8,8 @@ import { Button } from '@mui/material';
 import { useSelector } from 'react-redux'
 import { LoadingButton } from '@mui/lab';
 import GoogleIcon from '@mui/icons-material/Google';
+import { Link } from "react-router-dom";
+
 
 //   function handleSubmit(e) {
 //     e.preventDefault()
@@ -49,10 +51,18 @@ function Register() {
     // Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character (*)
   }
 
-  function handleSubmit(e){
+  async function handleSubmit(e){
     e.preventDefault()
     setLoading(true)
-    singUp(e.target.email.value,e.target.password.value)
+
+    let type = await singUp(e.target.email.value,e.target.password.value,`${e.target.name.value} ${e.target.surname.value}`)
+    
+    if(typeof type=="string"){
+        alert(type)
+      } else {
+        navigate.push('/')
+      } 
+
     setLoading(false)
     navigate.goBack()
   }
@@ -172,6 +182,7 @@ function Register() {
       >Log in with Google</LoadingButton>
 
       {error && <span>{error}</span>}
+      <p><Link className={style.sing} to='/login'>Already have an account? Log in</Link></p>
     </div>
   )
 }

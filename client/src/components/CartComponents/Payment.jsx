@@ -10,6 +10,12 @@ import axios from 'axios';
 import firebase from 'firebase'
 import { LoadingButton } from '@mui/lab';
 
+// PAYPAL
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
+// MERCADO PAGO
+import MPPayment from './MPPayment'
+
 function Payment() {
     const user = useSelector(state => state.user)
     const { products, setProducts ,setPay} = useContext(CartContext)
@@ -36,7 +42,40 @@ function Payment() {
     const [ email, setEmail ] = useState('')
 
     ///------------------------------
-   
+
+    // PAYPAL SETTING
+
+    function createOrder(data, actions) {
+        return actions.order
+        .create({
+          purchase_units: [
+            {
+              amount: {
+                currency_code: "USD",
+                value: subTotal,
+              },
+            },
+          ],
+          application_context: {
+            shipping_preference: "NO_SHIPPING",
+          },
+        })
+    }
+
+    function onApprove(data, actions) {
+        return actions.order.capture()
+        .then(details => {
+            alert(`payment completado por` + details.payer.name.given_name)
+            window.localStorage.clear()
+            history.replace('/success')
+        });
+    }
+
+    function onError (data, actions) {
+        alert("An Error occured with your payment ");
+      };
+
+    ////////////
 
     async function handleSubmit(e) {     //
         e.preventDefault()
@@ -54,7 +93,7 @@ function Payment() {
                 const { id } = paymentMethod;
 
                 try {
-                    const { data } = await axios.post('http://localhost:3001/checkout', {
+                    const { data } = await axios.post('http://localhost:3001/stripe', {
                         id, 
                         amount: subTotal * 100, // lo tengo que mandar en centavos  //1 METODO
                         receipt_email: email,
@@ -66,7 +105,6 @@ function Payment() {
                     setProcessing(false)    
                     elements.getElement(CardElement).clear()
                     await deleteStockFirebase()
-                    //localStorage.clear()
                     setPay(true)
                     setProducts([])
                     alert('Payment successful')
@@ -164,7 +202,24 @@ function Payment() {
 
         {/* PAYMENT METHOD */}
         <h1>Payment Method</h1>
+        <br />
+
+        {/* MERCADO PAGO */}
+        <br />
+        <MPPayment subTotal={subTotal} products={products} />
+        <br />
+
+        {/* PAYPAL */}
+        <PayPalScriptProvider options={{ "client-id": 'Af5RBL-IS1S6n_djlUuVWC-SSHDEWJDfTMVCyBPAJBISiKn6lgZmNmLX9D5KvBhWZ38jY_2Sy3ExLLQN'}}>
+            <PayPalButtons
+            createOrder={createOrder}
+            onApprove={onApprove}
+            />            
+        </PayPalScriptProvider>
+
+        {/* STRIPE */}
         <form className={css.form_container}>
+            <br />
             <label>Email</label>
             <input 
             type="text" 
@@ -174,6 +229,7 @@ function Payment() {
             required
             />
 
+            <br />
             <br />
             <CardElement onChange={handleChange}/>
             <br />
