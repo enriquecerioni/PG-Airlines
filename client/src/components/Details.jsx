@@ -6,6 +6,7 @@ import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
 
+
 // import  addProductToCart  from './CartComponents/CartContext.jsx'
 import { CartContext } from "./CartComponents/CartContext";
 import { useContext } from "react";
@@ -72,6 +73,8 @@ function Details() {
     };
   }, [dispatch, id]);
 
+  const [value, setValue] = React.useState(2);
+
   return (
     <div>
       <div className={s.container}>
@@ -136,8 +139,10 @@ function Details() {
                   : null  
                 }
                 </div>
+               
               </div>
             );
+            
           })
         ) : (
           <h1>NADA</h1>
