@@ -15,7 +15,7 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
 
   const dispatch = useDispatch();
   const user=useSelector(state=>state.currentUser)
-  console.log(user);
+//console.log(user.permissions);
   // useEffect(()=>{
   //   dispatch(currentUser())
   // },[])
