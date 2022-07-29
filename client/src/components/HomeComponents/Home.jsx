@@ -11,7 +11,6 @@ import NavBar from "./NavBar";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import Button from '@mui/material/Button';
 
-
 export default function Home() {
   const [isDisplayed, setIsDisplayed] = useState(false);
   const dispatch = useDispatch();
