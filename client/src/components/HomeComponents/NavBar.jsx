@@ -8,6 +8,7 @@ import { CartContext } from '../CartComponents/CartContext';
 import { Alert } from '@mui/material';
 import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
+import ImageAvatars from "../avatar"
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import { toast } from "react-toastify";
 
@@ -85,7 +86,15 @@ export default function NavBar() {
             <button id="addAirline"><Link to='/register/airline'>Add your airline</Link></button>
           </li>
           <li>
-            <button id="myProfile"><Link to="/profile"> My profile </Link> </button>
+         
+            {/* <button id="myProfile"><Link to="/profile"> My profile </Link> </button> */}
+            <a id="myProfile">
+              <Link to="/profile"> 
+              <ImageAvatars>
+              </ImageAvatars>
+               </Link>
+            </a>
+            
           </li>
           {/* --------------------------------------------------------------------  */}
           <li id="carrito" className={s.cart_container}>
