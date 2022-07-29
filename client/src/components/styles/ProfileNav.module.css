@@ -1,17 +1,28 @@
   /* -------ASIDE-------- */
+  aside{
+    display: flex;
+    flex-direction: column;
+    /* position: fixed; */
+    align-items: center;
+    background-color: #3985CB;
+    font-weight: 700;
+    color: white;
+    width: 30%;
+    height: 100%;
+    margin-right: 3%;
+    box-shadow: 5px 5px 30px 10px  rgba(9, 9, 9, 0.486) inset;
+    padding-top: 5rem;
+    /* padding-left: 10px; */
+  }
   
-.imgProfile{
+  .imgProfile{
     border-radius: 50%;
     width: 200px;
     height: 200px;
+    margin-top: 1rem;
     /* margin: 0 auto; */
     
   }
-
-.link{
-    text-decoration: none;
-
-}
   
   figcaption.fig1, .fig2{
     text-align: center;
@@ -24,48 +35,37 @@
   }
   
   .fig2{
-    font-size: 55px;
-    margin-bottom: 2rem;
+    font-size: 20px;
   
   }
-  
-  aside{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #3985CB;
-    font-weight: 700;
+
+  .span{
+    text-decoration: none;
     color: white;
-    width: 30%;
-    /* margin-top: 4%; */
-    margin-right: 3%;
-    box-shadow: 5px 5px 30px 10px  rgba(9, 9, 9, 0.486) inset;
-    padding-top: 2rem;
-    /* padding-left: 10px; */
   }
   
   .divLi{
     display: flex;
     width: 100%;
+    margin-top: 10rem;
     text-decoration: none;
-    color: white;
-    margin-top: 8rem;
+    color: #E6F4F1;
   }
   
   .divLi li{
     margin-bottom: 2rem;
     width: 19.6vw;
     padding: 10px;
-    text-align: center;
-    color: white;
+    color: #E6F4F1;
     text-decoration: none;
+    text-align: center;
     cursor: pointer;
     transition: .5s ease;
     /* background-color: red; */
   }
   
   .divLi li:hover{
-    background-color: #001535;
+    background-color: #002760;
     transform: scale(1.1);
   
   }

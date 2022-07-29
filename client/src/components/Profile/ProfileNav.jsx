@@ -7,7 +7,7 @@ export default function ProfileNav() {
     <aside>
       <figure className={s.imgProfile}>
         <figcaption className={s.fig1}>Welcome</figcaption>
-        <figcaption className={s.fig2}>JuanPepito52</figcaption>
+        <figcaption className={s.fig2}>Username</figcaption>
         <img
           className={s.imgProfile}
           src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
@@ -18,7 +18,7 @@ export default function ProfileNav() {
         <ul>
           <li id="AccInfo">
             <Link className={s.link} to="/profile">
-              Account Information
+              <span className={s.span}>Account Information</span>
             </Link>
           </li>
           <li id="TicketsBought">
@@ -26,7 +26,7 @@ export default function ProfileNav() {
               className={s.link}
               to="/purchases" /*PODER DEJAR REVIEW A LA EMPRESA*/
             >
-              My Scheduled Flights
+              <span className={s.span}>My Scheduled Flights</span>
             </Link>
           </li>
           {/* user.permissions === true*/}
@@ -34,13 +34,13 @@ export default function ProfileNav() {
           {/*PODER DEJAR REVIEW A LA EMPRESA*/}
           <li id="MyAirline">
             <Link className={s.link} to="/airlineProfile">
-              Manage Airline
+              <span className={s.span}>Manage Airline</span>
             </Link>
           </li>
           {/*Admin Only page, donde postear vuelos*/}
           <li id="OwnFlights">
             <Link className={s.link} to="/catalog">
-              Manage Airline Flights
+              <span className={s.span}>Manage Airline Flights</span>
             </Link>
           </li>
           {/* <li id="ManageUsers" /* SUPER ADMIN ONLY Page manage users > */}
