@@ -60,11 +60,11 @@ function Register() {
     if(typeof type=="string"){
         alert(type)
       } else {
-        navigate.push('/')
+        navigate.replace('/')
       } 
 
     setLoading(false)
-    navigate.goBack()
+    
   }
 
   // async function handleClick (e){

@@ -112,6 +112,7 @@ export async function singUp(email, password, name) {
     });
     console.log(email,name,uid);
     await store.dispatch(createUser({ email, name ,uid}));
+    return []
   } catch (error) {
     return `${error.message}`;
   }
