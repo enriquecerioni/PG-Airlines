@@ -15,7 +15,7 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
 
   const dispatch = useDispatch();
   const user=useSelector(state=>state.currentUser)
-console.log(user.permissions);
+  console.log(user);
   // useEffect(()=>{
   //   dispatch(currentUser())
   // },[])
@@ -60,7 +60,7 @@ console.log(user.permissions);
   return (
     <div className={style.cards}>
       <li className={style.cards_item}>
-       { !user.permissions ? <button 
+       { user && !user.permissions ? <button 
           id="mailBTN"
           disabled={listDisabled}
           onClick={() => addFav(item)}
@@ -77,7 +77,7 @@ console.log(user.permissions);
             <h5 className={style.a}> {origin} </h5>
           </div>
         </div>
-        { !user.permissions ? <button id="addToCart"className={style.btnCart} onClick={handleAddCart}>
+        { user && !user.permissions ? <button id="addToCart"className={style.btnCart} onClick={handleAddCart}>
           Add to cart
         </button>
         : null

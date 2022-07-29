@@ -102,7 +102,7 @@ auth.onAuthStateChanged(async (user) => {
 export async function singUp(email, password, name) {
   try {
     let cred = await auth.createUserWithEmailAndPassword(email, password);
-    console.log(cred);
+    //console.log(cred);
     let uid=cred.user.uid
     dbFirebase.collection("users").doc(cred.user.email).set({
       email: cred.user.email,
@@ -110,7 +110,7 @@ export async function singUp(email, password, name) {
       photo: cred.user.photoURL,
       uid: uid,
     });
-    
+    console.log(email,name,uid);
     await store.dispatch(createUser({ email, name ,uid}));
   } catch (error) {
     return `${error.message}`;

@@ -17,6 +17,7 @@ async function getAllUsers(req, res, next) {
 
 async function createUser(req, res) {
   const { email, name ,uid} = req.body;
+  console.log(email,name,uid);
   try {
     if (email && name && uid) {
       let user = await User.findAll({

@@ -23,7 +23,7 @@ const { eliminarLPM } = require("./src/db_flight/eliminar.js");
 const {migrar}  = require("./src/db_flight/upload_db.js");
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
   server.listen(process.env.PORT || 3001, () => {
      migrar();
     //  eliminarLPM("Se9oXz9uafcmE5E3FeL2Fsct4jA3")
