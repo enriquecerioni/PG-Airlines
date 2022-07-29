@@ -1,0 +1,123 @@
+/* -----GENERAL------ */
+
+.container{
+    display: flex;
+    margin-top: 4%;
+    width: 100%;
+    height: 120vh;
+    background: #E6F4F1;
+  }
+  
+  
+  ul{
+    list-style-type: none;
+  }
+  
+  .link{
+    text-decoration: none;
+  }
+  
+  
+  /* -------ASIDE-------- */
+  
+.imgProfile{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: 1rem;
+    /* margin: 0 auto; */
+    
+  }
+  
+  figcaption.fig1, .fig2{
+    text-align: center;
+    line-height: 1.5em;
+    letter-spacing:2px;
+    color: white;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    /* border-bottom: 1px solid gainsboro; */
+  }
+  
+  .fig2{
+    font-size: 20px;
+  
+  }
+  
+  aside{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #3985CB;
+    font-weight: 700;
+    color: white;
+    width: 30%;
+    height: 100;
+    margin-right: 3%;
+    box-shadow: 5px 5px 30px 10px  rgba(9, 9, 9, 0.486) inset;
+    padding-top: 2rem;
+    /* padding-left: 10px; */
+  }
+  
+  .divLi{
+    display: flex;
+    width: 100%;
+    margin-top: 10rem;
+    text-decoration: none;
+    color: #E6F4F1;
+  }
+  
+  .divLi li{
+    margin-bottom: 2rem;
+    width: 19.6vw;
+    padding: 10px;
+    color: #E6F4F1;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: .5s ease;
+    /* background-color: red; */
+  }
+  
+  .divLi li:hover{
+    background-color: #002760;
+    transform: scale(1.1);
+  
+  }
+/* --------------------- */
+  
+  .infoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+    padding-top: 2rem;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+  }
+
+  .title, .text{
+    color: #002760;
+  }
+
+  .info{
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 100%;
+    font-weight: 100;
+    background-color: #3985CB;
+    margin-top: 3rem;
+    padding: 3rem;
+    border-radius: 10px;
+  }
+  
+  .info h4{
+    padding-bottom: 30px;
+    padding-top: 30px;
+    border-bottom: 1px solid white;
+  }
+
+  
+  
