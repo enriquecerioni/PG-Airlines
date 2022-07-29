@@ -1,6 +1,8 @@
 const admin=require("firebase-admin")
 const firebase=require("firebase")
 
+
+
  async function deleteAuthUser(uid){
     try {
 
@@ -18,6 +20,19 @@ const firebase=require("firebase")
         console.log(error);
     }  
 }  
+
+
+// async function verificateEmail(req,res){
+//     try {
+//         const{email}=req.body
+//         admin.auth().generateEmailVerificationLink(email)
+//     } catch (error) {
+//         res.status(404).json({error: error.message})
+//     }
+// }
+
+
 module.exports = { 
-    deleteAuthUser 
+    deleteAuthUser ,
+    // verificateEmail
   };   

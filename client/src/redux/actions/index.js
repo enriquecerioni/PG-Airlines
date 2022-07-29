@@ -144,6 +144,17 @@ export function createUser(payload){
         })
     }
 }
+
+
+// export function generateEmailLink(payload){
+//     axios.get("http://localhost:3001/user/verificate",payload)
+//     .then(()=>{
+//         console.log("verification email send ");
+//     })
+//     .catch((error)=>{
+//         console.log(error);
+//     })
+// }
 export function currentUser(payload){
     return {
             type:CURRENT_USER,

@@ -65,7 +65,12 @@ function Cart() {
   function handleCheckout(){
     auth.onAuthStateChanged(user=>{
       if(user){
-        history.push('/payment')
+        if(user.emailVerified){
+          history.push('/payment')
+        }else{
+          alert("You need to verify you email")
+          history.push("/")
+        }
       }
       else {
         alert("You need to be logged to buy")
