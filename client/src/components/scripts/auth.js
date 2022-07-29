@@ -3,8 +3,12 @@ import { store } from "../../redux/store/index";
 import {
   createUser,
   makeAdminPostgres,
+  deleteUser,
+  deleteUserAuth,
   logOutUser,
 } from "../../redux/actions/index";
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGr8PQQDvTRK484636fOa1XJVhIJ0lmqA",
@@ -14,17 +18,14 @@ const firebaseConfig = {
   messagingSenderId: "743031201286",
   appId: "1:743031201286:web:5df37e5654d096731f2d87",
 };
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-} else {
-  firebase.app(); // if already initialized, use that one
-}
+
+!firebase.apps.length ?  firebase.initializeApp(firebaseConfig) :firebase.app()
+
+
 const dbFirebase = firebase.firestore();
-
-//---------------------estado del usuraio------------------
-
 const auth = firebase.auth();
 
+//---------------------estado del usuraio------------------
 auth.onAuthStateChanged(async (user) => {
   //console.log(user)
 
@@ -79,12 +80,15 @@ export async function singUp(email, password, name) {
   try {
     let cred = await auth.createUserWithEmailAndPassword(email, password);
     console.log(cred);
+    let uid=cred.user.uid
     dbFirebase.collection("users").doc(cred.user.email).set({
       email: cred.user.email,
       admin: false,
       photo: cred.user.photoURL,
+      uid: uid,
     });
-    await store.dispatch(createUser({ email, name }));
+    
+    await store.dispatch(createUser({ email, name ,uid}));
   } catch (error) {
     return `${error.message}`;
   }
@@ -117,23 +121,41 @@ export async function ejecutar() {
     let email = data.user.email;
     let name = data.user.displayName;
     let photo = data.user.photoURL;
+    let uid = data.user.uid;
     let hay = await dbFirebase.collection("users").doc(email).get();
     if (!hay.data()) {
-      await store.dispatch(createUser({ email, name }));
+      await store.dispatch(createUser({ email, name ,uid}));
       return dbFirebase.collection("users").doc(email).set({
         email: email,
         admin: false,
         photo: photo,
+        uid: uid,
       });
     }
-  } catch (error) {
-    console.log(error.message);
+  } catch (error){ 
+  console.log(error)
   }
 }
-
 export async function makeAdmin(email) {
-  await dbFirebase.collection("users").doc(email).update({
+  try{await dbFirebase.collection("users").doc(email).update({
     admin: true,
   });
   await store.dispatch(makeAdminPostgres({ email }));
+}catch(err){
+  console.log(err);
+}
+}
+
+export async function Delete(email,uid){
+  try{ 
+    await dbFirebase.collection("users").doc(email).delete()
+   await store.dispatch(deleteUser(email))
+    await store.dispatch(deleteUserAuth(uid))
+}catch(error){
+  console.log(error);
+}
+
+
+
+
 }

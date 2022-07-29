@@ -9,6 +9,7 @@ import { getAllFlights } from "../../redux/actions/index";
 import Loader from "./Loader";
 import NavBar from "./NavBar";
 
+
 export default function Home() {
   const [isDisplayed, setIsDisplayed] = useState(false);
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ export default function Home() {
           <div className={s.contactContainer}>
             <div className={s.contact}>
               <p className={s.text}>
-                if you're interested in working with us...
+                if you're  a@hotmail.com interested in working with us...
               </p>
               <div id="btnHomeGuest">
                 <Link to="/register">

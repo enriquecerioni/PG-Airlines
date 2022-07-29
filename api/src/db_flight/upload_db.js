@@ -1,8 +1,9 @@
-const migrar = async () => {
-   const firebase = require("firebase");
-  // const admin = require("firebase-admin");
+const migrar =  (uid) => {
+  
+    const firebase = require("firebase");
+  const admin = require("firebase-admin");
   // const data = require("./db.json");
-  // const serviceAccount = require("./key_service_account.json");
+  const serviceAccount = require("./key_service_account.json");
   // const collectionKey = "db"; //Name of the collection
 
   const firebaseConfig = {
@@ -10,13 +11,21 @@ const migrar = async () => {
     authDomain: "prueba-dcc65.firebaseapp.com",
     projectId: "prueba-dcc65",
     storageBucket: "prueba-dcc65.appspot.com",
-    messagingSenderId: "743031201286",
+    messagingSenderId: "743031201286", 
     appId: "1:743031201286:web:5df37e5654d096731f2d87",
   };
-  // firebaseConfig.initializeApp
-  firebase.initializeApp(firebaseConfig);
+
+ 
+
+ // firebaseConfig.initializeApp
+ firebase.initializeApp(firebaseConfig);
+ admin.initializeApp({
+ credential: admin.credential.cert(serviceAccount), 
+ })
    const dbFirestore = firebase.firestore();
-  dbFirestore.settings({ timestampsInSnapshots: true });
+  dbFirestore.settings({ timestampsInSnapshots: true ,merge:true});
+
+
 
 
   // const initializeApp = require("firebase/app");
@@ -28,12 +37,13 @@ const migrar = async () => {
   // }
   // ------------------
   
-  // admin.initializeApp({
-  //   credential: admin.credential.cert(serviceAccount),
-  // });
+  //   admin.initializeApp({
+  //    credential: admin.credential.cert(serviceAccount),
+  //  });
+  
   // const firestore = admin.firestore();
-  // const settings = { timestampsInSnapshots: true };
-  // firestore.settings(settings);
+  //    const settings = { timestampsInSnapshots: true };
+  //  firestore.settings(settings);
   // if (data && typeof data === "object") {
   //   Object.keys(data).forEach((docKey) => {
   //     firestore
@@ -48,6 +58,10 @@ const migrar = async () => {
   //       });
   //   });
   // }
+  // if(uid){
+  //   await admin.auth().deleteUser(uid)
+  // }
+  
 };
 module.exports = {
   migrar,

@@ -21,6 +21,7 @@ import {
   LOGOUT_USER,
   ERROR_USER,
   UPDATE_USER,
+  DELETE_USER,
 } from "../actions";
 
 const initialState = {
@@ -86,6 +87,11 @@ const rootReducer = (state = initialState, action) => {
       return{
         ...state,
         allUsers: state.allUsers.map((user)=>user.email ===action.payload ? {...user,permissions:true} : user)
+      }
+    case DELETE_USER:
+      return{
+        ...state,
+        allUsers: state.allUsers.filter((user)=>user.email!==action.payload)
       }
     case LOGOUT_USER: {
       return { 
