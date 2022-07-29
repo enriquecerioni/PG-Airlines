@@ -60,7 +60,9 @@ function Register() {
     if(typeof type=="string"){
         alert(type)
       } else {
-        navigate.replace('/')
+        navigate.push('/')
+        window.location.reload()
+        
       } 
 
     setLoading(false)
@@ -81,7 +83,10 @@ function Register() {
       setLoading(true)
       await ejecutar();
       setLoading(false)
-      navigate.replace('/'); //asyn await
+     
+      navigate.replace('/');
+      window.location.reload() 
+         //asyn await
     } catch (error) {
       alert(error)
     }
