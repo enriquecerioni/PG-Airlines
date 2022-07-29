@@ -5,6 +5,7 @@
 html {
   scroll-behavior: smooth;
 }
+
 .sec1 {
   display: flex;
   position: relative;
@@ -161,4 +162,16 @@ button + button {
     .scrollText {
         margin-left: 4vw;
     }
+}
+
+.whatsapp{
+  margin: 45% 10% 0% 0%;
+  width: 100%;
+  /* height: 85px; */
+  top: 0;
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  /* align-items: center; */
+  font-family: "Raleway", sans-serif;
 }

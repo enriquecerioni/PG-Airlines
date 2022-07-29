@@ -8,6 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllFlights } from "../../redux/actions/index";
 import Loader from "./Loader";
 import NavBar from "./NavBar";
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import Button from '@mui/material/Button';
+
 
 export default function Home() {
   const [isDisplayed, setIsDisplayed] = useState(false);
@@ -68,6 +71,13 @@ export default function Home() {
             <div id="divInv" className={s.divInv}></div>
             <SearchBar />
             <Display />
+            <div className={s.whatsapp}>
+                <Button  id="whatsapp" href="https://walink.co/000b86" target="_blank" variant="contained" size="medium">
+                  <WhatsAppIcon>
+                  </WhatsAppIcon>
+                  <p>Chat</p>
+                </Button>
+            </div>
           </div>
         </div>
       )}
