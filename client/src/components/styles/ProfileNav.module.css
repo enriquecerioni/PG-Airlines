@@ -1,0 +1,74 @@
+  /* -------ASIDE-------- */
+  
+.imgProfile{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    /* margin: 0 auto; */
+    
+  }
+
+.link{
+    text-decoration: none;
+
+}
+  
+  figcaption.fig1, .fig2{
+    text-align: center;
+    line-height: 1.5em;
+    letter-spacing:2px;
+    color: white;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    /* border-bottom: 1px solid gainsboro; */
+  }
+  
+  .fig2{
+    font-size: 55px;
+    margin-bottom: 2rem;
+  
+  }
+  
+  aside{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #3985CB;
+    font-weight: 700;
+    color: white;
+    width: 30%;
+    /* margin-top: 4%; */
+    margin-right: 3%;
+    box-shadow: 5px 5px 30px 10px  rgba(9, 9, 9, 0.486) inset;
+    padding-top: 2rem;
+    /* padding-left: 10px; */
+  }
+  
+  .divLi{
+    display: flex;
+    width: 100%;
+    text-decoration: none;
+    color: white;
+    margin-top: 8rem;
+  }
+  
+  .divLi li{
+    margin-bottom: 2rem;
+    width: 19.6vw;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .5s ease;
+    /* background-color: red; */
+  }
+  
+  .divLi li:hover{
+    background-color: #001535;
+    transform: scale(1.1);
+  
+  }
+
+/* -------------------- */
+  
