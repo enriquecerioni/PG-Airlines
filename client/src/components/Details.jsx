@@ -6,6 +6,7 @@ import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
 
+
 // import  addProductToCart  from './CartComponents/CartContext.jsx'
 import { CartContext } from "./CartComponents/CartContext";
 import { useContext } from "react";
@@ -15,6 +16,7 @@ function Details() {
 
   const dispatch = useDispatch();
   const details = useSelector((state) => state.flight);
+  const user = useSelector((state=>state.currentUser))
   // console.log(details)
 
   // const item = details.map(e => {
@@ -71,6 +73,8 @@ function Details() {
     };
   }, [dispatch, id]);
 
+  const [value, setValue] = React.useState(2);
+
   return (
     <div>
       <div className={s.container}>
@@ -115,7 +119,7 @@ function Details() {
                   <img className={s.logoPrice} src={d.logo} alt="Img" />
                   <div className={s.airlinePrice}>{d.airline}</div>
                   <div className={s.priceP}>${d.price}</div>
-                  <button
+                  { !user.permissions ? <button
                     className={s.btn}
                     onClick={() =>
                       handleAddToCart({
@@ -127,13 +131,18 @@ function Details() {
                         arrivalHour: d.arrivalHour,
                         departureHour: d.departureHour,
                       })
+                      
                     }
                   >
                     Reservar
                   </button>
+                  : null  
+                }
                 </div>
+               
               </div>
             );
+            
           })
         ) : (
           <h1>NADA</h1>

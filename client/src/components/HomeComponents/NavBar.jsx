@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import s from '../styles/NavBar.module.css';
 import logo from '../styles/logo.png';
 import shoppingCart from '../styles/shopping-cart.png';
@@ -18,7 +18,7 @@ export default function NavBar() {
   const [ alert, setAlert] = useState(false)
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
-
+  const navigate=useHistory();
   const [stateCart, setStateCart] = useState(products.length);
 
   useEffect(() => {
@@ -30,12 +30,13 @@ export default function NavBar() {
     logOut()
     toast.success('✔ Log out!', {
       position: "top-right",
-      autoClose: 3000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
+      type: "info",
       });
   }
 
@@ -83,7 +84,7 @@ export default function NavBar() {
             <button id="addAirline"><Link to='/register/airline'>Add your airline</Link></button>
           </li>
           <li>
-            <button id="myProfile">My profile</button>
+            <button id="myProfile"><Link to="/profile"> My profile </Link> </button>
           </li>
           {/* --------------------------------------------------------------------  */}
           <li id="carrito" className={s.cart_container}>

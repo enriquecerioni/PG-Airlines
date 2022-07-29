@@ -1,7 +1,47 @@
 .catalog_containers {
-    margin-top: 5rem;
+  margin-top: 5rem;
 }
 
 .tab {
-    width: 100%;
+  width: 100%;
+}
+
+.btn {
+  width: 130px;
+  height: 50px;
+  margin-top: 40px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  color: ivory;
+  background-color: #2682d8;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+.btn:hover {
+  background-color: rgb(220, 224, 255);
+  color: rgb(32, 32, 32);
+  border: 1px solid #2682d8;
+}
+
+.button {
+  display: solid 2px transparent;
+  border-radius: 9999px;
+  display: flex;
+  justify-content: center;
+  width: 1.5rem;
+  padding: 0;
+  height: 1.5rem;
+  align-items: center;
+  background-color: transparent;
+  transition: background-color 1.25s;
+  cursor: pointer;
+  color: crimson;
+  margin-left: 20rem;
+}
+
+.button:hover {
+  background-color: crimson;
+  color: white;
 }

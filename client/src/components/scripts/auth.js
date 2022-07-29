@@ -1,6 +1,15 @@
 import firebase from "firebase";
 import { store } from "../../redux/store/index";
-import { createUser, logOutUser } from "../../redux/actions/index";
+import {
+  createUser,
+  makeAdminPostgres,
+  deleteUser,
+  deleteUserAuth,
+  currentUser,
+  logOutUser,
+} from "../../redux/actions/index";
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGr8PQQDvTRK484636fOa1XJVhIJ0lmqA",
@@ -10,26 +19,23 @@ const firebaseConfig = {
   messagingSenderId: "743031201286",
   appId: "1:743031201286:web:5df37e5654d096731f2d87",
 };
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-} else {
-  firebase.app(); // if already initialized, use that one
-}
+
+!firebase.apps.length ?  firebase.initializeApp(firebaseConfig) :firebase.app()
+
+
 const dbFirebase = firebase.firestore();
-
-//---------------------estado del usuraio------------------
-
-
 const auth = firebase.auth();
 
+//---------------------estado del usuraio------------------
 auth.onAuthStateChanged(async (user) => {
   //console.log(user)
 
   if (user) {
+    await store.dispatch(currentUser(user.email))
     let a = await dbFirebase.collection("users").doc(`${user.email}`).get();
     let userAdmin = a.data() ? a.data().admin : null;
     if (userAdmin) {
-      document.getElementById("btnHomeGuest").style.display = "none";
+      // document.getElementById("btnHomeGuest").style.display = "none";
       document.getElementById("catalog").style.display = "";
       document.getElementById("logOut").style.display = "";
       document.getElementById("myProfile").style.display = "";
@@ -38,20 +44,36 @@ auth.onAuthStateChanged(async (user) => {
       document.getElementById("register").style.display = "none";
       document.getElementById("favs").style.display = "none";
       document.getElementById("offers").style.display = "none";
+      document.getElementById("carrito").style.display = "none";
+      document.getElementById("nCarrito").style.display = "none";
+
+
+    
+
+      
+      // document.getElementById("MyAirline").style.display = "";
+      // document.getElementById("OwnFlights").style.display = "";
     } else {
-      console.log("usser log in: ", user.displayName, user.email);
+      console.log("user logged-in: ", user.displayName, user.email, user);
       // document.getElementById("btnHomeGuest").style.display = "none";
       document.getElementById("offers").style.display = "";
       document.getElementById("catalog").style.display = "none";
       document.getElementById("logIn").style.display = "none";
       document.getElementById("register").style.display = "none";
       document.getElementById("logOut").style.display = "";
-      document.getElementById("myProfile").style.display = "none";
+      document.getElementById("myProfile").style.display = "";
       document.getElementById("addAirline").style.display = "none";
       document.getElementById("favs").style.display = "";
+      document.getElementById("carrito").style.display = "";
+      document.getElementById("nCarrito").style.display = "";
+
+
+      // document.getElementById("mailBTN")  ? document.getElementById("mailBTN").style.display = "" : null
+      // document.getElementById("addToCart")   ? document.getElementById("addToCart").style.display = "" : null
+      // document.getElementById("MyAirline").style.display = "none";
+      // document.getElementById("OwnFlights").style.display = "none";
     }
   } else {
-
     // document.getElementById("btnHomeGuest").style.display = "";
     console.log("user logged out");
     document.getElementById("offers").style.display = "";
@@ -62,28 +84,37 @@ auth.onAuthStateChanged(async (user) => {
     document.getElementById("myProfile").style.display = "none";
     document.getElementById("addAirline").style.display = "none";
     document.getElementById("favs").style.display = "";
+    document.getElementById("carrito").style.display = "";
+    document.getElementById("nCarrito").style.display = "";
+
+
+    
+    // document.getElementById("mailBTN")  ? document.getElementById("mailBTN").style.display = "" : null
+    // document.getElementById("addToCart")   ? document.getElementById("addToCart").style.display = "" : null
+  
+    // document.getElementById("MyAirline").style.display = "none";
+    // document.getElementById("OwnFlights").style.display = "none";
   }
 });
 
 //--------------------------------------------------------
 
-export async function singUp(email,photo,name){
+export async function singUp(email, password, name) {
   try {
-    let cred=await auth.createUserWithEmailAndPassword(email,photo)  
-      console.log(cred)
-       dbFirebase.collection("users").doc(cred.user.email).set({
-        email: cred.user.email,
-        admin: false ,
-        photo: cred.user.photoURL
-      })
-      await store.dispatch(createUser(email, name,photo))
-      return cred;
+    let cred = await auth.createUserWithEmailAndPassword(email, password);
+    //console.log(cred);
+    let uid=cred.user.uid
+    dbFirebase.collection("users").doc(cred.user.email).set({
+      email: cred.user.email,
+      admin: false,
+      photo: cred.user.photoURL,
+      uid: uid,
+    });
+    console.log(email,name,uid);
+    await store.dispatch(createUser({ email, name ,uid}));
   } catch (error) {
-    return `${error.message}`
+    return `${error.message}`;
   }
- 
-  
-    
 }
 
 export async function logOut() {
@@ -92,45 +123,18 @@ export async function logOut() {
   // store.dispatch(logOutUser())
 }
 
-export async function logIn(email,password){
-try {
-  // if(EstadoUsuario) console.log('Usuario ya ingresado')
-        
-        let user=await auth.signInWithEmailAndPassword(email,password)
-       
-            console.log("usuario ingresado");
-            return user
-        
-} catch (error) {
-  // alert(error.message)
-            return `${error.message}`
-}
-        
-          
-          
-}
+export async function logIn(email, password) {
+  try {
+    // if(EstadoUsuario) console.log('Usuario ya ingresado')
 
-export async function getUser() {
-  let user = auth.currentUser;
-  console.log(user);
+    let user = await auth.signInWithEmailAndPassword(email, password);
 
-  if (user !== null) {
-    const displayName = user.displayName;
-    const email = user.email;
-    const photoURL = user.photoURL;
-    const emailVerified = user.emailVerified;
-    const uid = user.uid;
-
-    await store.dispatch(
-      createUser(displayName, email, photoURL, emailVerified, uid)
-    );
+    console.log("usuario ingresado");
+    return user;
+  } catch (error) {
+    // alert(error.message)
+    return `${error.message}`;
   }
-  // auth.listUsers(maxResults)
-  // .then((userRecords) => {
-  //   userRecords.users.forEach((user) => console.log(user.toJSON()));
-  //   res.end('Retrieved users list successfully.');
-  // })
-  // .catch((error) => console.log(error));
 }
 
 export async function ejecutar() {
@@ -140,16 +144,41 @@ export async function ejecutar() {
     let email = data.user.email;
     let name = data.user.displayName;
     let photo = data.user.photoURL;
+    let uid = data.user.uid;
     let hay = await dbFirebase.collection("users").doc(email).get();
     if (!hay.data()) {
-      await store.dispatch(createUser({ email, name, photo }));
+      await store.dispatch(createUser({ email, name ,uid}));
       return dbFirebase.collection("users").doc(email).set({
         email: email,
         admin: false,
         photo: photo,
+        uid: uid,
       });
     }
-  } catch (error) {
-    console.log(error.message);
+  } catch (error){ 
+  console.log(error)
   }
+}
+export async function makeAdmin(email) {
+  try{await dbFirebase.collection("users").doc(email).update({
+    admin: true,
+  });
+  await store.dispatch(makeAdminPostgres({ email }));
+}catch(err){
+  console.log(err);
+}
+}
+
+export async function Delete(email,uid){
+  try{ 
+    await dbFirebase.collection("users").doc(email).delete()
+   await store.dispatch(deleteUser(email))
+    await store.dispatch(deleteUserAuth(uid))
+}catch(error){
+  console.log(error);
+}
+
+
+
+
 }

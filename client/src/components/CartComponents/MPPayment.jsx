@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Button }from '@mui/material';
 
 export default function MPPayment({ products }) {
 
@@ -19,7 +20,7 @@ export default function MPPayment({ products }) {
 
   return(
       <form>
-        <button onClick={handleMPPayment} type="submit">MERCADO PAGO</button>
+        <Button variant="contained" size="large" onClick={handleMPPayment} type="submit">MERCADO PAGO</Button>
       </form>
   )
 

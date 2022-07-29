@@ -2,6 +2,7 @@ const axios = require ("axios");
 export const GET_ALL_FLIGHTS = "GET_ALL_FLIGHTS"
 export const GET_FLIGHT_INFO = "GET_FLIGHT_INFO"
 export const GET_USER_INFO = "GET_USER_INFO"
+export const GET_USERS = 'GET_USERS'
 export const SEARCH_BY_DESTINATION = 'SEARCH_BY_DESTINATION'
 export const CLEAN = 'CLEAN'
 export const ORDER_PRICE = 'ORDER_PRICE'
@@ -21,7 +22,9 @@ export const DELETE_FAVORITE = 'DELETE_FAVORITE'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const DELETE_FROM_CART = 'DELETE_FROM_CART'
 export const ERROR_USER = 'ERROR_USER'
-
+export const UPDATE_USER="UPDATE_USER"
+export const DELETE_USER="DELETE_USER"
+export const CURRENT_USER="CURRENT_USER"
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -50,6 +53,21 @@ export function getFlightByID(id) {
                 payload: flight.data.filter(e => e.flight === id)
             })
         })
+    }
+}
+
+export function getAllUsers(){
+    return function (dispatch) {
+        axios(`http://localhost:3001/user`)
+        .then((res) => {
+            dispatch({
+                type: GET_USERS, 
+                payload: res.data
+            })
+        })
+        .catch((error) => {
+            console.log("Users not found");
+        }) 
     }
 }
 
@@ -123,6 +141,50 @@ export function createUser(payload){
                 type: ERROR_USER,
                 payload: 'Usuario ya creado, login'
             })
+        })
+    }
+}
+export function currentUser(payload){
+    return {
+            type:CURRENT_USER,
+            payload
+        }
+    
+}
+export function makeAdminPostgres(payload){
+    return function (dispatch){
+        axios.put('http://localhost:3001/user/update',payload)
+        .then((response)=>{
+            dispatch({
+                type:UPDATE_USER,
+                payload:response.data
+            })
+        })
+    }
+}
+export function deleteUser(payload){
+    console.log(payload);
+    return function (dispatch){
+        axios.delete(`http://localhost:3001/user/delete/${payload}`)
+        .then((response)=>{
+            dispatch({
+                type:DELETE_USER,
+                payload:response.data
+            })
+        })
+        .catch((error)=>{
+            alert(error.message);
+        })
+    }
+}
+export function deleteUserAuth(payload){
+    return function (){
+        axios.delete(`http://localhost:3001/user/auth/${payload}`)
+        .then(()=>{
+           console.log("user auth firebase eliminated");
+        })
+        .catch(()=>{
+            console.log("error al borrar el auth user");
         })
     }
 }
