@@ -22,6 +22,7 @@ import {
   ERROR_USER,
   UPDATE_USER,
   DELETE_USER,
+  CURRENT_USER,
 } from "../actions";
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
   flight: [], // vuelo con detalles
   user: {},
   allUsers:[],
+  currentUser:{},
   reset: true,
   orderState: "initial",
   favoriteList: [],
@@ -93,6 +95,13 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         allUsers: state.allUsers.filter((user)=>user.email!==action.payload)
       }
+      
+    case CURRENT_USER:
+      //state.allUsers.map((user)=>console.log(user.email))
+      return{
+        ...state,
+        currentUser:state.allUsers.filter((user)=>user.email===action.payload)[0]
+      }
     case LOGOUT_USER: {
       return { 
         ...state,
@@ -118,7 +127,7 @@ const rootReducer = (state = initialState, action) => {
     
     case FILTER_BY_ORIGIN: {  
       const searchFlightByOrigin = state.flights.filter((e) =>
-        e.origin.toLowerCase()===(action.payload.origin.toLowerCase() )
+        e.origin.toLowerCase().includes(action.payload.origin.toLowerCase() )
       );
      // console.log(searchFlight)
       const originAndDest = searchFlightByOrigin.filter((e) =>
