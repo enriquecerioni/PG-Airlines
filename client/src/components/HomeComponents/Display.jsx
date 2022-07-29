@@ -5,7 +5,7 @@ import style from '../styles/Display.module.css'
 import Paginate from './Paginate';
 import Filter from '../Filter'
 // import Filter from './Filter'
-import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines, getAllUsers} from '../../redux/actions/index'
+import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines, getAllUsers, currentUser} from '../../redux/actions/index'
 
 export default function Display() {
 // console.log(details)
@@ -24,7 +24,7 @@ export default function Display() {
     useEffect(() => {
         // if(filterArray.length !== 0) return filterArray
         // else 
-        dispatch(getAllUsers());
+        //dispatch(getAllUsers());
         dispatch(getAllFlights())
         setTimeout(() => {
             dispatch(filterPrice('all'));

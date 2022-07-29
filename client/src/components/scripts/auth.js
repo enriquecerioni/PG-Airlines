@@ -5,6 +5,7 @@ import {
   makeAdminPostgres,
   deleteUser,
   deleteUserAuth,
+  currentUser,
   logOutUser,
 } from "../../redux/actions/index";
 
@@ -30,6 +31,7 @@ auth.onAuthStateChanged(async (user) => {
   //console.log(user)
 
   if (user) {
+    await store.dispatch(currentUser(user.email))
     let a = await dbFirebase.collection("users").doc(`${user.email}`).get();
     let userAdmin = a.data() ? a.data().admin : null;
     if (userAdmin) {
@@ -42,6 +44,13 @@ auth.onAuthStateChanged(async (user) => {
       document.getElementById("register").style.display = "none";
       document.getElementById("favs").style.display = "none";
       document.getElementById("offers").style.display = "none";
+      document.getElementById("carrito").style.display = "none";
+      document.getElementById("nCarrito").style.display = "none";
+
+
+    
+
+      
       // document.getElementById("MyAirline").style.display = "";
       // document.getElementById("OwnFlights").style.display = "";
     } else {
@@ -55,6 +64,12 @@ auth.onAuthStateChanged(async (user) => {
       document.getElementById("myProfile").style.display = "";
       document.getElementById("addAirline").style.display = "none";
       document.getElementById("favs").style.display = "";
+      document.getElementById("carrito").style.display = "";
+      document.getElementById("nCarrito").style.display = "";
+
+
+      // document.getElementById("mailBTN")  ? document.getElementById("mailBTN").style.display = "" : null
+      // document.getElementById("addToCart")   ? document.getElementById("addToCart").style.display = "" : null
       // document.getElementById("MyAirline").style.display = "none";
       // document.getElementById("OwnFlights").style.display = "none";
     }
@@ -69,6 +84,14 @@ auth.onAuthStateChanged(async (user) => {
     document.getElementById("myProfile").style.display = "none";
     document.getElementById("addAirline").style.display = "none";
     document.getElementById("favs").style.display = "";
+    document.getElementById("carrito").style.display = "";
+    document.getElementById("nCarrito").style.display = "";
+
+
+    
+    // document.getElementById("mailBTN")  ? document.getElementById("mailBTN").style.display = "" : null
+    // document.getElementById("addToCart")   ? document.getElementById("addToCart").style.display = "" : null
+  
     // document.getElementById("MyAirline").style.display = "none";
     // document.getElementById("OwnFlights").style.display = "none";
   }

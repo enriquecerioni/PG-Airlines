@@ -24,7 +24,7 @@ export const DELETE_FROM_CART = 'DELETE_FROM_CART'
 export const ERROR_USER = 'ERROR_USER'
 export const UPDATE_USER="UPDATE_USER"
 export const DELETE_USER="DELETE_USER"
-
+export const CURRENT_USER="CURRENT_USER"
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -143,6 +143,13 @@ export function createUser(payload){
             })
         })
     }
+}
+export function currentUser(payload){
+    return {
+            type:CURRENT_USER,
+            payload
+        }
+    
 }
 export function makeAdminPostgres(payload){
     return function (dispatch){
