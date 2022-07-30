@@ -26,6 +26,7 @@ const style = {
 function CatalogFlights({ rows }) {
    
     const [open, setOpen] = React.useState(false);
+    const [dataFlight, getData] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -43,14 +44,15 @@ function CatalogFlights({ rows }) {
     const [depD, setDepD] = useState({ value: '', valid: null });
     const [arrD, setArrD] = useState({ value: '', valid: null });
     const [description, setDescription] = useState({ value: '', valid: null });
-
-    return [
+    
+      return [
         <Box sx={{ height: 400, width: '100%' }}>
             <DataGrid
                 onRowDoubleClick={(params, event) => {
-                    console.log(params)
-                    console.log(event)
+                          
                     setOpen(true);
+                    getData(params.row);
+                    console.log(params);     
                 }}
                 rows={rows}
                 columns={columns}
@@ -82,7 +84,8 @@ function CatalogFlights({ rows }) {
                                 label='ID Flight'
                                 placeholder='Flight'
                                 name='flight'
-                            //error='...'
+                                value={dataFlight.airline}
+                                                            //error='...'
                             //regularExpression={}
                             />
                             <input
@@ -92,6 +95,7 @@ function CatalogFlights({ rows }) {
                                 type="text"
                                 label='Airline'
                                 placeholder='Airline'
+                                value={dataFlight.arrivalDate}
                                 //error='...'
                                 //regularExpression={}
                             />
@@ -103,6 +107,7 @@ function CatalogFlights({ rows }) {
                                 type="text"
                                 label='Logo'
                                 placeholder='Image'
+                                value={dataFlight.arrivalHour}
                                 // error='...'
                                 // regularExpression={}
                             />
@@ -114,6 +119,7 @@ function CatalogFlights({ rows }) {
                                 type="number"
                                 label='Price'
                                 placeholder='Price'
+                                value={dataFlight.departureDate}
                                 // error='...'
                                 // regularExpression={}
                             />
@@ -124,6 +130,7 @@ function CatalogFlights({ rows }) {
                                 type="number"
                                 label='Stock'
                                 placeholder='Stock'
+                                value={dataFlight.stock}
                                 // error='...'
                                 // regularExpression={}
                             />
@@ -134,6 +141,7 @@ function CatalogFlights({ rows }) {
                                 type="text"
                                 label='Origin'
                                 placeholder='Origin'
+                                value={dataFlight.description}
                                 // error='...'
                                 // regularExpression={}
                             />
@@ -144,6 +152,7 @@ function CatalogFlights({ rows }) {
                                 type="text"
                                 label='Duration'
                                 placeholder='Duration'
+                                value={dataFlight.destination}
                                 // error='...'
                                 // regularExpression={}
                             />
@@ -154,6 +163,7 @@ function CatalogFlights({ rows }) {
                                 type="text"
                                 label='DepH'
                                 placeholder='DepH'
+                                value={dataFlight.durationEstimated}
                                 // error='...'
                                 // regularExpression={}
                             />
@@ -164,6 +174,7 @@ function CatalogFlights({ rows }) {
                                 type="text"
                                 label='ArrH'
                                 placeholder='ArrH'
+                                value={dataFlight.id}
                                 // error='...'
                                 // regularExpression={}
                             />
@@ -174,6 +185,7 @@ function CatalogFlights({ rows }) {
                                 type="text"
                                 label='Destination'
                                 placeholder='Destination'
+                                value={dataFlight.logo}
                                 // error='...'
                                 // regularExpression={}
                             />
@@ -184,6 +196,7 @@ function CatalogFlights({ rows }) {
                                 type="text"
                                 label='DepD'
                                 placeholder='DepD'
+                                value={dataFlight.origin}
                                 // error='...'
                                 // regularExpression={}
                             />
@@ -194,6 +207,7 @@ function CatalogFlights({ rows }) {
                                 type="text"
                                 label='ArrD'
                                 placeholder='ArrD'
+                                value={dataFlight.price}
                                 // error='...'
                                 // regularExpression={}
                             />
@@ -204,6 +218,7 @@ function CatalogFlights({ rows }) {
                                 type="text"
                                 label='Description'
                                 placeholder='Description'
+                                value={dataFlight.departureHour}
                                 // error='...'
                                 // regularExpression={}
                             />
