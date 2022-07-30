@@ -22,6 +22,7 @@ export default function NavBar() {
   const navigate = useHistory();
   const [stateCart, setStateCart] = useState(products.length);
   const user = useSelector((state) => state.currentUser);
+//console.log(Object.keys(user).length)
 
   useEffect(() => {
     setStateCart(products.length);
@@ -55,7 +56,7 @@ export default function NavBar() {
         <img className={s.logoImg} src={logo} alt="logo" />
       </Link>
       <ul className={s.navUl}>
-        {user && user.superAdmin === true ? (
+        {Object.keys(user).length && user.superAdmin  ? (
           <>
             <li id="catalog">
               <Link className={s.navLink} to="/catalog">
@@ -70,7 +71,11 @@ export default function NavBar() {
                 Log Out
               </button>
             </li>
-            <li>
+            
+          </>
+        ) : Object.keys(user).length && user.permissions  ? (
+          <>
+           <li>
               <button id="addAirline">
                 <Link to="/register/airline">Add your airline</Link>
               </button>
@@ -82,10 +87,18 @@ export default function NavBar() {
                 </Link>
               </a>
             </li>
+            <li id="logOut">
+              <button
+                className={s.navLink_logout}
+                onClick={(e) => handleLogOut(e)}
+              >
+                Log Out
+              </button>
+            </li>
           </>
-        ) : user && user.permissions === false ? (
-          <>
-            <li id="offers">
+        ) : Object.keys(user).length && !user.permissions ? (
+            <>
+               <li id="offers">
               <Box sx={{ color: "action.active" }}>
                 <Link className={s.navLink} to="/offers">
                   <Badge color="secondary" badgeContent={5}>
@@ -124,8 +137,8 @@ export default function NavBar() {
             <h5 id="nCarrito" className={s.price}>
               {stateCart ? stateCart : 0}
             </h5>
-          </>
-        ) : (
+            </>
+        ) :(
           <>
             <li id="offers">
               <Box sx={{ color: "action.active" }}>
@@ -136,7 +149,7 @@ export default function NavBar() {
                   </Badge>
                 </Link>
               </Box>
-            </li>
+            </li>                                                        {/*guest */}
             <li id="favs">
               <Link className={s.navLink} to="/favs">
                 Favs
@@ -161,7 +174,8 @@ export default function NavBar() {
               {stateCart ? stateCart : 0}
             </h5>
           </>
-        )}
+        )
+        }
         </ul>
     </nav>
   );
