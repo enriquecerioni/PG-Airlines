@@ -19,7 +19,7 @@ export default function Home() {
     dispatch(getAllUsers());
     setInterval(() => {
       setIsDisplayed(true);
-    }, 2000);
+    }, 500);
    
   }, []);
 
