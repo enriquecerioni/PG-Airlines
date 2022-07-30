@@ -16,6 +16,10 @@ module.exports = (sequelize) => {
       type:DataTypes.STRING,
       allowNull:true,
     },
+    superAdmin:{
+      type:DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     phone: {
       type: DataTypes.INTEGER,
       allowNull: true,
