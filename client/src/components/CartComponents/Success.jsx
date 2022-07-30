@@ -10,8 +10,9 @@ function Success() {
     useEffect(()=>{
       setInterval(() => {
         setIsDisplayed(true);
+        history.replace('/orders')
       }, 2000);
-    }) 
+    }, []) 
 
   return (
     <>
@@ -20,6 +21,7 @@ function Success() {
     ) : (
     <div style={ {marginTop: 5 + 'rem'}}>
       <h1>PAGO EXITOSO</h1>
+      <iframe src="https://embed.lottiefiles.com/animation/88860"></iframe>
     </div>
     )
     }

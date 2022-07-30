@@ -28,7 +28,7 @@ const CartProvider = ({ children }) => {
   //   },[pay])
 
   useEffect(() => {
-    console.log("sera este el problema",products)
+    // console.log("sera este el problema",products)
     if(!pay)localStorage.setItem("cartProducts", JSON.stringify(products))
     setPay(false)
     if(pay && products!==[]){

@@ -24,7 +24,7 @@ async function sendNodemailer({id, amount, receipt_email}) {
         >
          <h2>Stripe payment accepted</h2>
          <p>${id}</p>
-         <p>${amount}</p>
+         <p>${amount/100}</p>
         </div>`
       })
   

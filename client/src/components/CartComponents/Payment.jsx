@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useContext } from 'react'
 import { CartContext } from './CartContext'
 import style from '../styles/Ticket.module.css'
@@ -9,16 +9,17 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import axios from 'axios';
 import firebase from 'firebase'
 import { LoadingButton } from '@mui/lab';
-
 // PAYPAL
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-
 // MERCADO PAGO
 import MPPayment from './MPPayment'
+// CREAR ORDENES
+import { createOrder, getAllUsers } from '../../redux/actions/index'
 
 function Payment() {
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.currentUser)
     const { products, setProducts ,setPay} = useContext(CartContext)
+    const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(false);
 
@@ -33,19 +34,29 @@ function Payment() {
     })
 
     const [error, setError] = useState(null)
-    
     const [disabled, setDisabled] = useState(true)
-
     const [ succeeded, setSucceeded ] = useState(false)
     const [ processing, setProcessing ] = useState("")
-
     const [ email, setEmail ] = useState('')
+
+    // Crear orden de compra
+    const sendOrder = {
+        price: subTotal,
+        stocks : products.map(e => {
+            return {
+                amount: e.amount,
+                airline: e.airline,
+                value: e.price
+            }
+        }),
+        userId: user.id
+    }
 
     ///------------------------------
 
     // PAYPAL SETTING
 
-    function createOrder(data, actions) {
+    function createOrderPayPal(data, actions) {
         return actions.order
         .create({
           purchase_units: [
@@ -65,6 +76,8 @@ function Payment() {
     function onApprove(data, actions) {
         return actions.order.capture()
         .then(details => {
+            // console.log(details)
+            dispatch(createOrder(sendOrder))
             alert(`payment completado por` + details.payer.name.given_name)
             window.localStorage.clear()
             history.replace('/success')
@@ -97,7 +110,10 @@ function Payment() {
                         id, 
                         amount: subTotal * 100, // lo tengo que mandar en centavos  //1 METODO
                         receipt_email: email,
-                    });
+                    })
+
+                    dispatch(createOrder(sendOrder))
+                    console.log(data) // {message: 'succesfull payment'}
                     
                     setLoading(false)
                     setSucceeded(true)
@@ -137,7 +153,6 @@ function Payment() {
                     console.log("stock modificado",products.stock)
                 })
                 .catch((error) => {
-
                     console.log( error);
                 });
             }else{
@@ -169,6 +184,7 @@ function Payment() {
     const [subTotal, setSubTotal] = useState()
 
     useEffect(() => {
+        dispatch(getAllUsers());
         if(products.length !== 0) setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))
       }, [])
 
@@ -206,14 +222,15 @@ function Payment() {
 
         {/* MERCADO PAGO */}
         <br />
-        <MPPayment subTotal={subTotal} products={products} />
+        <MPPayment subTotal={subTotal} products={products} user={user} />
         <br />
 
         {/* PAYPAL */}
         <PayPalScriptProvider options={{ "client-id": 'Af5RBL-IS1S6n_djlUuVWC-SSHDEWJDfTMVCyBPAJBISiKn6lgZmNmLX9D5KvBhWZ38jY_2Sy3ExLLQN'}}>
             <PayPalButtons
-            createOrder={createOrder}
+            createOrder={createOrderPayPal}
             onApprove={onApprove}
+            onError={onError}
             />            
         </PayPalScriptProvider>
 

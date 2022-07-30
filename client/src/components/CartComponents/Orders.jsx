@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createUser } from '../../redux/actions/index'
+import { createUser, getOrders } from '../../redux/actions/index'
+import { Card, CardContent } from '@mui/material';
+import style from '../styles/Payment.module.css'
 
 function Orders() {
-    const [ orders, setOrders ] = useState([])
-
     const dispatch = useDispatch()
-    let user = useSelector(state => state.allUsers)
-    console.log(user)
-
-    useEffect(() => {
-      dispatch(createUser())
-    }, [])
+    // let user = useSelector(state => state.allUsers)
+    // console.log(user)
+    const orders = useSelector(state => state.orders)
+    console.log(orders)
 
     useEffect(() => {
       /*
@@ -33,15 +31,28 @@ function Orders() {
       */
     }, [/*user*/])
 
+    useEffect(() => {
+      dispatch(getOrders())
+    }, [])
+
   return (
-    <div style={{marginTop: 5 + 'rem'}}>
-        <h1>Your orders</h1>{orders?.map(order => {
+    <div className={style.main_container} style={{marginTop: 5 + 'rem'}}>
+        <h1>Your orders</h1>{orders ? orders.map(data => {
           return (
-            <div>
-              
-            </div>
+            <Card className={style.card_container} sx={{ minWidth: 275 }} key={data.id}>
+              <CardContent>
+                <p>{data.price}</p>
+                  {data.stocks?.map(e => {
+                    return <div key={e}>
+                      <span>{e.airline}</span>
+                      <span>{e.amount}</span>                  
+                    </div>
+                  })}                
+              </CardContent>
+            </Card>
           )
-        })}
+        })
+      : <></>}
     </div>
   )
 }

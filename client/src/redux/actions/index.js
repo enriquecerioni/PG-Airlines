@@ -26,6 +26,9 @@ export const UPDATE_USER="UPDATE_USER"
 export const DELETE_USER="DELETE_USER"
 export const CURRENT_USER="CURRENT_USER"
 
+export const CREATE_ORDER = 'CREATE_ORDER'
+export const GET_ORDERS = 'GET_ORDERS'
+
 export const getAllFlights = () => {
     return function (dispatch) {
         axios('http://localhost:3001/flights').then((flight) => {
@@ -218,5 +221,31 @@ export function deleteFavorite(payload) {
     return {
         type: DELETE_FAVORITE,
         payload
+    }
+}
+
+///////
+export function createOrder(payload) {
+    return async function(dispatch) {
+        await axios.post('http://localhost:3001/orders', payload)
+        .then((res) => {
+            dispatch({
+                type: CREATE_ORDER,
+                payload: res
+            })
+        })
+        .catch(error => console.log(error))
+    }
+}
+
+export function getOrders() {
+    return async function(dispatch) {
+        await axios.get('http://localhost:3001/orders')
+        .then(res => {
+            dispatch({
+                type: GET_ORDERS,
+                payload: res.data
+            })
+        })
     }
 }

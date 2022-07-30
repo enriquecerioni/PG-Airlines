@@ -23,6 +23,7 @@ import {
   UPDATE_USER,
   DELETE_USER,
   CURRENT_USER,
+  GET_ORDERS,
 } from "../actions";
 
 const initialState = {
@@ -34,6 +35,7 @@ const initialState = {
   user: {},
   allUsers:[],
   currentUser:{},
+  orders: [],
   reset: true,
   orderState: "initial",
   favoriteList: [],
@@ -340,6 +342,13 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         allUsers: [],
         error: action.payload
+      }
+    }
+
+    case GET_ORDERS: {
+      return {
+        ...state, 
+        orders: action.payload
       }
     }
 

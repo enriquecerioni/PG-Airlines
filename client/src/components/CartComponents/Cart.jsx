@@ -125,7 +125,10 @@ function Cart() {
                 <h5>Subtotal</h5>{ subTotal && <span>${subTotal}</span>}
                 <h5>Fees</h5>{ subTotal && <span>${(subTotal*0.1)/100}</span>} 
                 <h5>Total</h5>{subTotal && <span>${(subTotal + ((subTotal*0.1)/100))}</span>}
-               <Button variant="contained" color="success" onClick={() => handleCheckout()}>Proceed to Checkout</Button>
+               <Button 
+               variant="contained" 
+               color="success" 
+               onClick={() => handleCheckout()}>Proceed to Checkout</Button>
              </div>    
           }    
           

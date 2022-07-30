@@ -39,10 +39,9 @@ function LogIn() {
     let type= await logIn(e.target.emailLogIn.value,e.target.passwordLogIn.value)
     if(typeof type=="string"){
       alert(type)
-    }else  
+    } else  
     navigate.push('/')
     window.location.reload()
-
   } else {
     setLoading(false)
     alert('enter valid email')
