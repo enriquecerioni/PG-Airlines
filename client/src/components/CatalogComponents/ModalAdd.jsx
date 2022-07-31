@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
 const style = {
-    
+
     position: "absolute",
     top: "35%",
     left: "50%",
@@ -53,142 +53,166 @@ export default function AddModal() {
                 <Box sx={style} className={st.container}>
                     <button className={s.button} onClick={handleClose}>x</button>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add new Flight 
+                        Add new Flight
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        <form className={st.form_container}>
-                            <input
-                                state={flight}
-                                setState={setFlight}
-                                type='text'
-                                label='ID Flight'
-                                placeholder='Flight'
-                                name='flight'
-                            //error='...'
-                            //regularExpression={}
-                            />
-                            <input
-                                state={airline}
-                                setState={setAirline}
-                                name='airline'
-                                type="text"
-                                label='Airline'
-                                placeholder='Airline'
+                        <form >
+                            <div><label>Flight: </label>
+                                <input
+                                    state={flight}
+                                    setState={setFlight}
+                                    type='text'
+                                    label='ID Flight'
+                                    placeholder='Flight'
+                                    name='flight'
                                 //error='...'
                                 //regularExpression={}
-                            />
-
-                            <input
-                                state={logo}
-                                setState={setLogo}
-                                name='logo'
-                                type="text"
-                                label='Logo'
-                                placeholder='Image'
+                                />
+                            </div>
+                            <div><label>Airline: </label>
+                                <input
+                                    state={airline}
+                                    setState={setAirline}
+                                    name='airline'
+                                    type="text"
+                                    label='Airline'
+                                    placeholder='Airline'
+                                //error='...'
+                                //regularExpression={}
+                                />
+                            </div>
+                            <div><label>Logo: </label>
+                                <input
+                                    state={logo}
+                                    setState={setLogo}
+                                    name='logo'
+                                    type="text"
+                                    label='Logo'
+                                    placeholder='Image'
                                 // error='...'
                                 // regularExpression={}
-                            />
-
-                            <input
-                                state={price}
-                                setState={setPrice}
-                                name='price'
-                                type="number"
-                                label='Price'
-                                placeholder='Price'
+                                />
+                            </div>
+                            <div><label>Price: </label>
+                                <input
+                                    state={price}
+                                    setState={setPrice}
+                                    name='price'
+                                    type="number"
+                                    label='Price'
+                                    placeholder='Price'
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={stock}
-                                setState={setStock}
-                                name='stock'
-                                type="number"
-                                label='Stock'
-                                placeholder='Stock'
+                                />
+                            </div>
+                            <div><label>Stock: </label>
+                                <input
+                                    state={stock}
+                                    setState={setStock}
+                                    name='stock'
+                                    type="number"
+                                    label='Stock'
+                                    placeholder='Stock'
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={origin}
-                                setState={setOrigin}
-                                name='origin'
-                                type="text"
-                                label='Origin'
-                                placeholder='Origin'
+                                />
+                            </div>
+                            <div><label>Origin: </label>
+                                <input
+                                    state={origin}
+                                    setState={setOrigin}
+                                    name='origin'
+                                    type="text"
+                                    label='Origin'
+                                    placeholder='Origin'
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={duration}
-                                setState={setDuration}
-                                name='duration'
-                                type="text"
-                                label='Duration'
-                                placeholder='Duration'
+                                />
+                            </div>
+                            <div><label>Duration: </label>
+                                <input
+                                    state={duration}
+                                    setState={setDuration}
+                                    name='duration'
+                                    type="text"
+                                    label='Duration'
+                                    placeholder='Duration'
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={depH}
-                                setState={setDepH}
-                                name='depH'
-                                type="text"
-                                label='DepH'
-                                placeholder='DepH'
+                                />
+                            </div>
+                            <div><label>Departure Hour: </label>
+                                <input
+                                    state={depH}
+                                    setState={setDepH}
+                                    name='depH'
+                                    type="text"
+                                    label='DepH'
+                                    placeholder='DepH'
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={arrH}
-                                setState={setArrH}
-                                name='arrH'
-                                type="text"
-                                label='ArrH'
-                                placeholder='ArrH'
+                                />
+                            </div>
+                            <div><label>Arrival Hour: </label>
+                                <input
+                                    state={arrH}
+                                    setState={setArrH}
+                                    name='arrH'
+                                    type="text"
+                                    label='ArrH'
+                                    placeholder='ArrH'
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={destination}
-                                setState={setDestination}
-                                name='destination'
-                                type="text"
-                                label='Destination'
-                                placeholder='Destination'
+                                />
+                            </div>
+                            <div><label>Destination: </label>
+                                <input
+                                    state={destination}
+                                    setState={setDestination}
+                                    name='destination'
+                                    type="text"
+                                    label='Destination'
+                                    placeholder='Destination'
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={depD}
-                                setState={setDepD}
-                                name='depD'
-                                type="text"
-                                label='DepD'
-                                placeholder='DepD'
+                                />
+                            </div>
+                            <div><label>Departure Date: </label>
+                                <input
+                                    state={depD}
+                                    setState={setDepD}
+                                    name='depD'
+                                    type="text"
+                                    label='DepD'
+                                    placeholder='DepD'
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={arrD}
-                                setState={setArrD}
-                                name='arrD'
-                                type="text"
-                                label='ArrD'
-                                placeholder='ArrD'
+                                />
+                            </div>
+                            <div><label>Arrival Date: </label>
+                                <input
+                                    state={arrD}
+                                    setState={setArrD}
+                                    name='arrD'
+                                    type="text"
+                                    label='ArrD'
+                                    placeholder='ArrD'
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={description}
-                                setState={setDescription}
-                                name='description'
-                                type="text"
-                                label='Description'
-                                placeholder='Description'
+                                />
+                            </div>
+                            <div><label>Description: </label>
+                                <input
+                                    state={description}
+                                    setState={setDescription}
+                                    name='description'
+                                    type="text"
+                                    label='Description'
+                                    placeholder='Description'
                                 // error='...'
                                 // regularExpression={}
-                            />
+                                />
+                            </div>
 
                             {validForm === false && <span>Please complete all fields correctly</span>}
                             <div>

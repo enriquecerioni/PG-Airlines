@@ -8,6 +8,8 @@ import Modal from '@mui/material/Modal';
 //import * as React from 'react';
 import s from "../styles/Catalog.module.css";
 import st from '../styles/Forms.module.css'
+import {editToFlights} from '../../redux/actions/index'
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const columns = data
@@ -20,17 +22,20 @@ const style = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
-  };
+    p: 5
+};
 
 function CatalogFlights({ rows }) {
-   
+    const dispatch = useDispatch()
     const [open, setOpen] = React.useState(false);
     const [dataFlight, getData] = React.useState(false);
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const handleSave = () =>  dispatch(editToFlights(dataFlight));
 
-     const [validForm, setValidForm] = useState(null);
+
+    const [validForm, setValidForm] = useState(null);
     const [flight, setFlight] = useState({ value: '', valid: null });
     const [airline, setAirline] = useState({ value: '', valid: null });
     const [logo, setLogo] = useState({ value: '', valid: null });
@@ -44,205 +49,228 @@ function CatalogFlights({ rows }) {
     const [depD, setDepD] = useState({ value: '', valid: null });
     const [arrD, setArrD] = useState({ value: '', valid: null });
     const [description, setDescription] = useState({ value: '', valid: null });
-    
-      return [
+
+    return [
         <Box sx={{ height: 400, width: '100%' }}>
             <DataGrid
                 onRowDoubleClick={(params, event) => {
-                          
+
                     setOpen(true);
                     getData(params.row);
-                    console.log(params);     
+                  
                 }}
                 rows={rows}
                 columns={columns}
                 pageSize={5}
                 rowsPerPageOptions={[5]}
                 checkboxSelection
-                
+
             />
         </Box>,
         <div>
-             
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box sx={style}>
-            <button className={s.button} onClick={handleClose}>x</button>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Edit flight:
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    <form className={st.form_container}>
-                            <input
-                                state={flight}
-                                setState={setFlight}
-                                type='text'
-                                label='ID Flight'
-                                placeholder='Flight'
-                                name='flight'
-                                value={dataFlight.airline}
-                                                            //error='...'
-                            //regularExpression={}
-                            />
-                            <input
-                                state={airline}
-                                setState={setAirline}
-                                name='airline'
-                                type="text"
-                                label='Airline'
-                                placeholder='Airline'
-                                value={dataFlight.arrivalDate}
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style} >
+                    <button className={s.button} onClick={handleClose}>x</button>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Edit flight:
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }} >
+                        <form  >
+                            <div><label>Flight: </label>
+                                <input
+                                    state={flight}
+                                    setState={setFlight}
+                                    type='text'
+                                    label='ID Flight'
+                                    placeholder='Flight'
+                                    name='flight'
+                                    value={dataFlight.airline}
                                 //error='...'
                                 //regularExpression={}
-                            />
-
-                            <input
-                                state={logo}
-                                setState={setLogo}
-                                name='logo'
-                                type="text"
-                                label='Logo'
-                                placeholder='Image'
-                                value={dataFlight.arrivalHour}
+                                />
+                            </div>
+                            <div><label>Airline: </label>
+                                <input
+                                    state={airline}
+                                    setState={setAirline}
+                                    name='airline'
+                                    type="text"
+                                    label='Airline'
+                                    placeholder='Airline'
+                                    value={dataFlight.arrivalDate}
+                                //error='...'
+                                //regularExpression={}
+                                />
+                            </div>
+                            <div><label>Logo: </label>
+                                <input
+                                    state={logo}
+                                    setState={setLogo}
+                                    name='logo'
+                                    type="text"
+                                    label='Logo'
+                                    placeholder='Image'
+                                    value={dataFlight.arrivalHour}
                                 // error='...'
                                 // regularExpression={}
-                            />
-
-                            <input
-                                state={price}
-                                setState={setPrice}
-                                name='price'
-                                type="number"
-                                label='Price'
-                                placeholder='Price'
-                                value={dataFlight.departureDate}
+                                />
+                            </div>
+                            <div><label>Price: </label>
+                                <input
+                                    state={price}
+                                    setState={setPrice}
+                                    name='price'
+                                    type="number"
+                                    label='Price'
+                                    placeholder='Price'
+                                    value={dataFlight.departureDate}
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={stock}
-                                setState={setStock}
-                                name='stock'
-                                type="number"
-                                label='Stock'
-                                placeholder='Stock'
-                                value={dataFlight.stock}
+                                />
+                            </div>
+                            <div><label>Stock: </label>
+                                <input
+                                    state={stock}
+                                    setState={setStock}
+                                    name='stock'
+                                    type="number"
+                                    label='Stock'
+                                    placeholder='Stock'
+                                    value={dataFlight.stock}
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={origin}
-                                setState={setOrigin}
-                                name='origin'
-                                type="text"
-                                label='Origin'
-                                placeholder='Origin'
-                                value={dataFlight.description}
+                                />
+                            </div>
+                            <div><label>Origin: </label>
+                                <input
+                                    state={origin}
+                                    setState={setOrigin}
+                                    name='origin'
+                                    type="text"
+                                    label='Origin'
+                                    placeholder='Origin'
+                                    value={dataFlight.description}
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={duration}
-                                setState={setDuration}
-                                name='duration'
-                                type="text"
-                                label='Duration'
-                                placeholder='Duration'
-                                value={dataFlight.destination}
+                                />
+                            </div>
+                            <div><label>Duration: </label>
+                                <input
+                                    state={duration}
+                                    setState={setDuration}
+                                    name='duration'
+                                    type="text"
+                                    label='Duration'
+                                    placeholder='Duration'
+                                    value={dataFlight.destination}
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={depH}
-                                setState={setDepH}
-                                name='depH'
-                                type="text"
-                                label='DepH'
-                                placeholder='DepH'
-                                value={dataFlight.durationEstimated}
+                                />
+                            </div>
+                            <div><label>Departure Hour: </label>
+                                <input
+                                    state={depH}
+                                    setState={setDepH}
+                                    name='depH'
+                                    type="text"
+                                    label='DepH'
+                                    placeholder='DepH'
+                                    value={dataFlight.durationEstimated}
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={arrH}
-                                setState={setArrH}
-                                name='arrH'
-                                type="text"
-                                label='ArrH'
-                                placeholder='ArrH'
-                                value={dataFlight.id}
+                                />
+                            </div>
+                            <div><label>Arrival Hour: </label>
+                                <input
+                                    state={arrH}
+                                    setState={setArrH}
+                                    name='arrH'
+                                    type="text"
+                                    label='ArrH'
+                                    placeholder='ArrH'
+                                    value={dataFlight.id}
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={destination}
-                                setState={setDestination}
-                                name='destination'
-                                type="text"
-                                label='Destination'
-                                placeholder='Destination'
-                                value={dataFlight.logo}
+                                />
+                            </div>
+                            <div><label>Destination: </label>
+                                <input
+                                    state={destination}
+                                    setState={setDestination}
+                                    name='destination'
+                                    type="text"
+                                    label='Destination'
+                                    placeholder='Destination'
+                                    value={dataFlight.logo}
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={depD}
-                                setState={setDepD}
-                                name='depD'
-                                type="text"
-                                label='DepD'
-                                placeholder='DepD'
-                                value={dataFlight.origin}
+                                />
+                            </div>
+                            <div><label>Departure Date: </label>
+                                <input
+                                    state={depD}
+                                    setState={setDepD}
+                                    name='depD'
+                                    type="text"
+                                    label='DepD'
+                                    placeholder='DepD'
+                                    value={dataFlight.origin}
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={arrD}
-                                setState={setArrD}
-                                name='arrD'
-                                type="text"
-                                label='ArrD'
-                                placeholder='ArrD'
-                                value={dataFlight.price}
+                                />
+                            </div>
+                            <div><label>Arrival Date: </label>
+                                <input
+                                    state={arrD}
+                                    setState={setArrD}
+                                    name='arrD'
+                                    type="text"
+                                    label='ArrD'
+                                    placeholder='ArrD'
+                                    value={dataFlight.price}
                                 // error='...'
                                 // regularExpression={}
-                            />
-                            <input
-                                state={description}
-                                setState={setDescription}
-                                name='description'
-                                type="text"
-                                label='Description'
-                                placeholder='Description'
-                                value={dataFlight.departureHour}
+                                />
+                            </div>
+                            <div><label>Description: </label>
+                                <input
+                                    state={description}
+                                    setState={setDescription}
+                                    name='description'
+                                    type="text"
+                                    label='Description'
+                                    placeholder='Description'
+                                    value={dataFlight.departureHour}
                                 // error='...'
                                 // regularExpression={}
-                            />
-
+                                />
+                            </div>
                             {/* {validForm === false && <span>Please complete all fields correctly</span>} */}
                             <div>
-                                <button className={s.btn} >Save</button>
+                                <button className={s.btn} onClick={handleSave} >Save</button>
                                 <button className={s.btn} onClick={handleClose}>Cancel</button>
                             </div>
 
                             {validForm === true && <span>Thank you!</span>}
 
                         </form>
-                </Typography>
-            </Box>
-        </Modal>
-    </div>
+                    </Typography>
+                </Box>
+            </Modal>
+        </div>
 
-            
-            ];
-    
-    
-        
-        
+
+    ];
+
+
+
+
 };
 
 

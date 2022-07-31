@@ -1,5 +1,5 @@
 const firebase = require("firebase");
-
+const { Flights } = require("../db");
 
 const getAllFlight = async (req, res) => {
   const dbFirestore = firebase.firestore();
@@ -37,8 +37,71 @@ async function getOriginFlight(req,res){
   }
 }
 
+async function updateToflights(req, res) {
+  try {
+     //const { flight, airline, logo, price, stock, origin, duration, depH, arrH, destination, depD, arrD, description } = req.body;
+    const { flight} = req.body;
+    console.log(flight);
+  
+   // console.log(req.body);
+   // console.log(airline,flight);
+    if (!flight.id == ' ') {
+      // let Flight = await Flights.db(
+      //   {
+      //     permissions: true,
+      //   },
+      //   {
+      //     where: { email: email },
+      //   }
+      // );
+        if(false){
+            res.status(404).send("Flight not Found");
+        }else{
+            res.send("Flight edited.")
+        }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
+
+async function createUser(req, res) {
+  const { flight} = req.body;
+  try {
+    if (!flight.id == ' ') {
+      let flight = await Flights.findAll({
+        where: { flight: flight.id },
+      });
+      if (flight.length) {
+      } 
+      else {
+        let flightCreate = await Flights.create({
+          airline: "LATAM Airlines Group",
+          arrivalDate: "2022-12-13",
+          arrivalHour: "15:05",
+          departureDate: "2022-12-12",
+          departureHour: "19:35",
+          description: "Detail",
+          destination: "Punta Cana",
+    durationEstimated: "20:30",
+              airline: "LA2368",
+                logo: "https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/LA.png",
+              origin: "Buenos Aires",
+               price: 300000,
+               stock: 98
+          
+             });
+        return res.status(201).json(userCreated);
+      }
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
 module.exports = {
   getAllFlight,
-  getOriginFlight
+  getOriginFlight,
+  updateToflights,
+  createUser
 };
