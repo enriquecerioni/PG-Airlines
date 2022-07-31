@@ -90,7 +90,7 @@ function CatalogFlights({ rows }) {
                                     label='ID Flight'
                                     placeholder='Flight'
                                     name='flight'
-                                    value={dataFlight.airline}
+                                    value={dataFlight.id}
                                 //error='...'
                                 //regularExpression={}
                                 />
@@ -103,7 +103,7 @@ function CatalogFlights({ rows }) {
                                     type="text"
                                     label='Airline'
                                     placeholder='Airline'
-                                    value={dataFlight.arrivalDate}
+                                    value={dataFlight.airline}
                                 //error='...'
                                 //regularExpression={}
                                 />
@@ -116,7 +116,7 @@ function CatalogFlights({ rows }) {
                                     type="text"
                                     label='Logo'
                                     placeholder='Image'
-                                    value={dataFlight.arrivalHour}
+                                    value={dataFlight.logo}
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -129,7 +129,7 @@ function CatalogFlights({ rows }) {
                                     type="number"
                                     label='Price'
                                     placeholder='Price'
-                                    value={dataFlight.departureDate}
+                                    value={dataFlight.price}
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -155,7 +155,7 @@ function CatalogFlights({ rows }) {
                                     type="text"
                                     label='Origin'
                                     placeholder='Origin'
-                                    value={dataFlight.description}
+                                    value={dataFlight.origin}
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -168,7 +168,7 @@ function CatalogFlights({ rows }) {
                                     type="text"
                                     label='Duration'
                                     placeholder='Duration'
-                                    value={dataFlight.destination}
+                                    value={dataFlight.durationEstimated}
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -181,7 +181,7 @@ function CatalogFlights({ rows }) {
                                     type="text"
                                     label='DepH'
                                     placeholder='DepH'
-                                    value={dataFlight.durationEstimated}
+                                    value={dataFlight.departureHour}
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -194,7 +194,7 @@ function CatalogFlights({ rows }) {
                                     type="text"
                                     label='ArrH'
                                     placeholder='ArrH'
-                                    value={dataFlight.id}
+                                    value={dataFlight.arrivalHour}
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -207,7 +207,7 @@ function CatalogFlights({ rows }) {
                                     type="text"
                                     label='Destination'
                                     placeholder='Destination'
-                                    value={dataFlight.logo}
+                                    value={dataFlight.destination}
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -220,7 +220,7 @@ function CatalogFlights({ rows }) {
                                     type="text"
                                     label='DepD'
                                     placeholder='DepD'
-                                    value={dataFlight.origin}
+                                    value={dataFlight.departureDate}
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -233,7 +233,7 @@ function CatalogFlights({ rows }) {
                                     type="text"
                                     label='ArrD'
                                     placeholder='ArrD'
-                                    value={dataFlight.price}
+                                    value={dataFlight.arrivalDate}
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -246,7 +246,7 @@ function CatalogFlights({ rows }) {
                                     type="text"
                                     label='Description'
                                     placeholder='Description'
-                                    value={dataFlight.departureHour}
+                                    value={dataFlight.description}
                                 // error='...'
                                 // regularExpression={}
                                 />
