@@ -29,7 +29,7 @@ auth.onAuthStateChanged(async (user) => {
   //console.log(user)
 
   if (user) {
-    console.log(user.email);
+    //console.log(user.email);
     await store.dispatch(currentUser(user.email));
     let a = await dbFirebase.collection("users").doc(`${user.email}`).get();
     let userAdmin = a.data() ? a.data().admin : null;

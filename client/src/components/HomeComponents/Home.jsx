@@ -4,17 +4,20 @@ import s from "../styles/Home.module.css";
 import Display from "./Display";
 import SearchBar from "./SearchBar";
 import test from "../styles/assets/test3.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {  getAllUsers } from "../../redux/actions/index";
 import Loader from "./Loader";
 import NavBar from "./NavBar";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import Button from '@mui/material/Button';
+import Administration from './Administration';
 
 export default function Home() {
   const [isDisplayed, setIsDisplayed] = useState(false);
   const dispatch = useDispatch();
+  const user=useSelector(state=>state.currentUser)
 
+  console.log(user);
   useEffect(() => {
     dispatch(getAllUsers());
     setInterval(() => {
@@ -28,7 +31,7 @@ export default function Home() {
     <>
       {!isDisplayed ? (
         <Loader />
-      ) : (
+      ) :   !user[0]?.superAdmin ? (
         <div className={s.Home}>
           {/* <NavBar /> */}
           <div id="sec-1" className={s.sec1}>
@@ -69,6 +72,7 @@ export default function Home() {
               <p>You must be logged in first!</p>
             </div>
           </div>
+          
           <div id="sec-2" className={s.sec2}>
             <div id="divInv" className={s.divInv}></div>
             <SearchBar />
@@ -81,9 +85,17 @@ export default function Home() {
                 </Button>
             </div>
           </div>
+          
         
         </div>
-      )}
+      ) : user.length && user[0].superAdmin &&(
+        <>
+          <div>
+            <Administration/>
+          </div>
+        </>
+      ) 
+    }
     </>
-  );
+  )
 }
