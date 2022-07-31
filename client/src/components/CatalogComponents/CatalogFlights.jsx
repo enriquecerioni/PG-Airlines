@@ -5,10 +5,8 @@ import data from "./ColumnsDG.js";
 import React, { useEffect, useState } from 'react'
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-//import * as React from 'react';
 import s from "../styles/Catalog.module.css";
-import st from '../styles/Forms.module.css'
-import {editToFlights} from '../../redux/actions/index'
+import { editToFlights } from '../../redux/actions/index'
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -32,7 +30,7 @@ function CatalogFlights({ rows }) {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const handleSave = () =>  dispatch(editToFlights(dataFlight));
+    const handleSave = () => dispatch(editToFlights(dataFlight));
 
 
     const [validForm, setValidForm] = useState(null);
@@ -57,7 +55,7 @@ function CatalogFlights({ rows }) {
 
                     setOpen(true);
                     getData(params.row);
-                  
+
                 }}
                 rows={rows}
                 columns={columns}
@@ -77,11 +75,11 @@ function CatalogFlights({ rows }) {
             >
                 <Box sx={style} >
                     <button className={s.button} onClick={handleClose}>x</button>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <Typography id="modal-modal-title" variant="h6" component="h2" fontWeight='bold'>
                         Edit flight:
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }} >
-                        <form  >
+                        <form className={s.form}>
                             <div><label>Flight: </label>
                                 <input
                                     state={flight}

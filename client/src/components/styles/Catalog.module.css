@@ -45,3 +45,11 @@
   background-color: crimson;
   color: white;
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  row-gap: 10px;
+}

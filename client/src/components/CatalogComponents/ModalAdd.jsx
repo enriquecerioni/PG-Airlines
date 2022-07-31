@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import s from "../styles/Catalog.module.css";
-import st from '../styles/Forms.module.css'
+//import st from '../styles/Forms.module.css'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -9,14 +9,14 @@ import Modal from '@mui/material/Modal';
 const style = {
 
     position: "absolute",
-    top: "35%",
+    top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
-    p: 4
+    p: 5
 };
 
 export default function AddModal() {
@@ -50,13 +50,13 @@ export default function AddModal() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style} className={st.container}>
+                <Box sx={style} >
                     <button className={s.button} onClick={handleClose}>x</button>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <Typography id="modal-modal-title" variant="h6" component="h2" fontWeight='bold'>
                         Add new Flight
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        <form >
+                        <form className={s.form}>
                             <div><label>Flight: </label>
                                 <input
                                     state={flight}
@@ -136,7 +136,7 @@ export default function AddModal() {
                                     name='duration'
                                     type="text"
                                     label='Duration'
-                                    placeholder='Duration'
+                                    placeholder='Duration Estimated'
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -148,7 +148,7 @@ export default function AddModal() {
                                     name='depH'
                                     type="text"
                                     label='DepH'
-                                    placeholder='DepH'
+                                    placeholder='Departure Hour'
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -160,7 +160,7 @@ export default function AddModal() {
                                     name='arrH'
                                     type="text"
                                     label='ArrH'
-                                    placeholder='ArrH'
+                                    placeholder='Arrival Hour'
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -184,7 +184,7 @@ export default function AddModal() {
                                     name='depD'
                                     type="text"
                                     label='DepD'
-                                    placeholder='DepD'
+                                    placeholder='Departure Date'
                                 // error='...'
                                 // regularExpression={}
                                 />
@@ -196,7 +196,7 @@ export default function AddModal() {
                                     name='arrD'
                                     type="text"
                                     label='ArrD'
-                                    placeholder='ArrD'
+                                    placeholder='Arrival Date'
                                 // error='...'
                                 // regularExpression={}
                                 />
