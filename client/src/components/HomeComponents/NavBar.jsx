@@ -28,9 +28,9 @@ export default function NavBar() {
     setStateCart(products.length);
   }, [products]);
 
-  function handleLogOut(e) {
+  async function handleLogOut(e) {
     e.preventDefault();
-    logOut();
+    await logOut();
     // window.location.reload();
     navigate.replace("/");
     window.location.reload();
@@ -56,7 +56,7 @@ export default function NavBar() {
         <img className={s.logoImg} src={logo} alt="logo" />
       </Link>
       <ul className={s.navUl}>
-        {Object.keys(user).length && user.superAdmin  ? (
+        {user.length && user[0].superAdmin  ? (
           <>
             <li id="catalog">
               <Link className={s.navLink} to="/catalog">
@@ -73,7 +73,7 @@ export default function NavBar() {
             </li>
             
           </>
-        ) : Object.keys(user).length && user.permissions  ? (
+        ) : user.length && user[0].permissions  ? (
           <>
            <li>
               <button id="addAirline">
@@ -96,7 +96,7 @@ export default function NavBar() {
               </button>
             </li>
           </>
-        ) : Object.keys(user).length && !user.permissions ? (
+        ) : user.length  && !user[0].permissions ? (
             <>
                <li id="offers">
               <Box sx={{ color: "action.active" }}>
