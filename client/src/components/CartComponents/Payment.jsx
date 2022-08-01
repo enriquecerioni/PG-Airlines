@@ -42,7 +42,7 @@ function Payment() {
     const [ email, setEmail ] = useState('')
 
     const [subTotal, setSubTotal] = useState()
-
+    console.log("este es el user de payment", user);
     useEffect(() => {
         dispatch(getAllUsers());
         if(products.length !== 0) setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))
@@ -83,10 +83,11 @@ function Payment() {
                         link: e.id
                     }
                 }),
-                userId: user ? user.id : null,
+                userId: user.length ? user[0].id : null,
                 idpurchase: details.id,
                 creationdate: details.create_time
             }
+        
             dispatch(createOrder(sendOrderPP))
             alert(`payment completado por` + details.payer.name.given_name)
             window.localStorage.clear()
@@ -132,15 +133,15 @@ function Payment() {
                                 link: e.id
                             }
                         }),
-                        userId: user ? user.id : null,
+                        userId: user.length ? user[0].id : null,
                         idpurchase: id,
                         creationdate: new Date(),
                     }
-                    
+                    console.log(sendOrder);
                     dispatch(createOrder(sendOrder))  
 
                     // console.log(data) // {message: 'succesfull payment'}
-                    
+                    ;
                     setLoading(false)
                     setSucceeded(true)
                     setError(null)

@@ -63,7 +63,7 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
   return (
     <div className={style.cards}>
       <li className={style.cards_item}>
-       { user.length && !user[0].permissions ? 
+      { user.length && !user[0].permissions ? 
        <IconButton 
           id="mailBTN"
           color='error'
@@ -71,7 +71,17 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
           onClick={() => addFav(item)}
         ><FavoriteIcon />
         </IconButton>
-      : null}
+      : !user.length ? 
+
+       <IconButton 
+          id="mailBTN"
+          color='error'
+          disabled={listDisabled}
+          onClick={() => addFav(item)}
+        ><FavoriteIcon />
+        </IconButton>
+      : null
+    }
         <div className={style.info}>
           <button className={style.button}>i </button>
           <div className={style.propiedades}>
@@ -82,6 +92,13 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
           </div>
         </div>
         { user.length && !user[0].permissions ? 
+        <IconButton 
+        id="addToCart"
+        className={style.btnCart} 
+        onClick={handleAddCart}>
+        <AddShoppingCartIcon />
+        </IconButton>
+        : !user.length ? 
         <IconButton 
         id="addToCart"
         className={style.btnCart} 
