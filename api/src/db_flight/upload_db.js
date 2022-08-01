@@ -1,10 +1,10 @@
-const migrar =  (uid) => {
+const migrar =  () => {
   
     const firebase = require("firebase");
   const admin = require("firebase-admin");
-  // const data = require("./db.json");
+   const data = require("./db.json");
   const serviceAccount = require("./key_service_account.json");
-  // const collectionKey = "db"; //Name of the collection
+  const collectionKey = "db"; //Name of the collection
 
   const firebaseConfig = {
     apiKey: "AIzaSyBGr8PQQDvTRK484636fOa1XJVhIJ0lmqA",
@@ -30,12 +30,12 @@ const migrar =  (uid) => {
 
   // const initializeApp = require("firebase/app");
 
-  // ------------------Validate Flights
+  //------------------Validate Flights
   // let vuelos = await dbFirestore.collection("db").get();
   // if (vuelos.docs.length) {
   //   return console.log("Los vuelos ya se cargaron.");
   // }
-  // ------------------
+ // ------------------
   
   //   admin.initializeApp({
   //    credential: admin.credential.cert(serviceAccount),
@@ -58,9 +58,7 @@ const migrar =  (uid) => {
   //       });
   //   });
   // }
-  // if(uid){
-  //   await admin.auth().deleteUser(uid)
-  // }
+ 
   
 };
 module.exports = {

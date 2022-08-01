@@ -211,7 +211,7 @@
     }, 
     "C16-14":{
         "flight": "C16-14",
-        "airline": "LATAM Airlines",
+        "airline": "Aerolineas Argentinas",
         "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
         "price": 65000,
         "stock": 160,
@@ -226,7 +226,7 @@
     },
     "TP224":{
         "flight": "TP224",
-        "airline":"Tap Air Portugal",
+        "airline":"Aerolineas Argentinas",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/TP.png",
         "price": 250000,
         "stock": 70,
@@ -241,7 +241,7 @@
     },
     "UA8202":{
         "flight":"UA8202",
-        "airline":"United Airlines",
+        "airline":"Aerolineas Argentinas",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/UA.png",
         "price":384000,
         "stock": 120,
@@ -256,7 +256,7 @@
     },
     "G37734":{
         "flight": "G37734",
-        "airline":"Gol",
+        "airline":"Aerolineas Argentinas",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/G3.png",
         "price":264000,
         "stock":50,
@@ -271,7 +271,7 @@
     },
     "LA452":{
         "flight":"LA452",
-        "airline":"LATAM Airlines Group",
+        "airline":"Shangai Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/LA.png",
         "price":153000,
         "stock":137,
@@ -286,7 +286,7 @@
     },
     "AA6957":{
         "flight":"AA6957",
-        "airline":"American Airlines",
+        "airline":"Lufthansa",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AA.png",
         "price":158000,
         "stock":112,
@@ -301,7 +301,7 @@
     },
     "IB5646":{
         "flight":"IB5646",
-        "airline":"Iberia",
+        "airline":"Lufthansa",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/IB.png",
         "price":18070,
         "stock":100,
@@ -331,7 +331,7 @@
     },
     "AM597":{
         "flight":"AM597",
-        "airline":"Aeroméxico",
+        "airline":"Lufthansa",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AM.png",
         "price":15000,
         "stock":90,
@@ -361,7 +361,7 @@
     },
     "AM617":{
         "flight":"AM617",
-        "airline":"Aeroméxico",
+        "airline":"Lufthansa",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AM.png",
         "price":102580,
         "stock":110,
@@ -376,7 +376,7 @@
     },
     "LA2368":{
         "flight":"LA2368",
-        "airline":"LATAM Airlines Group",
+        "airline":"Lufthansa",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/LA.png",
         "price":300000,
         "stock":98,
@@ -406,7 +406,7 @@
     },
     "IB3235":{
         "flight":"IB3235 ",
-        "airline":"Iberia",
+        "airline":"LATAM Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/IB.png",
         "price":116000,
         "stock":84,
@@ -436,7 +436,7 @@
     },
     "TP1045":{
         "flight":"TP1045",
-        "airline":"Tap Air Portugal",
+        "airline":"LATAM Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/TP.png",
         "price":132099,
         "stock":150,
@@ -451,7 +451,7 @@
     },
     "RO391":{
         "flight":"RO391 ",
-        "airline":"Tarom-Romanian Air",
+        "airline":"LATAM Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/RO.png",
         "price":122273,
         "stock":45,
@@ -466,7 +466,7 @@
     },
     "BA611":{
         "flight":"BA611",
-        "airline":"British Airways",
+        "airline":"LATAM Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/BA.png",
         "price":757523,
         "stock":65,
@@ -481,7 +481,7 @@
     },
     "AC8093":{
         "flight":"AC8093",
-        "airline":"Air Canada",
+        "airline":"LATAM Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AC.png",
         "price":235230,
         "stock":94,
@@ -511,7 +511,7 @@
     },
     "H2508":{
         "flight":"H2508 ",
-        "airline":"Sky Airline",
+        "airline":"Alaska Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/H2.png",
         "price":166900,
         "stock":140,
@@ -556,7 +556,7 @@
     },
     "KL1504":{
         "flight":"KL1504",
-        "airline":"KLM",
+        "airline":"Alaska Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/KL.png",
         "price":200000,
         "stock":123,
@@ -571,7 +571,7 @@
     },
     "AM596":{
         "flight":"AM596",
-        "airline":"Aeroméxico",
+        "airline":"Air Europa",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AM.png",
         "price":15000,
         "stock":34,
@@ -586,7 +586,7 @@
     },
     "FO5161":{
         "flight":"FO5161",
-        "airline":"Flybondi",
+        "airline":"Air Europa",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/FO.png",
         "price":60849,
         "stock":128,
@@ -601,7 +601,7 @@
     },
     "AA143":{
         "flight":"AA143",
-        "airline":"American Airlines",
+        "airline":"Air Europa",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AA.png",
         "price":75230,
         "stock":144,
@@ -616,7 +616,7 @@
     },
     "UA4744":{
         "flight":"UA4744",
-        "airline":"United Airlines",
+        "airline":"Air Europa",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/UA.png",
         "price":98702,
         "stock":112,
@@ -631,7 +631,7 @@
     },
     "DL1734":{
         "flight":"DL1734",
-        "airline":"Delta Air Lines",
+        "airline":"Air Europa",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/DL.png",
         "price":62000,
         "stock":92,
@@ -661,7 +661,7 @@
     },
     "AF1275":{
         "flight":"AF1275",
-        "airline":"Air France",
+        "airline":"Shangai Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AF.png",
         "price":85416,
         "stock":78,
@@ -721,7 +721,7 @@
     },
     "ET858":{
         "flight":"ET858",
-        "airline":"Ethiopian Airlines",
+        "airline":"Shangai Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/ET.png",
         "price":348700,
         "stock":76,
@@ -736,7 +736,7 @@
     },
     "TK1830":{
         "flight":"TK1830",
-        "airline":"Turkish Airlines",
+        "airline":"Shangai Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/TK.png",
         "price":226863,
         "stock":119,
