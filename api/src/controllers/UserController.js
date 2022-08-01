@@ -68,7 +68,7 @@ async function deleteUserBack(req, res) {
     console.log(email);
     if (email) {
       let esta = await User.findOne({ where: { email: email } });
-      if (esta.length) {
+      if (esta.email) {
         await User.destroy({
           where: { email: email },
           force: true,

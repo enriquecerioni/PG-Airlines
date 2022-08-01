@@ -78,8 +78,9 @@ function Register() {
   //   }
   // }
 
-  async function handleClick (){
+  async function handleClick (e){
     try {
+      // e.preventDefault()
       setLoading(true)
       await ejecutar();
       setLoading(false)
@@ -179,7 +180,7 @@ function Register() {
       <hr className={style.separator}/>
       <br />
       <LoadingButton 
-        onClick={()=>handleClick()}
+        onClick={(e)=>handleClick(e)}
         endIcon= {<GoogleIcon />}
         loading={loading}
         loadingPosition="end"

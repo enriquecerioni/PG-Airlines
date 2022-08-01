@@ -166,6 +166,7 @@ export function currentUser(payload){
     
 }
 export function makeAdminPostgres(payload){
+    console.log(payload);
     return function (dispatch){
         axios.put('http://localhost:3001/user/update',payload)
         .then((response)=>{

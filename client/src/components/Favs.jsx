@@ -74,7 +74,6 @@ function Favs() {
           <img src={noFavs} alt="#" />   
           <h1>Add tickets to your favorite list!</h1>       
         </div>
-
       )}
     </div>
   );

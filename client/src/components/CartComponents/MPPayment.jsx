@@ -31,7 +31,7 @@ export default function MPPayment({ products, subTotal, user, disabled, loading 
           console.log(data)
             setDatos(data.data.init_point)
             window.location.href = data.data.init_point 
-            dispatch(createOrder(sendOrder))
+            // dispatch(createOrder(sendOrder))
         }).catch(error => console.error(error))
     }
 

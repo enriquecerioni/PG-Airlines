@@ -29,7 +29,7 @@ auth.onAuthStateChanged(async (user) => {
   //console.log(user)
 
   if (user) {
-    console.log(user.email);
+    //console.log(user.email);
     await store.dispatch(currentUser(user.email));
     let a = await dbFirebase.collection("users").doc(`${user.email}`).get();
     let userAdmin = a.data() ? a.data().admin : null;
@@ -112,20 +112,20 @@ export async function singUp(email, password, name) {
     let cred = await auth.createUserWithEmailAndPassword(email, password);
     let uid = cred.user.uid;
     let img = cred.user.photoURL;
-    console.log("1", email, name, uid);
-    cred.user.sendEmailVerification();
-    console.log("2", email, name, uid);
+    
+    //console.log("1", email, name, uid);
+    await cred.user.sendEmailVerification();
+    //console.log("2", email, name, uid);
 
-    dbFirebase.collection("users").doc(cred.user.email).set({
-      email: cred.user.email,
+    console.log(email, name, uid, img);
+    await store.dispatch(createUser({ email, name, uid, img }));
+    return  dbFirebase.collection("users").doc(email).set({
+      email: email,
       admin: false,
-      photo: img,
+      photo: img? img:"",
       uid: uid,
       superAdmin: false,
     });
-    console.log(email, name, uid, img);
-    await store.dispatch(createUser({ email, name, uid, img }));
-    return [];
   } catch (error) {
     return `${error.message}`;
   }

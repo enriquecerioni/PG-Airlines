@@ -20,13 +20,14 @@ orderRouter.get('/', async (req, res) => {
 })
 
 orderRouter.post('/', async (req, res) => {
-    const { stocks, price, userId, idpurchase } = req.body
+    const { stocks, price, userId, idpurchase, creationdate } = req.body
     try {
 
         let newOrder = await Order.create({
             stocks,
             price,
-            idpurchase
+            idpurchase,
+            creationdate
         });
 
         let cliente =  await User.findOne({

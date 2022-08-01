@@ -20,6 +20,7 @@ import { createOrder, getAllUsers } from '../../redux/actions/index'
 function Payment() {
     const user = useSelector(state => state.currentUser)
     const { products, setProducts ,setPay} = useContext(CartContext)
+    // console.log(products)
     const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(false);
@@ -47,32 +48,6 @@ function Payment() {
         if(products.length !== 0) setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))
       }, [])
 
-    // Crear orden de compra
-    const sendOrderPP = {
-        price: subTotal,
-        stocks : products.map(e => {
-            return {
-                amount: e.amount,
-                airline: e.airline,
-                value: e.price
-            }
-        }),
-        userId: user ? user.id : null
-    }
-
-    const sendOrder = {
-        price: subTotal,
-        stocks : products.map(e => {
-            return {
-                amount: e.amount,
-                airline: e.airline,
-                value: e.price
-            }
-        }),
-        userId: user ? user.id : null,
-        // idpurchase: id
-    }
-
     ///------------------------------
 
     // PAYPAL SETTING
@@ -98,6 +73,20 @@ function Payment() {
         return actions.order.capture()
         .then(details => {
             // console.log(details)
+            const sendOrderPP = {
+                price: subTotal,
+                stocks : products.map(e => {
+                    return {
+                        amount: e.amount,
+                        airline: e.airline,
+                        value: e.price,
+                        link: e.id
+                    }
+                }),
+                userId: user ? user.id : null,
+                idpurchase: details.id,
+                creationdate: details.create_time
+            }
             dispatch(createOrder(sendOrderPP))
             alert(`payment completado por` + details.payer.name.given_name)
             window.localStorage.clear()
@@ -133,6 +122,21 @@ function Payment() {
                         receipt_email: email,
                     })
 
+                    const sendOrder = {
+                        price: subTotal,
+                        stocks : products.map(e => {
+                            return {
+                                amount: e.amount,
+                                airline: e.airline,
+                                value: e.price,
+                                link: e.id
+                            }
+                        }),
+                        userId: user ? user.id : null,
+                        idpurchase: id,
+                        creationdate: new Date(),
+                    }
+                    
                     dispatch(createOrder(sendOrder))  
 
                     // console.log(data) // {message: 'succesfull payment'}

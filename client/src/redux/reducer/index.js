@@ -34,8 +34,8 @@ const initialState = {
   flight: [], // vuelo con detalles
   user: {},
   allUsers:[],
-  currentUser:{},
   orders: [],
+  currentUser:[],
   reset: true,
   orderState: "initial",
   favoriteList: [],
@@ -99,10 +99,12 @@ const rootReducer = (state = initialState, action) => {
       }
       
     case CURRENT_USER:
-      //state.allUsers.map((user)=>console.log(user.email))
+    
+      let arr=state.allUsers.filter((user)=>user.email===action.payload)
+     console.log(arr);
       return{
         ...state,
-        currentUser:state.allUsers.filter((user)=>user.email===action.payload)[0]
+        currentUser:arr
       }
     case LOGOUT_USER: {
       return { 
