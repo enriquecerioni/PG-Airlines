@@ -63,7 +63,7 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
   return (
     <div className={style.cards}>
       <li className={style.cards_item}>
-       { user && !user.permissions ? 
+       { user.length && !user[0].permissions ? 
        <IconButton 
           id="mailBTN"
           color='error'
@@ -81,7 +81,7 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
             <h5 className={style.a}> {origin} </h5>
           </div>
         </div>
-        { user && !user.permissions ? 
+        { user.length && !user[0].permissions ? 
         <IconButton 
         id="addToCart"
         className={style.btnCart} 

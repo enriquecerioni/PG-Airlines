@@ -119,7 +119,7 @@ function Details() {
                   <img className={s.logoPrice} src={d.logo} alt="Img" />
                   <div className={s.airlinePrice}>{d.airline}</div>
                   <div className={s.priceP}>${d.price}</div>
-                  { user && !user.permissions ? <button
+                  { user.length && !user[0].permissions ? <button
                     className={s.btn}
                     onClick={() =>
                       handleAddToCart({
