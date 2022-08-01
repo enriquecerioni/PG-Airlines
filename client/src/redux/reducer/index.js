@@ -21,6 +21,9 @@ import {
   LOGOUT_USER,
   ERROR_USER,
   UPDATE_USER,
+  UPDATE_FLIGHTS,
+  CREATER_FLIGHTS,
+  DELETE_FLIGHTS,
   DELETE_USER,
   CURRENT_USER,
   GET_ORDERS,
@@ -346,6 +349,39 @@ const rootReducer = (state = initialState, action) => {
         error: action.payload
       }
     }
+    case UPDATE_FLIGHTS:{
+      let allflight = [];  
+      if(!action.payload == "404"){
+        allflight = state.allflight;
+        }
+        
+        return{
+          ...state,
+          flights: allflight
+        }
+    }
+  
+      
+    case CREATER_FLIGHTS:{
+      let allflight = []; 
+      if(!action.payload == "404"){
+        allflight = state.allflight;
+        }
+        return{
+          ...state,
+          flights: state.allflight
+        }
+    }
+     
+   
+      case DELETE_FLIGHTS:{
+       let allflight;
+        return{
+          ...state,
+          flights: allflight
+        }
+      }
+      
 
     case GET_ORDERS: {
       return {

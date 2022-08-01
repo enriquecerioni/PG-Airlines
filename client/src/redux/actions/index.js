@@ -23,6 +23,9 @@ export const ADD_TO_CART = 'ADD_TO_CART'
 export const DELETE_FROM_CART = 'DELETE_FROM_CART'
 export const ERROR_USER = 'ERROR_USER'
 export const UPDATE_USER="UPDATE_USER"
+export const UPDATE_FLIGHTS="UPDATE_FLIGHTS"
+export const CREATER_FLIGHTS="CREATER_FLIGHTS"
+export const DELETE_FLIGHTS="DELETE_FLIGHTS"
 export const DELETE_USER="DELETE_USER"
 export const CURRENT_USER="CURRENT_USER"
 
@@ -250,3 +253,56 @@ export function getOrders() {
         })
     }
 }
+export function editToFlights(payload){
+   const flight = {
+      flight:payload
+   }; 
+   console.log(flight);
+   debugger;
+    return function (dispatch){
+        axios.put('http://localhost:3001/flights/update',flight)
+        .then((response)=>{
+            dispatch({
+                type:UPDATE_FLIGHTS,
+                payload:response.data
+            })
+        })
+    }
+}
+
+export function createFlights(payload){
+debugger;
+    const flight = {
+       flight:payload
+    }; 
+    console.log(flight);
+    debugger;
+     return function (dispatch){
+         axios.post('http://localhost:3001/flights/create',flight)
+         .then((response)=>{
+             dispatch({
+                 type:CREATER_FLIGHTS,
+                 payload:response.data
+             })
+         })
+     }
+ }
+ 
+
+export function deleteFlights(payload){
+    debugger;
+        const flight = {
+           flight:payload
+        }; 
+        console.log(flight);
+        debugger;
+         return function (dispatch){
+             axios.post('http://localhost:3001/flights/delete',flight)
+             .then((response)=>{
+                 dispatch({
+                     type:DELETE_FLIGHTS,
+                     payload:response.data
+                 })
+             })
+         }
+     }
