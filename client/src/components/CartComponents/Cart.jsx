@@ -7,8 +7,11 @@ import { CartContext } from './CartContext'
 import { deleteFromCart } from '../../redux/actions/index'
 import { useDispatch } from 'react-redux'
 import {toast} from 'react-toastify'
-import { Button } from '@mui/material';
- 
+import { Button, IconButton, Card, CardContent } from '@mui/material';
+import vacio from '../styles/assets/test1.png'
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import firebase from 'firebase'
 
@@ -62,6 +65,7 @@ function Cart() {
       setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))            
     }    
   }, [handleSum, handleRest])
+
   function handleCheckout(){
     auth.onAuthStateChanged(user=>{
       if(user){
@@ -78,17 +82,15 @@ function Cart() {
       }
     })
   }
-
-
  
     return (
         <div className={css.cart_container}>
             <Link to='/'>
-            Keep shopping
+              <Button variant="outlined" size="large">Keep shopping</Button>
             </Link>
             { products.length ? 
             products.map(c => {
-              return (<div className={style.cards} key={c.id}>
+              return (<div className={css.card} key={c.id}>
                 <li className={style.cards_item}>
                 <div className={style.card}>
                     <div className="card_image"><img src={c.logo} alt='#' width='100px' height='100px'/></div>
@@ -99,37 +101,47 @@ function Cart() {
                     </div>
                     <div>
                     <p className={style.card_text}>${c.price}</p>
-                    <Link to={`/ticket/${c.id}`} >
+                    {/* <Link to={`/ticket/${c.id}`} >
                       <button className={style.btn}>View Deal</button> 
-                    </Link>
+                    </Link> */}
                     </div>
-                    <button onClick={()=>handleDelete(c.id)}>X</button>
+                    <IconButton size='large' onClick={()=>handleDelete(c.id)}><DeleteIcon/></IconButton>
                 </div>
-                <span>{c.amount}</span>
                 </li>
                 <div>
-                  <button onClick={() => handleSum(c.id)}>+</button>
-                    {c.amount}
-                  <button onClick={() => handleRest(c.id)}>-</button>
+                  <Button 
+                  onClick={() => handleSum(c.id)}>
+                  <AddIcon /></Button>
+                    <h5 className={css.amount_display}>{c.amount}</h5>
+                  <Button 
+                  onClick={() => handleRest(c.id)}>
+                    <RemoveIcon /></Button>
                 </div>
 
             </div>)      
             })
             :
-            <h1>Add tickets to your cart!</h1>
-            }     
+            <div className={css.empty_cart}>
+              <h1>Your cart is empty</h1>
+              <img src={vacio} alt="#" />
+              <h1>Add tickets to your cart!</h1>
+            </div>
+          }     
             
-
-          {subTotal && <div>
+          {subTotal !== 0 && products.length && 
+            <Card className={css.payment_container}>
+              <div className={css.card_content}>
                 <h1>Order Summary</h1>
-                <h5>Subtotal</h5>{ subTotal && <span>${subTotal}</span>}
-                <h5>Fees</h5>{ subTotal && <span>${(subTotal*0.1)/100}</span>} 
-                <h5>Total</h5>{subTotal && <span>${(subTotal + ((subTotal*0.1)/100))}</span>}
-               <Button 
-               variant="contained" 
-               color="success" 
-               onClick={() => handleCheckout()}>Proceed to Checkout</Button>
-             </div>    
+                <h4>Subtotal</h4>{subTotal !== 0 && <span>${subTotal}</span>}
+                <h4>Fees</h4>{subTotal !== 0 && <span>${((subTotal*0.1)/100).toFixed(2)}</span>} 
+                <h4>Total</h4>{subTotal !== 0 && <span>${(subTotal + ((subTotal*0.1)/100)).toFixed(2)}</span>}
+
+                <Button 
+                variant="contained" 
+                color="success" 
+                onClick={() => handleCheckout()}>Proceed to Checkout</Button>                     
+              </div>
+            </Card>    
           }    
           
         </div>

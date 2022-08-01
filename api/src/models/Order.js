@@ -17,6 +17,10 @@ module.exports = (sequelize) => {
       type: DataTypes.ARRAY(DataTypes.JSON),
       allowNull: false,
     },
+    idpurchase: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
   },{
     timestamps: false,
   });

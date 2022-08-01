@@ -41,6 +41,7 @@ function Orders() {
           return (
             <Card className={style.card_container} sx={{ minWidth: 275 }} key={data.id}>
               <CardContent>
+                <p>{data.idPurchase}</p>
                 <p>{data.price}</p>
                   {data.stocks?.map(e => {
                     return <div key={e}>

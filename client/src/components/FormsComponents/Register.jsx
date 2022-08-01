@@ -184,7 +184,7 @@ function Register() {
         loading={loading}
         loadingPosition="end"
         variant="contained"
-      >Log in with Google</LoadingButton>
+      >Sign in with Google</LoadingButton>
 
       {error && <span>{error}</span>}
       <p><Link className={style.sing} to='/login'>Already have an account? Log in</Link></p>

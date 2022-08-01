@@ -17,7 +17,8 @@ mpRouter.post('/', async (req, res) => {
         return  { 
             title: e.airline,
             unit_price: parseFloat(e.price),
-            quantity: e.amount
+            quantity: e.amount,
+            currency_id: 'ARS'
         }
     })
  
@@ -68,26 +69,5 @@ mpRouter.post('/', async (req, res) => {
 //       })
 //     })  
 // })
-
-// mpRouter.get("/pagos", async  (req, res)=>{
-
-//     const payment_id= req.query.payment_id
-//     const payment_status= req.query.status // ESTADO DE LA OPERACION
-//     const external_reference = req.query.external_reference // MAIL DE USUARIO
-//     const merchant_order_id= req.query.merchant_order_id
-//     // console.log(req.query);
-    
-//         if(usuario.shopping === null) {
-    
-//         await User.update({ shopping: usuario.cart, cart: null, emptyCart: true, sendEmail: true}, { where: { email: external_reference } });
-//         const getInfo = await User.findByPk(external_reference)
-  
-//         } else {
-    
-//           await User.update(
-//             { shopping: usuario.shopping.concat(usuario.cart), cart: null, emptyCart: true, sendEmail: true },
-//             { where: { email: external_reference } }
-//           );
-//            const getInfo = await User.findByPk(external_reference)
 
 module.exports = mpRouter;

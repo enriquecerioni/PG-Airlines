@@ -4,7 +4,7 @@ import { Button }from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
 import { createOrder } from '../../redux/actions/index'
 
-export default function MPPayment({ products, subTotal, user }) {
+export default function MPPayment({ products, subTotal, user, disabled, loading }) {
 
     const [datos, setDatos] = useState('');
     const dispatch = useDispatch()
@@ -19,7 +19,7 @@ export default function MPPayment({ products, subTotal, user }) {
               value: e.price
           }
       }),
-      userId: user.id
+      userId: user ? user.id : null
   }
 
     async function handleMPPayment(e) {
@@ -37,7 +37,12 @@ export default function MPPayment({ products, subTotal, user }) {
 
   return(
       <form>
-        <Button variant="contained" size="large" onClick={handleMPPayment} type="submit">MERCADO PAGO</Button>
+        <Button 
+        disabled={!disabled || loading}
+        variant="contained" 
+        size="large" 
+        onClick={handleMPPayment} 
+        type="submit">MERCADO PAGO</Button>
       </form>
   )
 

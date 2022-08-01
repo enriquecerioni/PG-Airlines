@@ -1,3 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+
 .favs_containers {
     margin-top: 5rem;
+}
+
+.favs_containers h1 {
+    padding-top: 2rem;
+    margin-top: 2rem;
+    font-family: 'Rubik', sans-serif;    
+}
+
+.empty_list h1 {
+    padding-top: 2rem;
+    font-family: 'Rubik', sans-serif;
+    font-size: 2.6rem;
+}
+
+.empty_list img {
+    width: 26rem;
+    height: 100%;
+}
+
+.favs_display {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.favs_display h1 {
+    padding-top: 2rem;
+    margin-top: 2rem;
+    font-family: 'Rubik', sans-serif; 
 }

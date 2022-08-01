@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+
 .form_container {
     margin: 0 auto;
     width: 80%;
@@ -12,5 +15,58 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+}
+
+.payment_container {
+    margin-top: 6rem;
+    margin-bottom: 5rem;
+}
+
+.payment_container h1 {
+    font-family: 'Rubik', sans-serif;
+    letter-spacing: .1rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border-radius: 0.25rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 1rem;
+}
+
+.success_container {
+    margin-top: 7rem;
+}
+
+.success_container h1 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 2.8rem;
+}
+
+.success_container img {
+    width: 32rem;
+    height: 100%;
+}
+
+.hr_separator {
+    border: 0.1px solid rgb(143, 143, 143);
+    width: 80%;
+    margin: 0 auto;
+}
+
+.methods {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin: 0 auto;
+    width: 70%;
     align-items: center;
 }

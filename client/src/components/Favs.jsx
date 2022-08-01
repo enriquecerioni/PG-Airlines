@@ -5,6 +5,9 @@ import style from "./styles/Ticket.module.css";
 import { Link } from "react-router-dom";
 import { deleteFavorite } from "../redux/actions/index"
 import { toast } from "react-toastify";
+import noFavs from './styles/assets/nofavorites.jpg'
+import { IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Favs() {
   const dispatch = useDispatch();
@@ -30,40 +33,48 @@ function Favs() {
 
   return (
     <div className={s.favs_containers}>
+      <h1>Favorites List</h1>
       {flightList.length ? (
         flightList.map((c) => {
           return (
-            <div className={style.cards} key={c.id}>
-              <li className={style.cards_item}>
-                <div className={style.card}>
-                  <div className="card_image">
-                    <img src={c.logo} alt="#" width="100px" height="100px" />
-                  </div>
-                  <div className={style.card_content}>
-                    <h2 className={style.card_title}>{c.airline}</h2>
-                    <h5>
-                      Origin: {c.origin} | Destination: {c.destination}{" "}
-                    </h5>
-                    <p className="card_text">
-                      {c.departureHour} / {c.arrivalHour}
-                    </p>
-                  </div>
-                  <div>
-                    <p className={style.card_text}>
-                      ${c.price} | price | price
-                    </p>
-                    <Link to={`/ticket/${c.id}`}>
-                      <button className={style.btn}>View Deal</button>
-                    </Link>
-                  </div>
-                </div>
-              </li>
-              <button onClick={() => removeFavorite(c.id)}>DELETE</button>
-            </div>
+              <div className={s.favs_display}>
+                <div className={style.cards} key={c.id}>
+                  <li className={style.cards_item}>
+                    <div className={style.card}>
+                      <div className="card_image">
+                        <img src={c.logo} alt="#" width="100px" height="100px" />
+                      </div>
+                      <div className={style.card_content}>
+                        <h2 className={style.card_title}>{c.airline}</h2>
+                        <h5>
+                          Origin: {c.origin} | Destination: {c.destination}{" "}
+                        </h5>
+                        <p className="card_text">
+                          {c.departureHour} / {c.arrivalHour}
+                        </p>
+                      </div>
+                      <div>
+                        <p className={style.card_text}>
+                          ${c.price} | price | price
+                        </p>
+                        <Link to={`/ticket/${c.id}`}>
+                          <button className={style.btn}>View Deal</button>
+                        </Link>
+                      </div>
+                    </div>
+                  </li>
+                </div> 
+                <IconButton size="large" onClick={() => removeFavorite(c.id)}><DeleteIcon/></IconButton>             
+              </div>                         
           );
         })
       ) : (
-        <h1>Add tickets to your favorite list!</h1>
+        <div className={s.empty_list}>
+          <h1>Your list empty</h1>
+          <img src={noFavs} alt="#" />   
+          <h1>Add tickets to your favorite list!</h1>       
+        </div>
+
       )}
     </div>
   );
