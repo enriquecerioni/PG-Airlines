@@ -62,7 +62,7 @@ export default function NavBar() {
       <ul className={s.navUl}>
         {user.length && user[0].superAdmin  ? (
           <>
-            <li id="catalog">
+          <li id="catalog">
               <Link className={s.navLink} to="/catalog">
                 Catalog
               </Link>
@@ -79,6 +79,11 @@ export default function NavBar() {
           </>
         ) : user.length && user[0].permissions  ? (
           <>
+          <li id="catalog">
+              <Link className={s.navLink} to="/catalog">
+                Catalog
+              </Link>
+            </li>
            <li>
               <button id="addAirline">
                 <Link to="/register/airline">Add your airline</Link>

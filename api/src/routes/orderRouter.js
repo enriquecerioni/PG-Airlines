@@ -22,14 +22,14 @@ orderRouter.get('/', async (req, res) => {
 orderRouter.post('/', async (req, res) => {
     const { stocks, price, userId, idpurchase, creationdate } = req.body
     try {
-
+        console.log(stocks, price, userId, idpurchase, creationdate);
         let newOrder = await Order.create({
             stocks,
             price,
             idpurchase,
             creationdate
         });
-
+        console.log("compro");
         let cliente =  await User.findOne({
             where: {
                 id: userId
@@ -39,7 +39,7 @@ orderRouter.post('/', async (req, res) => {
         console.log(cliente)
 
         await cliente.addOrder(newOrder)
-
+        console.log("agrego");
         res.send(newOrder)
 
     } catch (error) {

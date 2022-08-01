@@ -21,6 +21,13 @@ export default function Administration(){
    }
     return (
         <div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            
         { user.length ? 
             user.map(u => {
               return (
