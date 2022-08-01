@@ -22,7 +22,8 @@ import {
   ERROR_USER,
   UPDATE_USER,
   UPDATE_FLIGHTS,
-  CREATER_FLIGHTS
+  CREATER_FLIGHTS,
+  DELETE_FLIGHTS
 } from "../actions";
 
 const initialState = {
@@ -329,27 +330,40 @@ const rootReducer = (state = initialState, action) => {
         error: action.payload
       }
     }
-    case UPDATE_FLIGHTS:
-    let allflight = [];  
-    if(!action.payload == "404"){
-      allflight = state.allflight;
+    case UPDATE_FLIGHTS:{
+      let allflight = [];  
+      if(!action.payload == "404"){
+        allflight = state.allflight;
+        }
+        
+        return{
+          ...state,
+          flights: allflight
+        }
+    }
+  
+      
+    case CREATER_FLIGHTS:{
+      let allflight = []; 
+      if(!action.payload == "404"){
+        allflight = state.allflight;
+        }
+        return{
+          ...state,
+          flights: state.allflight
+        }
+    }
+     
+   
+      case DELETE_FLIGHTS:{
+       let allflight;
+        return{
+          ...state,
+          flights: allflight
+        }
       }
       
-      return{
-        ...state,
-        flights: allflight
-      }
-      
-    case CREATER_FLIGHTS:
-  //  // let allflight = [];  
-  //   if(!action.payload == "404"){
-  //     allflight = state.allflight;
-  //     }
-      
-      return{
-        ...state,
-        flights: allflight
-      }
+
     default:
       return state;
   }
