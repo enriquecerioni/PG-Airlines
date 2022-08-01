@@ -90,7 +90,7 @@ function Payment() {
             dispatch(createOrder(sendOrderPP))
             alert(`payment completado por` + details.payer.name.given_name)
             window.localStorage.clear()
-            history.replace('/success')
+            //history.replace('/success')
         });
     }
 

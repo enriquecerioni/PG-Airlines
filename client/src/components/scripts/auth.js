@@ -6,8 +6,10 @@ import {
   deleteUser,
   deleteUserAuth,
   currentUser,
+  getAllUsers,
   generateEmailLink,
   logOutUser,
+ 
 } from "../../redux/actions/index";
 
 const firebaseConfig = {
@@ -30,7 +32,12 @@ auth.onAuthStateChanged(async (user) => {
 
   if (user) {
     //console.log(user.email);
-    await store.dispatch(currentUser(user.email));
+    
+      await  store.dispatch(currentUser(user.email));
+    
+  
+    
+
     let a = await dbFirebase.collection("users").doc(`${user.email}`).get();
     let userAdmin = a.data() ? a.data().admin : null;
     if (userAdmin) {

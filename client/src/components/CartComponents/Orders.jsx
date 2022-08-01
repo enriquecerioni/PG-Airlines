@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createUser, getOrders } from '../../redux/actions/index'
+import { createUser, getAllUsers, getOrders } from '../../redux/actions/index'
 import { Card, TableRow, TableHead, TableContainer, TableCell,TableBody, Table } from '@mui/material';
 import style from '../styles/Payment.module.css'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import empty from '../styles/assets/emptyorders.jpg'
 
 function Orders() {
@@ -11,6 +11,7 @@ function Orders() {
     // let user = useSelector(state => state.allUsers)
     // console.log(user)
     const ordersArr = useSelector(state => state.orders)
+    const navigate= useHistory()
     console.log(ordersArr)
 
     useEffect(() => {
@@ -35,14 +36,21 @@ function Orders() {
 
     useEffect(() => {
       dispatch(getOrders())
+      dispatch(getAllUsers())
     }, [])
-
+function handleClick(e){
+  e.preventDefault();
+  navigate.replace('/')
+  window.location.reload()
+  
+}
   return (
     <div className={style.main_container}>
         <h1>Your orders</h1>
         {ordersArr.length ? (
         ordersArr.map(data => {
           return (
+            <>
             <Card className={style.card_container} sx={{ minWidth: 275 }} key={data.idpurchase}>
                 <h3>Order nº{data.id}</h3>
                 <strong><h5>Purchase id: #{data.idpurchase}</h5></strong> 
@@ -73,6 +81,8 @@ function Orders() {
               </TableContainer>
               <br />
             </Card>
+            
+            </>
           )
         })
       ): 
@@ -81,6 +91,7 @@ function Orders() {
         <h3>No purchase made yet</h3>
         <img src={empty} alt="#" />
       </div>)}
+      <button onClick={(e)=>handleClick(e)}>Go back to home</button>
     </div>
   )
 }
