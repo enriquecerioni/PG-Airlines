@@ -7,6 +7,7 @@ import { CartContext } from './CartContext'
 import { deleteFromCart } from '../../redux/actions/index'
 import { useDispatch } from 'react-redux'
 import {toast} from 'react-toastify'
+import { Button } from '@mui/material';
  
 
 import firebase from 'firebase'
@@ -64,7 +65,12 @@ function Cart() {
   function handleCheckout(){
     auth.onAuthStateChanged(user=>{
       if(user){
-        history.push('/payment')
+        if(user.emailVerified){
+          history.push('/payment')
+        }else{
+          alert("You need to verify you email")
+          history.push("/")
+        }
       }
       else {
         alert("You need to be logged to buy")
@@ -119,7 +125,7 @@ function Cart() {
                 <h5>Subtotal</h5>{ subTotal && <span>${subTotal}</span>}
                 <h5>Fees</h5>{ subTotal && <span>${(subTotal*0.1)/100}</span>} 
                 <h5>Total</h5>{subTotal && <span>${(subTotal + ((subTotal*0.1)/100))}</span>}
-               <button onClick={() => handleCheckout()}>Proceed to Checkout</button>
+               <Button variant="contained" color="success" onClick={() => handleCheckout()}>Proceed to Checkout</Button>
              </div>    
           }    
           

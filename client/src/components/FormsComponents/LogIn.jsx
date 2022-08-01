@@ -4,7 +4,8 @@ import { ejecutar, logIn } from "../scripts/auth";
 import { Link } from "react-router-dom";
 import style from "../styles/Forms.module.css";
 import { useHistory } from "react-router-dom";
-import { Button } from "@mui/material";
+import { LoadingButton } from '@mui/lab';
+import GoogleIcon from '@mui/icons-material/Google';
 
 // function LogIn() {
 
@@ -25,32 +26,34 @@ function LogIn() {
   let navigate = useHistory();
   const [validForm, setValidForm] = useState(null);
 
-  const [emailLogIn, setEmailLogIn] = useState({ value: "", valid: null });
-  const [passwordLogIn, setPasswordLogIn] = useState({
-    value: "",
-    valid: null,
-  });
+  const [loading, setLoading] = useState(false);
+
+  const [ emailLogIn, setEmailLogIn ] = useState({value:'', valid: null})
+  const [ passwordLogIn, setPasswordLogIn ] = useState({value:'', valid: null})
 
  async function handleSubmit(e){
   
   e.preventDefault();
-  let type= await logIn(e.target.emailLogIn.value,e.target.passwordLogIn.value)
-  if(typeof type=="string"){
-    alert(type)
-  }else  navigate.push('/')
-  
-  
+  setLoading(true)
+  if(e.target.emailLogIn.value && e.target.passwordLogIn.value) {
+    let type= await logIn(e.target.emailLogIn.value,e.target.passwordLogIn.value)
+    if(typeof type=="string"){
+      alert(type)
+    }else  
+    navigate.push('/')
+    window.location.reload()
 
+  } else {
+    setLoading(false)
+    alert('enter valid email')
+  } 
 }
 
-async function handleClick(){
-  try {
-    await ejecutar()
-    navigate.push('/');
-  } catch (error) {
-    alert(error)
-  }
+async function handleClick(e){
 
+  await ejecutar()
+  navigate.push('/')
+  window.location.reload()
 }
 
   return (
@@ -88,11 +91,14 @@ async function handleClick(){
         {validForm === false && (
           <span>Please complete all fields correctly</span>
         )}
-
-        <Button type="submit" variant="contained">
-          Log In
-        </Button>
-
+        <LoadingButton
+          type='submit' 
+          endIcon='✔'
+          loading={loading}
+          loadingPosition="end"
+          variant="contained"
+          >Log In</LoadingButton>
+          
         {validForm === true && <span>Welcome back</span>}
       </form>
 
@@ -100,14 +106,20 @@ async function handleClick(){
       <hr className={style.separator} />
       <br />
 
-      <button className={style.google_btn} onClick={() => handleClick()}>
-        Log in with Google
-      </button>
+      <LoadingButton 
+      onClick={()=>handleClick()}
+      endIcon= {<GoogleIcon />}
+      loading={loading}
+      loadingPosition="end"
+      variant="contained"
+      >Log in with Google</LoadingButton>
+      
       <p>
         <Link className={style.sing} to="/register">
           Don't have an account? Sing Up
         </Link>
       </p>
+
       {/* <div className={style.containerAirline}>
         <p>Want to partner up your airline with us?</p>
         <button><Link to='/register/airline'>Register Airline</Link></button>

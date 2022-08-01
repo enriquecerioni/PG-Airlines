@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "../styles/Ticket.module.css";
 import { Link } from "react-router-dom";
-import { addToFavorite } from "../../redux/actions/index";
+import { addToFavorite, currentUser } from "../../redux/actions/index";
 import { CartContext } from "../CartComponents/CartContext";
 import { useContext } from "react";
 import { toast } from "react-toastify";
@@ -12,6 +12,13 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
   const item = { id, origin, price, logo, airline, arrivalHour, departureHour,stock, destination }
 
   const {addProductToCart} = useContext(CartContext)
+
+  const dispatch = useDispatch();
+  const user=useSelector(state=>state.currentUser)
+//console.log(user.permissions);
+  // useEffect(()=>{
+  //   dispatch(currentUser())
+  // },[])
 
   const handleAddCart = (e) => {
     e.preventDefault();
@@ -28,7 +35,6 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
     });
   };
 
-  const dispatch = useDispatch();
 
   // Para agregar a favoritos
   let favoriteList = useSelector((state) => state.favoriteList);
@@ -54,13 +60,14 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
   return (
     <div className={style.cards}>
       <li className={style.cards_item}>
-        <button
+       { user && !user.permissions ? <button 
           id="mailBTN"
           disabled={listDisabled}
           onClick={() => addFav(item)}
         >
           Favorite
         </button>
+      : null}
         <div className={style.info}>
           <button className={style.button}>i </button>
           <div className={style.propiedades}>
@@ -70,9 +77,11 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
             <h5 className={style.a}> {origin} </h5>
           </div>
         </div>
-        <button className={style.btnCart} onClick={handleAddCart}>
+        { user && !user.permissions ? <button id="addToCart"className={style.btnCart} onClick={handleAddCart}>
           Add to cart
         </button>
+        : null
+        }
         <div className={style.card}>
           <div className={style.card_image}>
             <img src={logo} alt="#" />

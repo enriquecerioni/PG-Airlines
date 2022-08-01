@@ -3,6 +3,10 @@ import { store } from "../../redux/store/index";
 import {
   createUser,
   makeAdminPostgres,
+  deleteUser,
+  deleteUserAuth,
+  currentUser,
+  generateEmailLink,
   logOutUser,
 } from "../../redux/actions/index";
 
@@ -14,60 +18,88 @@ const firebaseConfig = {
   messagingSenderId: "743031201286",
   appId: "1:743031201286:web:5df37e5654d096731f2d87",
 };
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-} else {
-  firebase.app(); // if already initialized, use that one
-}
+
+!firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
+
 const dbFirebase = firebase.firestore();
-
-//---------------------estado del usuraio------------------
-
 const auth = firebase.auth();
 
+//---------------------estado del usuraio------------------
 auth.onAuthStateChanged(async (user) => {
   //console.log(user)
 
   if (user) {
+    //console.log(user.email);
+    await store.dispatch(currentUser(user.email));
     let a = await dbFirebase.collection("users").doc(`${user.email}`).get();
     let userAdmin = a.data() ? a.data().admin : null;
     if (userAdmin) {
       // document.getElementById("btnHomeGuest").style.display = "none";
-      document.getElementById("catalog").style.display = "";
-      document.getElementById("logOut").style.display = "";
-      document.getElementById("myProfile").style.display = "";
-      document.getElementById("addAirline").style.display = "";
-      document.getElementById("logIn").style.display = "none";
-      document.getElementById("register").style.display = "none";
-      document.getElementById("favs").style.display = "none";
-      document.getElementById("offers").style.display = "none";
+      console.log("admin");
+      // document.getElementById("catalog").style.display = "";
+      // document.getElementById("logOut").style.display = "";
+      // document.getElementById("myProfile").style.display = "";
+      // document.getElementById("addAirline").style.display = "";
+      // document.getElementById("logIn").style.display = "none";
+      // document.getElementById("register").style.display = "none";
+      // document.getElementById("favs").style.display = "none";
+      // document.getElementById("offers").style.display = "none";
+      // document.getElementById("carrito").style.display = "none";
+      // document.getElementById("nCarrito").style.display = "none";
+      return;
+
       // document.getElementById("MyAirline").style.display = "";
       // document.getElementById("OwnFlights").style.display = "";
-    } else {
-      console.log("user logged-in: ", user.displayName, user.email, user);
+    } else if (user.emailVerified) {
+      //console.log("user logged-in: ", user.displayName, user.email, user);
       // document.getElementById("btnHomeGuest").style.display = "none";
-      document.getElementById("offers").style.display = "";
-      document.getElementById("catalog").style.display = "none";
-      document.getElementById("logIn").style.display = "none";
-      document.getElementById("register").style.display = "none";
-      document.getElementById("logOut").style.display = "";
-      document.getElementById("myProfile").style.display = "";
-      document.getElementById("addAirline").style.display = "none";
-      document.getElementById("favs").style.display = "";
+      console.log("user verificado");
+      // document.getElementById("offers").style.display = "";
+      // document.getElementById("catalog").style.display = "none";
+      // document.getElementById("logIn").style.display = "none";
+      // document.getElementById("register").style.display = "none";
+      // document.getElementById("logOut").style.display = "";
+      // document.getElementById("myProfile").style.display = "";
+      // document.getElementById("addAirline").style.display = "none";
+      // document.getElementById("favs").style.display = "";
+      // document.getElementById("carrito").style.display = "";
+      // document.getElementById("nCarrito").style.display = "";
+
+      // document.getElementById("mailBTN")  ? document.getElementById("mailBTN").style.display = "" : null
+      // document.getElementById("addToCart")   ? document.getElementById("addToCart").style.display = "" : null
       // document.getElementById("MyAirline").style.display = "none";
       // document.getElementById("OwnFlights").style.display = "none";
+    } else if (!user.emailVerified) {
+      console.log("usuario no verificado");
+      // document.getElementById("offers").style.display = "";
+      // document.getElementById("catalog").style.display = "none";
+      // document.getElementById("logOut").style.display = "";
+      // document.getElementById("logIn").style.display = "none";
+      // document.getElementById("register").style.display = "none";
+      // document.getElementById("myProfile").style.display = "";
+      // document.getElementById("addAirline").style.display = "none";
+      // document.getElementById("favs").style.display = "";
+      // document.getElementById("carrito").style.display = "";
+      // document.getElementById("nCarrito").style.display = "";
     }
   } else {
     // document.getElementById("btnHomeGuest").style.display = "";
-    console.log("user logged out");
-    document.getElementById("offers").style.display = "";
-    document.getElementById("catalog").style.display = "none";
-    document.getElementById("logOut").style.display = "none";
-    document.getElementById("logIn").style.display = "";
-    document.getElementById("register").style.display = "";
-    document.getElementById("myProfile").style.display = "none";
-    document.getElementById("addAirline").style.display = "none";
-    document.getElementById("favs").style.display = "";
+
+    console.log("guest ");
+    // document.getElementById("offers").style.display = "";
+    // document.getElementById("catalog").style.display = "none";
+    // document.getElementById("logOut").style.display = "none";
+    // document.getElementById("logIn").style.display = "";
+    // document.getElementById("register").style.display = "";
+    // document.getElementById("myProfile").style.display = "none";
+    // document.getElementById("addAirline").style.display = "none";
+    // document.getElementById("favs").style.display = "";
+    // document.getElementById("carrito").style.display = "";
+    // document.getElementById("nCarrito").style.display = "";
+
+    // document.getElementById("mailBTN")  ? document.getElementById("mailBTN").style.display = "" : null
+    // document.getElementById("addToCart")   ? document.getElementById("addToCart").style.display = "" : null
+
     // document.getElementById("MyAirline").style.display = "none";
     // document.getElementById("OwnFlights").style.display = "none";
   }
@@ -78,13 +110,22 @@ auth.onAuthStateChanged(async (user) => {
 export async function singUp(email, password, name) {
   try {
     let cred = await auth.createUserWithEmailAndPassword(email, password);
-    console.log(cred);
-    dbFirebase.collection("users").doc(cred.user.email).set({
-      email: cred.user.email,
+    let uid = cred.user.uid;
+    let img = cred.user.photoURL;
+    
+    //console.log("1", email, name, uid);
+    await cred.user.sendEmailVerification();
+    //console.log("2", email, name, uid);
+
+    console.log(email, name, uid, img);
+    await store.dispatch(createUser({ email, name, uid, img }));
+    return  dbFirebase.collection("users").doc(email).set({
+      email: email,
       admin: false,
-      photo: cred.user.photoURL,
+      photo: img? img:"",
+      uid: uid,
+      superAdmin: false,
     });
-    await store.dispatch(createUser({ email, name }));
   } catch (error) {
     return `${error.message}`;
   }
@@ -116,24 +157,40 @@ export async function ejecutar() {
     let data = await firebase.auth().signInWithPopup(google_provider);
     let email = data.user.email;
     let name = data.user.displayName;
-    let photo = data.user.photoURL;
+    let img = data.user.photoURL;
+    let uid = data.user.uid;
     let hay = await dbFirebase.collection("users").doc(email).get();
     if (!hay.data()) {
-      await store.dispatch(createUser({ email, name }));
+      await store.dispatch(createUser({ email, name, uid, img }));
       return dbFirebase.collection("users").doc(email).set({
         email: email,
         admin: false,
-        photo: photo,
+        photo: img,
+        uid: uid,
+        superAdmin: false,
       });
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
+  }
+}
+export async function makeAdmin(email) {
+  try {
+    await dbFirebase.collection("users").doc(email).update({
+      admin: true,
+    });
+    await store.dispatch(makeAdminPostgres({ email }));
+  } catch (err) {
+    console.log(err);
   }
 }
 
-export async function makeAdmin(email) {
-  await dbFirebase.collection("users").doc(email).update({
-    admin: true,
-  });
-  await store.dispatch(makeAdminPostgres({ email }));
+export async function Delete(email, uid) {
+  try {
+    await dbFirebase.collection("users").doc(email).delete();
+    await store.dispatch(deleteUser(email));
+    await store.dispatch(deleteUserAuth(uid));
+  } catch (error) {
+    console.log(error);
+  }
 }

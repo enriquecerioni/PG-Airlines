@@ -26,6 +26,8 @@ export const UPDATE_USER="UPDATE_USER"
 export const UPDATE_FLIGHTS="UPDATE_FLIGHTS"
 export const CREATER_FLIGHTS="CREATER_FLIGHTS"
 export const DELETE_FLIGHTS="DELETE_FLIGHTS"
+export const DELETE_USER="DELETE_USER"
+export const CURRENT_USER="CURRENT_USER"
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -145,7 +147,26 @@ export function createUser(payload){
         })
     }
 }
+
+
+// export function generateEmailLink(payload){
+//     axios.get("http://localhost:3001/user/verificate",payload)
+//     .then(()=>{
+//         console.log("verification email send ");
+//     })
+//     .catch((error)=>{
+//         console.log(error);
+//     })
+// }
+export function currentUser(payload){
+    return {
+            type:CURRENT_USER,
+            payload
+        }
+    
+}
 export function makeAdminPostgres(payload){
+    console.log(payload);
     return function (dispatch){
         axios.put('http://localhost:3001/user/update',payload)
         .then((response)=>{
@@ -156,6 +177,33 @@ export function makeAdminPostgres(payload){
         })
     }
 }
+export function deleteUser(payload){
+    console.log(payload);
+    return function (dispatch){
+        axios.delete(`http://localhost:3001/user/delete/${payload}`)
+        .then((response)=>{
+            dispatch({
+                type:DELETE_USER,
+                payload:response.data
+            })
+        })
+        .catch((error)=>{
+            alert(error.message);
+        })
+    }
+}
+export function deleteUserAuth(payload){
+    return function (){
+        axios.delete(`http://localhost:3001/user/auth/${payload}`)
+        .then(()=>{
+           console.log("user auth firebase eliminated");
+        })
+        .catch(()=>{
+            console.log("error al borrar el auth user");
+        })
+    }
+}
+
 export function logOutUser(payload) {
     return {
         type: LOGOUT_USER,

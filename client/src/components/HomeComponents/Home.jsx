@@ -5,25 +5,33 @@ import Display from "./Display";
 import SearchBar from "./SearchBar";
 import test from "../styles/assets/test3.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllFlights } from "../../redux/actions/index";
+import {  getAllUsers } from "../../redux/actions/index";
 import Loader from "./Loader";
 import NavBar from "./NavBar";
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import Button from '@mui/material/Button';
+import Administration from './Administration';
 
 export default function Home() {
   const [isDisplayed, setIsDisplayed] = useState(false);
   const dispatch = useDispatch();
+  const user=useSelector(state=>state.currentUser)
 
+  console.log(user);
   useEffect(() => {
+    dispatch(getAllUsers());
     setInterval(() => {
       setIsDisplayed(true);
-    }, 2000);
+    }, 500);
+   
   }, []);
+
 
   return (
     <>
       {!isDisplayed ? (
         <Loader />
-      ) : (
+      ) :   !user[0]?.superAdmin ? (
         <div className={s.Home}>
           {/* <NavBar /> */}
           <div id="sec-1" className={s.sec1}>
@@ -64,13 +72,30 @@ export default function Home() {
               <p>You must be logged in first!</p>
             </div>
           </div>
+          
           <div id="sec-2" className={s.sec2}>
             <div id="divInv" className={s.divInv}></div>
             <SearchBar />
             <Display />
+            <div className={s.whatsapp}>
+                <Button  id="whatsapp" href="https://walink.co/000b86" target="_blank" variant="contained" size="medium">
+                  <WhatsAppIcon>
+                  </WhatsAppIcon>
+                  <p>Chat</p>
+                </Button>
+            </div>
           </div>
+          
+        
         </div>
-      )}
+      ) : user.length && user[0].superAdmin &&(
+        <>
+          <div>
+            <Administration/>
+          </div>
+        </>
+      ) 
+    }
     </>
-  );
+  )
 }
