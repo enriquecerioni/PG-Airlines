@@ -8,20 +8,29 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
-    userId:{
-      type:DataTypes.INTEGER,
-      allowNull:false
-    },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     //stocks = tickets
     stocks: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.ARRAY(DataTypes.JSON),
       allowNull: false,
     },
+    idpurchase: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    creationdate: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
   },{
     timestamps: false,
   });
 };
+
+    // userId:{
+    //   type: DataTypes.INTEGER,
+    //   allowNull:false
+    // },

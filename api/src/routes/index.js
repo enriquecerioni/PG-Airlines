@@ -3,6 +3,7 @@ const flightRouter = require('./flightRouter');
 const userRouter = require('./userRouter');
 const stripeRouter = require('./stripe')
 const mpRouter = require('./mp')
+const orderRouter = require('./orderRouter')
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -15,5 +16,7 @@ router.use('/flights', flightRouter);
 router.use('/user',userRouter)
 router.use('/stripe', stripeRouter)
 router.use('/mpcheckout', mpRouter)
+
+router.use('/orders', orderRouter)
 
 module.exports = router;

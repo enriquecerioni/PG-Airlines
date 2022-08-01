@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useContext } from 'react'
 import { CartContext } from './CartContext'
 import style from '../styles/Ticket.module.css'
@@ -9,16 +9,19 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import axios from 'axios';
 import firebase from 'firebase'
 import { LoadingButton } from '@mui/lab';
-
+import { TextField } from '@mui/material';
 // PAYPAL
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-
 // MERCADO PAGO
 import MPPayment from './MPPayment'
+// CREAR ORDENES
+import { createOrder, getAllUsers } from '../../redux/actions/index'
 
 function Payment() {
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.currentUser)
     const { products, setProducts ,setPay} = useContext(CartContext)
+    // console.log(products)
+    const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(false);
 
@@ -32,20 +35,24 @@ function Payment() {
         string: ''
     })
 
-    const [error, setError] = useState(null)
-    
-    const [disabled, setDisabled] = useState(true)
-
+    const [ error, setError] = useState(null)
+    const [ disabled, setDisabled] = useState(true)
     const [ succeeded, setSucceeded ] = useState(false)
     const [ processing, setProcessing ] = useState("")
-
     const [ email, setEmail ] = useState('')
+
+    const [subTotal, setSubTotal] = useState()
+
+    useEffect(() => {
+        dispatch(getAllUsers());
+        if(products.length !== 0) setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))
+      }, [])
 
     ///------------------------------
 
     // PAYPAL SETTING
 
-    function createOrder(data, actions) {
+    function createOrderPayPal(data, actions) {
         return actions.order
         .create({
           purchase_units: [
@@ -65,6 +72,22 @@ function Payment() {
     function onApprove(data, actions) {
         return actions.order.capture()
         .then(details => {
+            // console.log(details)
+            const sendOrderPP = {
+                price: subTotal,
+                stocks : products.map(e => {
+                    return {
+                        amount: e.amount,
+                        airline: e.airline,
+                        value: e.price,
+                        link: e.id
+                    }
+                }),
+                userId: user ? user.id : null,
+                idpurchase: details.id,
+                creationdate: details.create_time
+            }
+            dispatch(createOrder(sendOrderPP))
             alert(`payment completado por` + details.payer.name.given_name)
             window.localStorage.clear()
             history.replace('/success')
@@ -97,7 +120,26 @@ function Payment() {
                         id, 
                         amount: subTotal * 100, // lo tengo que mandar en centavos  //1 METODO
                         receipt_email: email,
-                    });
+                    })
+
+                    const sendOrder = {
+                        price: subTotal,
+                        stocks : products.map(e => {
+                            return {
+                                amount: e.amount,
+                                airline: e.airline,
+                                value: e.price,
+                                link: e.id
+                            }
+                        }),
+                        userId: user ? user.id : null,
+                        idpurchase: id,
+                        creationdate: new Date(),
+                    }
+                    
+                    dispatch(createOrder(sendOrder))  
+
+                    // console.log(data) // {message: 'succesfull payment'}
                     
                     setLoading(false)
                     setSucceeded(true)
@@ -137,7 +179,6 @@ function Payment() {
                     console.log("stock modificado",products.stock)
                 })
                 .catch((error) => {
-
                     console.log( error);
                 });
             }else{
@@ -166,91 +207,95 @@ function Payment() {
         }
     }
 
-    const [subTotal, setSubTotal] = useState()
-
-    useEffect(() => {
-        if(products.length !== 0) setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))
-      }, [])
-
   return (
-    <div>
-        {/* CLIENTS NAME OR EMAIL */}
-        {user?.email}
+    <div className={css.payment_container}>
+
         <h1>Checkout (
-            <Link to='/cart'>{products?.length} items </Link>    
+            <Link to='/cart'>{products?.map(e => e.amount)} tickets</Link>    
         ) </h1>
 
         {/* PAYMENT DETAIL */}
-        <h1>Tickets</h1>
+        <h1>Your purchase:</h1>
         {products?.map(e => {
             return (<div key={e.id} className={style.cards}>
                 <li className={style.cards_item}> 
-                <div className={style.card}>
+                <div className={css.card}>
                     <div className={style.card_image}><img src={e.logo} alt='#'/></div>
                     <div className={style.card_content}>
                     <h2 className={style.card_title}>{e.airline}</h2>
                     <h5>Origin: {e.origin} | Destination: {e.destination} </h5>
                     </div>
                     <div>
-                    <p className={style.card_text}>${e.price} | price | price</p>
+                    <p className={style.card_text}>${e.price}</p>
                     </div>
-                    <h5>Amount: {e.amount}</h5>
+                    <h5>Amount:{e.amount}</h5>
                 </div>
                 </li>
             </div> )
         })}
 
-        {/* PAYMENT METHOD */}
-        <h1>Payment Method</h1>
-        <br />
-
-        {/* MERCADO PAGO */}
-        <br />
-        <MPPayment subTotal={subTotal} products={products} />
-        <br />
-
-        {/* PAYPAL */}
-        <PayPalScriptProvider options={{ "client-id": 'Af5RBL-IS1S6n_djlUuVWC-SSHDEWJDfTMVCyBPAJBISiKn6lgZmNmLX9D5KvBhWZ38jY_2Sy3ExLLQN'}}>
-            <PayPalButtons
-            createOrder={createOrder}
-            onApprove={onApprove}
-            />            
-        </PayPalScriptProvider>
-
-        {/* STRIPE */}
-        <form className={css.form_container}>
-            <br />
-            <label>Email</label>
-            <input 
-            type="text" 
-            value={email} 
-            name='email'
-            onChange={e => setEmail(e.target.value)}
-            required
-            />
-
-            <br />
-            <br />
-            <CardElement onChange={handleChange}/>
+        <div className={css.methods}>
+            {/* PAYMENT METHOD */}
+            <h1>Payment Method</h1>
             <br />
 
             <div>
-            <h5>Order Total:</h5>{ subTotal && <span>${subTotal}</span>}
+                <h5>Order Total:</h5>{ subTotal && <span>${subTotal}</span>}
             </div>
-
             <br />
 
-            <LoadingButton
-                onClick={handleSubmit}
-                endIcon='✔'
-                loading={loading}
-                loadingPosition="end"
-                variant="contained"
-                disabled={processing || disabled || succeeded || errorMsg.value}
-                ><span>{loading ? <p>Processing</p> : 'Buy now'}</span></LoadingButton>
+            {/* MERCADO PAGO */}
+            <hr className={css.hr_separator} />
+            <br />
+            <MPPayment loading={loading} disabled={disabled} subTotal={subTotal} products={products} user={user} />
+            <br />
+            <hr className={css.hr_separator} />
+            {/* PAYPAL */}
+            <br />
+            <PayPalScriptProvider 
+            options={{ "client-id": 'Af5RBL-IS1S6n_djlUuVWC-SSHDEWJDfTMVCyBPAJBISiKn6lgZmNmLX9D5KvBhWZ38jY_2Sy3ExLLQN'}}>
+                <PayPalButtons
+                disabled={loading || !disabled}
+                createOrder={createOrderPayPal}
+                onApprove={onApprove}
+                onError={onError}
+                />            
+            </PayPalScriptProvider>
+            <br />
+            <hr className={css.hr_separator} />
+            <br />
+            {/* STRIPE */}
+            <form className={css.form_container}>
+                <br />
 
-            {errorMsg.string && <span>{errorMsg.string}</span>}
-        </form>
+                <TextField 
+                id="outlined-size-small"
+                label='Email'
+                type="text" 
+                value={email} 
+                name='email'
+                onChange={e => setEmail(e.target.value)}
+                required
+                />
+                <br />
+                <br />
+                <CardElement onChange={handleChange}/>
+                <br />
+
+                <br />
+                <LoadingButton
+                    onClick={handleSubmit}
+                    endIcon='✔'
+                    loading={loading}
+                    loadingPosition="end"
+                    variant="contained"
+                    disabled={processing || disabled || succeeded || errorMsg.value}
+                    ><span>{loading ? <p>Processing</p> : 'Buy now'}</span></LoadingButton>
+
+                {errorMsg.string && <span>{errorMsg.string}</span>}
+            </form>            
+        </div>
+
     </div>
   )
 }
