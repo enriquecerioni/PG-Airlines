@@ -262,14 +262,10 @@ debugger;
  
 
 export function deleteFlights(payload){
-    debugger;
-        const flight = {
-           flight:payload
-        }; 
-        console.log(flight);
-        debugger;
+       
+         debugger;
          return function (dispatch){
-             axios.post('http://localhost:3001/flights/delete',flight)
+             axios.post('http://localhost:3001/flights/delete',payload)
              .then((response)=>{
                  dispatch({
                      type:DELETE_FLIGHTS,

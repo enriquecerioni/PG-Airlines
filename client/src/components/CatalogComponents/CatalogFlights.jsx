@@ -8,7 +8,7 @@ import Modal from '@mui/material/Modal';
 import s from "../styles/Catalog.module.css";
 import { editToFlights } from '../../redux/actions/index'
 import { useDispatch, useSelector } from 'react-redux';
-
+import { deleteFlights } from '../../redux/actions/index'
 
 const columns = data;
 let flightIds = [];
@@ -23,12 +23,24 @@ const style = {
     boxShadow: 24,
     p: 5
 };
-function handleDelete(){
 
-}
 function handleRowSelection(selectedRows) {
-debugger
+debugger;
     console.log('Valor: ' + selectedRows);
+    if(flightIds.length == 0){
+        flightIds.push(selectedRows);
+        return
+    }     
+   const item =  flightIds.find(f=> f === selectedRows );
+      
+    if(item != undefined){
+       flightIds.slice( flightIds.indexOf('item'),1);  
+        return
+    }else{
+        flightIds.push(selectedRows);
+    }        
+    
+    
   }
 
 function CatalogFlights({ rows }) {
@@ -39,7 +51,16 @@ function CatalogFlights({ rows }) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleSave = () => dispatch(editToFlights(dataFlight));
- debugger;
+    
+    function handleDelete(){
+        if(flightIds.length > 0){
+            dispatch(deleteFlights(flightIds));
+        }else{
+            alert("Tu nesecitas seleccionar uno para eliminar");
+        }
+         
+    }
+
     function handleFlight(e) {
         dataFlight.flight = e.target.value;
     }
