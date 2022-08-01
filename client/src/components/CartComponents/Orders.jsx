@@ -12,6 +12,7 @@ function Orders() {
     // console.log(user)
     const ordersArr = useSelector(state => state.orders)
     const navigate= useHistory()
+    const user=useSelector(state=>state.currentUser)
     console.log(ordersArr)
 
     useEffect(() => {
@@ -44,51 +45,51 @@ function handleClick(e){
   window.location.reload()
   
 }
+let userOrders=ordersArr?.filter((data) => user.length && data.userId=== user[0].id)
   return (
     <div className={style.main_container}>
         <h1>Your orders</h1>
-        {ordersArr.length ? (
-        ordersArr.map(data => {
-          return (
-            <>
-            <Card className={style.card_container} sx={{ minWidth: 275 }} key={data.idpurchase}>
-                <h3>Order nº{data.id}</h3>
-                <strong><h5>Purchase id: #{data.idpurchase}</h5></strong> 
-                {data.creationdate && <h5>Purchase date: {data.creationdate}</h5>}  
-                <div className={style.id_container}>
-                  <p>Total paid: $ {data.price}</p>    
-                  {data.idpurchase && <span>Payment status: confirmed</span>}     
-                </div>              
-              <TableContainer>
-                <Table>
-                  <TableHead>
-                    <TableCell><strong>Airline</strong></TableCell>
-                    <TableCell><strong>Amount</strong></TableCell>
-                    <TableCell><strong>Value</strong></TableCell>
-                    <TableCell><strong>Link</strong></TableCell>
-                  </TableHead>
-                  <TableBody>
-                    {data.stocks?.map((e, p)=> {
-                      return <TableRow key={p}>
-                        <TableCell>{e.airline}</TableCell>
-                        <TableCell>{e.amount}</TableCell>   
-                        <TableCell>${e.value}</TableCell> 
-                        <TableCell><Link to={`/ticket/${e.link}`}>Flight Detail</Link></TableCell>                     
-                      </TableRow> 
-                    })}                    
-                  </TableBody> 
-                </Table>
-              </TableContainer>
-              <br />
-            </Card>
+        { userOrders.length ? userOrders.map((data)=>{
+            return (
+              <>
+              <Card className={style.card_container} sx={{ minWidth: 275 }} key={data.idpurchase}>
+                  <h3>Order nº{data.id}</h3>
+                  <strong><h5>Purchase id: #{data.idpurchase}</h5></strong> 
+                  {data.creationdate && <h5>Purchase date: {data.creationdate}</h5>}  
+                  <div className={style.id_container}>
+                    <p>Total paid: $ {data.price}</p>    
+                    {data.idpurchase && <span>Payment status: confirmed</span>}     
+                  </div>              
+                <TableContainer>
+                  <Table>
+                    <TableHead>
+                      <TableCell><strong>Airline</strong></TableCell>
+                      <TableCell><strong>Amount</strong></TableCell>
+                      <TableCell><strong>Value</strong></TableCell>
+                      <TableCell><strong>Link</strong></TableCell>
+                    </TableHead>
+                    <TableBody>
+                      {data.stocks?.map((e, p)=> {
+                        return <TableRow key={p}>
+                          <TableCell>{e.airline}</TableCell>
+                          <TableCell>{e.amount}</TableCell>   
+                          <TableCell>${e.value}</TableCell> 
+                          <TableCell><Link to={`/ticket/${e.link}`}>Flight Detail</Link></TableCell>                     
+                        </TableRow> 
+                      })}                    
+                    </TableBody> 
+                  </Table>
+                </TableContainer>
+                <br />
+              </Card>
+              
+              </>
             
-            </>
           )
         })
-      ): 
-      (
+      : (
       <div className={style.empty_order}>
-        <h3>No purchase made yet</h3>
+        <h3>You haven't made any purchases yet. When you purchase an item it will show up here.</h3>
         <img src={empty} alt="#" />
       </div>)}
       <button onClick={(e)=>handleClick(e)}>Go back to home</button>

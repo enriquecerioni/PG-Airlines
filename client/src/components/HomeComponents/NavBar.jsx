@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import s from "../styles/NavBar.module.css";
 import logo from "../styles/logo.png";
@@ -12,6 +12,7 @@ import Badge from "@mui/material/Badge";
 import ImageAvatars from "../avatar";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import { toast } from "react-toastify";
+import { currentUser } from "../../redux/actions";
 
 export default function NavBar() {
   const { products } = useContext(CartContext);
@@ -22,6 +23,7 @@ export default function NavBar() {
   const navigate = useHistory();
   const [stateCart, setStateCart] = useState(products.length);
   const user = useSelector((state) => state.currentUser);
+  const dispatch=useDispatch()
 //console.log(Object.keys(user).length)
 
   useEffect(() => {
@@ -34,6 +36,7 @@ export default function NavBar() {
     // window.location.reload();
     navigate.replace("/");
     window.location.reload();
+    
 
     // document.URL === "http://localhost:3000/"
     //   ? window.location.reload()

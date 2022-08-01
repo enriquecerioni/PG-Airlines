@@ -7,11 +7,10 @@ require('dotenv').config()
 
 orderRouter.get('/', async (req, res) => {
     try {
-        
         let allOrders = await Order.findAll()
 
         allOrders.length ? 
-        res.status(200).send(allOrders)
+        res.status(200).json(allOrders)
         : res.status(400).send('no hay nada')
 
     } catch (error) {

@@ -24,7 +24,11 @@ module.exports = (sequelize) => {
     creationdate: {
       type: DataTypes.STRING,
       allowNull: true
-    }
+    },
+    // userId:{
+    //     type: DataTypes.INTEGER,
+    //     allowNull:false
+    //    },
   },{
     timestamps: false,
   });
