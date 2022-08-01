@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./components/HomeComponents/Home";
 import NavBar from "./components/HomeComponents/NavBar";
 import Details from "./components/Details";
@@ -13,7 +13,7 @@ import Cart from "./components/CartComponents/Cart";
 import Payment from "./components/CartComponents/Payment";
 import Catalog from './components/CatalogComponents/Catalog';
 import RegisterAirline from "./components/FormsComponents/RegisterAirline";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'

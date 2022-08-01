@@ -6,6 +6,9 @@ import { addToFavorite, currentUser } from "../../redux/actions/index";
 import { CartContext } from "../CartComponents/CartContext";
 import { useContext } from "react";
 import { toast } from "react-toastify";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { IconButton } from '@mui/material'
 
 function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,stock, destination}) {
 
@@ -60,13 +63,14 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
   return (
     <div className={style.cards}>
       <li className={style.cards_item}>
-       { user && !user.permissions ? <button 
+       { user && !user.permissions ? 
+       <IconButton 
           id="mailBTN"
+          color='error'
           disabled={listDisabled}
           onClick={() => addFav(item)}
-        >
-          Favorite
-        </button>
+        ><FavoriteIcon />
+        </IconButton>
       : null}
         <div className={style.info}>
           <button className={style.button}>i </button>
@@ -77,9 +81,13 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
             <h5 className={style.a}> {origin} </h5>
           </div>
         </div>
-        { user && !user.permissions ? <button id="addToCart"className={style.btnCart} onClick={handleAddCart}>
-          Add to cart
-        </button>
+        { user && !user.permissions ? 
+        <IconButton 
+        id="addToCart"
+        className={style.btnCart} 
+        onClick={handleAddCart}>
+        <AddShoppingCartIcon />
+        </IconButton>
         : null
         }
         <div className={style.card}>

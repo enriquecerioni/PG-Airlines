@@ -26,6 +26,7 @@ import {
   DELETE_FLIGHTS,
   DELETE_USER,
   CURRENT_USER,
+  GET_ORDERS,
 } from "../actions";
 
 const initialState = {
@@ -36,6 +37,7 @@ const initialState = {
   flight: [], // vuelo con detalles
   user: {},
   allUsers:[],
+  orders: [],
   currentUser:[],
   reset: true,
   orderState: "initial",
@@ -380,6 +382,13 @@ const rootReducer = (state = initialState, action) => {
         }
       }
       
+
+    case GET_ORDERS: {
+      return {
+        ...state, 
+        orders: action.payload
+      }
+    }
 
     default:
       return state;

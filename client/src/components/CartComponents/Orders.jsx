@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createUser } from '../../redux/actions/index'
+import { createUser, getOrders } from '../../redux/actions/index'
+import { Card, TableRow, TableHead, TableContainer, TableCell,TableBody, Table } from '@mui/material';
+import style from '../styles/Payment.module.css'
+import { Link } from 'react-router-dom';
+import empty from '../styles/assets/emptyorders.jpg'
 
 function Orders() {
-    const [ orders, setOrders ] = useState([])
-
     const dispatch = useDispatch()
-    let user = useSelector(state => state.allUsers)
-    console.log(user)
-
-    useEffect(() => {
-      dispatch(createUser())
-    }, [])
+    // let user = useSelector(state => state.allUsers)
+    // console.log(user)
+    const ordersArr = useSelector(state => state.orders)
+    console.log(ordersArr)
 
     useEffect(() => {
       /*
@@ -33,15 +33,54 @@ function Orders() {
       */
     }, [/*user*/])
 
+    useEffect(() => {
+      dispatch(getOrders())
+    }, [])
+
   return (
-    <div style={{marginTop: 5 + 'rem'}}>
-        <h1>Your orders</h1>{orders?.map(order => {
+    <div className={style.main_container}>
+        <h1>Your orders</h1>
+        {ordersArr.length ? (
+        ordersArr.map(data => {
           return (
-            <div>
-              
-            </div>
+            <Card className={style.card_container} sx={{ minWidth: 275 }} key={data.idpurchase}>
+                <h3>Order nº{data.id}</h3>
+                <strong><h5>Purchase id: #{data.idpurchase}</h5></strong> 
+                {data.creationdate && <h5>Purchase date: {data.creationdate}</h5>}  
+                <div className={style.id_container}>
+                  <p>Total paid: $ {data.price}</p>    
+                  {data.idpurchase && <span>Payment status: confirmed</span>}     
+                </div>              
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableCell><strong>Airline</strong></TableCell>
+                    <TableCell><strong>Amount</strong></TableCell>
+                    <TableCell><strong>Value</strong></TableCell>
+                    <TableCell><strong>Link</strong></TableCell>
+                  </TableHead>
+                  <TableBody>
+                    {data.stocks?.map((e, p)=> {
+                      return <TableRow key={p}>
+                        <TableCell>{e.airline}</TableCell>
+                        <TableCell>{e.amount}</TableCell>   
+                        <TableCell>${e.value}</TableCell> 
+                        <TableCell><Link to={`/ticket/${e.link}`}>Flight Detail</Link></TableCell>                     
+                      </TableRow> 
+                    })}                    
+                  </TableBody> 
+                </Table>
+              </TableContainer>
+              <br />
+            </Card>
           )
-        })}
+        })
+      ): 
+      (
+      <div className={style.empty_order}>
+        <h3>No purchase made yet</h3>
+        <img src={empty} alt="#" />
+      </div>)}
     </div>
   )
 }
