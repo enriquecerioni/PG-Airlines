@@ -10,7 +10,8 @@ import { editToFlights } from '../../redux/actions/index'
 import { useDispatch, useSelector } from 'react-redux';
 
 
-const columns = data
+const columns = data;
+let flightIds = [];
 const style = {
     position: 'absolute',
     top: '50%',
@@ -22,6 +23,13 @@ const style = {
     boxShadow: 24,
     p: 5
 };
+function handleDelete(){
+
+}
+function handleRowSelection(selectedRows) {
+debugger
+    console.log('Valor: ' + selectedRows);
+  }
 
 function CatalogFlights({ rows }) {
     const dispatch = useDispatch()
@@ -31,22 +39,47 @@ function CatalogFlights({ rows }) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleSave = () => dispatch(editToFlights(dataFlight));
+ debugger;
+    function handleFlight(e) {
+        dataFlight.flight = e.target.value;
+    }
+    function handleAirline(e) {
+        dataFlight.airline = e.target.value;
+    }
+    function handleLogo(e) {
+        dataFlight.logo = e.target.value;
+    }
+    function handlePrice(e) {
+        dataFlight.price = e.target.value;
+    }
+    function handleStock(e) {
+        dataFlight.stock = e.target.value;
+    }
+    function handleOrigin(e) {
+        dataFlight.origin = e.target.value;
+    }
+    function handleDuration(e) {
+        dataFlight.duration = e.target.value;
+    }
+    function handleDepH(e) {
+        dataFlight.departureHour = e.target.value;
+    }
+    function handleArrH(e) {
+        dataFlight.arrivalHour = e.target.value;
+    }
+    function handleDestination(e) {
+        dataFlight.destination = e.target.value;
+    }
+    function handleDepD(e) {
+        dataFlight.departureDate = e.target.value;
+    }
+    function handleArrD(e) {
+        dataFlight.arrivalDate = e.target.value;
+    }
+    function handleDescription(e) {
+        dataFlight.description = e.target.value;
+    }
 
-
-    const [validForm, setValidForm] = useState(null);
-    const [flight, setFlight] = useState({ value: '', valid: null });
-    const [airline, setAirline] = useState({ value: '', valid: null });
-    const [logo, setLogo] = useState({ value: '', valid: null });
-    const [price, setPrice] = useState({ value: '', valid: null });
-    const [stock, setStock] = useState({ value: '', valid: null });
-    const [origin, setOrigin] = useState({ value: '', valid: null });
-    const [duration, setDuration] = useState({ value: '', valid: null });
-    const [depH, setDepH] = useState({ value: '', valid: null });
-    const [arrH, setArrH] = useState({ value: '', valid: null });
-    const [destination, setDestination] = useState({ value: '', valid: null });
-    const [depD, setDepD] = useState({ value: '', valid: null });
-    const [arrD, setArrD] = useState({ value: '', valid: null });
-    const [description, setDescription] = useState({ value: '', valid: null });
 
     return [
         <Box sx={{ height: 400, width: '100%' }}>
@@ -57,6 +90,7 @@ function CatalogFlights({ rows }) {
                     getData(params.row);
 
                 }}
+                onSelectionModelChange ={(e) => { handleRowSelection(e)}}
                 rows={rows}
                 columns={columns}
                 pageSize={5}
@@ -65,6 +99,7 @@ function CatalogFlights({ rows }) {
 
             />
         </Box>,
+         <button className={s.btn} onClick={handleDelete}>Delete</button>,
         <div>
 
             <Modal
@@ -80,183 +115,115 @@ function CatalogFlights({ rows }) {
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }} >
                         <form className={s.form}>
-                            <div><label>Flight: </label>
+                            <div><label for="flight">Flight: </label>
                                 <input
-                                    state={flight}
-                                    setState={setFlight}
-                                    type='text'
-                                    label='ID Flight'
-                                    placeholder='Flight'
+                                    onChange={(e) => { handleFlight(e) }}
                                     name='flight'
                                     value={dataFlight.id}
-                                //error='...'
-                                //regularExpression={}
                                 />
                             </div>
                             <div><label>Airline: </label>
                                 <input
-                                    state={airline}
-                                    setState={setAirline}
+                                    onChange={(e) => { handleAirline(e) }}
                                     name='airline'
                                     type="text"
-                                    label='Airline'
-                                    placeholder='Airline'
-                                    value={dataFlight.airline}
-                                //error='...'
-                                //regularExpression={}
+                                    defaultValue={dataFlight.airline}
                                 />
                             </div>
-                            <div><label>Logo: </label>
+                            <div><label for="logo">Logo: </label>
                                 <input
-                                    state={logo}
-                                    setState={setLogo}
+                                    onChange={(e) => { handleLogo(e) }}
                                     name='logo'
                                     type="text"
-                                    label='Logo'
-                                    placeholder='Image'
-                                    value={dataFlight.logo}
-                                // error='...'
-                                // regularExpression={}
+                                    defaultValue={dataFlight.logo}
                                 />
                             </div>
-                            <div><label>Price: </label>
+                            <div><label for="price">Price: </label>
                                 <input
-                                    state={price}
-                                    setState={setPrice}
+                                    onChange={(e) => { handlePrice(e) }}
                                     name='price'
                                     type="number"
-                                    label='Price'
-                                    placeholder='Price'
-                                    value={dataFlight.price}
-                                // error='...'
-                                // regularExpression={}
+                                    defaultValue={dataFlight.price}
                                 />
                             </div>
-                            <div><label>Stock: </label>
+                            <div><label for="stock">Stock: </label>
                                 <input
-                                    state={stock}
-                                    setState={setStock}
+                                    onChange={(e) => { handleStock(e) }}
                                     name='stock'
                                     type="number"
                                     label='Stock'
-                                    placeholder='Stock'
-                                    value={dataFlight.stock}
-                                // error='...'
-                                // regularExpression={}
+                                    defaultValue={dataFlight.stock}
                                 />
                             </div>
                             <div><label>Origin: </label>
                                 <input
-                                    state={origin}
-                                    setState={setOrigin}
+                                    onChange={(e) => { handleOrigin(e) }}
                                     name='origin'
                                     type="text"
-                                    label='Origin'
-                                    placeholder='Origin'
-                                    value={dataFlight.origin}
-                                // error='...'
-                                // regularExpression={}
+                                    defaultValue={dataFlight.origin}
                                 />
                             </div>
-                            <div><label>Duration: </label>
+                            <div><label for="duration">Duration: </label>
                                 <input
-                                    state={duration}
-                                    setState={setDuration}
+                                    onChange={(e) => { handleDuration(e) }}
                                     name='duration'
                                     type="text"
-                                    label='Duration'
-                                    placeholder='Duration'
-                                    value={dataFlight.durationEstimated}
-                                // error='...'
-                                // regularExpression={}
+                                    defaultValue={dataFlight.durationEstimated}
                                 />
                             </div>
                             <div><label>Departure Hour: </label>
                                 <input
-                                    state={depH}
-                                    setState={setDepH}
+                                    onChange={(e) => { handleDepH(e) }}
                                     name='depH'
                                     type="text"
-                                    label='DepH'
-                                    placeholder='DepH'
-                                    value={dataFlight.departureHour}
-                                // error='...'
-                                // regularExpression={}
+                                    defaultValue={dataFlight.departureHour}
                                 />
                             </div>
                             <div><label>Arrival Hour: </label>
                                 <input
-                                    state={arrH}
-                                    setState={setArrH}
+                                    onChange={(e) => { handleArrH(e) }}
                                     name='arrH'
                                     type="text"
-                                    label='ArrH'
-                                    placeholder='ArrH'
-                                    value={dataFlight.arrivalHour}
-                                // error='...'
-                                // regularExpression={}
+                                    defaultValue={dataFlight.arrivalHour}
                                 />
                             </div>
                             <div><label>Destination: </label>
                                 <input
-                                    state={destination}
-                                    setState={setDestination}
+                                    onChange={(e) => { handleDestination(e) }}
                                     name='destination'
                                     type="text"
-                                    label='Destination'
-                                    placeholder='Destination'
-                                    value={dataFlight.destination}
-                                // error='...'
-                                // regularExpression={}
+                                    defaultValue={dataFlight.destination}
                                 />
                             </div>
                             <div><label>Departure Date: </label>
                                 <input
-                                    state={depD}
-                                    setState={setDepD}
+                                    onChange={(e) => { handleDepD(e) }}
                                     name='depD'
                                     type="text"
-                                    label='DepD'
-                                    placeholder='DepD'
-                                    value={dataFlight.departureDate}
-                                // error='...'
-                                // regularExpression={}
+                                    defaultValue={dataFlight.departureDate}
                                 />
                             </div>
                             <div><label>Arrival Date: </label>
                                 <input
-                                    state={arrD}
-                                    setState={setArrD}
+                                    onChange={(e) => { handleArrD(e) }}
                                     name='arrD'
                                     type="text"
-                                    label='ArrD'
-                                    placeholder='ArrD'
-                                    value={dataFlight.arrivalDate}
-                                // error='...'
-                                // regularExpression={}
+                                    defaultValue={dataFlight.arrivalDate}
                                 />
                             </div>
                             <div><label>Description: </label>
                                 <input
-                                    state={description}
-                                    setState={setDescription}
+                                    onChange={(e) => { handleDescription(e) }}
                                     name='description'
                                     type="text"
                                     label='Description'
-                                    placeholder='Description'
-                                    value={dataFlight.description}
-                                // error='...'
-                                // regularExpression={}
+                                    defaultValue={dataFlight.description}
                                 />
                             </div>
-                            {/* {validForm === false && <span>Please complete all fields correctly</span>} */}
                             <div>
                                 <button className={s.btn} onClick={handleSave} >Save</button>
                                 <button className={s.btn} onClick={handleClose}>Cancel</button>
                             </div>
-
-                            {validForm === true && <span>Thank you!</span>}
-
                         </form>
                     </Typography>
                 </Box>
