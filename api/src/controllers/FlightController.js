@@ -23,15 +23,16 @@ async function getOriginFlight(req, res) {
   try {
     const { origen } = req.query;
     const dbFirestore = firebase.firestore();
-    
-    if(!origen)res.json({message:"write a origin"})
-    else{
-    let vuelos = await dbFirestore.collection("db").get()
-    let arrayDatos= vuelos.docs.filter(element => element.data().origin.toLowerCase().includes(origen.toLowerCase()));
-    let vuelosFiltrados = arrayDatos.map(arr => arr._delegate._document.data.value.mapValue.fields);
-      vuelosFiltrados.length ? res.status(200).json(vuelosFiltrados) : res.status(404).json({error:"Origin not found"})
-    
-  }} catch (error) {
+
+    if (!origen) res.json({ message: "write a origin" })
+    else {
+      let vuelos = await dbFirestore.collection("db").get()
+      let arrayDatos = vuelos.docs.filter(element => element.data().origin.toLowerCase().includes(origen.toLowerCase()));
+      let vuelosFiltrados = arrayDatos.map(arr => arr._delegate._document.data.value.mapValue.fields);
+      vuelosFiltrados.length ? res.status(200).json(vuelosFiltrados) : res.status(404).json({ error: "Origin not found" })
+
+    }
+  } catch (error) {
     next(error.message)
   }
 }
@@ -42,7 +43,7 @@ async function updateToflights(req, res) {
     console.log(flight)
     if (!flight.id == ' ') {
       const dbFirestore = firebase.firestore();
-    
+
       let flightEdit = await dbFirestore.collection("db").doc(flight.id).update(
         {
           airline: flight.airline,
@@ -52,18 +53,19 @@ async function updateToflights(req, res) {
           departureHour: flight.departureHour,
           description: flight.description,
           destination: flight.destination,
-          durationEstimated: flight.duration,
-          flight: flight.flight,
+          durationEstimated: flight.durationEstimated,
+          flight: flight.id,
           logo: flight.logo,
           origin: flight.origin,
           price: flight.price,
           stock: flight.stock
         });
-      if (flightEdit[0] === 0) {
-        res.status(404).send("Flight not Found");
-      } else {
         res.send("Flight edited.")
-      }
+      // if (flightEdit[0] === 0) {
+      //   res.status(404).send("Flight not Found");
+      // } else {
+      //   res.send("Flight edited.")
+      // }
     }
   } catch (error) {
     console.log(error);
@@ -98,7 +100,7 @@ async function createFlights(req, res) {
             stock: flight.stock
 
           });
-       return res.status(201).json(flightCreate);
+        return res.status(201).json(flightCreate);
       }
     }
   } catch (error) {
@@ -109,19 +111,19 @@ async function createFlights(req, res) {
 
 async function deleteFlights(req, res) {
   const { flightIds } = req.body;
- 
+
   try {
-    if (!flightIds.leght > 0 ) {
+    if (!flightIds.leght > 0) {
 
       const dbFirestore = firebase.firestore();
       let flightdb
-      await flightIds.foreach(async (f) =>{
-           flightdb  = await dbFirestore.collection("db").doc(f).delete();
-      });          
+      await flightIds.foreach(async (f) => {
+        flightdb = await dbFirestore.collection("db").doc(f).delete();
+      });
       if (false) {
       }
-      else {        
-       return res.status(201).json(flightdb);
+      else {
+        return res.status(201).json(flightdb);
       }
     }
   } catch (error) {
