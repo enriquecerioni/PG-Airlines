@@ -114,7 +114,7 @@ auth.onAuthStateChanged(async (user) => {
 
 //--------------------------------------------------------
 
-export async function singUp(email, password, name) {
+export async function singUp(email, password, name, phone) {
   try {
     let cred = await auth.createUserWithEmailAndPassword(email, password);
     let uid = cred.user.uid;
@@ -125,13 +125,42 @@ export async function singUp(email, password, name) {
     //console.log("2", email, name, uid);
 
     console.log(email, name, uid, img);
-    await store.dispatch(createUser({ email, name, uid, img }));
+    await store.dispatch(createUser({ email, name, uid, img, phone }));
     return  dbFirebase.collection("users").doc(email).set({
+      name: name,
       email: email,
       admin: false,
+      phone: phone,
       photo: img? img:"",
       uid: uid,
       superAdmin: false,
+    });
+  } catch (error) {
+    return `${error.message}`;
+  }
+}
+
+export async function singUpAirline(email, password, name, image, phone) {
+  try {
+    let cred = await auth.createUserWithEmailAndPassword(email, password);
+    let uid = cred.user.uid;
+    let img = cred.user.photoURL;
+    
+    //console.log("1", email, name, uid);
+    await cred.user.sendEmailVerification();
+    //console.log("2", email, name, uid);
+
+    console.log(email, name, uid, img);
+    await store.dispatch(createUser({ email, name, uid, img, image, phone }));
+    return  dbFirebase.collection("users").doc(email).set({
+      name: name,
+      email: email,
+      admin: false,
+      phone: phone,
+      photo: image ? image : null,
+      uid: uid,
+      superAdmin: false,
+      empresa: false,
     });
   } catch (error) {
     return `${error.message}`;

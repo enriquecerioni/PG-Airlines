@@ -238,14 +238,14 @@ header .imageText .profession{
 .sidebar header .toggle{
   position: absolute;
   top: 20rem;
-  right: -25px;
+  right: -12px;
   transform: translateY(50%) rotate(0deg);
   height: 20px;
   width: 20px;
   background-color: #3985CB;
   color: #3985CB;
   border-radius: 50%;
-  background: url("arrow.svg") no-repeat 0 0;
+  background:  url("arrow.svg") no-repeat 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
