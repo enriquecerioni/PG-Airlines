@@ -158,6 +158,7 @@ export async function logIn(email, password) {
   }
 }
 
+
 export async function ejecutar() {
   try {
     let google_provider = new firebase.auth.GoogleAuthProvider();
