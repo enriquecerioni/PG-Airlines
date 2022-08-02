@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createUser, getAllUsers, getOrders } from '../../redux/actions/index'
 import { Card, TableRow, TableHead, TableContainer, TableCell,TableBody, Table } from '@mui/material';
 import style from '../styles/Payment.module.css'
 import { Link, useHistory } from 'react-router-dom';
 import empty from '../styles/assets/emptyorders.jpg'
+import { CartContext } from './CartContext';
 
 function Orders() {
     const dispatch = useDispatch()
     // let user = useSelector(state => state.allUsers)
     // console.log(user)
+    const { products, setProducts } = useContext(CartContext)
     const ordersArr = useSelector(state => state.orders)
     const navigate= useHistory()
     const user=useSelector(state=>state.currentUser)
@@ -38,6 +40,8 @@ function Orders() {
     useEffect(() => {
       dispatch(getOrders())
       dispatch(getAllUsers())
+      setProducts([])
+      localStorage.setItem("cartProducts", JSON.stringify(products))
     }, [])
 function handleClick(e){
   e.preventDefault();

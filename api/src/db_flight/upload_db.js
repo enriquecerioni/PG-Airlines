@@ -1,10 +1,11 @@
-const migrar =  () => {
-  
+const migrar = async () => {
+  const {createAdmin}=require('../controllers/AdminControllers')
     const firebase = require("firebase");
   const admin = require("firebase-admin");
    const data = require("./db.json");
   const serviceAccount = require("./key_service_account.json");
   const collectionKey = "db"; //Name of the collection
+
 
   const firebaseConfig = {
     apiKey: "AIzaSyBGr8PQQDvTRK484636fOa1XJVhIJ0lmqA",
@@ -28,14 +29,14 @@ const migrar =  () => {
 
 
 
-  // const initializeApp = require("firebase/app");
+  const initializeApp = require("firebase/app");
 
   //------------------Validate Flights
   // let vuelos = await dbFirestore.collection("db").get();
   // if (vuelos.docs.length) {
   //   return console.log("Los vuelos ya se cargaron.");
   // }
- // ------------------
+ //------------------
   
   //   admin.initializeApp({
   //    credential: admin.credential.cert(serviceAccount),
@@ -58,8 +59,16 @@ const migrar =  () => {
   //       });
   //   });
   // }
- 
+                      //Generador de empresas
+//-------------------------------------------------------------------------
+// for (const airline in data) {
+//   //console.log(data[`${airline}`]);
+//   await createAdmin(data[`${airline}`].airline,data[`${airline}`].origin,data[`${airline}`].destination,data[`${airline}`].durationEstimated,data[`${airline}`].price,data[`${airline}`].stock,data[`${airline}`].departureDate,data[`${airline}`].arrivalDate,data[`${airline}`].logo)
+// }
   
+//--------------------------------------------------------------------
+// });
+   
 };
 module.exports = {
   migrar,

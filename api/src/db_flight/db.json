@@ -316,7 +316,7 @@
     },
     "AR1369":{
         "flight":"AR1369",
-        "airline":"Aerolíneas Argentinas",
+        "airline":"LATAM Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AR.png",
         "price":80000,
         "stock":76,
@@ -421,7 +421,7 @@
     },
     "AR1242":{
         "flight":"AR1242",
-        "airline":"Aerolíneas Argentinas",
+        "airline":"LATAM Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AR.png",
         "price":110495,
         "stock":70,
@@ -496,7 +496,7 @@
     },
     "AR1281":{
         "flight":"AR1281 ",
-        "airline":"Aerolíneas Argentinas",
+        "airline":"Alaska Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AR.png",
         "price":49007,
         "stock":78,
@@ -541,7 +541,7 @@
     },
     "AR1361":{
         "flight":"AR1361",
-        "airline":"Aerolíneas Argentinas",
+        "airline":"Alaska Airlines",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AR.png",
         "price":118687,
         "stock":100,
@@ -691,7 +691,7 @@
     },
     "AR1651":{
         "flight":"AR1651",
-        "airline":"Aerolíneas Argentinas",
+        "airline":"Air Europa",
         "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AR.png",
         "price":72128,
         "stock":147,

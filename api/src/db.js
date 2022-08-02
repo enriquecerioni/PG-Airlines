@@ -86,7 +86,7 @@ const { Admin, Airline, Flight, Order, User ,Cart , Comment} = sequelize.models;
 User.hasMany(Order,{foreignKey:"userId"});
 Order.belongsTo(User,{foreignKey:"userId"});
 
-Airline.hasMany(User,{foreignKey:"userId"});
+Airline.hasOne(User,{foreignKey:"userId"});
 User.belongsTo(Airline,{foreignKey:"userId"});
 
 
