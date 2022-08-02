@@ -3,54 +3,76 @@ import { Link } from "react-router-dom";
 import s from "../styles/ProfileNav.module.css";
 
 export default function ProfileNav() {
+
   return (
-    <aside>
-      <figure className={s.imgProfile}>
-        <figcaption className={s.fig1}>Welcome</figcaption>
-        <figcaption className={s.fig2}>Username</figcaption>
-        <img
-          className={s.imgProfile}
-          src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
-          alt="profile"
-        />
-      </figure>
-      <div className={s.divLi}>
-        <ul>
-          <li id="AccInfo">
-            <Link className={s.link} to="/profile">
-              <span className={s.span}>Account Information</span>
-            </Link>
-          </li>
-          <li id="TicketsBought">
-            <Link
-              className={s.link}
-              to="/purchases" /*PODER DEJAR REVIEW A LA EMPRESA*/
-            >
-              <span className={s.span}>My Scheduled Flights</span>
-            </Link>
-          </li>
-          {/* user.permissions === true*/}
-          {/*Admin Only page, manage perfil de Airline*/}
-          {/*PODER DEJAR REVIEW A LA EMPRESA*/}
-          <li id="MyAirline">
-            <Link className={s.link} to="/airlineProfile">
-              <span className={s.span}>Manage Airline</span>
-            </Link>
-          </li>
-          {/*Admin Only page, donde postear vuelos*/}
-          <li id="OwnFlights">
-            <Link className={s.link} to="/catalog">
-              <span className={s.span}>Manage Airline Flights</span>
-            </Link>
-          </li>
-          {/* <li id="ManageUsers" /* SUPER ADMIN ONLY Page manage users > */}
-          {/* Manage Users */}
-          {/* </li> */}
-          {/* <li id="ManageAirlines" /* SUPER ADMIN ONLY Page manage users > */}
-          {/* Manage Airlines */}
-          {/* </li> */}
-        </ul>
-      </div>
+    <aside className={s.sidebar}>
+        <header>
+            <div className={s.imageText}>
+                <span className={s.image}>
+                    {/* <img src="logo.png" alt=""> */}
+                </span>
+
+                <div className={s.text}>
+                    <figure id="img-profile">
+                        <figcaption className={s.fig1}>Welcome</figcaption>
+                        <figcaption className={s.fig2}>JuanPepito52</figcaption>
+                        <img className={s.imgProfile} src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" alt="profile"/>
+                      </figure> 
+                </div>
+            </div>
+            <div className={s.arrow}>
+                <i className={s.toggle}></i>
+            </div>
+        </header>
+
+        <div className={s.menuBar}>
+            <div className={s.menu}>
+
+                <ul className={s.menuLinks}>
+                    <li className={s.navLink}>
+                        <Link className={s.links} to="/profile">
+                            <i className='bx bx-home-alt icon' ></i>
+                            <span className={s.text}>Account Information</span> 
+                        </Link>
+                    </li>
+
+                    <li className={s.navLink}>
+                        <Link className={s.links} to="/orders">
+                            <i className='bx bx-bar-chart-alt-2 icon' ></i>
+                            <span className={s.text}>My Orders </span>
+                        </Link>
+                    </li>
+
+                    <li className={s.navLink}>
+                        <Link className={s.links} to="/airlineProfile">
+                            <i className='bx bx-bell icon'></i>
+                            <span className={s.text}>Manage Airline</span>
+                        </Link>
+                    </li>
+
+                    <li className={s.navLink}>
+                        <Link className={s.links} to="/catalog">
+                            <i className='bx bx-pie-chart-alt icon' ></i>
+                            <span className={s.text}>Manage Airline Flights</span>
+                        </Link>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div className={s.bottomContent}>
+                <li className={s.navLink}>
+                    <Link className={s.links} to="/logout">
+                        <i className='bx bx-log-out icon' ></i>
+                        <span className={s.text}>Logout</span>
+                    </Link>
+                </li>
+
+                
+            </div>
+        </div>
+
     </aside>
   );
+  
 }
