@@ -254,8 +254,6 @@ header .imageText .profession{
   transition: var(--tran-05);
 }
 
-
-
 .sidebar:hover .toggle{
   transform: translateY(-50%) rotate(180deg);
 }
