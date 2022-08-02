@@ -5,17 +5,17 @@ import Display from "./Display";
 import SearchBar from "./SearchBar";
 import test from "../styles/assets/test3.png";
 import { useDispatch, useSelector } from "react-redux";
-import {  getAllUsers } from "../../redux/actions/index";
+import { getAllUsers } from "../../redux/actions/index";
 import Loader from "./Loader";
 import NavBar from "./NavBar";
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import Button from '@mui/material/Button';
-import Administration from './Administration';
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import Button from "@mui/material/Button";
+import Administration from "./Administration";
 
 export default function Home() {
   const [isDisplayed, setIsDisplayed] = useState(false);
   const dispatch = useDispatch();
-  const user=useSelector(state=>state.currentUser)
+  const user = useSelector((state) => state.currentUser);
 
   console.log(user);
   useEffect(() => {
@@ -23,15 +23,13 @@ export default function Home() {
     setInterval(() => {
       setIsDisplayed(true);
     }, 3000);
-   
   }, []);
-
 
   return (
     <>
       {!isDisplayed ? (
         <Loader />
-      ) :   !user[0]?.superAdmin ? (
+      ) : !user[0]?.superAdmin ? (
         <div className={s.Home}>
           {/* <NavBar /> */}
           <div id="sec-1" className={s.sec1}>
@@ -54,48 +52,47 @@ export default function Home() {
               <img className={s.img} src={test} alt="#" />
             </div>
           </div>
-          <div className={s.contactContainer}>
-            <div className={s.contact}>
-              <p className={s.text}>
-                if you're interested in working with us...
-              </p>
-              <div id="btnHomeGuest">
-                <Link to="/register">
-                  <button className={s.btn}>Contact Us!</button>
-                </Link>
-              </div>
-              {/* <div id="btnHomeUser">
-            <Link  to="/register/airline">
-              <button className={s.btn}>Contact UsAAAA!</button>
-            </Link>
-          </div> */}
-              <p>You must be logged in first!</p>
-            </div>
-          </div>
-          
+
           <div id="sec-2" className={s.sec2}>
             <div id="divInv" className={s.divInv}></div>
             <SearchBar />
             <Display />
+            <div className={s.contactContainer}>
+              <div className={s.contact}>
+                <p className={s.text}>
+                  if you're interested in working with us...
+                </p>
+                <div id="btnHomeGuest">
+                  <Link to="/register/airline">
+                    <button className={s.btn}>Contact Us!</button>
+                  </Link>
+                </div>
+              </div>
+            </div>
             <div className={s.whatsapp}>
-                <Button  id="whatsapp" href="https://walink.co/000b86" target="_blank" variant="contained" size="medium">
-                  <WhatsAppIcon>
-                  </WhatsAppIcon>
-                  <p>Chat</p>
-                </Button>
+              <Button
+                id="whatsapp"
+                href="https://walink.co/000b86"
+                target="_blank"
+                variant="contained"
+                size="medium"
+              >
+                <WhatsAppIcon></WhatsAppIcon>
+                <p>Chat</p>
+              </Button>
             </div>
           </div>
-          
-        
         </div>
-      ) : user.length && user[0].superAdmin &&(
-        <>
-          <div>
-            <Administration/>
-          </div>
-        </>
-      ) 
-    }
+      ) : (
+        user.length &&
+        user[0].superAdmin && (
+          <>
+            <div>
+              <Administration />
+            </div>
+          </>
+        )
+      )}
     </>
-  )
+  );
 }
