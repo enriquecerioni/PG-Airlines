@@ -33,24 +33,19 @@ export default function NavBar() {
   async function handleLogOut(e) {
     e.preventDefault();
     await logOut();
-    // window.location.reload();
+    // window.location.reload(); 
+    toast.success('✔ Log out!', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      type: "info",
+      });
     navigate.replace("/");
-    window.location.reload();
-    
-
-    // document.URL === "http://localhost:3000/"
-    //   ? window.location.reload()
-    //   : navigate.replace("/"); // cambiar "locahost:3000/"   por heroku
-    // toast.success('✔ Log out!', {
-    //   position: "top-right",
-    //   autoClose: 2000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    //   type: "info",
-    //   });
+    window.location.reload();   
   }
 
   return (
