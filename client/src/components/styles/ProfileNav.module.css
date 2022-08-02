@@ -106,7 +106,8 @@
   padding: 5rem 14px 10rem 14px;
   background: var(--sidebar-color);
   transition: all .8s ease;
-  z-index: 100;  
+  z-index: 100;
+  margin-right: 5rem;
 }
 
 .sidebar figure{
