@@ -22,6 +22,9 @@ import Success from "./components/CartComponents/Success";
 import UserProfile from "./components/Profile/UserProfile";
 import UserPurchases from "./components/Profile/UserPurchases";
 import AirlineProfile from "./components/Profile/AirlineProfile"
+import FlightManagement from "./components/Profile/FlightManagement";
+import UserManagement from "./components/Profile/UserManagement";
+import SuperAdminFlightManagement from "./components/Profile/SuperAdminFlightManagement";
 
 const promise = loadStripe('pk_test_51LOWloHpIoeoktUtIVJXPVwS0wwgOLL4jWid6ymn1ZWdhL69T0JQxkwADRmqwnQ1RHGPiVTnTlHTnhrLWPbDASPr006V4SPmtp')
 
@@ -67,6 +70,15 @@ function App() {
               </Route>
               <Route path="/airlineProfile">
                 <AirlineProfile/>
+              </Route>
+              <Route path="/catalogProfile">
+                <FlightManagement/>
+              </Route>
+              <Route path="/userManagement">
+                <UserManagement/>                              
+              </Route>
+              <Route path="/airlinesManagement">
+                <SuperAdminFlightManagement/>
               </Route>
               <Route path="/favs">
                 <Favs />
