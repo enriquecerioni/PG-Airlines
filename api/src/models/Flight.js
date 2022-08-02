@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     duration_estimated: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     price: {
@@ -41,6 +41,10 @@ module.exports = (sequelize) => {
       type: DataTypes.DATEONLY,
       allowNull: false,
     },
+    logo:{
+      type:DataTypes.TEXT,
+      allowNull:false
+    }
   },{
     timestamps: false,
   });

@@ -150,6 +150,7 @@ function Payment() {
                     await deleteStockFirebase()
                     setPay(true)
                     setProducts([])
+                    localStorage.setItem("cartProducts", JSON.stringify(products))
                     alert('Payment successful')
                     window.localStorage.clear()
                     history.replace('/success')
