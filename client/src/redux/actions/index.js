@@ -163,7 +163,7 @@ export function deleteFromCart(payload) {
 }    
 export function crearAerolinea(payload){
     return function (dispatch){
-        axios.post('http://localhost:3001/airline',payload)
+        axios.post('http://localhost:3001/airlines',payload)
         .then((response)=>{
             dispatch({
                 type:CREATE_AIRLINE,
