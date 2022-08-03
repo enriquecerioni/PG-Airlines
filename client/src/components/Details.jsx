@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 
 // import  addProductToCart  from './CartComponents/CartContext.jsx'
 import { CartContext } from "./CartComponents/CartContext";
@@ -46,6 +46,7 @@ function Details() {
     airline,
     arrivalHour,
     departureHour,
+    tickets
   }) => {
     // console.log({id, origin, price, logo, airline, arrivalHour, departureHour})
     addProductToCart({
@@ -56,6 +57,7 @@ function Details() {
       airline,
       arrivalHour,
       departureHour,
+      tickets
     });
     toast.info("Added to cart", {
       icon: "✈️",
@@ -77,7 +79,7 @@ function Details() {
     };
   }, [dispatch, id]);
   console.log(details);
-  const [value, setValue] = React.useState(2);
+  // const [value, setValue] = React.useState(2);
 
   //////////////////////
   // CREAR COMENTARIO //
@@ -219,11 +221,48 @@ function Details() {
                   <div className={s.destination}>
                     Destination: {details.destination}
                   </div>
-                </div>
+                </div>                 
+              </div>
+              
+            </div>
 
-                {/* CREAR COMENTARIO - FALTAN RUTAS EN BACK */}
-                <div style={{ "margin": 10 + 'rem'}}>
-                  <h3>Este vuelo fue publicado por: {d.airline} </h3>
+              <div key={details.id} className={s.divPrices}>
+                <img className={s.logoPrice} src={details.logo} alt="Img" />
+                <div className={s.airlinePrice}>{airline}</div>
+                <div className={s.priceP}>${details.price}</div>
+                {user.length && !user[0].permissions ? (
+                  <button
+                    className={s.btn}
+                    onClick={() =>
+                      handleAddToCart({
+                        id: details.id,
+                        origin: details.origin,
+                        price: details.price,
+                        logo: details.logo,
+                        airline: airline,
+                        arrivalHour: details.arrivalHour,
+                        departureHour: details.departureHour,
+                      })
+                    }>Add to cart</button>
+                ) : !user.length ? (
+                  <button
+                    className={s.btn}
+                    onClick={() =>
+                      handleAddToCart({
+                        id: details.id,
+                        origin: details.origin,
+                        price: details.price,
+                        logo: details.logo,
+                        airline: airline,
+                        arrivalHour: details.arrivalHour,
+                        departureHour: details.departureHour,
+                        tickets:details.tickets
+                      })
+                    }>Add to cart</button>
+                ):null }
+              </div>
+              <div style={{ "margin": 10 + 'rem'}}>
+                  <h3>Este vuelo fue publicado por: {details.airline} </h3>
                   <h3>RATING DE LA AEROLINEA</h3>
                   <h3>COMENTARIOS PREVIOS</h3>
                   {/* {comments.map(e => 
@@ -313,32 +352,11 @@ function Details() {
 
                     <h5>Aca iria la respuesta de la aerolinea</h5>
                   </form>
-                </div>                  
-              </div>
-            </div>
-
-              <div key={details.id} className={s.divPrices}>
-                <img className={s.logoPrice} src={details.logo} alt="Img" />
-                <div className={s.airlinePrice}>{airline}</div>
-                <div className={s.priceP}>${details.price}</div>
-                {user.length && !user[0].permissions ? (
-                  <button
-                    className={s.btn}
-                    onClick={() =>
-                      handleAddToCart({
-                        id: details.id,
-                        origin: details.origin,
-                        price: details.price,
-                        logo: details.logo,
-                        airline: airline,
-                        arrivalHour: details.arrivalHour,
-                        departureHour: details.departureHour,
-                      })
-                    }>Reservar</button>
-                ) : null }
-              </div>
-
+                </div>  
+          
+          
           </div>
+
         ) : null}
       </div>
     </div>

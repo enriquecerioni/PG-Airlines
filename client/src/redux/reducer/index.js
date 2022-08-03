@@ -71,6 +71,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         airlines: action.payload,
+
       };
     }
 
@@ -315,13 +316,30 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case FILTER_BY_AIRLINES:
+      // let copyAirlines = state.airlines; //[{}]
+      // let copyFlights = state.copy;//[{}]
+      // const filterData = state.filterPrecioData;
+
+      // if (action.payload !== "all")
+      //   copyFlights = copyFlights.filter((f,i) =>{
+          
+      //       return copyAirlines.filter((airline)=>{
+              
+      //         if(airline.name.toLowerCase().includes(action.payload.toLowerCase())  ) {}
+      //       })
+         
+      //   // 
+      //   });
       let copyFlights = state.copy;
       const filterData = state.filterPrecioData;
-
       if (action.payload !== "all")
-        copyFlights = copyFlights.filter((f) =>
-          f.airline.toLowerCase().includes(action.payload.toLowerCase())
-        );
+      copyFlights = copyFlights.filter((f) =>
+        f.airline.toLowerCase().includes(action.payload.toLowerCase())
+      );
+
+
+
+
 
       if (filterData !== "" && filterData !== "all") {
         copyFlights =
@@ -395,7 +413,7 @@ const rootReducer = (state = initialState, action) => {
     }
     case UPDATE_FLIGHTS: {
       let allflight = [];
-      if (!action.payload == "404") {
+      if (!action.payload === "404") {
         allflight = state.allflight;
       }
 
@@ -407,7 +425,7 @@ const rootReducer = (state = initialState, action) => {
 
     case CREATER_FLIGHTS: {
       let allflight = [];
-      if (!action.payload == "404") {
+      if (!action.payload === "404") {
         allflight = state.allflight;
       }
       return {

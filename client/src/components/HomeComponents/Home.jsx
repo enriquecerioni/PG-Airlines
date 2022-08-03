@@ -7,7 +7,6 @@ import test from "../styles/assets/test3.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../redux/actions/index";
 import Loader from "./Loader";
-import NavBar from "./NavBar";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Button from "@mui/material/Button";
 import Administration from "./Administration";
@@ -24,7 +23,7 @@ export default function Home() {
     setInterval(() => {
       setIsDisplayed(true);
     }, 3000);
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

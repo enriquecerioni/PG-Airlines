@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,  } from "react";
 import axios from "axios";
 import { Button }from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux'
-import { createOrder } from '../../redux/actions/index'
+
+
 
 export default function MPPayment({ products, subTotal, user, disabled, loading }) {
 
-    const [datos, setDatos] = useState('');
-    const dispatch = useDispatch()
+    const [/*datos*/, setDatos] = useState('');
+    
 
     // Crear orden de compra
-    const sendOrder = {
-      price: subTotal,
-      stocks : products.map(e => {
-          return {
-              amount: e.amount,
-              airline: e.airline,
-              value: e.price
-          }
-      }),
-      userId: user ? user.id : null
-  }
+  //   const sendOrder = {
+  //     price: subTotal,
+  //     stocks : products.map(e => {
+  //         return {
+  //             amount: e.amount,
+  //             airline: e.airline,
+  //             value: e.price
+  //         }
+  //     }),
+  //     userId: user ? user.id : null
+  // }
 
     async function handleMPPayment(e) {
         e.preventDefault()

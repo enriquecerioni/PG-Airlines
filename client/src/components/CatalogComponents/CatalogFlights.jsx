@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import s from "../styles/Catalog.module.css";
 import { editToFlights } from '../../redux/actions/index'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, /*useSelector*/ } from 'react-redux';
 import { deleteFlights } from '../../redux/actions/index'
 
 const columns = data;
@@ -27,7 +27,7 @@ const style = {
 function handleRowSelection(selectedRows) {
 debugger;
     console.log('Valor: ' + selectedRows);
-    if(flightIds.length == 0){
+    if(flightIds.length === 0){
         flightIds.push(selectedRows);
         return
     }     
@@ -48,7 +48,7 @@ function CatalogFlights({ rows }) {
     const [open, setOpen] = React.useState(false);
     const [dataFlight, getData] = React.useState(false);
 
-    const handleOpen = () => setOpen(true);
+    // const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleSave = () => dispatch(editToFlights(dataFlight));
     

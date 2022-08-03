@@ -1,7 +1,7 @@
 import React from "react";
 import s from "../styles/Footer.module.css";
 import Logo from "../styles/logo3.png";
-import gitHubLogo from "../styles/github.png";
+// import gitHubLogo from "../styles/github.png";
 
 export default function Footer() {
   return (
@@ -25,7 +25,7 @@ export default function Footer() {
             <p className={s.p1}>pg.airlines.ecommerce@gmail.com</p>
           </li>
           <li>
-            <i class="bx bxl-github"></i>
+            <i className="bx bxl-github"></i>
             <p className={s.p1}>GitHub</p>
           </li>
           <li>

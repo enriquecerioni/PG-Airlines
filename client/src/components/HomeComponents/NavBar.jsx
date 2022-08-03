@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import s from "../styles/NavBar.module.css";
 import logo from "../styles/logo2.png";
 import shoppingCart from "../styles/shopping-cart.png";
 import { logOut } from "../scripts/auth";
 import { CartContext } from "../CartComponents/CartContext";
-import { Alert, dividerClasses } from "@mui/material";
+// import { Alert, dividerClasses } from "@mui/material";
 import Box from "@mui/material/Box";
 import Badge from "@mui/material/Badge";
 import ImageAvatars from "../avatar";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import { toast } from "react-toastify";
-import { currentUser } from "../../redux/actions";
+// import { currentUser } from "../../redux/actions";
 
 import { Switch, FormGroup, FormControlLabel, styled, Typography, Stack  } from '@mui/material'
 
@@ -66,13 +66,13 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 export default function NavBar() {
   const { products } = useContext(CartContext);
 
-  const [alert, setAlert] = useState(false);
-  const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
+  // const [alert, setAlert] = useState(false);
+  // const [open, setOpen] = useState(false);
+  // const handleClose = () => setOpen(false);
   const navigate = useHistory();
   const [stateCart, setStateCart] = useState(products.length);
   const user = useSelector((state) => state.currentUser);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   //console.log(Object.keys(user).length)
 
   useEffect(() => {
@@ -146,11 +146,11 @@ export default function NavBar() {
               </button>
             </li>
             <li>
-              <a id="myProfile">
+              {/* <a id="myProfile"> */}
                 <Link to="/profile">
                   <ImageAvatars></ImageAvatars>
                 </Link>
-              </a>
+              {/* </a> */}
             </li>
             <li id="logOut">
               <button
@@ -188,15 +188,15 @@ export default function NavBar() {
             </li>
 
             <li>
-              <a id="myProfile">
+              {/* <a id="myProfile"> */}
                 <Link to="/profile">
                   <ImageAvatars></ImageAvatars>
                 </Link>
-              </a>
+              {/* </a> */}
             </li>
             <li id="carrito" className={s.cart_container}>
               <Link className={s.navLink} to="/cart">
-                <img className={s.cart} src={shoppingCart} />
+                <img className={s.cart} alt="#" src={shoppingCart} />
               </Link>
             </li>
             <h5 id="nCarrito" className={s.price}>
@@ -233,7 +233,7 @@ export default function NavBar() {
             </li>
             <li id="carrito" className={s.cart_container}>
               <Link className={s.navLink} to="/cart">
-                <img className={s.cart} src={shoppingCart} />
+                <img className={s.cart} alt="#" src={shoppingCart} />
               </Link>
             </li>
             <h5 id="nCarrito" className={s.price}>
