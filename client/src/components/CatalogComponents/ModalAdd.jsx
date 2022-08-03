@@ -5,8 +5,10 @@ import st from '../styles/Forms.module.css'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {createFlights} from '../../redux/actions/index'
+import { createFlights } from '../../redux/actions/index'
 import { useDispatch } from 'react-redux';
+// import  TextField  from '@mui/material/TextField';
+
 const style = {
 
     position: "absolute",
@@ -19,38 +21,38 @@ const style = {
     boxShadow: 24,
     p: 4
 };
- 
+
 
 
 
 export default function AddModal() {
     const dispatch = useDispatch()
-    
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const handleAdd = ()=>{
-       const dataNew={
-         airline : document.getElementById('airline').value ,
-         arrivalDate :  document.getElementById('arrD').value  ,
-         arrivalHour :  document.getElementById('arrH').value  ,
-         departureDate :  document.getElementById('depD').value  ,
-         departureHour :  document.getElementById('depH').value  ,
-         description :  document.getElementById('description').value  ,
-         destination :   document.getElementById('destination').value ,
-         durationEstimated : document.getElementById('duration').value  ,
-         flight : document.getElementById('flight').value   ,
-         logo : document.getElementById('logo').value ,
-         origin :  document.getElementById('origin').value ,
-         price : document.getElementById('price').value,
-         stock : document.getElementById('stock').value    
-       }
+    const handleAdd = () => {
+        const dataNew = {
+            airline: document.getElementById('airline').value,
+            arrivalDate: document.getElementById('arrD').value,
+            arrivalHour: document.getElementById('arrH').value,
+            departureDate: document.getElementById('depD').value,
+            departureHour: document.getElementById('depH').value,
+            description: document.getElementById('description').value,
+            destination: document.getElementById('destination').value,
+            durationEstimated: document.getElementById('duration').value,
+            flight: document.getElementById('flight').value,
+            logo: document.getElementById('logo').value,
+            origin: document.getElementById('origin').value,
+            price: document.getElementById('price').value,
+            stock: document.getElementById('stock').value
+        }
 
 
         dispatch(createFlights(dataNew));
     }
 
-   
+
 
     useEffect(() => {
         setOpen();
@@ -59,11 +61,12 @@ export default function AddModal() {
     return (
         <div>
             <button className={s.btn} onClick={handleOpen}>Add</button>
-           
+
             <Modal
                 open={open}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                disableScrollLock
             >
                 <Box sx={style} className={st.container}>
                     <button className={s.button} onClick={handleClose}>x</button>
@@ -81,7 +84,14 @@ export default function AddModal() {
                                     id="flight"
                                 />
                             </div>
-                            <div><label>Airline: </label>
+                            <div>
+                                {/* <TextField
+                                    disabled
+                                    id="outlined-disabled"
+                                    label="Airline"
+                                    defaultValue="Arline"
+                                /> */}
+                                <label>Airline: </label>
                                 <input
                                     name='airline'
                                     type="text"
@@ -154,7 +164,7 @@ export default function AddModal() {
                                 />
                             </div>
                             <div><label>Destination: </label>
-                                <input 
+                                <input
                                     name='destination'
                                     type="text"
                                     label='Destination'
@@ -192,10 +202,10 @@ export default function AddModal() {
 
                             <div>
                                 <button className={s.btn} type='submit' variant="contained" onClick={handleAdd}>Add Flight</button>
-                                <button className={s.btn} onClick={handleClose}>Cancel</button> 
+                                <button className={s.btn} onClick={handleClose}>Cancel</button>
                             </div>
 
-                         </form>
+                        </form>
                     </Typography>
                 </Box>
             </Modal>

@@ -45,7 +45,7 @@ function CatalogFlights({ rows }) {
             dispatch(deleteFlights(flightIds));
             window.location.href = "http://localhost:3000/catalog";
         }else{
-            alert("Tu nesecitas seleccionar uno para eliminar");
+            alert("Choose a flight");
         }
          
     }
