@@ -43,7 +43,6 @@ function Register() {
       e.target.email.value,
       e.target.password.value,
       e.target.phone.value,
-      e.target.name.value
       `${e.target.name.value} ${e.target.surname.value}`
     );
 

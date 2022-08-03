@@ -29,7 +29,7 @@ const migrar = async () => {
 
 
 
-  const initializeApp = require("firebase/app");
+  // const initializeApp = require("firebase/app");
 
   //------------------Validate Flights
   // let vuelos = await dbFirestore.collection("db").get();
@@ -61,10 +61,10 @@ const migrar = async () => {
   // }
                       //Generador de empresas
 //-------------------------------------------------------------------------
-for (const airline in data) {
-  //console.log(data[`${airline}`]);
-  await createAdmin(data[`${airline}`].airline,data[`${airline}`].origin,data[`${airline}`].destination,data[`${airline}`].durationEstimated,data[`${airline}`].price,data[`${airline}`].stock,data[`${airline}`].departureDate,data[`${airline}`].arrivalDate,data[`${airline}`].logo)
-}
+// for (const airline in data) {
+//   //console.log(data[`${airline}`]);
+//   await createAdmin(data[`${airline}`].airline,data[`${airline}`].origin,data[`${airline}`].destination,data[`${airline}`].durationEstimated,data[`${airline}`].price,data[`${airline}`].stock,data[`${airline}`].departureDate,data[`${airline}`].arrivalDate,data[`${airline}`].logo)
+// }
   
 //--------------------------------------------------------------------
 // });
