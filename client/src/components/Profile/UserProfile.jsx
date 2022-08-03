@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../redux/actions";
 import Loader from "../HomeComponents/Loader";
 import s from "../styles/UserProfile.module.css";
+import ProfileNav from "./ProfileNav";
 
 export default function UserProfile() {
   const dispatch = useDispatch();

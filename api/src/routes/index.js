@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const airlineRouter = require('./airlineRouter')
 const flightRouter = require('./flightRouter');
 const userRouter = require('./userRouter');
 const stripeRouter = require('./stripe')
@@ -12,10 +13,12 @@ const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
+router.use('/airlines', airlineRouter);
 router.use('/flights', flightRouter);
 router.use('/user',userRouter)
 router.use('/stripe', stripeRouter)
 router.use('/mpcheckout', mpRouter)
+
 
 router.use('/orders', orderRouter)
 

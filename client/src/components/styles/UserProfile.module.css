@@ -21,12 +21,11 @@
   
   /* -------ASIDE-------- */
   
-.imgProfile{
+/* .imgProfile{
     border-radius: 50%;
     width: 200px;
     height: 200px;
     margin-top: 1rem;
-    /* margin: 0 auto; */
     
   }
   
@@ -37,7 +36,6 @@
     color: white;
     margin-bottom: 2rem;
     font-weight: 700;
-    /* border-bottom: 1px solid gainsboro; */
   }
   
   .fig2{
@@ -57,7 +55,6 @@
     margin-right: 3%;
     box-shadow: 5px 5px 30px 10px  rgba(9, 9, 9, 0.486) inset;
     padding-top: 2rem;
-    /* padding-left: 10px; */
   }
 
   .span{
@@ -82,14 +79,13 @@
     text-align: center;
     cursor: pointer;
     transition: .5s ease;
-    /* background-color: red; */
   }
   
   .divLi li:hover{
     background-color: #002760;
     transform: scale(1.1);
   
-  }
+  } */
 /* --------------------- */
   
   .infoContainer{

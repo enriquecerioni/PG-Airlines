@@ -20,8 +20,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    duration_estimated: {
-      type: DataTypes.INTEGER,
+    durationEstimated: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     price: {
@@ -32,15 +32,26 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    departure_date: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
-    },
-    arrival_date: {
-      type: DataTypes.DATEONLY,
+    departureHour: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
+    arrivalHour: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    departureDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
+    arrivalDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
+    logo:{
+      type:DataTypes.TEXT,
+      allowNull:false
+    }
   },{
     timestamps: false,
   });

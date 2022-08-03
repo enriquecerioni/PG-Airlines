@@ -1,5 +1,6 @@
 const { User } = require("../db");
 const { deleteAuthUser } = require("../db_flight/eliminar");
+const firebase=require('firebase')
 
 async function getAllUsers(req, res, next) {
   try {
@@ -90,6 +91,15 @@ async function deleteUserAuth(req, res, next) {
     res.status(400).json({ error: error.message });
   }
 }
+async function getAllUsersFirebaseBack (req,res){
+  try {
+    const dbFirebase=firebase.firestore();
+    let users=await dbFirebase.collection("users").get()
+    res.status(200).json(users.docs.map((doc)=>doc.data()))
+  } catch (error) {
+    res.dtatus(400).json({error: error.message})
+  }
+}
 
 module.exports = {
   createUser,
@@ -97,4 +107,5 @@ module.exports = {
   getAllUsers,
   deleteUserBack,
   deleteUserAuth,
+  getAllUsersFirebaseBack
 };
