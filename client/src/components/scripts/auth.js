@@ -114,7 +114,7 @@ auth.onAuthStateChanged(async (user) => {
 
 //--------------------------------------------------------
 
-export async function singUp(email, password, name, phone) {
+export async function singUp(email, password, phone,name) {
   try {
     let cred = await auth.createUserWithEmailAndPassword(email, password);
     let uid = cred.user.uid;
@@ -215,6 +215,7 @@ export async function makeAdmin(email) {
   try {
     await dbFirebase.collection("users").doc(email).update({
       admin: true,
+      empresa:true
     });
     await store.dispatch(makeAdminPostgres({ email }));
   } catch (err) {

@@ -29,7 +29,7 @@ const migrar = async () => {
 
 
 
-  const initializeApp = require("firebase/app");
+  // const initializeApp = require("firebase/app");
 
   //------------------Validate Flights
   // let vuelos = await dbFirestore.collection("db").get();
