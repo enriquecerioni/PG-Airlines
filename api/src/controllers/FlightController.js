@@ -79,27 +79,11 @@ async function createFlights(req, res) {
   try {
     if (true) {
       const dbFirestore = firebase.firestore();
-      let flightdb = await dbFirestore.collection("db").doc(flight.id);
+      let flightdb = await dbFirestore.collection("db").doc(flight.flight);
       if (false) {
       }
       else {
-        let flightCreate = await flightdb.set(
-          {
-            airline: flight.airline,
-            arrivalDate: flight.arrivalDate,
-            arrivalHour: flight.arrivalHour,
-            departureDate: flight.departureDate,
-            departureHour: flight.departureHour,
-            description: flight.description,
-            destination: flight.destination,
-            durationEstimated: flight.duration,
-            flight: flight.flight,
-            logo: flight.logo,
-            origin: flight.origin,
-            price: flight.price,
-            stock: flight.stock
-
-          });
+        let flightCreate = await flightdb.set(flight);
         return res.status(201).json(flightCreate);
       }
     }
