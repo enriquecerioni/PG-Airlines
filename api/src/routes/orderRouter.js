@@ -7,11 +7,10 @@ require('dotenv').config()
 
 orderRouter.get('/', async (req, res) => {
     try {
-        
         let allOrders = await Order.findAll()
 
         allOrders.length ? 
-        res.status(200).send(allOrders)
+        res.status(200).json(allOrders)
         : res.status(400).send('no hay nada')
 
     } catch (error) {
@@ -29,7 +28,7 @@ orderRouter.post('/', async (req, res) => {
             idpurchase,
             creationdate
         });
-        console.log("compro");
+        //console.log("compro");
         let cliente =  await User.findOne({
             where: {
                 id: userId
@@ -39,7 +38,7 @@ orderRouter.post('/', async (req, res) => {
         console.log(cliente)
 
         await cliente.addOrder(newOrder)
-        console.log("agrego");
+        //console.log("agrego");
         res.send(newOrder)
 
     } catch (error) {

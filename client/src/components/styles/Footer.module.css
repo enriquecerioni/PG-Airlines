@@ -1,0 +1,41 @@
+.footer {
+    display: flex;
+    justify-content: space-around;
+    /* align-items: center; */
+    width: 100%;
+    height: 28vh;
+    font-family: "Lato", sans-serif;
+    background-color: #292f39;
+}
+
+.leftInfo, .rightInfo, .center {
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    margin-top: 30px;
+    width: 33%;
+}
+.logo {
+    height: 10rem;
+}
+.about {
+    color: #186caf;
+    margin-bottom: 8px;
+}
+.p {
+    font-size: 18px;
+    font-weight: 100;
+    width: 200px;
+    margin-left: 66px;
+    text-align: left;
+    color: white;
+}
+.p1 {
+    font-weight: 100;
+    font-size: 18px;
+    margin-bottom: 15px;
+    width: 263px;
+    margin-right: 110px;
+    color: white;
+    text-align: right;
+}

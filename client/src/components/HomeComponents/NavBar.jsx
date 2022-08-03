@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import s from "../styles/NavBar.module.css";
-import logo from "../styles/logo.png";
+import logo from "../styles/logo2.png";
 import shoppingCart from "../styles/shopping-cart.png";
 import { logOut } from "../scripts/auth";
 import { CartContext } from "../CartComponents/CartContext";
@@ -12,6 +12,7 @@ import Badge from "@mui/material/Badge";
 import ImageAvatars from "../avatar";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import { toast } from "react-toastify";
+import { currentUser } from "../../redux/actions";
 
 export default function NavBar() {
   const { products } = useContext(CartContext);
@@ -22,7 +23,8 @@ export default function NavBar() {
   const navigate = useHistory();
   const [stateCart, setStateCart] = useState(products.length);
   const user = useSelector((state) => state.currentUser);
-//console.log(Object.keys(user).length)
+  const dispatch = useDispatch();
+  //console.log(Object.keys(user).length)
 
   useEffect(() => {
     setStateCart(products.length);
@@ -32,22 +34,18 @@ export default function NavBar() {
     e.preventDefault();
     await logOut();
     // window.location.reload();
+    toast.success("✔ Log out!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      type: "info",
+    });
     navigate.replace("/");
     window.location.reload();
-
-    // document.URL === "http://localhost:3000/"
-    //   ? window.location.reload()
-    //   : navigate.replace("/"); // cambiar "locahost:3000/"   por heroku
-    // toast.success('✔ Log out!', {
-    //   position: "top-right",
-    //   autoClose: 2000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    //   type: "info",
-    //   });
   }
 
   return (
@@ -60,9 +58,9 @@ export default function NavBar() {
         <img className={s.logoImg} src={logo} alt="logo" />
       </Link>
       <ul className={s.navUl}>
-        {user.length && user[0].superAdmin  ? (
+        {user.length && user[0].superAdmin ? (
           <>
-          <li id="catalog">
+            <li id="catalog">
               <Link className={s.navLink} to="/catalog">
                 Catalog
               </Link>
@@ -75,16 +73,15 @@ export default function NavBar() {
                 Log Out
               </button>
             </li>
-            
           </>
-        ) : user.length && user[0].permissions  ? (
+        ) : user.length && user[0].permissions ? (
           <>
-          <li id="catalog">
+            <li id="catalog">
               <Link className={s.navLink} to="/catalog">
                 Catalog
               </Link>
             </li>
-           <li>
+            <li>
               <button id="addAirline">
                 <Link to="/register/airline">Add your airline</Link>
               </button>
@@ -105,9 +102,9 @@ export default function NavBar() {
               </button>
             </li>
           </>
-        ) : user.length  && !user[0].permissions ? (
-            <>
-               <li id="offers">
+        ) : user.length && !user[0].permissions ? (
+          <>
+            <li id="offers">
               <Box sx={{ color: "action.active" }}>
                 <Link className={s.navLink} to="/offers">
                   <Badge color="secondary" badgeContent={5}>
@@ -144,10 +141,10 @@ export default function NavBar() {
               </Link>
             </li>
             <h5 id="nCarrito" className={s.price}>
-              {stateCart ? stateCart : 0}
+              <div className={s.numCart}>{stateCart ? stateCart : 0}</div>
             </h5>
-            </>
-        ) :(
+          </>
+        ) : (
           <>
             <li id="offers">
               <Box sx={{ color: "action.active" }}>
@@ -158,7 +155,8 @@ export default function NavBar() {
                   </Badge>
                 </Link>
               </Box>
-            </li>                                                        {/*guest */}
+            </li>{" "}
+            {/*guest */}
             <li id="favs">
               <Link className={s.navLink} to="/favs">
                 Favs
@@ -180,12 +178,11 @@ export default function NavBar() {
               </Link>
             </li>
             <h5 id="nCarrito" className={s.price}>
-              {stateCart ? stateCart : 0}
+              <div className={s.numCart}>{stateCart ? stateCart : 0}</div>
             </h5>
           </>
-        )
-        }
-        </ul>
+        )}
+      </ul>
     </nav>
   );
 }
