@@ -11,6 +11,7 @@ import NavBar from "./NavBar";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Button from "@mui/material/Button";
 import Administration from "./Administration";
+import Footer from "./Footer";
 
 export default function Home() {
   const [isDisplayed, setIsDisplayed] = useState(false);
@@ -60,7 +61,7 @@ export default function Home() {
             <div className={s.contactContainer}>
               <div className={s.contact}>
                 <p className={s.text}>
-                  if you're interested in working with us...
+                  If you're interested in working with us...
                 </p>
                 <div id="btnHomeGuest">
                   <Link to="/register/airline">
@@ -69,6 +70,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            <Footer />
             <div className={s.whatsapp}>
               <Button
                 id="whatsapp"
