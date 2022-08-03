@@ -1,5 +1,6 @@
 const axios = require ("axios");
 export const GET_ALL_FLIGHTS = "GET_ALL_FLIGHTS"
+export const GET_ALL_AIRLINES = "GET_ALL_AIRLINES"
 export const GET_FLIGHT_INFO = "GET_FLIGHT_INFO"
 export const GET_USER_INFO = "GET_USER_INFO"
 export const GET_USERS = 'GET_USERS'
@@ -41,6 +42,17 @@ export const getAllFlights = () => {
             dispatch({
                 type: GET_ALL_FLIGHTS, 
                 payload: flight.data
+            })
+        })
+    }
+}
+
+export const getAllAirlines = () => {
+    return function (dispatch) {
+        axios('http://localhost:3001/airlines').then((airline) => {
+            dispatch({
+                type: GET_ALL_AIRLINES, 
+                payload: airline.data
             })
         })
     }

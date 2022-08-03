@@ -1,3 +1,4 @@
+
 const {User}=require('../db')
 const {Airline} = require('../db')
 
@@ -24,8 +25,21 @@ async function createAirlineBack(req,res){
         res.status(404).json({error:error.message})
     }
 }
+async function getAllAirlines(req, res, next) {
+  try {
+    let allAirlines = await Airline.findAll();
+    if (allAirlines.length) {
+      res.status(200).json(allAirlines);
+    } else {
+      res.status(404).send({ message: "Users not found" });
+    }
+  } catch (error) {
+    next(error.message);
+  }
+}
 
 module.exports = {
-    createAirlineBack
+    getAllAirlines,
+     createAirlineBack
   };
-  
+
