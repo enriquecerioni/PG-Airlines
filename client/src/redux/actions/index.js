@@ -172,6 +172,17 @@ export function crearAerolinea(payload){
         })
     }
 }
+export function deleteAirline(payload){
+    console.log(payload);
+        axios.delete(`http://localhost:3001/airlines/delete/${payload}`)
+        .then(()=>{
+           console.log("se borro la empresa perro");
+        })
+        .catch(()=>{
+            console.log("no se pudo borrar");
+        })
+}
+
 
 export function createUser(payload){
     return function (dispatch){

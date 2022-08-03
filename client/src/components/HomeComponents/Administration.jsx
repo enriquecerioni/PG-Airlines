@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsersFirebase,crearAerolinea } from "../../redux/actions";
+import { getAllUsersFirebase,crearAerolinea,deleteAirline } from "../../redux/actions";
 
 import { Delete, makeAdmin } from "../scripts/auth";
 
@@ -25,15 +25,17 @@ export default function Administration(){
     //console.log(e.target.email.value);
     let email=e.target.email.value
     await makeAdmin(email)
-    dispatch(crearAerolinea({email}))
+     dispatch(crearAerolinea({email}))
    // window.location.reload()
    }
 
    async function handleSubmit2(e){
     e.preventDefault()
-    
-    await Delete(e.target.email.value,e.target.uid.value)
-    // aca va un loader porque las funciones se ejecutan tarde y se rompe con el window.location.reload()
+    let email=e.target.email.value
+    let uid=e.target.uid.value
+    await Delete(email,uid)
+     dispatch(deleteAirline(email))
+   //  aca va un loader porque las funciones se ejecutan tarde y se rompe con el window.location.reload()
     
    }
     return (
