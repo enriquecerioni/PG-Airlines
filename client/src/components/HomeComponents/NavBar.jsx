@@ -174,7 +174,7 @@ export default function NavBar() {
               </Link>
             </li>
             <h5 id="nCarrito" className={s.price}>
-              {stateCart ? stateCart : 0}
+              <div className={s.numCart}>{stateCart ? stateCart : 0}</div>
             </h5>
           </>
         )}
