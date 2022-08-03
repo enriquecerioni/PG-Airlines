@@ -12,7 +12,7 @@ import vacio from '../styles/assets/test1.png'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import Swal from 'sweetalert2'
 import firebase from 'firebase'
 
 function Cart() {
@@ -23,15 +23,6 @@ function Cart() {
 
     const { products, substractdProductFromCart , deleteProductFromCart} = useContext(CartContext)
     const [subTotal, setSubTotal] = useState(0)
-
-    // console.log(products)
-
-    // useEffect(() => {
-    //   // localStorage.setItem("cartProducts", JSON.stringify(products));
-    //   // console.log(products)
-  
-    //   localStorage.getItem("cartProducts");
-    // }, [products]);
     
   function handleDelete(id){
     // console.log(id)
@@ -72,12 +63,24 @@ function Cart() {
         if(user.emailVerified){
           history.push('/payment')
         }else{
-          alert("You need to verify you email")
+          // alert("You need to verify you email")
+          Swal.fire({
+          icon: 'question',
+          title: 'Oops...',
+          text: 'You need to verify you email',
+          confirmButtonColor: '#10408F'
+        })
           history.push("/")
         }
       }
       else {
-        alert("You need to be logged to buy")
+        // alert("You need to be logged to buy")
+        Swal.fire({
+          icon: 'question',
+          title: 'Oops...',
+          text: 'You need to be logged to buy',
+          confirmButtonColor: '#10408F'
+        })
         history.push('/login')
       }
     })

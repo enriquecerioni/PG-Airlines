@@ -1,5 +1,6 @@
 const axios = require ("axios");
 export const GET_ALL_FLIGHTS = "GET_ALL_FLIGHTS"
+export const GET_ALL_AIRLINES = "GET_ALL_AIRLINES"
 export const GET_FLIGHT_INFO = "GET_FLIGHT_INFO"
 export const GET_USER_INFO = "GET_USER_INFO"
 export const GET_USERS = 'GET_USERS'
@@ -28,11 +29,14 @@ export const CREATER_FLIGHTS="CREATER_FLIGHTS"
 export const DELETE_FLIGHTS="DELETE_FLIGHTS"
 export const DELETE_USER="DELETE_USER"
 export const CURRENT_USER="CURRENT_USER"
+export const CREATE_AIRLINE="CREATE_AIRLINE"
 
 export const CREATE_ORDER = 'CREATE_ORDER'
 export const GET_ORDERS = 'GET_ORDERS'
 export const CREATE_COMMENT = 'CREATE_COMMENT'
 export const GET_COMMENTS = 'GET_COMMENTS'
+
+export const GET_ALL_USER_FIREBASE="GET_ALL_USER_FIREBASE"
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -40,6 +44,17 @@ export const getAllFlights = () => {
             dispatch({
                 type: GET_ALL_FLIGHTS, 
                 payload: flight.data
+            })
+        })
+    }
+}
+
+export const getAllAirlines = () => {
+    return function (dispatch) {
+        axios('http://localhost:3001/airlines').then((airline) => {
+            dispatch({
+                type: GET_ALL_AIRLINES, 
+                payload: airline.data
             })
         })
     }
@@ -70,6 +85,20 @@ export function getAllUsers(){
         .then((res) => {
             dispatch({
                 type: GET_USERS, 
+                payload: res.data
+            })
+        })
+        .catch((error) => {
+            console.log("Users not found");
+        }) 
+    }
+}
+export function getAllUsersFirebase(){
+    return function (dispatch) {
+        axios(`http://localhost:3001/user/firebase`)
+        .then((res) => {
+            dispatch({
+                type: GET_ALL_USER_FIREBASE, 
                 payload: res.data
             })
         })
@@ -134,6 +163,17 @@ export function deleteFromCart(payload) {
         payload
     }
 }    
+export function crearAerolinea(payload){
+    return function (dispatch){
+        axios.post('http://localhost:3001/airlines',payload)
+        .then((response)=>{
+            dispatch({
+                type:CREATE_AIRLINE,
+                payload:response.payload
+            })
+        })
+    }
+}
 
 export function createUser(payload){
     return function (dispatch){

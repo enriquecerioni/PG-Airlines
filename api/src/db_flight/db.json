@@ -212,7 +212,7 @@
     "C16-14":{
         "flight": "C16-14",
         "airline": "Aerolineas Argentinas",
-        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
+        "logo": "https://seeklogo.com/images/A/aerolineas-argentinas-logo-33CD5F2C1E-seeklogo.com.png",
         "price": 65000,
         "stock": 160,
         "origin": "Bolivia",
@@ -227,7 +227,7 @@
     "TP224":{
         "flight": "TP224",
         "airline":"Aerolineas Argentinas",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/TP.png",
+        "logo": "https://seeklogo.com/images/A/aerolineas-argentinas-logo-33CD5F2C1E-seeklogo.com.png",
         "price": 250000,
         "stock": 70,
         "origin":"Miami",
@@ -242,7 +242,7 @@
     "UA8202":{
         "flight":"UA8202",
         "airline":"Aerolineas Argentinas",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/UA.png",
+        "logo": "https://seeklogo.com/images/A/aerolineas-argentinas-logo-33CD5F2C1E-seeklogo.com.png",
         "price":384000,
         "stock": 120,
         "origin":"Toronto",
@@ -257,7 +257,7 @@
     "G37734":{
         "flight": "G37734",
         "airline":"Aerolineas Argentinas",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/G3.png",
+        "logo": "https://seeklogo.com/images/A/aerolineas-argentinas-logo-33CD5F2C1E-seeklogo.com.png",
         "price":264000,
         "stock":50,
         "origin":"Brasilia",
@@ -272,7 +272,7 @@
     "LA452":{
         "flight":"LA452",
         "airline":"Shangai Airlines",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/LA.png",
+        "logo": "https://flightscustomerservice.com/wp-content/uploads/2020/03/Shanghai-Airlines-Logo.jpg",
         "price":153000,
         "stock":137,
         "origin":"Buenos Aires",
@@ -287,7 +287,7 @@
     "AA6957":{
         "flight":"AA6957",
         "airline":"Lufthansa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AA.png",
+        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
         "price":158000,
         "stock":112,
         "origin":"Miami",
@@ -302,7 +302,7 @@
     "IB5646":{
         "flight":"IB5646",
         "airline":"Lufthansa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/IB.png",
+        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
         "price":18070,
         "stock":100,
         "origin":"Roma",
@@ -316,8 +316,8 @@
     },
     "AR1369":{
         "flight":"AR1369",
-        "airline":"Aerolíneas Argentinas",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AR.png",
+        "airline":"LATAM Airlines",
+        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
         "price":80000,
         "stock":76,
         "origin":"Santa Cruz",
@@ -332,7 +332,7 @@
     "AM597":{
         "flight":"AM597",
         "airline":"Lufthansa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AM.png",
+        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
         "price":15000,
         "stock":90,
         "origin":"Cancún",
@@ -347,7 +347,7 @@
     "AR1132":{
         "flight":"AR1132",
         "airline":"Aerolineas Argentinas",
-        "logo":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAAAeCAMAAAAhHHEqAAAAY1BMVEX///8AdMEAccDs9PoAdsL7/f4Abr8AecMAfMQAfsUAa77K3u/k7vfo8fjy+Pz2+v0AaL03j8zR4vG/1uvb6PR6rtlsqNaWvuBeoNOxz+igxeMkicmCstuqyuZMmdCKt90AY7uNmsUuAAACaUlEQVRIie1Vy7LbIAwVBmxjwA4PAwaM8/9fWZF2l9xpOp25XTRagKwHRxKSAfjQhz70B8St1/yfALswjHMxLe3Hd2PbNAshSPpm2NUGhJ3z9yFu9qxmuo2EMUbOO/Pve8q/gOVeKa3pL9JUr88m+QVAujbxdXVo1l+pNg7evRVaakPfekQb0A02hV/CKQsrqK0Hpvhj7SHrh0SYLxtlVCB79/52gjwDQsHP5BbBsEXWG2GK3+i++2Vio4S8kMFCXAQpqyATBpmbFwDNLD6QSRyQhjFCLGJMdJ7ZWa0rZTQc9q61ggzxBa5xUCwQB2pZmYRToH3wC5TjNAA1WLJCbHLYIKdougcn67oAZxZ2TLvJVAEG2vDw2duCvK57P7ei1kjxuk3kEKM43JTzNfpxA4O3GsNhYPABzwtxb2dObUc+RU0SFvsqZx6pYo+ioh1xUhI/Iz/puANdei5QJEo4W+Nr4LLHaOLVcs6Hw+oRiynkuusBM0a1KxVVtvOzgzUxvQ7xipN1BtAGNJElIiFa/04nyAIE24541Pbg3HQ9wx4zLlfohcE99fCx4NocrnSWEzU9wsVVL72Jy7GHvrlYsSmwXsa1R92wwOgzeYg7RTQ1Y+PA0XXr7QmWj733sqDENGENXtE1mCXDzdek7uh95+fYzAQXaWyyohUh7x2+Xa1XI1VTQaSaXAw9fhiCTCfiA96USIlcZ6glPOPavm6YmJTq59QoiVfoQVOU4vjjsErbJZYr8NICfbgo7buxtQbhpUMlRSEFeqCCqj5w+C54vVLp3v9VvUkuntf0D546f+Zz+37YD33of6cfOVYod8eRxhkAAAAASUVORK5CYII=",
+        "logo": "https://seeklogo.com/images/A/aerolineas-argentinas-logo-33CD5F2C1E-seeklogo.com.png",
         "price":1000000,
         "stock":150,
         "origin":"Buenos Aires",
@@ -362,7 +362,7 @@
     "AM617":{
         "flight":"AM617",
         "airline":"Lufthansa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AM.png",
+        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
         "price":102580,
         "stock":110,
         "origin":"Toronto",
@@ -377,7 +377,7 @@
     "LA2368":{
         "flight":"LA2368",
         "airline":"Lufthansa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/LA.png",
+        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
         "price":300000,
         "stock":98,
         "origin":"Buenos Aires",
@@ -392,7 +392,7 @@
     "LH1173":{
         "flight":"LH1173",
         "airline":"Lufthansa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/LH.png",
+        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
         "price":200000,
         "stock":67,
         "origin":"Lisboa",
@@ -407,7 +407,7 @@
     "IB3235":{
         "flight":"IB3235 ",
         "airline":"LATAM Airlines",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/IB.png",
+        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
         "price":116000,
         "stock":84,
         "origin":"Roma",
@@ -421,8 +421,8 @@
     },
     "AR1242":{
         "flight":"AR1242",
-        "airline":"Aerolíneas Argentinas",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AR.png",
+        "airline":"LATAM Airlines",
+        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
         "price":110495,
         "stock":70,
         "origin":"Buenos Aires",
@@ -437,7 +437,7 @@
     "TP1045":{
         "flight":"TP1045",
         "airline":"LATAM Airlines",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/TP.png",
+        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
         "price":132099,
         "stock":150,
         "origin":"Barcelona",
@@ -452,7 +452,7 @@
     "RO391":{
         "flight":"RO391 ",
         "airline":"LATAM Airlines",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/RO.png",
+        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
         "price":122273,
         "stock":45,
         "origin":"Bucarest",
@@ -467,7 +467,7 @@
     "BA611":{
         "flight":"BA611",
         "airline":"LATAM Airlines",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/BA.png",
+        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
         "price":757523,
         "stock":65,
         "origin":"Italia",
@@ -482,7 +482,7 @@
     "AC8093":{
         "flight":"AC8093",
         "airline":"LATAM Airlines",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AC.png",
+        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
         "price":235230,
         "stock":94,
         "origin":"Sídney",
@@ -496,8 +496,8 @@
     },
     "AR1281":{
         "flight":"AR1281 ",
-        "airline":"Aerolíneas Argentinas",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AR.png",
+        "airline":"Alaska Airlines",
+        "logo": "https://w7.pngwing.com/pngs/539/813/png-transparent-logo-alaska-airlines-boeing-737-brand-5th-may-blue-text-trademark.png",
         "price":49007,
         "stock":78,
         "origin":"Santiago de Chile",
@@ -512,7 +512,7 @@
     "H2508":{
         "flight":"H2508 ",
         "airline":"Alaska Airlines",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/H2.png",
+        "logo": "https://w7.pngwing.com/pngs/539/813/png-transparent-logo-alaska-airlines-boeing-737-brand-5th-may-blue-text-trademark.png",
         "price":166900,
         "stock":140,
         "origin":"Buenos Aires",
@@ -527,7 +527,7 @@
     "LH1983":{
         "flight":"LH1983",
         "airline":"Lufthansa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/LH.png",
+        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
         "price":306397,
         "stock":130,
         "origin":"Colonia",
@@ -541,8 +541,8 @@
     },
     "AR1361":{
         "flight":"AR1361",
-        "airline":"Aerolíneas Argentinas",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AR.png",
+        "airline":"Alaska Airlines",
+        "logo": "https://w7.pngwing.com/pngs/539/813/png-transparent-logo-alaska-airlines-boeing-737-brand-5th-may-blue-text-trademark.png",
         "price":118687,
         "stock":100,
         "origin":"Bogotá",
@@ -557,7 +557,7 @@
     "KL1504":{
         "flight":"KL1504",
         "airline":"Alaska Airlines",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/KL.png",
+        "logo": "https://w7.pngwing.com/pngs/539/813/png-transparent-logo-alaska-airlines-boeing-737-brand-5th-may-blue-text-trademark.png",
         "price":200000,
         "stock":123,
         "origin":"Valencia",
@@ -572,7 +572,7 @@
     "AM596":{
         "flight":"AM596",
         "airline":"Air Europa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AM.png",
+        "logo": "https://logodownload.org/wp-content/uploads/2019/10/air-europa-logo-3.png",
         "price":15000,
         "stock":34,
         "origin":"Ciudad de México",
@@ -587,7 +587,7 @@
     "FO5161":{
         "flight":"FO5161",
         "airline":"Air Europa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/FO.png",
+        "logo": "https://logodownload.org/wp-content/uploads/2019/10/air-europa-logo-3.png",
         "price":60849,
         "stock":128,
         "origin":"Salta",
@@ -602,7 +602,7 @@
     "AA143":{
         "flight":"AA143",
         "airline":"Air Europa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AA.png",
+        "logo": "https://logodownload.org/wp-content/uploads/2019/10/air-europa-logo-3.png",
         "price":75230,
         "stock":144,
         "origin":"Los Ángeles",
@@ -617,7 +617,7 @@
     "UA4744":{
         "flight":"UA4744",
         "airline":"Air Europa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/UA.png",
+        "logo": "https://logodownload.org/wp-content/uploads/2019/10/air-europa-logo-3.png",
         "price":98702,
         "stock":112,
         "origin":"Ontario",
@@ -632,7 +632,7 @@
     "DL1734":{
         "flight":"DL1734",
         "airline":"Air Europa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/DL.png",
+        "logo": "https://logodownload.org/wp-content/uploads/2019/10/air-europa-logo-3.png",
         "price":62000,
         "stock":92,
         "origin":"Los Ángeles",
@@ -647,7 +647,7 @@
     "LH965":{
         "flight":"LH965",
         "airline":"Lufthansa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/LH.png",
+        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
         "price":74000,
         "stock":86,
         "origin":"Edimburgo",
@@ -662,7 +662,7 @@
     "AF1275":{
         "flight":"AF1275",
         "airline":"Shangai Airlines",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AF.png",
+        "logo": "https://flightscustomerservice.com/wp-content/uploads/2020/03/Shanghai-Airlines-Logo.jpg",
         "price":85416,
         "stock":78,
         "origin":"Oslo",
@@ -677,7 +677,7 @@
     "LH6227":{
         "flight":"LH6227",
         "airline":"Lufthansa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/LH.png",
+        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
         "price":253932,
         "stock":94,
         "origin":"Estocolmo",
@@ -691,8 +691,8 @@
     },
     "AR1651":{
         "flight":"AR1651",
-        "airline":"Aerolíneas Argentinas",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/AR.png",
+        "airline":"Air Europa",
+        "logo": "https://logodownload.org/wp-content/uploads/2019/10/air-europa-logo-3.png",
         "price":72128,
         "stock":147,
         "origin":"Neuquén",
@@ -707,7 +707,7 @@
     "LH1811":{
         "flight":"LH1811",
         "airline":"Lufthansa",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/LH.png",
+        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
         "price":36182,
         "stock":111,
         "origin":"Barcelona",
@@ -722,7 +722,7 @@
     "ET858":{
         "flight":"ET858",
         "airline":"Shangai Airlines",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/ET.png",
+        "logo": "https://flightscustomerservice.com/wp-content/uploads/2020/03/Shanghai-Airlines-Logo.jpg",
         "price":348700,
         "stock":76,
         "origin":"Johannesburgo",
@@ -737,7 +737,7 @@
     "TK1830":{
         "flight":"TK1830",
         "airline":"Shangai Airlines",
-        "logo":"https://www.despegar.com.ar/flights-images/latest/common/airlines/25x25/TK.png",
+        "logo": "https://flightscustomerservice.com/wp-content/uploads/2020/03/Shanghai-Airlines-Logo.jpg",
         "price":226863,
         "stock":119,
         "origin":"París",

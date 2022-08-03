@@ -5,13 +5,18 @@ import { getFlightByID, cleanDetails, createComment } from "../redux/actions/ind
 import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
 
 // import  addProductToCart  from './CartComponents/CartContext.jsx'
 import { CartContext } from "./CartComponents/CartContext";
 import { useContext } from "react";
 
+
 function Details() {
   const { id } = useParams();
+
 
   const dispatch = useDispatch();
   const details = useSelector((state) => state.flight);
@@ -284,6 +289,18 @@ function Details() {
                     <span>Su comentario puede ser eleminado si es conciderado inapropiado o se demuestra que no tiene relacion con la aerolinea</span>                    
                   </form> 
                 </div>      
+              <Box sx={{'& > legend': { mt: 2 },}}
+                    >
+                    <Typography component="legend">Controlled</Typography>
+                      <Rating
+                        name="simple-controlled"
+                        value={value}
+                        onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                      />
+              </Box>
+               
               </div>
             )             
           })

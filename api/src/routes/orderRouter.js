@@ -28,7 +28,7 @@ orderRouter.post('/', async (req, res) => {
             idpurchase,
             creationdate
         });
-        console.log("compro");
+        //console.log("compro");
         let cliente =  await User.findOne({
             where: {
                 id: userId
@@ -38,7 +38,7 @@ orderRouter.post('/', async (req, res) => {
         console.log(cliente)
 
         await cliente.addOrder(newOrder)
-        console.log("agrego");
+        //console.log("agrego");
         res.send(newOrder)
 
     } catch (error) {
