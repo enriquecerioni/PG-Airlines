@@ -7,12 +7,14 @@ async function createAdmin(
   businessName,
   origin,
   destination,
-  duration_estimated,
+  durationEstimated,
   price,
   tickets,
-  departure_date,
-  arrival_date,
-  logo
+  departureDate,
+  arrivalDate,
+  logo,
+  departureHour,
+  arrivalHour
 ) {
   try {
     let email =
@@ -70,6 +72,7 @@ async function createAdmin(
           photo: img ? img : "",
           uid: uid,
           superAdmin: false,
+          empresa: true
         });
     }
 
@@ -92,12 +95,14 @@ async function createAdmin(
         airlineId: airline[0].dataValues.id,
         origin: origin,
         destination: destination,
-        duration_estimated: duration_estimated,
+        durationEstimated: durationEstimated,
         price: price,
         tickets: tickets,
-        departure_date: departure_date,
-        arrival_date: arrival_date,
+        departureDate: departureDate,
+        arrivalDate: arrivalDate,
         logo: logo,
+        departureHour: departureHour,
+        arrivalHour: arrivalHour
       },
     });
   } catch (error) {
