@@ -6,13 +6,13 @@ import logo from "../styles/logo2.png";
 import shoppingCart from "../styles/shopping-cart.png";
 import { logOut } from "../scripts/auth";
 import { CartContext } from "../CartComponents/CartContext";
-// import { Alert, dividerClasses } from "@mui/material";
+import { Alert, dividerClasses } from "@mui/material";
 import Box from "@mui/material/Box";
 import Badge from "@mui/material/Badge";
 import ImageAvatars from "../avatar";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
-// import { toast } from "react-toastify";
-// import { currentUser } from "../../redux/actions";
+import { toast } from "react-toastify";
+import { currentUser } from "../../redux/actions";
 
 import { Switch, FormGroup, FormControlLabel, styled, Typography, Stack  } from '@mui/material'
 

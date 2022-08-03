@@ -347,7 +347,7 @@ export function deleteFlights(payload){
 
 
 export function getAllComments() {
-    return function(dispatch) {
+    return async function(dispatch) {
         await axios.get('http://localhost:3001/comments')
         .then(res => {
             dispatch({

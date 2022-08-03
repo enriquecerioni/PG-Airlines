@@ -17,7 +17,6 @@ import { useContext } from "react";
 function Details() {
   const { id } = useParams();
 
-
   const dispatch = useDispatch();
   const details = useSelector((state) => state.flight);
   const user = useSelector((state=>state.currentUser))
@@ -81,6 +80,9 @@ function Details() {
 
   //////////////////////
   // CREAR COMENTARIO //
+  const allComments = useSelector(state => state.comments)
+  console.log(allComments)
+
   function validate(input) {
     let error = {}
 
@@ -160,7 +162,6 @@ function Details() {
     } else {
         console.log('formulario incorrecto')
     }
-
   }
 
 
@@ -229,21 +230,38 @@ function Details() {
                 </div>
                 
                 {/* CREAR COMENTARIO - FALTAN RUTAS EN BACK */}
-                <div>
+                <div style={{ "margin": 10 + 'rem'}}>
                   <h3>Este vuelo fue publicado por: {d.airline} </h3>
                   <h3>RATING DE LA AEROLINEA</h3>
                   <h3>COMENTARIOS PREVIOS</h3>
                   {/* {comments.map(e => 
                     return (<span>{e.rating}</span>))} */}
                   <h3>Publicar comentario y rating</h3>
-                  <h3>INPUT DE RATING</h3>
                   <form onSubmit={handleSubmitComment}>
-                    <input 
+                  <h3>INPUT DE RATING</h3>
+                  {/* <Box sx={{'& > legend': { mt: 2 },}}>
+                      <Rating
+                        name="simple-controlled"
+                        value={value}
+                        onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                      />
+                  </Box> */}
+                    {/* <input 
                     type="number"
                     name='rating'
                     value={input.rating}
                     onChange={handleInputChange}
-                    />
+                    /> */}
+
+                    <Box sx={{'& > legend': { mt: 2 },}}>
+                        <Rating
+                          name='rating'
+                          value={input.rating}
+                          onChange={handleInputChange}
+                        />
+                    </Box>
                     {error.rating && <span>{error.rating}</span>}
 
                     <h5>Input nombre de la persona que quiere hacer comentario</h5>
@@ -262,6 +280,7 @@ function Details() {
                     value={input.flightName}
                     onChange={handleInputChange}
                     />
+                    
                     <h5>Input del origin / destino</h5>
                     <input
                     type="text" 
@@ -269,12 +288,14 @@ function Details() {
                     value={input.origin}
                     onChange={handleInputChange}
                     />
+
                     <input
                     type="text" 
                     name="destination"
                     value={input.destination}
                     onChange={handleInputChange}
                     />
+
                     <h3>INPUT DE COMENTARIO</h3>
                     <input 
                     type="text" 
@@ -288,19 +309,19 @@ function Details() {
                     <br />
                     <span>Su comentario puede ser eleminado si es conciderado inapropiado o se demuestra que no tiene relacion con la aerolinea</span>                    
                   </form> 
-                </div>      
-              <Box sx={{'& > legend': { mt: 2 },}}
-                    >
-                    <Typography component="legend">Controlled</Typography>
-                      <Rating
-                        name="simple-controlled"
-                        value={value}
-                        onChange={(event, newValue) => {
-                        setValue(newValue);
-                      }}
-                      />
-              </Box>
-               
+
+                  <br />
+                  <br />
+                  <form>
+                    <h3>PREGUNTAS SOBRE LA AEROLINEA O VUELO</h3>
+                    <h5>Aca iria la pregunta del cliente</h5>
+                     <input
+                      type="text"
+                    /> 
+
+                    <h5>Aca iria la respuesta de la aerolinea</h5>
+                  </form>
+                </div>                  
               </div>
             )             
           })

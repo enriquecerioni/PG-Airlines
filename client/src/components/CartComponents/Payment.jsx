@@ -303,7 +303,6 @@ function Payment() {
                 disabled={loading || !disabled}
                 createOrder={createOrderPayPal}
                 onApprove={onApprove}
-                onError={onError}
                 />            
             </PayPalScriptProvider>
             <br />
