@@ -55,7 +55,7 @@ function Cart() {
     if (products.length>0) {
       setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))            
     }    
-  }, [handleSum, handleRest])
+  }, [products])
 
   function handleCheckout(){
     auth.onAuthStateChanged(user=>{

@@ -18,7 +18,7 @@ function Ticket({
   logo,
   arrivalHour,
   departureHour,
-  stock,
+  tickets,
   destination,
 }) {
   const item = {
@@ -29,7 +29,7 @@ function Ticket({
     logo,
     arrivalHour,
     departureHour,
-    stock,
+    tickets,
     destination,
   };
 
@@ -147,8 +147,8 @@ function Ticket({
             </Link>
           </div>
         </div>
-        {stock < 40 ? (
-          <span>{`Solo ${stock} asientos disponibles`}</span>
+        {tickets < 40 ? (
+          <span>{`Solo ${tickets} asientos disponibles`}</span>
         ) : (
           <></>
         )}
