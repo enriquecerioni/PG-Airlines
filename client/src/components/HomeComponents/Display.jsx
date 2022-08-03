@@ -118,17 +118,18 @@ export default function Display() {
                 { 
                 filterArray.length !== 0 ? 
                 paginateCards.map(e => {
-                    if(e.stock)return (<Ticket 
-                        key={e.flight}
-                        id={e.flight}
-                        airline={e.airline}
+                    if(e.tickets)return (<Ticket 
+                        key={e.id}
+                        id={e.id}
+                        airlineId={e.airlineId}
+                        // airline={e.airline}
                         logo={e.logo}
                         price={e.price}
                         departureHour={e.departureHour}
                         arrivalHour={e.arrivalHour}
                         origin={e.origin}
                         destination={e.destination}
-                        stock={e.stock}              
+                        stock={e.tickets}              
                     />) 
                            
                 }) :

@@ -1,19 +1,23 @@
 const firebase = require("firebase");
+const {Flight} = require('../db')
 
 const getAllFlight = async (req, res) => {
-  const dbFirestore = firebase.firestore();
+  // const dbFirestore = firebase.firestore();  
   try {
-    let obj = [];
-    let vuelos = await dbFirestore.collection("db").get();
-    vuelos.docs.map((doc) => {
-      //console.log(doc);
-      obj.push(doc.data());
-    });
-
-    res.json(obj);
-
-
+    // let obj = [];
+    // let vuelos = await dbFirestore.collection("db").get();
+    // vuelos.docs.map((doc) => {
+    //   //console.log(doc);
+    //   obj.push(doc.data());
+    // });
+    // res.json(obj);
     // console.log("Llego la info");
+    let allFligths = await Flight.findAll();
+    if (allFligths.length) {
+      res.status(200).json(allFligths);
+    } else {
+      res.status(404).send({ message: "Flights not found" });
+    }
   } catch (error) {
     next(error.message);
   }

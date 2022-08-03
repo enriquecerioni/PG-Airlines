@@ -71,7 +71,7 @@ export function getFlightByID(id) {
         .then((flight) => {
             dispatch({
                 type: GET_FLIGHT_BY_ID, 
-                payload: flight.data.filter(e => e.flight === id)
+                payload: flight.data.find(e => e.id === id)
             })
         })
     }

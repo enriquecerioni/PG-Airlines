@@ -1,27 +1,26 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getFlightByID, cleanDetails } from "../redux/actions/index.js";
+import { getFlightByID, cleanDetails, getAllAirlines } from "../redux/actions/index.js";
 import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
-import {toast} from 'react-toastify'
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
-
+import { toast } from "react-toastify";
+import Box from "@mui/material/Box";
+import Rating from "@mui/material/Rating";
+import Typography from "@mui/material/Typography";
 
 // import  addProductToCart  from './CartComponents/CartContext.jsx'
 import { CartContext } from "./CartComponents/CartContext";
 import { useContext } from "react";
 
-
 function Details() {
-  const { id } = useParams();
-
+  let { id } = useParams();
+  id = Number(id);
 
   const dispatch = useDispatch();
   const details = useSelector((state) => state.flight);
-  const user = useSelector((state=>state.currentUser))
+  const user = useSelector((state) => state.currentUser);
+  const airlines = useSelector((state) => state.airlines);
   // console.log(details)
 
   // const item = details.map(e => {
@@ -37,7 +36,6 @@ function Details() {
   //   return obj
   // })
   // console.log(item)
-
   const { addProductToCart } = useContext(CartContext);
 
   const handleAddToCart = ({
@@ -73,95 +71,105 @@ function Details() {
 
   useEffect(() => {
     dispatch(getFlightByID(id));
+    dispatch(getAllAirlines());
     return () => {
       dispatch(cleanDetails());
     };
   }, [dispatch, id]);
-
+  console.log(details);
   const [value, setValue] = React.useState(2);
-
+  let airline = airlines.map((airline) => {
+    if (details.airlineId === airline.id) {
+      return airline.name
+    }
+  })
   return (
     <div>
+      {/* {airlines.map((airline) => {
+      if (details.airlineId === airline.id) {
+        const airline = airline.id
+      }
+    })} */}
       <div className={s.container}>
         <Link className={s.links} to="/">
           <button className={s.btnHome}>Go to Home</button>
         </Link>
 
         {details ? (
-          details.map((d) => {
-            return (
-              <div key={d.flight}>
-                <div className={s.detail}>
-                  <input className={s.input} type="checkbox" id="collapsible-checkbox" />
-                  <label className={s.label} for="collapsible-checkbox">
-                  <div className={s.divA}>
-                    <img className={s.logo} src={d.logo} alt="Img" />
-                    <div className={s.airline}>{d.airline}</div>
-                    <div className={s.departureDate}>{d.departureDate}</div>
-
-                    <div className={s.durationEstimated}>
-                      {d.durationEstimated}h
-                    </div>
-                  </div>
-                  </label>
-                  <div className={s.info}> 
-                  <div className={s.divInfo1}>
-
-                    <div className={s.departureHour}>Departure Hour: {d.departureHour}</div>
-                    <div className={s.durationEstimated}>
-                      {d.durationEstimated}h
-                    </div>
-                    <div className={s.arrivalHour}>Arrival Hour: {d.arrivalHour}</div>
-                  </div>
-                  <div className={s.divInfo2}>
-                    <div className={s.origin}>Origin: {d.origin}</div>
-                    <div className={s.description}>Description: {d.description}</div>
-                    <div className={s.destination}>Destination: {d.destination}</div>
-                  </div>
+          <div key={details.id}>
+            <div className={s.detail}>
+              <input
+                className={s.input}
+                type="checkbox"
+                id="collapsible-checkbox"
+              />
+              <label className={s.label} for="collapsible-checkbox">
+                <div className={s.divA}>
+                  <img className={s.logo} src={details.logo} alt="Img" />
+                  <div className={s.airline}>{airline}</div>
+                  <div className={s.departureDate}>{details.departureDate}</div>
+                  <div className={s.durationEstimated}>
+                    {details.durationEstimated}h
                   </div>
                 </div>
-                <div key={d.flight} className={s.divPrices}>
-                  <img className={s.logoPrice} src={d.logo} alt="Img" />
-                  <div className={s.airlinePrice}>{d.airline}</div>
-                  <div className={s.priceP}>${d.price}</div>
-                  { user.length && !user[0].permissions ? <button
-                    className={s.btn}
-                    onClick={() =>
-                      handleAddToCart({
-                        id: d.flight,
-                        origin: d.origin,
-                        price: d.price,
-                        logo: d.logo,
-                        airline: d.airline,
-                        arrivalHour: d.arrivalHour,
-                        departureHour: d.departureHour,
-                      })
-                      
-                    }
-                  >
-                    Reservar
-                  </button>
-                  : null  
-                }
+              </label>
+              <div className={s.info}>
+                <div className={s.divInfo1}>
+                  <div className={s.departureHour}>
+                    Departure Hour: {details.departureHour}
+                  </div>
+                  <div className={s.durationEstimated}>
+                    {details.durationEstimated}h
+                  </div>
+                  <div className={s.arrivalHour}>
+                    Arrival Hour: {details.arrivalHour}
+                  </div>
                 </div>
-          <Box sx={{'& > legend': { mt: 2 },}}
-                >
-                <Typography component="legend">Controlled</Typography>
-                  <Rating
-                    name="simple-controlled"
-                    value={value}
-                    onChange={(event, newValue) => {
-                    setValue(newValue);
-                  }}
-                  />
-                  
-                  
-              </Box>
-               
+                <div className={s.divInfo2}>
+                  <div className={s.origin}>Origin: {details.origin}</div>
+                  <div className={s.description}>
+                    Description: {details.description}
+                  </div>
+                  <div className={s.destination}>
+                    Destination: {details.destination}
+                  </div>
+                </div>
               </div>
-            );
-            
-          })
+            </div>
+            <div key={details.id} className={s.divPrices}>
+              <img className={s.logoPrice} src={details.logo} alt="Img" />
+              <div className={s.airlinePrice}>{airline}</div>
+              <div className={s.priceP}>${details.price}</div>
+              {user.length && !user[0].permissions ? (
+                <button
+                  className={s.btn}
+                  onClick={() =>
+                    handleAddToCart({
+                      id: details.id,
+                      origin: details.origin,
+                      price: details.price,
+                      logo: details.logo,
+                      airline: airline,
+                      arrivalHour: details.arrivalHour,
+                      departureHour: details.departureHour,
+                    })
+                  }
+                >
+                  Reservar
+                </button>
+              ) : null}
+            </div>
+            <Box sx={{ "& > legend": { mt: 2 } }}>
+              <Typography component="legend">Controlled</Typography>
+              <Rating
+                name="simple-controlled"
+                value={value}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+              />
+            </Box>
+          </div>
         ) : (
           <h1>NADA</h1>
         )}

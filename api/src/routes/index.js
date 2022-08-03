@@ -6,7 +6,6 @@ const stripeRouter = require('./stripe')
 const mpRouter = require('./mp')
 const orderRouter = require('./orderRouter')
 
-
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
