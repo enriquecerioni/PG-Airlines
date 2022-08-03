@@ -110,7 +110,7 @@ async function deleteFlights(req, res) {
       if (false) {
       }
       else {
-        return res.status(201).json(flightdb);
+        return res.status(201).json("Flight was deleted ");
       }
     }
   } catch (error) {
