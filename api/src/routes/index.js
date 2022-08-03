@@ -18,7 +18,7 @@ router.use('/flights', flightRouter);
 router.use('/user',userRouter)
 router.use('/stripe', stripeRouter)
 router.use('/mpcheckout', mpRouter)
-router.use('/airline', airlineRouter)
+
 
 router.use('/orders', orderRouter)
 

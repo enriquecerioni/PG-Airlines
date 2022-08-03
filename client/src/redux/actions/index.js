@@ -163,7 +163,7 @@ export function deleteFromCart(payload) {
 }    
 export function crearAerolinea(payload){
     return function (dispatch){
-        axios.post('http://localhost:3001/airline',payload)
+        axios.post('http://localhost:3001/airlines',payload)
         .then((response)=>{
             dispatch({
                 type:CREATE_AIRLINE,
@@ -172,6 +172,17 @@ export function crearAerolinea(payload){
         })
     }
 }
+export function deleteAirline(payload){
+    console.log(payload);
+        axios.delete(`http://localhost:3001/airlines/delete/${payload}`)
+        .then(()=>{
+           console.log("se borro la empresa perro");
+        })
+        .catch(()=>{
+            console.log("no se pudo borrar");
+        })
+}
+
 
 export function createUser(payload){
     return function (dispatch){
