@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
@@ -37,7 +37,7 @@ function Payment() {
     string: "",
   });
 
-  const [error, setError] = useState(null);
+  const [/*error*/, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const [succeeded, setSucceeded] = useState(false);
   const [processing, setProcessing] = useState("");
@@ -53,7 +53,7 @@ function Payment() {
           .map((p) => p.price * p.amount)
           .reduce((previousValue, currentValue) => previousValue + currentValue)
       );
-  }, []);
+  }, [dispatch,products]);
 
   ///------------------------------
 
@@ -244,20 +244,25 @@ function Payment() {
 
   return (
     <div className={css.payment_container}>
-      <h1>
-        Checkout (
-        <Link to="/cart">{products?.map((e) => e.amount)} tickets</Link>){" "}
-      </h1>
+        <h1>Checkout (
+            <Link to='/cart'>{products.length} tickets</Link>    
+        ) </h1>
 
-      {/* PAYMENT DETAIL */}
-      <h1>Your purchase:</h1>
-      {products?.map((e) => {
-        return (
-          <div key={e.id} className={style.cards}>
-            <li className={style.cards_item}>
-              <div className={css.card}>
-                <div className={style.card_image}>
-                  <img src={e.logo} alt="#" />
+        {/* PAYMENT DETAIL */}
+        <h1>Your purchase:</h1>
+        {products?.map(e => {
+            return (<div key={e.id} className={style.cards}>
+                <li className={style.cards_item}> 
+                <div className={css.card}>
+                    <div className={style.card_image}><img src={e.logo} alt='#'/></div>
+                    <div className={style.card_content}>
+                    <h2 className={style.card_title}>{e.airline}</h2>
+                    <h5>Origin: {e.origin} | Destination: {e.destination} </h5>
+                    </div>
+                    <div>
+                    <p className={style.card_text}>${e.price}</p>
+                    </div>
+                    <h5>Amount:{e.amount}</h5>
                 </div>
                 <div className={style.card_content}>
                   <h2 className={style.card_title}>{e.airline}</h2>
@@ -269,9 +274,8 @@ function Payment() {
                   <p className={style.card_text}>${e.price}</p>
                 </div>
                 <h5>Amount:{e.amount}</h5>
+                </li>
               </div>
-            </li>
-          </div>
         );
       })}
 
@@ -280,9 +284,61 @@ function Payment() {
         <h1>Payment Method</h1>
         <br />
 
-        <div>
-          <h5>Order Total:</h5>
-          {subTotal && <span>${subTotal}</span>}
+            <div>
+                <h5>Order Total:</h5>{ subTotal && <span>${subTotal}</span>}
+            </div>
+            <br />
+
+            {/* MERCADO PAGO */}
+            <hr className={css.hr_separator} />
+            <br />
+            <MPPayment loading={loading} disabled={disabled} subTotal={subTotal} products={products} user={user} />
+            <br />
+            <hr className={css.hr_separator} />
+            {/* PAYPAL */}
+            <br />
+            <PayPalScriptProvider 
+            options={{ "client-id": 'Af5RBL-IS1S6n_djlUuVWC-SSHDEWJDfTMVCyBPAJBISiKn6lgZmNmLX9D5KvBhWZ38jY_2Sy3ExLLQN'}}>
+                <PayPalButtons
+                disabled={loading || !disabled}
+                createOrder={createOrderPayPal}
+                onApprove={onApprove}
+                />            
+            </PayPalScriptProvider>
+            <br />
+            <hr className={css.hr_separator} />
+            <br />
+            {/* STRIPE */}
+            <form className={css.form_container}>
+                <br />
+
+                <TextField 
+                id="outlined-size-small"
+                label='Email'
+                type="text" 
+                value={email} 
+                name='email'
+                onChange={e => setEmail(e.target.value)}
+                required
+                />
+                <br />
+                <br />
+                <CardElement onChange={handleChange}/>
+                <br />
+
+                <br />
+                <LoadingButton
+                    onClick={handleSubmit}
+                    endIcon='✔'
+                    loading={loading}
+                    loadingPosition="end"
+                    variant="contained"
+                    disabled={processing || disabled || succeeded || errorMsg.value}
+                    ><span>{loading ? <p>Processing</p> : 'Buy now'}</span></LoadingButton>
+
+                <br />
+                {errorMsg.string && <span>{errorMsg.string}</span>}
+            </form>            
         </div>
         <br />
 
@@ -347,7 +403,6 @@ function Payment() {
 
           {errorMsg.string && <span>{errorMsg.string}</span>}
         </form>
-      </div>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import style from "../styles/Forms.module.css";
 import Input from "./Input";
 import { ejecutar, singUp } from "../scripts/auth";
 import { useHistory } from "react-router-dom";
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { LoadingButton } from "@mui/lab";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function Register() {
-  const [validForm, setValidForm] = useState(null);
+  const [validForm, /*setValidForm*/] = useState(null);
   const navigate = useHistory();
   const error = useSelector((state) => state.error);
 

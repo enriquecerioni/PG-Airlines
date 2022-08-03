@@ -1,24 +1,43 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "../styles/Ticket.module.css";
 import { Link } from "react-router-dom";
-import { addToFavorite, currentUser } from "../../redux/actions/index";
+import { addToFavorite } from "../../redux/actions/index";
 import { CartContext } from "../CartComponents/CartContext";
 import { useContext } from "react";
 import { toast } from "react-toastify";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { IconButton } from '@mui/material'
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { IconButton } from "@mui/material";
 
-function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,stock, destination}) {
+function Ticket({
+  id,
+  airlineId,
+  origin,
+  price,
+  logo,
+  arrivalHour,
+  departureHour,
+  tickets,
+  destination,
+}) {
+  const item = {
+    id,
+    airlineId,
+    origin,
+    price,
+    logo,
+    arrivalHour,
+    departureHour,
+    tickets,
+    destination,
+  };
 
-  const item = { id, origin, price, logo, airline, arrivalHour, departureHour,stock, destination }
-
-  const {addProductToCart} = useContext(CartContext)
-
+  const { addProductToCart } = useContext(CartContext);
+  const airlines = useSelector((state) => state.airlines);
   const dispatch = useDispatch();
-  const user=useSelector(state=>state.currentUser)
-//console.log(user.permissions);
+  const user = useSelector((state) => state.currentUser);
+  //console.log(user.permissions);
   // useEffect(()=>{
   //   dispatch(currentUser())
   // },[])
@@ -37,7 +56,6 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
       progress: undefined,
     });
   };
-
 
   // Para agregar a favoritos
   let favoriteList = useSelector((state) => state.favoriteList);
@@ -63,25 +81,25 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
   return (
     <div className={style.cards}>
       <li className={style.cards_item}>
-      { user.length && !user[0].permissions ? 
-       <IconButton 
-          id="mailBTN"
-          color='error'
-          disabled={listDisabled}
-          onClick={() => addFav(item)}
-        ><FavoriteIcon />
-        </IconButton>
-      : !user.length ? 
-
-       <IconButton 
-          id="mailBTN"
-          color='error'
-          disabled={listDisabled}
-          onClick={() => addFav(item)}
-        ><FavoriteIcon />
-        </IconButton>
-      : null
-    }
+        {user.length && !user[0].permissions ? (
+          <IconButton
+            id="mailBTN"
+            color="error"
+            disabled={listDisabled}
+            onClick={() => addFav(item)}
+          >
+            <FavoriteIcon />
+          </IconButton>
+        ) : !user.length ? (
+          <IconButton
+            id="mailBTN"
+            color="error"
+            disabled={listDisabled}
+            onClick={() => addFav(item)}
+          >
+            <FavoriteIcon />
+          </IconButton>
+        ) : null}
         <div className={style.info}>
           <button className={style.button}>i </button>
           <div className={style.propiedades}>
@@ -91,28 +109,33 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
             <h5 className={style.a}> {origin} </h5>
           </div>
         </div>
-        { user.length && !user[0].permissions ? 
-        <IconButton 
-        id="addToCart"
-        className={style.btnCart} 
-        onClick={handleAddCart}>
-        <AddShoppingCartIcon />
-        </IconButton>
-        : !user.length ? 
-        <IconButton 
-        id="addToCart"
-        className={style.btnCart} 
-        onClick={handleAddCart}>
-        <AddShoppingCartIcon />
-        </IconButton>
-        : null
-        }
+        {user.length && !user[0].permissions ? (
+          <IconButton
+            id="addToCart"
+            className={style.btnCart}
+            onClick={handleAddCart}
+          >
+            <AddShoppingCartIcon />
+          </IconButton>
+        ) : !user.length ? (
+          <IconButton
+            id="addToCart"
+            className={style.btnCart}
+            onClick={handleAddCart}
+          >
+            <AddShoppingCartIcon />
+          </IconButton>
+        ) : null}
         <div className={style.card}>
           <div className={style.card_image}>
             <img src={logo} alt="#" />
           </div>
           <div className={style.card_content}>
-            <h2 className={style.card_title}>{airline}</h2>
+            {airlines.map((airline) => {
+              if(airlineId === airline.id){
+                return <h2 className={style.card_title}>{airline.name}</h2>
+              }
+            })}
             <h5>
               Origin: {origin} | Destination: {destination}{" "}
             </h5>
@@ -124,7 +147,11 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
             </Link>
           </div>
         </div>
-        { stock < 40 ? <span>{`Solo ${stock} asientos disponibles`}</span> : <></> }
+        {tickets < 40 ? (
+          <span>{`Solo ${tickets} asientos disponibles`}</span>
+        ) : (
+          <></>
+        )}
       </li>
     </div>
   );

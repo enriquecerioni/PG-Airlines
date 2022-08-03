@@ -2,13 +2,13 @@
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import data from "./ColumnsDG.js";
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import s from "../styles/Catalog.module.css";
 import { editToFlights } from '../../redux/actions/index'
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteFlights,getAllFlights } from '../../redux/actions/index'
+import { useDispatch, /*useSelector*/ } from 'react-redux';
+import { deleteFlights } from '../../redux/actions/index'
 
 const columns = data;
 let flightIds = [];
@@ -37,6 +37,8 @@ function CatalogFlights({ rows }) {
     const mese = useSelector(state => state.messeage)    
      
     const handleOpen = () => setOpen(true);
+
+    // const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleSave = () => dispatch(editToFlights(dataFlight));
     

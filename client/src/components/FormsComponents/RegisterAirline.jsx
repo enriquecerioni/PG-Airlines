@@ -2,17 +2,17 @@ import React from "react";
 import { useState } from "react";
 import style from "../styles/Forms.module.css";
 import Input from "./Input";
-import { ejecutar, singUpAirline } from "../scripts/auth";
+import {  singUpAirline } from "../scripts/auth";
 import { useHistory } from "react-router-dom";
 import { Button } from "@mui/material";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+
 
 export default function RegisterAirline() {
-  const [validForm, setValidForm] = useState(null);
+  const [validForm, /*setValidForm*/] = useState(null);
   const navigate = useHistory();
-  const error = useSelector((state) => state.error);
+  // const error = useSelector((state) => state.error);
 
   const [name, setName] = useState({ value: "", valid: null });
   const [image, setImage] = useState({ value: "", valid: null });

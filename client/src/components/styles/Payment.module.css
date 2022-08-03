@@ -53,7 +53,7 @@
 .methods {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: start;     /*warning dice que flex-start    ?? sera????*/
     margin: 0 auto;
     width: 70%;
     align-items: center;

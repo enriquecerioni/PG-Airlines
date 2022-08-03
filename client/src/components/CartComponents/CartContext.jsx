@@ -42,11 +42,11 @@ const CartProvider = ({ children }) => {
   
     // console.log(products)
     // const cartProductArray = localStorage.getItem("cartProducts");
-  }, [products]);
+  }, [products,pay]);
 
 
-  const addProductToCart = async ({id, origin, price, logo, airline, arrivalHour, departureHour,stock}) => {
-    console.log("stock" ,stock)
+  const addProductToCart = async ({id, origin, price, logo, airline, arrivalHour, departureHour,tickets}) => {
+    console.log("tickets" ,tickets)
     console.log("esto es el products",products)
     let inCart = Array.isArray(products) && products.filter((p) => p.id === id);
     //console.log(inCart)
@@ -55,14 +55,19 @@ const CartProvider = ({ children }) => {
       setProducts(
         products.map((p) => {
           if (p.id === id) {
-            return { ...p, 
-              amount: p.amount + 1 };
-          } else return p;
+            if(p.tickets>=p.amount){
+              return { ...p, 
+                amount: p.amount + 1 };
+            }else{
+              alert("no tenes stock para comprar", p.amount)
+            }
+            }
+             else return p;
         })
       );
     } else {      
-      setProducts( [...products, { id, origin, price, logo, airline, arrivalHour, departureHour,stock, amount: 1}] )
-      await store.dispatch(addToCart({id,origin,price,logo,airline,arrivalHour,departureHour,stock,amount: 1}))
+      setProducts( [...products, { id, origin, price, logo, airline, arrivalHour, departureHour,tickets, amount: 1}] )
+      await store.dispatch(addToCart({id,origin,price,logo,airline,arrivalHour,departureHour,tickets,amount: 1}))
     }
   };
 
@@ -81,8 +86,8 @@ const CartProvider = ({ children }) => {
               amount: p.amount - 1 
             };
           } else if(p.id === id && operacion === 'suma') {
-            if (p.stock > p.amount) {
-              console.log("este es tu stock",p.stock)
+            if (p.tickets > p.amount) {
+              console.log("este es tu stock",p.tickets)
             return { 
               ...p, 
               amount: p.amount + 1 

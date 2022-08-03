@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createUser, getAllUsers, getOrders } from '../../redux/actions/index'
+import { getAllUsers, getOrders } from '../../redux/actions/index'
 import { Card, TableRow, TableHead, TableContainer, TableCell,TableBody, Table } from '@mui/material';
 import style from '../styles/Payment.module.css'
 import { Link, useHistory } from 'react-router-dom';
@@ -17,32 +17,32 @@ function Orders() {
     const user=useSelector(state=>state.currentUser)
     console.log(ordersArr)
 
-    useEffect(() => {
-      /*
-      if(user) {
-        db
-        .collection('users')
-        .doc(user?.id)
-        .collection('orders')
-        .onSnapshot(snapshot => {
-          setOrders(snapshot.docs.map(doc => ({
-            id: doc.id,
-            data:doc.data()
-          })))
-        })        
-      } else {
-        setOrders([])
-      }
+    // useEffect(() => {
+    //   /*
+    //   if(user) {
+    //     db
+    //     .collection('users')
+    //     .doc(user?.id)
+    //     .collection('orders')
+    //     .onSnapshot(snapshot => {
+    //       setOrders(snapshot.docs.map(doc => ({
+    //         id: doc.id,
+    //         data:doc.data()
+    //       })))
+    //     })        
+    //   } else {
+    //     setOrders([])
+    //   }
 
-      */
-    }, [/*user*/])
+    //   */
+    // }, [/*user*/])
 
     useEffect(() => {
       dispatch(getOrders())
       dispatch(getAllUsers())
       setProducts([])
       localStorage.setItem("cartProducts", JSON.stringify(products))
-    }, [])
+    }, [dispatch,products,setProducts])
 function handleClick(e){
   e.preventDefault();
   navigate.replace('/')

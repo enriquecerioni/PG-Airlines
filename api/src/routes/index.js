@@ -5,7 +5,7 @@ const userRouter = require('./userRouter');
 const stripeRouter = require('./stripe')
 const mpRouter = require('./mp')
 const orderRouter = require('./orderRouter')
-
+const commentsRouter = require('./commentsRouter')
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -22,5 +22,6 @@ router.use('/mpcheckout', mpRouter)
 
 
 router.use('/orders', orderRouter)
+router.use('/comments', commentsRouter)
 
 module.exports = router;

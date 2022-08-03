@@ -10,7 +10,8 @@ import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterBy
 export default function Display() {
 // console.log(details)
     const dispatch = useDispatch()
-
+    const airlinesState=useSelector(state=>state.airlines)
+    //console.log("airlinesss",airlines);
     // const [price, setPrice] = React.useState('');
 
     const details = useSelector((state) => state.flights)
@@ -33,7 +34,7 @@ export default function Display() {
 
         orderPriceSelect.current.value = orderState
         orderAlpSelect.current.value = orderState        
-    }, [])
+    }, [dispatch])
 
     // PAGINATE
     const [currentPage, setCurrentPage] = useState(1)
@@ -97,7 +98,8 @@ export default function Display() {
 
     function handleSearchAirlines(e) {
         e.preventDefault();      
-        const allAirlines = filterArray.map(f => f.airline);
+        const allAirlines = airlinesState.map(f => f.name);
+        
         let airlines = allAirlines.filter((v, i) => {
             return allAirlines.indexOf(v) === i;
         })
@@ -118,17 +120,18 @@ export default function Display() {
                 { 
                 filterArray.length !== 0 ? 
                 paginateCards.map(e => {
-                    if(e.stock)return (<Ticket 
-                        key={e.flight}
-                        id={e.flight}
-                        airline={e.airline}
+                    if(e.tickets)return (<Ticket 
+                        key={e.id}
+                        id={e.id}
+                        airlineId={e.airlineId}
+                        // airline={e.airline}
                         logo={e.logo}
                         price={e.price}
                         departureHour={e.departureHour}
                         arrivalHour={e.arrivalHour}
                         origin={e.origin}
                         destination={e.destination}
-                        stock={e.stock}              
+                        tickets={e.tickets}              
                     />) 
                            
                 }) :

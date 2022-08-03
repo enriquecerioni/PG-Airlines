@@ -13,7 +13,7 @@ function Success() {
         setIsDisplayed(false);
         history.replace('/orders')
       }, 4000);
-    }, []) 
+    }, [history]) 
 
   return (
     <>

@@ -33,6 +33,8 @@ export const CREATE_AIRLINE="CREATE_AIRLINE"
 
 export const CREATE_ORDER = 'CREATE_ORDER'
 export const GET_ORDERS = 'GET_ORDERS'
+export const CREATE_COMMENT = 'CREATE_COMMENT'
+export const GET_COMMENTS = 'GET_COMMENTS'
 
 export const GET_ALL_USER_FIREBASE="GET_ALL_USER_FIREBASE"
 
@@ -71,7 +73,7 @@ export function getFlightByID(id) {
         .then((flight) => {
             dispatch({
                 type: GET_FLIGHT_BY_ID, 
-                payload: flight.data.filter(e => e.flight === id)
+                payload: flight.data.find(e => e.id === id)
             })
         })
     }
@@ -357,3 +359,30 @@ export function deleteFlights(payload){
              })
          }
      }
+
+
+export function getAllComments() {
+    return async function(dispatch) {
+        await axios.get('http://localhost:3001/comments')
+        .then(res => {
+            dispatch({
+                type: GET_COMMENTS,
+                payload: res.data
+            })
+        })
+        .catch(error => console.log(error))
+    }
+}
+
+export function createComment(payload) {
+    return async function(dispatch) {
+        await axios.post('http://localhost:3001/comments', payload)
+        .then(res => {
+            dispatch({
+                type: CREATE_COMMENT,
+                payload: res
+            })
+        })
+        .catch(error => console.log(error))
+    }
+}

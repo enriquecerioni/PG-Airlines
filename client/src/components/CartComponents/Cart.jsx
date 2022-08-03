@@ -7,7 +7,7 @@ import { CartContext } from './CartContext'
 import { deleteFromCart } from '../../redux/actions/index'
 import { useDispatch } from 'react-redux'
 import {toast} from 'react-toastify'
-import { Button, IconButton, Card, CardContent } from '@mui/material';
+import { Button, IconButton, Card } from '@mui/material';
 import vacio from '../styles/assets/test1.png'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -21,7 +21,7 @@ function Cart() {
   const history = useHistory()  
   const dispatch = useDispatch()
 
-    const { products, addProductToCart, substractdProductFromCart , deleteProductFromCart} = useContext(CartContext)
+    const { products, substractdProductFromCart , deleteProductFromCart} = useContext(CartContext)
     const [subTotal, setSubTotal] = useState(0)
     
   function handleDelete(id){
@@ -55,7 +55,7 @@ function Cart() {
     if (products.length>0) {
       setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))            
     }    
-  }, [handleSum, handleRest])
+  }, [products])
 
   function handleCheckout(){
     auth.onAuthStateChanged(user=>{

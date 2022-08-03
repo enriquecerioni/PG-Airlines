@@ -4,9 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../redux/actions";
 import Loader from "../HomeComponents/Loader";
 import s from "../styles/UserProfile.module.css";
-import Orders from "../CartComponents/Orders";
 
-export default function UserPurchases() {
+import Catalog from "../CatalogComponents/Catalog";
+
+export default function FlightManagement() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllUsers());
@@ -16,6 +17,7 @@ export default function UserPurchases() {
   const currentUser = useSelector((state) => state.currentUser)[0];
   console.log(users);
   console.log(currentUser);
+  console.log("LLEGUE");
   return (
     <>
       {currentUser !== undefined ? (
@@ -23,7 +25,7 @@ export default function UserPurchases() {
           <ProfileNav />
           <div className={s.infoContainer}>
             <h2 className={s.title}>
-              <Orders />
+              <Catalog/>
             </h2>
           </div>
         </div>

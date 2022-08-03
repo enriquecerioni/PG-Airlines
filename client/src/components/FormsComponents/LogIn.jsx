@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 
 function LogIn() {
   let navigate = useHistory();
-  const [validForm, setValidForm] = useState(null);
+  const [validForm, /*setValidForm*/] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
