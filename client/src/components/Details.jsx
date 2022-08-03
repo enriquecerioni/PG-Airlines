@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getFlightByID, cleanDetails } from "../redux/actions/index.js";
+import { getFlightByID, cleanDetails, createComment } from "../redux/actions/index.js";
 import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
-
 
 // import  addProductToCart  from './CartComponents/CartContext.jsx'
 import { CartContext } from "./CartComponents/CartContext";
@@ -75,20 +74,104 @@ function Details() {
 
   const [value, setValue] = React.useState(2);
 
+  //////////////////////
+  // CREAR COMENTARIO //
+  function validate(input) {
+    let error = {}
+
+    if(input.name === '') {
+      error.name = 'Enter a name'
+    } else {
+      error.name = ''
+    }
+
+    if(input.rating === '') {
+      error.rating = 'Enter a rating value'
+    } else if(input.rating !== '' && (input.rating < 1 || input.rating > 5)) {
+      error.rating = 'Rating value must be between 0 and 5'
+    } else {
+      error.rating = ''
+    }
+
+    if(input.comment === '') {
+      error.comment = 'Enter a comment'
+    } else {
+      error.comment = ''
+    }
+
+    return error;
+  }
+
+  const [ error, setError ] = useState({
+    rating: '',
+    comment: '',
+    name: '' 
+  })
+
+  const [ input, setInput ] = useState({
+      rating: '',
+      comment: '',
+      name: '',
+      moreInfo: [
+        {
+        flightName: '',
+        origin: '',
+        destination: ''        
+      }
+    ]
+  })
+
+  function handleInputChange(e) {
+    e.preventDefault()
+    setInput({
+      ...input,
+      [e.target.name] : e.target.value
+    })
+    setError(validate({
+      ...input,
+      [e.target.name] : e.target.value
+    }))
+  }
+
+  function handleSubmitComment(e) {
+    e.preventDefault()
+
+    if(
+      input.rating && input.comment && input.name
+    ) {
+
+      dispatch(createComment(input))
+      setInput({
+        rating: '',
+        comment: '',
+        name: '',
+        moreInfo: {
+          flightName: '',
+          origin: '',
+          destination: ''        
+        }        
+      })
+
+    } else {
+        console.log('formulario incorrecto')
+    }
+
+  }
+
+
   return (
     <div>
       <div className={s.container}>
         <Link className={s.links} to="/">
           <button className={s.btnHome}>Go to Home</button>
         </Link>
-
         {details ? (
           details.map((d) => {
             return (
               <div key={d.flight}>
                 <div className={s.detail}>
                   <input className={s.input} type="checkbox" id="collapsible-checkbox" />
-                  <label className={s.label} for="collapsible-checkbox">
+                  <label className={s.label} htmlFor="collapsible-checkbox">
                   <div className={s.divA}>
                     <img className={s.logo} src={d.logo} alt="Img" />
                     <div className={s.airline}>{d.airline}</div>
@@ -139,14 +222,75 @@ function Details() {
                   : null  
                 }
                 </div>
-               
+                
+                {/* CREAR COMENTARIO - FALTAN RUTAS EN BACK */}
+                <div>
+                  <h3>Este vuelo fue publicado por: {d.airline} </h3>
+                  <h3>RATING DE LA AEROLINEA</h3>
+                  <h3>COMENTARIOS PREVIOS</h3>
+                  {/* {comments.map(e => 
+                    return (<span>{e.rating}</span>))} */}
+                  <h3>Publicar comentario y rating</h3>
+                  <h3>INPUT DE RATING</h3>
+                  <form onSubmit={handleSubmitComment}>
+                    <input 
+                    type="number"
+                    name='rating'
+                    value={input.rating}
+                    onChange={handleInputChange}
+                    />
+                    {error.rating && <span>{error.rating}</span>}
+
+                    <h5>Input nombre de la persona que quiere hacer comentario</h5>
+                    <input
+                    type="text"
+                    value={input.name}
+                    name='name'
+                    onChange={handleInputChange}
+                    />
+                    {error.name && <span>{error.name}</span>}
+
+                    <h5>Input nombre del vuelo de donde lo conocen</h5>
+                    <input 
+                    type="text" 
+                    name="flightName"
+                    value={input.flightName}
+                    onChange={handleInputChange}
+                    />
+                    <h5>Input del origin / destino</h5>
+                    <input
+                    type="text" 
+                    name="origin"
+                    value={input.origin}
+                    onChange={handleInputChange}
+                    />
+                    <input
+                    type="text" 
+                    name="destination"
+                    value={input.destination}
+                    onChange={handleInputChange}
+                    />
+                    <h3>INPUT DE COMENTARIO</h3>
+                    <input 
+                    type="text" 
+                    name='comment'
+                    value={input.comment}
+                    onChange={handleInputChange}
+                    />
+                    {error.comment && <span>{error.comment}</span>}
+
+                    <button type="submit">Publicar</button>
+                    <br />
+                    <span>Su comentario puede ser eleminado si es conciderado inapropiado o se demuestra que no tiene relacion con la aerolinea</span>                    
+                  </form> 
+                </div>      
               </div>
-            );
-            
+            )             
           })
         ) : (
           <h1>NADA</h1>
         )}
+
       </div>
     </div>
   );

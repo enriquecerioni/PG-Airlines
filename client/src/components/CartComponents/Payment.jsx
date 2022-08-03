@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useContext } from 'react'
 import { CartContext } from './CartContext'
@@ -35,7 +35,7 @@ function Payment() {
         string: ''
     })
 
-    const [ error, setError] = useState(null)
+    const [ /*error*/, setError] = useState(null)
     const [ disabled, setDisabled] = useState(true)
     const [ succeeded, setSucceeded ] = useState(false)
     const [ processing, setProcessing ] = useState("")
@@ -46,7 +46,7 @@ function Payment() {
     useEffect(() => {
         dispatch(getAllUsers());
         if(products.length !== 0) setSubTotal(products.map(p => p.price * p.amount).reduce((previousValue, currentValue) => previousValue + currentValue))
-      }, [])
+      }, [dispatch])
 
     ///------------------------------
 
@@ -122,6 +122,17 @@ function Payment() {
                         amount: subTotal * 100, // lo tengo que mandar en centavos  //1 METODO
                         receipt_email: email,
                     })
+                    console.log(data) // {message: 'succesfull payment'}
+
+                    setLoading(false)
+                    setSucceeded(true)
+                    setError(null)
+                    setProcessing(false)    
+                    elements.getElement(CardElement).clear()
+                    await deleteStockFirebase()
+                    setPay(true)
+                    setProducts([])
+                    alert('Payment successful')
 
                     const sendOrder = {
                         price: subTotal,
@@ -140,17 +151,6 @@ function Payment() {
                     console.log(sendOrder);
                     dispatch(createOrder(sendOrder))  
 
-                    // console.log(data) // {message: 'succesfull payment'}
-                    ;
-                    setLoading(false)
-                    setSucceeded(true)
-                    setError(null)
-                    setProcessing(false)    
-                    elements.getElement(CardElement).clear()
-                    await deleteStockFirebase()
-                    setPay(true)
-                    setProducts([])
-                    alert('Payment successful')
                     window.localStorage.clear()
                     history.replace('/success')
     
@@ -212,7 +212,7 @@ function Payment() {
     <div className={css.payment_container}>
 
         <h1>Checkout (
-            <Link to='/cart'>{products?.map(e => e.amount)} tickets</Link>    
+            <Link to='/cart'>{products.length} tickets</Link>    
         ) </h1>
 
         {/* PAYMENT DETAIL */}
@@ -293,6 +293,7 @@ function Payment() {
                     disabled={processing || disabled || succeeded || errorMsg.value}
                     ><span>{loading ? <p>Processing</p> : 'Buy now'}</span></LoadingButton>
 
+                <br />
                 {errorMsg.string && <span>{errorMsg.string}</span>}
             </form>            
         </div>

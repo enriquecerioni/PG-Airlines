@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createUser, getAllUsers, getOrders } from '../../redux/actions/index'
+import { getAllUsers, getOrders } from '../../redux/actions/index'
 import { Card, TableRow, TableHead, TableContainer, TableCell,TableBody, Table } from '@mui/material';
 import style from '../styles/Payment.module.css'
 import { Link, useHistory } from 'react-router-dom';
@@ -38,7 +38,8 @@ function Orders() {
     useEffect(() => {
       dispatch(getOrders())
       dispatch(getAllUsers())
-    }, [])
+    }, [dispatch])
+
 function handleClick(e){
   e.preventDefault();
   navigate.replace('/')

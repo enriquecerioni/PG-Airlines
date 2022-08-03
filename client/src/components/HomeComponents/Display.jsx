@@ -5,7 +5,7 @@ import style from '../styles/Display.module.css'
 import Paginate from './Paginate';
 import Filter from '../Filter'
 // import Filter from './Filter'
-import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines, getAllUsers, currentUser} from '../../redux/actions/index'
+import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines, /*getAllUsers, currentUser*/} from '../../redux/actions/index'
 
 export default function Display() {
 // console.log(details)
@@ -32,7 +32,7 @@ export default function Display() {
 
         orderPriceSelect.current.value = orderState
         orderAlpSelect.current.value = orderState        
-    }, [])
+    }, [dispatch])
 
     // PAGINATE
     const [currentPage, setCurrentPage] = useState(1)

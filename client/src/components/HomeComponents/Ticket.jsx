@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "../styles/Ticket.module.css";
 import { Link } from "react-router-dom";
-import { addToFavorite, currentUser } from "../../redux/actions/index";
+import { addToFavorite } from "../../redux/actions/index";
 import { CartContext } from "../CartComponents/CartContext";
 import { useContext } from "react";
 import { toast } from "react-toastify";
