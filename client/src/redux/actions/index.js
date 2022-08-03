@@ -73,7 +73,7 @@ export function getFlightByID(id) {
         .then((flight) => {
             dispatch({
                 type: GET_FLIGHT_BY_ID, 
-                payload: flight.data.filter(e => e.flight === id)
+                payload: flight.data.find(e => e.id === id)
             })
         })
     }
@@ -174,6 +174,17 @@ export function crearAerolinea(payload){
         })
     }
 }
+export function deleteAirline(payload){
+    console.log(payload);
+        axios.delete(`http://localhost:3001/airlines/delete/${payload}`)
+        .then(()=>{
+           console.log("se borro la empresa perro");
+        })
+        .catch(()=>{
+            console.log("no se pudo borrar");
+        })
+}
+
 
 export function createUser(payload){
     return function (dispatch){
