@@ -27,6 +27,7 @@ import {
   DELETE_USER,
   CURRENT_USER,
   GET_ORDERS,
+  GET_ALL_USER_FIREBASE,
 } from "../actions";
 
 const initialState = {
@@ -37,6 +38,7 @@ const initialState = {
   flight: [], // vuelo con detalles
   user: {},
   allUsers:[],
+  allUsersFirebase:[],
   orders: [],
   currentUser:[],
   reset: true,
@@ -82,6 +84,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allUsers: action.payload
+      }
+    case GET_ALL_USER_FIREBASE:
+      return {
+        ...state,
+        allUsersFirebase: action.payload,
       }
     case CREATE_USER:
 

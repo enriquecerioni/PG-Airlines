@@ -28,9 +28,12 @@ export const CREATER_FLIGHTS="CREATER_FLIGHTS"
 export const DELETE_FLIGHTS="DELETE_FLIGHTS"
 export const DELETE_USER="DELETE_USER"
 export const CURRENT_USER="CURRENT_USER"
+export const CREATE_AIRLINE="CREATE_AIRLINE"
 
 export const CREATE_ORDER = 'CREATE_ORDER'
 export const GET_ORDERS = 'GET_ORDERS'
+
+export const GET_ALL_USER_FIREBASE="GET_ALL_USER_FIREBASE"
 
 export const getAllFlights = () => {
     return function (dispatch) {
@@ -68,6 +71,20 @@ export function getAllUsers(){
         .then((res) => {
             dispatch({
                 type: GET_USERS, 
+                payload: res.data
+            })
+        })
+        .catch((error) => {
+            console.log("Users not found");
+        }) 
+    }
+}
+export function getAllUsersFirebase(){
+    return function (dispatch) {
+        axios(`http://localhost:3001/user/firebase`)
+        .then((res) => {
+            dispatch({
+                type: GET_ALL_USER_FIREBASE, 
                 payload: res.data
             })
         })
@@ -132,6 +149,17 @@ export function deleteFromCart(payload) {
         payload
     }
 }    
+export function crearAerolinea(payload){
+    return function (dispatch){
+        axios.post('http://localhost:3001/airline',payload)
+        .then((response)=>{
+            dispatch({
+                type:CREATE_AIRLINE,
+                payload:response.payload
+            })
+        })
+    }
+}
 
 export function createUser(payload){
     return function (dispatch){
