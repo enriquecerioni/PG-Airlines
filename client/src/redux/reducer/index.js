@@ -435,7 +435,7 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case DELETE_FLIGHTS: {
-      let allflight;
+      let allflight = [];
       return {
         ...state,
         flights: allflight,

@@ -343,10 +343,14 @@ debugger;
  
 
 export function deleteFlights(payload){
-       
+   
+         
+         const flightIds = {flightIds: payload};
+      
          debugger;
          return function (dispatch){
-             axios.post('http://localhost:3001/flights/delete',payload)
+            console.log(flightIds)
+             axios.post('http://localhost:3001/flights/delete',flightIds)
              .then((response)=>{
                  dispatch({
                      type:DELETE_FLIGHTS,

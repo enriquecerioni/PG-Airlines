@@ -98,7 +98,11 @@ export default function NavBar() {
   }
 
   return (
+    
     <nav>
+      {/* <Link className={s.navLink} to="/catalog">
+                Catalog
+              </Link> */}
       <Link className={s.navImg} to="/">
         <img className={s.logoImg} src={logo} alt="logo" />
       </Link>

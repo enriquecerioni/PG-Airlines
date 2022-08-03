@@ -7,6 +7,6 @@ flightRouter.get('/',getAllFlight)
 flightRouter.get('/origen',getOriginFlight)
 flightRouter.post('/create',createFlights)
 flightRouter.put('/update',updateToflights)
-flightRouter.delete('/delete',deleteFlights)
+flightRouter.post('/delete',deleteFlights)
 
 module.exports=flightRouter;
