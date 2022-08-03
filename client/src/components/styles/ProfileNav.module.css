@@ -96,6 +96,12 @@
 .links{
   text-decoration: none;
   color: var(--text-color);
+  padding-left: 0rem;
+}
+
+.sidebar:hover .navLink:hover .links:hover{
+  color: white;
+  padding-left: 1rem;
 }
 .sidebar{
   position: fixed;
@@ -166,13 +172,14 @@ figcaption.fig1, .fig2{
 }
 
 .sidebar header .image,
-.sidebar .icon{
+.sidebar .bx{
   min-width: 60px;
   border-radius: 6px;
 }
 
-.sidebar .icon{
+.sidebar .bx{
   min-width: 60px;
+  background-color: red;
   border-radius: 6px;
   height: 100%;
   display: flex;
@@ -182,7 +189,7 @@ figcaption.fig1, .fig2{
 }
 
 .sidebar .text,
-.sidebar .icon{
+.sidebar .bx{
   color: var(--text-color);
   transition: var(--tran-03);
 }
@@ -297,7 +304,7 @@ header .imageText .profession{
 .sidebar .navLink .links:hover{
   background-color: var(--primary-color);
 }
-.sidebar .navLink .links:hover .icon,
+.sidebar .navLink .links:hover .bx,
 .sidebar .navLink .links:hover .text{
   color: white;
 }
