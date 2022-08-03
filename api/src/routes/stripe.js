@@ -20,9 +20,7 @@ stripeRouter.post('/', async (req, res) => {
       receipt_email,
     })
     console.log(payment)
-
     await sendNodemailer({ id, amount, receipt_email })
-
     return res.send(payment)
   } catch (error) {
     res.json({message: error.raw.message})

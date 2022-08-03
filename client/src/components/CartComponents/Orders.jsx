@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createUser, getAllUsers, getOrders } from '../../redux/actions/index'
+import { getAllUsers, getOrders } from '../../redux/actions/index'
 import { Card, TableRow, TableHead, TableContainer, TableCell,TableBody, Table } from '@mui/material';
 import style from '../styles/Payment.module.css'
 import { Link, useHistory } from 'react-router-dom';

@@ -33,7 +33,7 @@ export default function Display() {
 
         orderPriceSelect.current.value = orderState
         orderAlpSelect.current.value = orderState        
-    }, [])
+    }, [dispatch])
 
     // PAGINATE
     const [currentPage, setCurrentPage] = useState(1)

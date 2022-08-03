@@ -17,7 +17,7 @@ import {
   ADD_TO_CART,
   DELETE_FROM_CART,
   ADD_CART,
-  RESET_CART,
+  // RESET_CART,
   CREATE_USER,
   LOGOUT_USER,
   ERROR_USER,
@@ -28,6 +28,7 @@ import {
   DELETE_USER,
   CURRENT_USER,
   GET_ORDERS,
+  GET_COMMENTS,
   GET_ALL_USER_FIREBASE,
 } from "../actions";
 
@@ -47,9 +48,10 @@ const initialState = {
   orderState: "initial",
   favoriteList: [],
   shoppingCart: [],
-  filterPrecioData: "",
-  filterAirlinesData: "",
-  error: "",
+  filterPrecioData: '',
+  filterAirlinesData: '',
+  error: '',
+  comments: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -296,7 +298,7 @@ const rootReducer = (state = initialState, action) => {
           : action.payload === "<40.000"
           ? arrPrice.filter((e) => 40000 <= e.price)
           : arrPrice;
-      if (state.filterAirlinesData != "" && state.filterAirlinesData != "all") {
+      if (state.filterAirlinesData !== "" && state.filterAirlinesData !== "all") {
         filterPrice = filterPrice.filter((f) =>
           f.airline
             .toLowerCase()
@@ -316,12 +318,12 @@ const rootReducer = (state = initialState, action) => {
       let copyFlights = state.copy;
       const filterData = state.filterPrecioData;
 
-      if (action.payload != "all")
+      if (action.payload !== "all")
         copyFlights = copyFlights.filter((f) =>
           f.airline.toLowerCase().includes(action.payload.toLowerCase())
         );
 
-      if (filterData != "" && filterData != "all") {
+      if (filterData !== "" && filterData !== "all") {
         copyFlights =
           filterData === ">20.000"
             ? copyFlights.filter((e) => e.price < 20000)
@@ -427,6 +429,13 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         orders: action.payload,
       };
+    }
+
+    case GET_COMMENTS: {
+      return {
+        ...state,
+        comments: action.payload
+      }
     }
 
     default:

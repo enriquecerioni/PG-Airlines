@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import data from "./ColumnsDG.js";
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import s from "../styles/Catalog.module.css";
@@ -33,7 +33,7 @@ debugger;
     }     
    const item =  flightIds.find(f=> f === selectedRows );
       
-    if(item != undefined){
+    if(item !== undefined){
        flightIds.slice( flightIds.indexOf('item'),1);  
         return
     }else{
