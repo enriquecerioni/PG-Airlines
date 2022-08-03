@@ -34,7 +34,7 @@ export default function Administration(){
     let email=e.target.email.value
     let uid=e.target.uid.value
     await Delete(email,uid)
-     dispatch(deleteAirline(email))
+     business.filter((b)=>b.email===email).lenght ? dispatch(deleteAirline(email)) : null
    //  aca va un loader porque las funciones se ejecutan tarde y se rompe con el window.location.reload()
     
    }
