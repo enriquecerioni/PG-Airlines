@@ -25,22 +25,9 @@ const style = {
 };
 
 function handleRowSelection(selectedRows) {
-debugger;
-    console.log('Valor: ' + selectedRows);
-    if(flightIds.length == 0){
-        flightIds.push(selectedRows);
-        return
-    }     
-   const item =  flightIds.find(f=> f === selectedRows );
-      
-    if(item != undefined){
-       flightIds.slice( flightIds.indexOf('item'),1);  
-        return
-    }else{
-        flightIds.push(selectedRows);
-    }        
-    
-    
+ 
+        flightIds = selectedRows;
+      console.log(flightIds);
   }
 
 function CatalogFlights({ rows }) {

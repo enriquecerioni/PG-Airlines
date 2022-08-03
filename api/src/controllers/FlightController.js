@@ -95,13 +95,16 @@ async function createFlights(req, res) {
 
 async function deleteFlights(req, res) {
   const { flightIds } = req.body;
-
+ 
+   console.log(flightIds);
+   console.log(req.params);
+   console.log(req.body);
   try {
-    if (!flightIds.leght > 0) {
-
+    if (flightIds.length > 0) {
       const dbFirestore = firebase.firestore();
-      let flightdb
-      await flightIds.foreach(async (f) => {
+       let flightdb
+      await flightIds.forEach(async (f) => {
+        console.log(f);
         flightdb = await dbFirestore.collection("db").doc(f).delete();
       });
       if (false) {
