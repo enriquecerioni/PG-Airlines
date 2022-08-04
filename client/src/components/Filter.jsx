@@ -103,9 +103,9 @@ function Filter({ handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, han
                         autoWidth
                         label="Alphabet"
                     >
-                        <MenuItem value='initial'>Alphabet</MenuItem>
-                        <MenuItem value="asc">A - Z</MenuItem>
-                        <MenuItem value="dsc">Z - A</MenuItem>
+                        <MenuItem value={'initial'}>Alphabet</MenuItem>
+                        <MenuItem value={"asc"}>A - Z</MenuItem>
+                        <MenuItem value={"dsc"}>Z - A</MenuItem>
                     </Select>
                 </FormControl>
             </div>

@@ -243,6 +243,27 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case ORDER_ALPHABETICALLY: {
+    
+      console.log(state.airlines);
+      console.log(state.flights);
+      const data = state.flights.map(m=>
+       {
+          
+          let name =  state.airlines.map(a=> {
+           
+                   if(a.id == m.airlineId){
+
+                     return a.name
+                   } else{
+                    
+                   }
+            })            
+  
+          console.log(name);
+            
+      })
+
+      console.log(data);
       let orderAlphabetically =
         action.payload === "asc" || action.payload === "initial"
           ? state.flights.sort((a, b) => {
@@ -301,9 +322,7 @@ const rootReducer = (state = initialState, action) => {
           : arrPrice;
       if (state.filterAirlinesData !== "" && state.filterAirlinesData !== "all") {
         filterPrice = filterPrice.filter((f) =>
-          f.airline
-            .toLowerCase()
-            .includes(state.filterAirlinesData.toLowerCase())
+          f.airlineId == state.filterAirlinesData
         );
       }
       state.filterPrecioData = action.payload;
@@ -316,20 +335,6 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case FILTER_BY_AIRLINES:
-      // let copyAirlines = state.airlines; //[{}]
-      // let copyFlights = state.copy;//[{}]
-      // const filterData = state.filterPrecioData;
-
-      // if (action.payload !== "all")
-      //   copyFlights = copyFlights.filter((f,i) =>{
-          
-      //       return copyAirlines.filter((airline)=>{
-              
-      //         if(airline.name.toLowerCase().includes(action.payload.toLowerCase())  ) {}
-      //       })
-         
-      //   // 
-      //   });
       let copyFlights = state.copy;
       const filterData = state.filterPrecioData;
       if (action.payload !== "all")
