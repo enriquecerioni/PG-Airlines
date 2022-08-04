@@ -1,7 +1,8 @@
 const firebase = require("firebase");
 const {Flight} = require('../db')
+const {Airline}=require('../db')
 
-const getAllFlight = async (req, res) => {
+const getAllFlight = async (req, res,next) => {
   // const dbFirestore = firebase.firestore();  
   try {
     // let obj = [];
@@ -23,7 +24,7 @@ const getAllFlight = async (req, res) => {
   }
 };
 
-async function getOriginFlight(req, res) {
+async function getOriginFlight(req, res,next) {
   try {
     const { origen } = req.query;
     const dbFirestore = firebase.firestore();
@@ -44,13 +45,12 @@ async function getOriginFlight(req, res) {
 async function updateToflights(req, res) {
   try {
     const { flight } = req.body;
-    console.log(flight)
+    //console.log(flight)
     if (!flight.id == ' ') {
-      const dbFirestore = firebase.firestore();
+      
 
-      let flightEdit = await dbFirestore.collection("db").doc(flight.id).update(
+       let fligth=await Flight.update(
         {
-          airline: flight.airline,
           arrivalDate: flight.arrivalDate,
           arrivalHour: flight.arrivalHour,
           departureDate: flight.departureDate,
@@ -58,13 +58,16 @@ async function updateToflights(req, res) {
           description: flight.description,
           destination: flight.destination,
           durationEstimated: flight.durationEstimated,
-          flight: flight.id,
           logo: flight.logo,
           origin: flight.origin,
           price: flight.price,
-          stock: flight.stock
+          tickets: flight.stock
+        },
+        {
+          where:{id:flight.id},
         });
-        res.send("Flight edited.")
+      
+        res.status(200).json({message:"Flight edited."})
       // if (flightEdit[0] === 0) {
       //   res.status(404).send("Flight not Found");
       // } else {
@@ -78,17 +81,51 @@ async function updateToflights(req, res) {
 
 
 async function createFlights(req, res) {
-  const { flight } = req.body;
-  console.log(flight);
+  const { id,
+    arrivalDate,
+    arrivalHour,
+    departureDate,
+    departureHour,
+    destination,
+    durationEstimated,
+    logo,
+    origin,
+    price,
+    stock
+  } = req.body;
+  //console.log(flight);
   try {
-    if (true) {
-      const dbFirestore = firebase.firestore();
-      let flightdb = await dbFirestore.collection("db").doc(flight.flight);
-      if (false) {
-      }
-      else {
-        let flightCreate = await flightdb.set(flight);
-        return res.status(201).json(flightCreate);
+    if (id && stock && price) {
+     console.log(id,  // user id
+      arrivalDate,
+      arrivalHour,
+      departureDate,
+      departureHour,
+      destination,
+      durationEstimated,
+      logo,
+      origin,
+      price,
+      stock);
+      let airline=await Airline.findOne({where:{userId:id}})
+      console.log("airline",airline);
+      if(airline){
+        await Flight.create({
+          airlineId:airline.id,
+          arrivalDate:arrivalDate,
+          arrivalHour:arrivalHour,
+          departureDate:departureDate,
+          departureHour:departureHour,
+          destination:destination,
+          durationEstimated:durationEstimated,
+          logo:logo,
+          origin:origin,
+          price:price,
+          tickets:stock
+        })
+        return res.status(200).json({message: "Flight added"})
+      }else{
+        res.status(404).json({error: "Business not found"})
       }
     }
   } catch (error) {
@@ -100,32 +137,81 @@ async function createFlights(req, res) {
 async function deleteFlights(req, res) {
   const { flightIds } = req.body;
  
-   console.log(flightIds);
-   console.log(req.params);
-   console.log(req.body);
+   //console.log(flightIds);
+  //  console.log(req.params);
+  //  console.log(req.body);
   try {
     if (flightIds.length > 0) {
-      const dbFirestore = firebase.firestore();
-       let flightdb
       await flightIds.forEach(async (f) => {
-        console.log(f);
-        flightdb = await dbFirestore.collection("db").doc(f).delete();
+        //console.log(f);
+        await Flight.destroy({
+          where:{id:f},
+          force:true
+        })
+
       });
-      if (false) {
-      }
-      else {
-        return res.status(201).json("Flight was deleted ");
-      }
+      
+      
+        return res.status(201).json({message: "Flight was deleted "});
+      
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 }
 
+
+async function updateStock(req,res){
+  try {
+    const{flightIdAmount}=req.body;
+    console.log(flightIdAmount);
+    if(flightIdAmount.length){
+
+      flightIdAmount.map((flight)=>{
+        Flight.findByPk(flight.id).then((res)=>{
+          //console.log(res);
+          let flightDB=res
+
+          Flight.update(
+            {
+               tickets:flightDB.tickets-flight.amount,
+            },
+            {
+             where:{id:flight.id}
+            }
+          ).then(()=>{
+                Flight.findByPk(flight.id).then((res)=>{
+                let f=res
+                //console.log(f);
+                
+                if(!f.tickets){
+                   Flight.destroy({
+                    where:{id:flight.id},
+                    force:true
+                  })
+                  
+                }
+                })
+
+          })
+       
+      })
+
+      res.status(200).json({message: "Flight updated"})
+      })
+  } }catch (error) {
+    res.status(400).json({error: error.message})
+  }
+}
+
+
+
+
 module.exports = {
   getAllFlight,
   getOriginFlight,
   updateToflights,
   createFlights,
-  deleteFlights
+  deleteFlights,
+  updateStock
 };

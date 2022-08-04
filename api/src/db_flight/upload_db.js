@@ -55,22 +55,22 @@ const migrar = async () => {
   // }
   //Generador de empresas
   //-------------------------------------------------------------------------
-  for (const airline in data) {
-    // console.log(data[`${airline}`].durationEstimated);
-    await createAdmin(
-      data[`${airline}`].airline,
-      data[`${airline}`].origin,
-      data[`${airline}`].destination,
-      data[`${airline}`].durationEstimated,
-      data[`${airline}`].price,
-      data[`${airline}`].stock,
-      data[`${airline}`].departureDate,
-      data[`${airline}`].arrivalDate,
-      data[`${airline}`].logo,
-      data[`${airline}`].departureHour,
-      data[`${airline}`].arrivalHour
-    );
-  }
+  // for (const airline in data) {
+  //   console.log(data[`${airline}`].durationEstimated);
+  //   await createAdmin(
+  //     data[`${airline}`].airline,
+  //     data[`${airline}`].origin,
+  //     data[`${airline}`].destination,
+  //     data[`${airline}`].durationEstimated,
+  //     data[`${airline}`].price,
+  //     data[`${airline}`].stock,
+  //     data[`${airline}`].departureDate,
+  //     data[`${airline}`].arrivalDate,
+  //     data[`${airline}`].logo,
+  //     data[`${airline}`].departureHour,
+  //     data[`${airline}`].arrivalHour
+  //   );
+  // }
   //--------------------------------------------------------------------
   // });
 };
