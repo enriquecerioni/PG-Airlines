@@ -20,7 +20,6 @@
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 const {migrar}  = require("./src/db_flight/upload_db.js");
-
 // Syncing all the models at once.
 conn.sync({ force: false }).then(() => {
   server.listen(process.env.PORT || 3001, () => {

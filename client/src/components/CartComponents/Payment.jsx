@@ -17,7 +17,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 // MERCADO PAGO
 import MPPayment from "./MPPayment";
 // CREAR ORDENES
-import { createOrder, getAllUsers,deleteStockBack } from "../../redux/actions/index";
+import { createOrder, getAllUsers,deleteStockBack, createSales } from "../../redux/actions/index";
 
 function Payment() {
   const user = useSelector((state) => state.currentUser);
@@ -129,8 +129,7 @@ function Payment() {
         price: product.price
       }
     })
-
-    dispatch()
+    dispatch(createSales(arr))
   }
 
 
@@ -180,7 +179,7 @@ function Payment() {
           setPay(true);
 
           ejecutarArray();
-
+          ejecutarGuardarVenta();
           setProducts([])          
           toast.success("Payment Succesful!", {
             // icon: "✈️",
