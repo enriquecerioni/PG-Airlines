@@ -8,6 +8,7 @@ import s from "../styles/Catalog.module.css";
 import { editToFlights } from '../../redux/actions/index'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFlights } from '../../redux/actions/index'
+import Loader from '../HomeComponents/Loader'
 import useId from '@mui/material/utils/useId.js';
 
 const columns = data;
@@ -30,7 +31,7 @@ function handleRowSelection(selectedRows) {
       console.log(flightIds);
   }
 
-function CatalogFlights({ rows }) {
+function CatalogFlights({ rows,airlineFlights }) {
     const dispatch = useDispatch()
     const [open, setOpen] = React.useState(false);
     const [dataFlight, getData] = React.useState(false);
@@ -49,6 +50,7 @@ function CatalogFlights({ rows }) {
         if(flightIds.length > 0){
             e.preventDefault();
             dispatch(deleteFlights(flightIds));
+            
             //window.location.href = "http://localhost:3000/catalog";
         }else{
             alert("Choose a flight");
@@ -99,11 +101,12 @@ function CatalogFlights({ rows }) {
 
     return [
         <Box sx={{ height: 400, width: '100%' }}>
-            <DataGrid
+            { airlineFlights && rows ?
+                <DataGrid
                 onRowDoubleClick={(params, event) => {
 
                     setOpen(true);
-                    getData(params.row);
+                    getData(params?.row);
 
                 }}
                 onSelectionModelChange ={(e) => { handleRowSelection(e)}}
@@ -113,7 +116,10 @@ function CatalogFlights({ rows }) {
                 rowsPerPageOptions={[5]}
                 checkboxSelection
 
-            />
+            /> 
+           
+            : <Loader/>
+            }
         </Box>,
          <button className={s.btn} onClick={(e)=>handleDelete(e)}>Delete</button>,
         <div>

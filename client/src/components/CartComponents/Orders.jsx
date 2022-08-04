@@ -42,7 +42,7 @@ function Orders() {
       dispatch(getAllUsers())
       setProducts([])
       localStorage.setItem("cartProducts", JSON.stringify(products))
-    }, [dispatch,products,setProducts])
+    }, [dispatch])
 function handleClick(e){
   e.preventDefault();
   navigate.replace('/')

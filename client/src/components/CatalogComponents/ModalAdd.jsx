@@ -25,7 +25,7 @@ const style = {
 
 
 
-export default function AddModal() {
+export default function AddModal({setAirlineFlights}) {
     const dispatch = useDispatch()
  
     const currentUser=useSelector((state)=>state.currentUser)
@@ -52,6 +52,7 @@ export default function AddModal() {
         }
 
         dispatch(createFlights(dataNew));
+        setAirlineFlights(false)
     }
 
 

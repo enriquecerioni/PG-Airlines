@@ -322,6 +322,20 @@ export function editToFlights(payload){
         })
     }
 }
+export function deleteStockBack(payload){
+    const flightIdAmount={
+        flightIdAmount:payload
+    }
+    console.log("delete stockkk",flightIdAmount);
+        axios.put('http://localhost:3001/flights/stock',flightIdAmount )
+        .then(()=>{
+            console.log("todo okey");
+        })       
+        .catch((error)=>{
+            console.log(error.message);
+        })
+    
+}
 
 export function createFlights(payload){
 // debugger;
@@ -357,6 +371,7 @@ export function deleteFlights(payload){
                      type:DELETE_FLIGHTS,
                      payload:response.data
                  })
+                 
              })
          }
      }

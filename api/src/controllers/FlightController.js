@@ -144,7 +144,8 @@ async function deleteFlights(req, res) {
       await flightIds.forEach(async (f) => {
         //console.log(f);
         await Flight.destroy({
-          where:{id:f}
+          where:{id:f},
+          force:true
         })
 
       });
@@ -158,10 +159,58 @@ async function deleteFlights(req, res) {
   }
 }
 
+
+async function updateStock(req,res){
+  try {
+    const{flightIdAmount}=req.body;
+    console.log(flightIdAmount);
+    if(flightIdAmount.length){
+
+      flightIdAmount.map((flight)=>{
+        Flight.findByPk(flight.id).then((res)=>{
+          //console.log(res);
+          let flightDB=res
+
+          Flight.update(
+            {
+               tickets:flightDB.tickets-flight.amount,
+            },
+            {
+             where:{id:flight.id}
+            }
+          ).then(()=>{
+                Flight.findByPk(flight.id).then((res)=>{
+                let f=res
+                //console.log(f);
+                
+                if(!f.tickets){
+                   Flight.destroy({
+                    where:{id:flight.id},
+                    force:true
+                  })
+                  
+                }
+                })
+
+          })
+       
+      })
+
+      res.status(200).json({message: "Flight updated"})
+      })
+  } }catch (error) {
+    res.status(400).json({error: error.message})
+  }
+}
+
+
+
+
 module.exports = {
   getAllFlight,
   getOriginFlight,
   updateToflights,
   createFlights,
-  deleteFlights
+  deleteFlights,
+  updateStock
 };

@@ -17,7 +17,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 // MERCADO PAGO
 import MPPayment from "./MPPayment";
 // CREAR ORDENES
-import { createOrder, getAllUsers } from "../../redux/actions/index";
+import { createOrder, getAllUsers,deleteStockBack } from "../../redux/actions/index";
 
 function Payment() {
   const user = useSelector((state) => state.currentUser);
@@ -115,6 +115,7 @@ function Payment() {
     e.preventDefault();
 
     if (email) {
+
       setLoading(true);
       setProcessing(true);
 
@@ -149,15 +150,19 @@ function Payment() {
           };
           console.log(sendOrder);
           dispatch(createOrder(sendOrder));
-
+          let array=products.map((product)=>{
+            return {
+              id: product.id, amount: product.amount
+              };
+          })
+          dispatch(deleteStockBack(array));
           // console.log(data) // {message: 'succesfull payment'}
           setLoading(false);
           setSucceeded(true);
           setError(null);
           setProcessing(false);
           elements.getElement(CardElement).clear();
-          await deleteStockFirebase();
-          setPay(true);
+           setPay(true);
           setProducts([]);
           // alert('Payment successful')
           //  Swal.fire({
@@ -179,7 +184,7 @@ function Payment() {
           window.localStorage.clear();
           history.replace("/success");
         } catch (error) {
-          console.log(error);
+          alert(error);
         }
       }
     } else {
@@ -193,37 +198,37 @@ function Payment() {
     }
   }
 
-  function deleteStockFirebase() {
-    let dbs = firebase.firestore();
-    products.map((flight) => {
-      if (flight.amount < flight.stock) {
-        dbs
-          .collection("db")
-          .doc(flight.id)
-          .update({
-            stock: flight.stock - flight.amount,
-          })
-          .then(() => {
-            setProducts({
-              ...flight,
-              stock: flight.stock - flight.amount,
-            });
-            console.log("stock modificado", products.stock);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        dbs
-          .collection("db")
-          .doc(flight.id)
-          .delete()
-          .then(() => {
-            console.log("flight completed");
-          });
-      }
-    });
-  }
+  // function deleteStockFirebase() {
+  //   let dbs = firebase.firestore();
+  //   products.map((flight) => {
+  //     if (flight.amount < flight.stock) {
+  //       dbs
+  //         .collection("db")
+  //         .doc(flight.id)
+  //         .update({
+  //           stock: flight.stock - flight.amount,
+  //         })
+  //         .then(() => {
+  //           setProducts({
+  //             ...flight,
+  //             stock: flight.stock - flight.amount,
+  //           });
+  //           console.log("stock modificado", products.stock);
+  //         })
+  //         .catch((error) => {
+  //           console.log(error);
+  //         });
+  //     } else {
+  //       dbs
+  //         .collection("db")
+  //         .doc(flight.id)
+  //         .delete()
+  //         .then(() => {
+  //           console.log("flight completed");
+  //         });
+  //     }
+  //   });
+  // }
 
   function handleChange(e) {
     setLoading(false);
@@ -323,7 +328,7 @@ function Payment() {
                 />
                 <br />
                 <br />
-                <CardElement onChange={handleChange}/>
+                 <CardElement onChange={handleChange}/> 
                 <br />
 
                 <br />
@@ -342,7 +347,7 @@ function Payment() {
         </div>
         <br />
 
-        {/* MERCADO PAGO */}
+        {/* MERCADO PAGO
         <hr className={css.hr_separator} />
         <br />
         <MPPayment
@@ -355,7 +360,7 @@ function Payment() {
         <br />
         <hr className={css.hr_separator} />
         {/* PAYPAL */}
-        <br />
+        {/* <br />
         <PayPalScriptProvider
           options={{
             "client-id":
@@ -370,8 +375,8 @@ function Payment() {
         </PayPalScriptProvider>
         <br />
         <hr className={css.hr_separator} />
-        <br />
-        {/* STRIPE */}
+        <br /> */} 
+        {/* STRIPE
         <form className={css.form_container}>
           <br />
 
@@ -402,7 +407,7 @@ function Payment() {
           </LoadingButton>
 
           {errorMsg.string && <span>{errorMsg.string}</span>}
-        </form>
+        </form> */}
     </div>
   );
 }
