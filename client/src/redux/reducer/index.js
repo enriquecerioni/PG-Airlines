@@ -334,13 +334,8 @@ const rootReducer = (state = initialState, action) => {
       const filterData = state.filterPrecioData;
       if (action.payload !== "all")
       copyFlights = copyFlights.filter((f) =>
-        f.airline.toLowerCase().includes(action.payload.toLowerCase())
-      );
-
-
-
-
-
+        f.airlineId == action.payload);
+      
       if (filterData !== "" && filterData !== "all") {
         copyFlights =
           filterData === ">20.000"
