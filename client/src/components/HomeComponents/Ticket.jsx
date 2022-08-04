@@ -21,6 +21,7 @@ function Ticket({
   tickets,
   destination,
 }) {
+
   const item = {
     id,
     airlineId,

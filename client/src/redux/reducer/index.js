@@ -445,14 +445,14 @@ const rootReducer = (state = initialState, action) => {
     case GET_ORDERS: {
       return {
         ...state,
-        orders: [...state.orders, action.payload],
+        orders: action.payload,
       };
     }
 
     case GET_COMMENTS: {
       return {
         ...state,
-        comments: [...state.comments, action.payload]
+        comments: action.payload
       }
     }
 

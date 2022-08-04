@@ -45,9 +45,9 @@ const CartProvider = ({ children }) => {
   }, [products,pay]);
 
 
-  const addProductToCart = async ({id, origin, price, logo, airline, arrivalHour, departureHour,tickets}) => {
+  const addProductToCart = async ({id, airlineId, origin, price, logo, arrivalHour, departureHour, tickets, destination}) => {
     console.log("tickets" ,tickets)
-    console.log("esto es el products",products)
+    console.log("esto es el products",products) //
     let inCart = Array.isArray(products) && products.filter((p) => p.id === id);
     //console.log(inCart)
 
@@ -66,8 +66,8 @@ const CartProvider = ({ children }) => {
         })
       );
     } else {      
-      setProducts( [...products, { id, origin, price, logo, airline, arrivalHour, departureHour,tickets, amount: 1}] )
-      await store.dispatch(addToCart({id,origin,price,logo,airline,arrivalHour,departureHour,tickets,amount: 1}))
+      setProducts( [...products, { id, airlineId, origin, price, logo, arrivalHour, departureHour, tickets, destination, amount: 1}] )
+      await store.dispatch(addToCart({id, airlineId, origin, price, logo, arrivalHour, departureHour, tickets, destination, amount: 1}))
     }
   };
 

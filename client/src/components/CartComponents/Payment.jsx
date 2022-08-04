@@ -25,6 +25,8 @@ function Payment() {
   const { products, setProducts, setPay } = useContext(CartContext);
   console.log(products)
 
+  const arrAirlines = useSelector(state => state.airlines) 
+
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -108,12 +110,33 @@ function Payment() {
     });
   }
 
+  async function ejecutarArray() {
+      let array = products.map((product)=>{
+        return {
+            id: product.id, 
+            amount: product.amount
+          };
+      })
+      dispatch(deleteStockBack(array));
+  }
+
+  async function ejecutarGuardarVenta() {
+    let arr = products.map(product => {
+      return {
+        id: product.id, 
+        amount: product.amount,
+        airlineId: product.airlineId,
+        price: product.price
+      }
+    })
+
+    dispatch()
+  }
+
+
   async function handleSubmit(e) {
-    //
     e.preventDefault();
-
     if (email) {
-
       setLoading(true);
       setProcessing(true);
 
@@ -123,66 +146,42 @@ function Payment() {
       });
 
       if (!error) {
-        const { id } = paymentMethod;
-
         try {
+          const { id } = paymentMethod;
+
           const { data } = await axios.post("http://localhost:3001/stripe", {
             id,
             amount: subTotal * 100, // lo tengo que mandar en centavos  //1 METODO
             receipt_email: email,
           });
 
-          // const sendOrder = {
-          //   price: subTotal,
-          //   stocks: products.map((e) => {
-          //     return {
-          //       amount: e.amount,
-          //       airline: e.airline,
-          //       value: e.price,
-          //       link: e.id,
-          //     };
-          //   }),
-          //   userId: user.length ? user[0].id : null,
-          //   idpurchase: id,
-          //   creationdate: new Date(),
-          // };
-
-          // console.log(sendOrder);
-          // dispatch(createOrder(sendOrder));
-
-          let array = products.map((product)=>{
-            return {
-                id: product.id, 
-                amount: product.amount
+          const sendOrder = {
+            price: subTotal,
+            stocks: products.map((e) => {
+              return {
+                amount: e.amount,
+                // airline: e.airline,
+                value: e.price,
+                link: e.airlineId,
               };
-          })
-          dispatch(deleteStockBack(array));
-          // console.log(data) // {message: 'succesfull payment'}
+            }),
+            userId: user.length ? user[0].id : 0,
+            idpurchase: id,
+            creationdate: new Date(),
+          };
+
+          dispatch(createOrder(sendOrder));
 
           setLoading(false);
-          console.log(loading)
-
           setSucceeded(true);
-          console.log(succeeded)
-
           setError(null);
-          console.log(error)
-
           setProcessing(false);
-          console.log(processing)
-
           elements.getElement(CardElement).clear();
           setPay(true);
-          console.log(setPay)
 
-          setProducts([]);
-          // alert('Payment successful')
-          //  Swal.fire({
-          //     icon: 'success',
-          //     title: 'Done',
-          //     text: 'Payment succesful!',
-          //     confirmButtonColor: '#10408F'
-          // })
+          ejecutarArray();
+
+          setProducts([])          
           toast.success("Payment Succesful!", {
             // icon: "✈️",
             position: "bottom-left",
@@ -199,10 +198,9 @@ function Payment() {
         } catch (error) {
           alert(error);
         }
-
       }
+      
     } else {
-      //
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -285,9 +283,7 @@ function Payment() {
                 </div>
                 <div className={style.card_content}>
                   <h2 className={style.card_title}>{e.airline}</h2>
-                  <h5>
-                    Origin: {e.origin} | Destination: {e.destination}{" "}
-                  </h5>
+                  <h5>Origin: {e.origin} | Destination: {e.destination}</h5>
                 </div>
                 <div>
                   <p className={style.card_text}>${e.price}</p>
@@ -360,68 +356,6 @@ function Payment() {
             </form>            
         </div>
         <br />
-
-        {/* MERCADO PAGO
-        <hr className={css.hr_separator} />
-        <br />
-        <MPPayment
-          loading={loading}
-          disabled={disabled}
-          subTotal={subTotal}
-          products={products}
-          user={user}
-        />
-        <br />
-        <hr className={css.hr_separator} />
-        {/* PAYPAL */}
-        {/* <br />
-        <PayPalScriptProvider
-          options={{
-            "client-id":
-              "Af5RBL-IS1S6n_djlUuVWC-SSHDEWJDfTMVCyBPAJBISiKn6lgZmNmLX9D5KvBhWZ38jY_2Sy3ExLLQN",
-          }}
-        >
-          <PayPalButtons
-            disabled={loading || !disabled}
-            createOrder={createOrderPayPal}
-            onApprove={onApprove}
-          />
-        </PayPalScriptProvider>
-        <br />
-        <hr className={css.hr_separator} />
-        <br /> */} 
-        {/* STRIPE
-        <form className={css.form_container}>
-          <br />
-
-          <TextField
-            id="outlined-size-small"
-            label="Email"
-            type="text"
-            value={email}
-            name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <br />
-          <br />
-          <CardElement onChange={handleChange} />
-          <br />
-
-          <br />
-          <LoadingButton
-            onClick={handleSubmit}
-            endIcon="✔"
-            loading={loading}
-            loadingPosition="end"
-            variant="contained"
-            disabled={processing || disabled || succeeded || errorMsg.value}
-          >
-            <span>{loading ? <p>Processing</p> : "Buy now"}</span>
-          </LoadingButton>
-
-          {errorMsg.string && <span>{errorMsg.string}</span>}
-        </form> */}
     </div>
   );
 }

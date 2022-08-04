@@ -74,6 +74,18 @@ async function createAdmin(
           superAdmin: false,
           empresa: true
         });
+    }else{
+      let uid = hayData.data().uid;
+     
+      let user = await User.findOrCreate({
+        where: {
+          name: businessName,
+          email: email,
+          permissions: true,
+          uid: uid,
+        },
+      });
+
     }
 
     let user = await User.findOrCreate({

@@ -56,8 +56,7 @@ const migrar = async () => {
   //Generador de empresas
   //-------------------------------------------------------------------------
   // for (const airline in data) {
-  //   // console.log(data[`${airline}`].durationEstimated);
-    // console.log(data[`${airline}`].durationEstimated);
+  //   console.log(data[`${airline}`].durationEstimated);
   //   await createAdmin(
   //     data[`${airline}`].airline,
   //     data[`${airline}`].origin,
