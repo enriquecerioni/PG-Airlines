@@ -35,7 +35,7 @@ function CatalogFlights({ rows,airlineFlights }) {
     const dispatch = useDispatch()
     const [open, setOpen] = React.useState(false);
     const [dataFlight, getData] = React.useState(false);
-    const mese = useSelector(state => state.messeage)    
+    // const mese = useSelector(state => state.messeage)    
      
     const handleOpen = () => setOpen(true);
 
