@@ -60,16 +60,20 @@ export default function SearchBar() {
   }
 
   return (
-    <div className={s.search}>
-      <div>
+    <div className={s.container}>
+      <div className={s.form}>
         <input
           className={s.inputSearch}
           type="text"
           name="origin"
           id='origin'
-          placeholder="Search origin"
           onChange={(e) => handleInputChange(e)}
+          required
         />
+        <label className={s.name}>
+          <span className={s.nomb}>
+          Origin
+
         {lstOrigin.length !== 0 ?
           <div >
             {lstOrigin?.map(o => {
@@ -78,16 +82,22 @@ export default function SearchBar() {
           </div>
           :
           <div></div>}
+          </span>
+        </label>
       </div>
-      <div>
+      <div className={s.form}>
         <input
           className={s.inputSearch}
           type="text"
           name="destination"
           id='destination'
-          placeholder="Search destination"
           onChange={(e) => handleInputChange(e)}
+          required
         />
+        <label className={s.name}>
+          <span className={s.nomb}>
+            Destination
+
         {lstDestination.length !== 0 ?
           <div >
             {lstDestination?.map(d => {
@@ -96,13 +106,15 @@ export default function SearchBar() {
           </div>
           :
           <div></div>}
+          </span>
+        </label>
       </div>
       <button
-        className={s.btnSearch}
+        className={s.btn}
         type="submit"
         onClick={(e) => handleSubmit(e)}
       >
-        Search
+        <i className='bx bx-search'></i>
       </button>
     </div>
   );
