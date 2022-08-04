@@ -1,4 +1,3 @@
-
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import data from "./ColumnsDG.js";
@@ -7,8 +6,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import s from "../styles/Catalog.module.css";
 import { editToFlights } from '../../redux/actions/index'
-import { useDispatch, /*useSelector*/ } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteFlights } from '../../redux/actions/index'
+import useId from '@mui/material/utils/useId.js';
 
 const columns = data;
 let flightIds = [];
@@ -38,26 +38,30 @@ function CatalogFlights({ rows }) {
      
     const handleOpen = () => setOpen(true);
 
-    // const handleOpen = () => setOpen(true);
+    //const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const handleSave = () => dispatch(editToFlights(dataFlight));
+    const handleSave = (e) => {
+        e.preventDefault();
+        dispatch(editToFlights(dataFlight));
+    }
     
-    function handleDelete(){
+    function handleDelete(e){
         if(flightIds.length > 0){
+            e.preventDefault();
             dispatch(deleteFlights(flightIds));
-            window.location.href = "http://localhost:3000/catalog";
+            //window.location.href = "http://localhost:3000/catalog";
         }else{
             alert("Choose a flight");
         }
          
     }
 
-    function handleFlight(e) {
-        dataFlight.flight = e.target.value;
-    }
-    function handleAirline(e) {
-        dataFlight.airline = e.target.value;
-    }
+    // function handleFlight(e) {
+    //     dataFlight.flight = e.target.value;
+    // }
+    // function handleAirline(e) {
+    //     dataFlight.airline = e.target.value;
+    // }
     function handleLogo(e) {
         dataFlight.logo = e.target.value;
     }
@@ -111,7 +115,7 @@ function CatalogFlights({ rows }) {
 
             />
         </Box>,
-         <button className={s.btn} onClick={handleDelete}>Delete</button>,
+         <button className={s.btn} onClick={(e)=>handleDelete(e)}>Delete</button>,
         <div>
 
             <Modal
@@ -127,7 +131,7 @@ function CatalogFlights({ rows }) {
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }} >
                         <form className={s.form}>
-                            <div><label for="flight">Flight: </label>
+                            {/* <div><label for="flight">Flight: </label>
                                 <input
                                     onChange={(e) => { handleFlight(e) }}
                                     name='flight'
@@ -141,7 +145,7 @@ function CatalogFlights({ rows }) {
                                     type="text"
                                     defaultValue={dataFlight.airline}
                                 />
-                            </div>
+                            </div> */}
                             <div><label for="logo">Logo: </label>
                                 <input
                                     onChange={(e) => { handleLogo(e) }}
@@ -233,7 +237,7 @@ function CatalogFlights({ rows }) {
                                 />
                             </div>
                             <div>
-                                <button className={s.btn} onClick={handleSave} >Save</button>
+                                <button className={s.btn} onClick={(e)=>handleSave(e)} >Save</button>
                                 <button className={s.btn} onClick={handleClose}>Cancel</button>
                             </div>
                         </form>

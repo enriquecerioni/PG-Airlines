@@ -311,7 +311,7 @@ export function editToFlights(payload){
       flight:payload
    }; 
    console.log(flight);
-   debugger;
+//    debugger;
     return function (dispatch){
         axios.put('http://localhost:3001/flights/update',flight)
         .then((response)=>{
@@ -324,14 +324,14 @@ export function editToFlights(payload){
 }
 
 export function createFlights(payload){
-debugger;
-    const flight = {
-       flight:payload
-    }; 
-    console.log(flight);
-    debugger;
+// debugger;
+//     const flight = {
+//        flight:payload
+//     }; 
+    //console.log(payload);
+    // debugger;
      return function (dispatch){
-         axios.post('http://localhost:3001/flights/create',flight)
+         axios.post('http://localhost:3001/flights/create',payload)
          .then((response)=>{
              dispatch({
                  type:CREATER_FLIGHTS,
@@ -345,11 +345,12 @@ debugger;
 export function deleteFlights(payload){
    
          
-         const flightIds = {flightIds: payload};
+          const flightIds = {flightIds: payload};
       
-         debugger;
+        //  debugger;
+         //console.log(flightIds);
          return function (dispatch){
-            console.log(flightIds)
+            //console.log(flightIds)
              axios.post('http://localhost:3001/flights/delete',flightIds)
              .then((response)=>{
                  dispatch({

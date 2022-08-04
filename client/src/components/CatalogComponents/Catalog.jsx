@@ -9,8 +9,9 @@ import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import CatalogFlights from './CatalogFlights';
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from 'react';
-import { getAllFlights } from '../../redux/actions/index';
+import { getAllFlights, getAllUsers } from '../../redux/actions/index';
 import ModalAdd from './ModalAdd'
+import Loader from '../HomeComponents/Loader'
 
 function TabPanel(props) {
 
@@ -52,18 +53,27 @@ export function Catalog() {
 
 
     useEffect(() => {
+        dispatch(getAllUsers())
         dispatch(getAllFlights());
     }, [dispatch]);
 
+    const currentUser = useSelector((state)=>state.currentUser)
     const Flights = useSelector((state) => state.flights)
+    let currentFlights=Flights.filter((f)=>f.airlineId===currentUser[0]?.id)
 
-    const allFlights = Flights.map((f) => {
+
+
+
+
+
+    const allFlights = currentFlights.map((f) => {
+        console.log(f);
         return {
-            id: f.flight,
-            airline: f.airline,
+            id: f.id,
+            airline: currentUser[0]?.name,
             logo: f.logo,
             price: f.price,
-            stock: f.stock,
+            stock: f.tickets,
             origin: f.origin,
             durationEstimated: f.durationEstimated,
             departureHour: f.departureHour,
@@ -80,7 +90,7 @@ export function Catalog() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
+if(currentUser[0]){
     return (
         <div className={style.catalog_containers}>
             <Box
@@ -99,7 +109,7 @@ export function Catalog() {
 
                 </Tabs>
                 <TabPanel className={style.tab} value={value} index={0} >
-                    <h1>Flights</h1>
+                    <h1>{currentUser[0]?.name} Flights</h1>
                     <CatalogFlights
                         rows={allFlights} />
                     <div id="btnAddAL">
@@ -112,7 +122,12 @@ export function Catalog() {
                 </TabPanel>
             </Box>
         </div>
-    );
+    )
+    ;}else{
+      return(
+        <Loader/>
+      ) 
+    }
 }
 
 export default Catalog
