@@ -7,7 +7,7 @@ import css from "../styles/Payment.module.css";
 import { Link, useHistory } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
-import firebase from "firebase";
+// import firebase from "firebase";
 import { LoadingButton } from "@mui/lab";
 import { TextField } from "@mui/material";
 import Swal from "sweetalert2";
@@ -17,26 +17,24 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 // MERCADO PAGO
 import MPPayment from "./MPPayment";
 // CREAR ORDENES
-import { createOrder, getAllUsers } from "../../redux/actions/index";
+import { createOrder, getAllUsers,deleteStockBack } from "../../redux/actions/index";
 
 function Payment() {
   const user = useSelector((state) => state.currentUser);
+
   const { products, setProducts, setPay } = useContext(CartContext);
-  // console.log(products)
+  console.log(products)
+
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
-
   const history = useHistory();
-
   const stripe = useStripe();
   const elements = useElements();
-
   const [errorMsg, setErrorMsg] = useState({
     value: null,
     string: "",
   });
-
   const [/*error*/, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const [succeeded, setSucceeded] = useState(false);
@@ -44,7 +42,7 @@ function Payment() {
   const [email, setEmail] = useState("");
 
   const [subTotal, setSubTotal] = useState();
-  console.log("este es el user de payment", user);
+  // console.log("este es el user de payment", user);
   useEffect(() => {
     dispatch(getAllUsers());
     if (products.length !== 0)
@@ -53,7 +51,7 @@ function Payment() {
           .map((p) => p.price * p.amount)
           .reduce((previousValue, currentValue) => previousValue + currentValue)
       );
-  }, [dispatch,products]);
+  }, [dispatch, products]);
 
   ///------------------------------
 
@@ -115,6 +113,7 @@ function Payment() {
     e.preventDefault();
 
     if (email) {
+
       setLoading(true);
       setProcessing(true);
 
@@ -133,31 +132,49 @@ function Payment() {
             receipt_email: email,
           });
 
-          const sendOrder = {
-            price: subTotal,
-            stocks: products.map((e) => {
-              return {
-                amount: e.amount,
-                airline: e.airline,
-                value: e.price,
-                link: e.id,
-              };
-            }),
-            userId: user.length ? user[0].id : null,
-            idpurchase: id,
-            creationdate: new Date(),
-          };
-          console.log(sendOrder);
-          dispatch(createOrder(sendOrder));
+          // const sendOrder = {
+          //   price: subTotal,
+          //   stocks: products.map((e) => {
+          //     return {
+          //       amount: e.amount,
+          //       airline: e.airline,
+          //       value: e.price,
+          //       link: e.id,
+          //     };
+          //   }),
+          //   userId: user.length ? user[0].id : null,
+          //   idpurchase: id,
+          //   creationdate: new Date(),
+          // };
 
+          // console.log(sendOrder);
+          // dispatch(createOrder(sendOrder));
+
+          let array = products.map((product)=>{
+            return {
+                id: product.id, 
+                amount: product.amount
+              };
+          })
+          dispatch(deleteStockBack(array));
           // console.log(data) // {message: 'succesfull payment'}
+
           setLoading(false);
+          console.log(loading)
+
           setSucceeded(true);
+          console.log(succeeded)
+
           setError(null);
+          console.log(error)
+
           setProcessing(false);
+          console.log(processing)
+
           elements.getElement(CardElement).clear();
-          await deleteStockFirebase();
           setPay(true);
+          console.log(setPay)
+
           setProducts([]);
           // alert('Payment successful')
           //  Swal.fire({
@@ -178,9 +195,11 @@ function Payment() {
           });
           window.localStorage.clear();
           history.replace("/success");
+
         } catch (error) {
-          console.log(error);
+          alert(error);
         }
+
       }
     } else {
       //
@@ -193,37 +212,37 @@ function Payment() {
     }
   }
 
-  function deleteStockFirebase() {
-    let dbs = firebase.firestore();
-    products.map((flight) => {
-      if (flight.amount < flight.stock) {
-        dbs
-          .collection("db")
-          .doc(flight.id)
-          .update({
-            stock: flight.stock - flight.amount,
-          })
-          .then(() => {
-            setProducts({
-              ...flight,
-              stock: flight.stock - flight.amount,
-            });
-            console.log("stock modificado", products.stock);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        dbs
-          .collection("db")
-          .doc(flight.id)
-          .delete()
-          .then(() => {
-            console.log("flight completed");
-          });
-      }
-    });
-  }
+  // function deleteStockFirebase() {
+  //   let dbs = firebase.firestore();
+  //   products.map((flight) => {
+  //     if (flight.amount < flight.stock) {
+  //       dbs
+  //         .collection("db")
+  //         .doc(flight.id)
+  //         .update({
+  //           stock: flight.stock - flight.amount,
+  //         })
+  //         .then(() => {
+  //           setProducts({
+  //             ...flight,
+  //             stock: flight.stock - flight.amount,
+  //           });
+  //           console.log("stock modificado", products.stock);
+  //         })
+  //         .catch((error) => {
+  //           console.log(error);
+  //         });
+  //     } else {
+  //       dbs
+  //         .collection("db")
+  //         .doc(flight.id)
+  //         .delete()
+  //         .then(() => {
+  //           console.log("flight completed");
+  //         });
+  //     }
+  //   });
+  // }
 
   function handleChange(e) {
     setLoading(false);
@@ -323,7 +342,7 @@ function Payment() {
                 />
                 <br />
                 <br />
-                <CardElement onChange={handleChange}/>
+                 <CardElement onChange={handleChange}/> 
                 <br />
 
                 <br />
@@ -342,7 +361,7 @@ function Payment() {
         </div>
         <br />
 
-        {/* MERCADO PAGO */}
+        {/* MERCADO PAGO
         <hr className={css.hr_separator} />
         <br />
         <MPPayment
@@ -355,7 +374,7 @@ function Payment() {
         <br />
         <hr className={css.hr_separator} />
         {/* PAYPAL */}
-        <br />
+        {/* <br />
         <PayPalScriptProvider
           options={{
             "client-id":
@@ -370,8 +389,8 @@ function Payment() {
         </PayPalScriptProvider>
         <br />
         <hr className={css.hr_separator} />
-        <br />
-        {/* STRIPE */}
+        <br /> */} 
+        {/* STRIPE
         <form className={css.form_container}>
           <br />
 
@@ -402,7 +421,7 @@ function Payment() {
           </LoadingButton>
 
           {errorMsg.string && <span>{errorMsg.string}</span>}
-        </form>
+        </form> */}
     </div>
   );
 }

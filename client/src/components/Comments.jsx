@@ -175,7 +175,8 @@ function Comments({details, airlines}) {
 
             <br />
             <br />
-            <form>
+
+            {/* <form>
             <h3>PREGUNTAS SOBRE LA AEROLINEA O VUELO</h3>
             <h5>Aca iria la pregunta del cliente</h5>
                 <input
@@ -185,7 +186,8 @@ function Comments({details, airlines}) {
             /> 
 
             <h5>Aca iria la respuesta de la aerolinea</h5>
-            </form>
+            </form> */}
+            
         </div>   
     </div>
   )

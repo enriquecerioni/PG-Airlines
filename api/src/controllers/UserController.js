@@ -40,6 +40,9 @@ async function createUser(req, res) {
   }
 }
 
+
+
+
 async function updateToAdmin(req, res) {
   try {
     const { email } = req.body;
@@ -63,6 +66,8 @@ async function updateToAdmin(req, res) {
   }
 }
 
+
+
 async function deleteUserBack(req, res) {
   const { email } = req.params;
   try {
@@ -82,6 +87,10 @@ async function deleteUserBack(req, res) {
     res.status(400).json({ error: error.message });
   }
 }
+
+
+
+
 async function deleteUserAuth(req, res, next) {
   try {
     const { uid } = req.params;
@@ -91,6 +100,10 @@ async function deleteUserAuth(req, res, next) {
     res.status(400).json({ error: error.message });
   }
 }
+
+
+
+
 async function getAllUsersFirebaseBack (req,res){
   try {
     const dbFirebase=firebase.firestore();

@@ -5,12 +5,11 @@ import st from '../styles/Forms.module.css'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { createFlights } from '../../redux/actions/index'
-import { useDispatch } from 'react-redux';
-// import  TextField  from '@mui/material/TextField';
+import { createFlights,getAllAirlines,getAllFlights,getAllUsers } from '../../redux/actions/index'
+import { useDispatch, useSelector, } from 'react-redux';
+import  TextField  from '@mui/material/TextField';
 
 const style = {
-
     position: "absolute",
     top: "35%",
     left: "50%",
@@ -19,21 +18,31 @@ const style = {
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
-    p: 4
+    p: 4,
+    "inp":{
+        width: 260,
+        marginTop: 1.5,
+        marginLeft: 2,
+        marginRight: 0,
+        marginButton: 0,
+    }
 };
 
 
 
 
-export default function AddModal() {
+export default function AddModal({setAirlineFlights}) {
     const dispatch = useDispatch()
-
+ 
+    const currentUser=useSelector((state)=>state.currentUser)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const handleAdd = () => {
+    const handleAdd = (e) => {
+        e.preventDefault();
         const dataNew = {
-            airline: document.getElementById('airline').value,
+            id:currentUser[0]?.id,
+            airline: currentUser[0]?.name,
             arrivalDate: document.getElementById('arrD').value,
             arrivalHour: document.getElementById('arrH').value,
             departureDate: document.getElementById('depD').value,
@@ -41,22 +50,26 @@ export default function AddModal() {
             description: document.getElementById('description').value,
             destination: document.getElementById('destination').value,
             durationEstimated: document.getElementById('duration').value,
-            flight: document.getElementById('flight').value,
             logo: document.getElementById('logo').value,
             origin: document.getElementById('origin').value,
             price: document.getElementById('price').value,
             stock: document.getElementById('stock').value
+            // flight: document.getElementById('flight').value,
         }
 
-
         dispatch(createFlights(dataNew));
+        setAirlineFlights(false)
+        window.location.reload()
     }
 
 
 
     useEffect(() => {
         setOpen();
-    }, [])
+        // dispatch(getAllUsers())
+        // dispatch(getAllAirlines())
+        // dispatch(getAllFlights())
+    }, [ dispatch])
 
     return (
         <div>
@@ -75,133 +88,152 @@ export default function AddModal() {
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         <form >
-                            <div><label>Flight: </label>
-                                <input
+                            {/* <div>
+                                {/* <label>Flight: </label> 
+                                <TextField sx={style.inp}
                                     type='text'
-                                    label='ID Flight'
+                                    // label='ID Flight'
                                     placeholder='Flight'
                                     name='flight'
-                                    id="flight"
+                                    id="flight" 
+                                    variant="standard"
                                 />
-                            </div>
-                            <div>
+                            </div> */} 
+                             <div>
                                 {/* <TextField
                                     disabled
                                     id="outlined-disabled"
                                     label="Airline"
                                     defaultValue="Arline"
-                                /> */}
-                                <label>Airline: </label>
-                                <input
-                                    name='airline'
-                                    type="text"
-                                    label='Airline'
-                                    placeholder='Airline'
-                                    id="airline"
-                                />
-                            </div>
+    /> */}
+                                <label>Airline: {currentUser[0]?.name} </label>
+                                
+                            </div> 
                             <div><label>Logo: </label>
                                 <input
                                     name='logo'
                                     type="text"
-                                    label='Logo'
+                                    // label='Logo'
                                     placeholder='Image'
                                     id="logo"
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Price: </label>
-                                <input
+                            <div>
+                                {/* <label>Price: </label> */}
+                                <TextField sx={style.inp}
                                     name='price'
                                     type="number"
-                                    label='Price'
+                                    // label='Price'
                                     placeholder='Price'
                                     id="price"
+                                    variant="standard"
+
                                 />
                             </div>
-                            <div><label>Stock: </label>
-                                <input
+                            <div>
+                                {/* <label>Stock: </label> */}
+                                <TextField sx={style.inp}
                                     name='stock'
                                     type="number"
-                                    label='Stock'
+                                    // label='Stock'
                                     placeholder='Stock'
                                     id="stock"
+                                    variant="standard"
+
                                 />
                             </div>
-                            <div><label>Origin: </label>
-                                <input
+                            <div>
+                                {/* <label>Origin: </label> */}
+                                <TextField sx={style.inp}
                                     name='origin'
                                     type="text"
-                                    label='Origin'
+                                    // label='Origin'
                                     placeholder='Origin'
                                     id="origin"
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Duration: </label>
-                                <input
+                            <div>
+                                {/* <label>Duration: </label> */}
+                                <TextField sx={style.inp}
                                     name='duration'
                                     type="text"
-                                    label='Duration'
+                                    // label='Duration'
                                     placeholder='Duration'
                                     id="duration"
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Departure Hour: </label>
-                                <input
+                            <div>
+                                {/* <label>Departure Hour: </label> */}
+                                <TextField sx={style.inp}
                                     name='depH'
                                     type="text"
-                                    label='DepH'
-                                    placeholder='DepH'
+                                    // label='DepH'
+                                    placeholder='Departure Hour'
                                     id="depH"
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Arrival Hour: </label>
-                                <input
+                            <div>
+                                {/* <label>Arrival Hour: </label> */}
+                                <TextField sx={style.inp}
                                     name='arrH'
                                     type="text"
-                                    label='ArrH'
-                                    placeholder='ArrH'
+                                    // label='ArrH'
+                                    placeholder='Arrival Hour'
                                     id="arrH"
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Destination: </label>
-                                <input
+                            <div>
+                                {/* <label>Destination: </label> */}
+                                <TextField sx={style.inp}
                                     name='destination'
                                     type="text"
-                                    label='Destination'
+                                    // label='Destination'
                                     placeholder='Destination'
                                     id="destination"
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Departure Date: </label>
-                                <input
+                            <div>
+                                {/* <label>Departure Date: </label> */}
+                                <TextField sx={style.inp}
                                     name='depD'
                                     type="text"
-                                    label='DepD'
-                                    placeholder='DepD'
+                                    // label='DepD'
+                                    placeholder='Departure Date'
                                     id="depD"
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Arrival Date: </label>
-                                <input
+                            <div>
+                                {/* <label>Arrival Date: </label> */}
+                                <TextField sx={style.inp}
                                     name='arrD'
                                     type="text"
-                                    label='ArrD'
-                                    placeholder='ArrD'
+                                    // label='ArrD'
+                                    placeholder='Arrival Date'
                                     id="arrD"
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Description: </label>
-                                <input
+                            <div>
+                                {/* <label>Description: </label> */}
+                                <TextField sx={style.inp}
                                     name='description'
                                     type="text"
-                                    label='Description'
+                                    // label='Description'
                                     placeholder='Description'
+                                    variant="standard"
                                     id="description"
                                 />
                             </div>
 
                             <div>
-                                <button className={s.btn} type='submit' variant="contained" onClick={handleAdd}>Add Flight</button>
+                                <button className={s.btn} type='submit' variant="contained" onClick={(e)=>handleAdd(e)}>Add Flight</button>
                                 <button className={s.btn} onClick={handleClose}>Cancel</button>
                             </div>
 
