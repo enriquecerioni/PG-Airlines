@@ -5,8 +5,8 @@ import st from '../styles/Forms.module.css'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { createFlights } from '../../redux/actions/index'
-import { useDispatch } from 'react-redux';
+import { createFlights,getAllAirlines,getAllFlights,getAllUsers } from '../../redux/actions/index'
+import { useDispatch, useSelector, } from 'react-redux';
 import  TextField  from '@mui/material/TextField';
 
 const style = {
@@ -59,14 +59,17 @@ export default function AddModal({setAirlineFlights}) {
 
         dispatch(createFlights(dataNew));
         setAirlineFlights(false)
+        window.location.reload()
     }
 
 
 
     useEffect(() => {
         setOpen();
-        dispatch(getAllUsers())
-    }, [])
+        // dispatch(getAllUsers())
+        // dispatch(getAllAirlines())
+        // dispatch(getAllFlights())
+    }, [ dispatch])
 
     return (
         <div>
