@@ -31,17 +31,18 @@ const style = {
 
 
 
-
-
-export default function AddModal() {
+export default function AddModal({setAirlineFlights}) {
     const dispatch = useDispatch()
-
+ 
+    const currentUser=useSelector((state)=>state.currentUser)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const handleAdd = () => {
+    const handleAdd = (e) => {
+        e.preventDefault();
         const dataNew = {
-            airline: document.getElementById('airline').value,
+            id:currentUser[0]?.id,
+            airline: currentUser[0]?.name,
             arrivalDate: document.getElementById('arrD').value,
             arrivalHour: document.getElementById('arrH').value,
             departureDate: document.getElementById('depD').value,
@@ -49,21 +50,22 @@ export default function AddModal() {
             description: document.getElementById('description').value,
             destination: document.getElementById('destination').value,
             durationEstimated: document.getElementById('duration').value,
-            flight: document.getElementById('flight').value,
             logo: document.getElementById('logo').value,
             origin: document.getElementById('origin').value,
             price: document.getElementById('price').value,
             stock: document.getElementById('stock').value
+            // flight: document.getElementById('flight').value,
         }
 
-
         dispatch(createFlights(dataNew));
+        setAirlineFlights(false)
     }
 
 
 
     useEffect(() => {
         setOpen();
+        dispatch(getAllUsers())
     }, [])
 
     return (
@@ -83,8 +85,8 @@ export default function AddModal() {
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         <form >
-                            <div>
-                                {/* <label>Flight: </label> */}
+                            {/* <div>
+                                {/* <label>Flight: </label> 
                                 <TextField sx={style.inp}
                                     type='text'
                                     // label='ID Flight'
@@ -93,27 +95,19 @@ export default function AddModal() {
                                     id="flight" 
                                     variant="standard"
                                 />
-                            </div>
-                            <div>
+                            </div> */} 
+                             <div>
                                 {/* <TextField
                                     disabled
                                     id="outlined-disabled"
                                     label="Airline"
                                     defaultValue="Arline"
-                                /> */}
-                                {/* <label>Airline: </label> */}
-                                <TextField sx={style.inp}
-                                    name='airline'
-                                    type="text"
-                                    // label='Airline'
-                                    placeholder='Airline'
-                                    id="airline"
-                                    variant="standard"
-                                />
-                            </div>
-                            <div>
-                                {/* <label>Logo: </label> */}
-                                <TextField sx={style.inp}
+    /> */}
+                                <label>Airline: {currentUser[0]?.name} </label>
+                                
+                            </div> 
+                            <div><label>Logo: </label>
+                                <input
                                     name='logo'
                                     type="text"
                                     // label='Logo'
@@ -236,7 +230,7 @@ export default function AddModal() {
                             </div>
 
                             <div>
-                                <button className={s.btn} type='submit' variant="contained" onClick={handleAdd}>Add Flight</button>
+                                <button className={s.btn} type='submit' variant="contained" onClick={(e)=>handleAdd(e)}>Add Flight</button>
                                 <button className={s.btn} onClick={handleClose}>Cancel</button>
                             </div>
 

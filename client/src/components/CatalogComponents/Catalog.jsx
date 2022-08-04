@@ -8,9 +8,10 @@ import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import CatalogFlights from './CatalogFlights';
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect } from 'react';
-import { getAllFlights } from '../../redux/actions/index';
+import React, { useEffect, useState } from 'react';
+import { getAllFlights, getAllUsers } from '../../redux/actions/index';
 import ModalAdd from './ModalAdd'
+import Loader from '../HomeComponents/Loader'
 
 function TabPanel(props) {
 
@@ -48,22 +49,32 @@ function a11yProps(index) {
 
 export function Catalog() {
     const dispatch = useDispatch();
-
+    const [airlineFlights,setAirlineFlights]=useState(false)
 
 
     useEffect(() => {
-        dispatch(getAllFlights());
-    }, [dispatch]);
+        dispatch(getAllUsers())
+        dispatch(getAllFlights())
+        setAirlineFlights(true)
+    }, [dispatch,airlineFlights]);
 
+    const currentUser = useSelector((state)=>state.currentUser)
     const Flights = useSelector((state) => state.flights)
+    let currentFlights=Flights?.filter((f)=>f.airlineId===currentUser[0]?.id)
 
-    const allFlights = Flights.map((f) => {
+
+
+
+
+
+    const allFlights = currentFlights?.map((f) => {
+        console.log(f);
         return {
-            id: f.flight,
-            airline: f.airline,
+            id: f.id,
+            airline: currentUser[0]?.name,
             logo: f.logo,
             price: f.price,
-            stock: f.stock,
+            stock: f.tickets,
             origin: f.origin,
             durationEstimated: f.durationEstimated,
             departureHour: f.departureHour,
@@ -74,13 +85,13 @@ export function Catalog() {
             description: f.description
         }
     })
-    console.log(allFlights);
+    //console.log(allFlights);
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
+if(currentUser[0] && airlineFlights ){
     return (
         <div className={style.catalog_containers}>
             <Box
@@ -99,11 +110,16 @@ export function Catalog() {
 
                 </Tabs>
                 <TabPanel className={style.tab} value={value} index={0} >
-                    <h1>Flights</h1>
-                    <CatalogFlights
-                        rows={allFlights} />
+                    <h1>{currentUser[0]?.name} Flights</h1>
+                    
+                    {airlineFlights ?
+                        <CatalogFlights
+                        rows={allFlights && allFlights } setAirlineFlights={setAirlineFlights} airlineFlights={airlineFlights}/>
+                        : <h2>no hay vuelos cumpa</h2>
+                        }
+                    
                     <div id="btnAddAL">
-                        <ModalAdd />
+                        <ModalAdd setAirlineFlights={setAirlineFlights}/>
 
                     </div>
                 </TabPanel>
@@ -112,7 +128,12 @@ export function Catalog() {
                 </TabPanel>
             </Box>
         </div>
-    );
+    )
+    ;}else{
+      return(
+        <Loader/>
+      ) 
+    }
 }
 
 export default Catalog
