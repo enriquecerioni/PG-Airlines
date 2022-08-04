@@ -6,9 +6,7 @@ import {
   deleteUser,
   deleteUserAuth,
   currentUser,
-  getAllUsers,
-  generateEmailLink,
-  logOutUser,
+
  
 } from "../../redux/actions/index";
 

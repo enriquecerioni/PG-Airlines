@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import s from "../styles/Home.module.css";
 import Display from "./Display";
@@ -7,13 +7,14 @@ import test from "../styles/assets/test3.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../redux/actions/index";
 import Loader from "./Loader";
-import NavBar from "./NavBar";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Button from "@mui/material/Button";
 import Administration from "./Administration";
 import Footer from "./Footer";
+import { darkModeContext } from "../DarkModeContext";
 
 export default function Home() {
+  const { darkMode } = useContext(darkModeContext)
   const [isDisplayed, setIsDisplayed] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.currentUser);
@@ -24,7 +25,7 @@ export default function Home() {
     setInterval(() => {
       setIsDisplayed(true);
     }, 3000);
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -33,20 +34,20 @@ export default function Home() {
       ) : !user[0]?.superAdmin ? (
         <div className={s.Home}>
           {/* <NavBar /> */}
-          <div id="sec-1" className={s.sec1}>
+          <div id="sec-1" className={darkMode ? s.sec1_dark : s.sec1}>
             <div className={s.container}>
-              <h1 className={s.title}>
+              <h1 className={ darkMode ? s.title_dark : s.title}>
                 Browse our options to get the best deals on airline tickets, no
                 matter where you’re headed.
               </h1>
-              <p id="ad" className={s.text}>
+              <p id="ad" className={ darkMode ? s.text_dark : s.text}>
                 Explore destinations and find great deals on plane tickets.
               </p>
               <a href="#sec-2">
-                <p className={s.scrollText}>
+                <p className={darkMode ? s.scrollText_dark : s.scrollText}>
                   Scroll down to navigate through flights
                 </p>
-                <div className={s.scrollDown}></div>
+                <div className={ darkMode ? s.scrollDown_dark : s.scrollDown}></div>
               </a>
             </div>
             <div className={s.divImg}>
@@ -54,7 +55,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div id="sec-2" className={s.sec2}>
+          <div id="sec-2" className={ darkMode ? s.sec2_dark : s.sec2}>
             <div id="divInv" className={s.divInv}></div>
             <SearchBar />
             <Display />

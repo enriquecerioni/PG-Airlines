@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
@@ -37,7 +37,7 @@ function Payment() {
     string: "",
   });
 
-  const [error, setError] = useState(null);
+  const [/*error*/, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const [succeeded, setSucceeded] = useState(false);
   const [processing, setProcessing] = useState("");
@@ -53,7 +53,7 @@ function Payment() {
           .map((p) => p.price * p.amount)
           .reduce((previousValue, currentValue) => previousValue + currentValue)
       );
-  }, []);
+  }, [dispatch,products]);
 
   ///------------------------------
 

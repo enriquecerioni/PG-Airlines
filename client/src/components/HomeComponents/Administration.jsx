@@ -10,7 +10,7 @@ export default function Administration(){
     const dispatch=useDispatch()
     useEffect(()=>{
         dispatch(getAllUsersFirebase())
-    },[])
+    },[dispatch])
    const allUser=useSelector(state=>state.allUsersFirebase)
     const user=allUser.filter((user)=>!user.hasOwnProperty("empresa") && !user.admin)
     const business=allUser.filter((user)=>user.hasOwnProperty("empresa") && user.empresa)
@@ -34,7 +34,7 @@ export default function Administration(){
     let email=e.target.email.value
     let uid=e.target.uid.value
     await Delete(email,uid)
-     business.filter((b)=>b.email===email).lenght ? dispatch(deleteAirline(email)) : null
+    business.filter((b)=>b.email===email).length ? dispatch(deleteAirline(email)) : console.log("no esta");
    //  aca va un loader porque las funciones se ejecutan tarde y se rompe con el window.location.reload()
     
    }
@@ -139,4 +139,3 @@ export default function Administration(){
 
 }
    
-{/*  */}

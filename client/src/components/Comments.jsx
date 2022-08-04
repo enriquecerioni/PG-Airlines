@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import { createComment } from "../redux/actions/index.js";
 
 function Comments({details, airlines}) {
 
+  const dispatch = useDispatch()
 //////////////////////
   // CREAR COMENTARIO //
   const allComments = useSelector(state => state.comments)
@@ -76,11 +81,11 @@ function Comments({details, airlines}) {
         rating: '',
         comment: '',
         name: '',
-        moreInfo: {
-          flightName: '',
-          origin: '',
-          destination: ''        
-        }        
+        moreInfo: [
+          {
+          flightName: ''     
+          } 
+        ]       
       })
 
     } else {
@@ -94,6 +99,12 @@ function Comments({details, airlines}) {
       return airline.name
     }
   })
+
+  function handleQuestion(e) {
+    e.preventDefault()
+
+  }
+
   return (
     <div>
         {/* CREAR COMENTARIO - FALTAN RUTAS EN BACK */}
@@ -147,21 +158,6 @@ function Comments({details, airlines}) {
             value={input.flightName}
             onChange={handleInputChange}
             />
-            
-            <h5>Input del origin / destino</h5>
-            <input
-            type="text" 
-            name="origin"
-            value={input.origin}
-            onChange={handleInputChange}
-            />
-
-            <input
-            type="text" 
-            name="destination"
-            value={input.destination}
-            onChange={handleInputChange}
-            />
 
             <h3>INPUT DE COMENTARIO</h3>
             <input 
@@ -184,6 +180,8 @@ function Comments({details, airlines}) {
             <h5>Aca iria la pregunta del cliente</h5>
                 <input
                 type="text"
+                placeholder='Escribi tu pregunta'
+                onChange={handleQuestion}
             /> 
 
             <h5>Aca iria la respuesta de la aerolinea</h5>

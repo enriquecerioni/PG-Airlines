@@ -25,38 +25,29 @@ const style = {
 };
 
 function handleRowSelection(selectedRows) {
-debugger;
-    console.log('Valor: ' + selectedRows);
-    if(flightIds.length == 0){
-        flightIds.push(selectedRows);
-        return
-    }     
-   const item =  flightIds.find(f=> f === selectedRows );
-      
-    if(item !== undefined){
-       flightIds.slice( flightIds.indexOf('item'),1);  
-        return
-    }else{
-        flightIds.push(selectedRows);
-    }        
-    
-    
+ 
+        flightIds = selectedRows;
+      console.log(flightIds);
   }
 
 function CatalogFlights({ rows }) {
     const dispatch = useDispatch()
     const [open, setOpen] = React.useState(false);
     const [dataFlight, getData] = React.useState(false);
-
+    const mese = useSelector(state => state.messeage)    
+     
     const handleOpen = () => setOpen(true);
+
+    // const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleSave = () => dispatch(editToFlights(dataFlight));
     
     function handleDelete(){
         if(flightIds.length > 0){
             dispatch(deleteFlights(flightIds));
+            window.location.href = "http://localhost:3000/catalog";
         }else{
-            alert("Tu nesecitas seleccionar uno para eliminar");
+            alert("Choose a flight");
         }
          
     }

@@ -12,10 +12,27 @@
     background-color: white;
     border: 2px solid #E6F4F1;
   }
+
+  .inputSearch_dark {
+    font-size: 15px;
+    color: #FFFFFF;
+    border: none;
+    height: 2.5rem;
+    width: 18rem;
+    font-family: "Raleway", sans-serif;
+    /* display: inline-block; */
+    padding-left: 15px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    background-color: rgba(97, 97, 97, 0.733);
+    border: 2px solid rgba(97, 97, 97, 0.733);
+  }
+
   .inputSearch:focus {
     outline: none;
     font-weight: 900;
   }
+
   .btnSearch {
     margin: 0 1px;
     font-size: 15px;
@@ -25,7 +42,33 @@
     border: none;
     cursor: pointer;
     background-color: #DEA01E;
+    padding: .6rem;
+    border: 2px solid #DEA01E;
+    transition: all .2s ease-in;
   }
+
+  .btnSearch_dark {
+    color: #af7c0e;
+    margin: 0 1px;
+    font-size: 15px;
+    font-family: "Raleway", sans-serif;
+    height: 2.5rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    padding: .6rem;
+    border: 2px solid #af7c0e;
+    transition: all .2s ease-in;
+  }
+
+  .btnSearch_dark:hover {
+    background-color: #DEA01E;
+    color: #FFFFFF;
+    border: none;
+    border: 2px solid #DEA01E;
+  }
+
   .btnSearch:hover {
     background: #daa93f;
     color: white;
@@ -34,4 +77,9 @@
   .inputSearch:hover {
     background-color: #E6F4F1;
     color: black;
+  }
+
+  .search_dark {
+    background-color: #121212;
+    background-size: cover;
   }

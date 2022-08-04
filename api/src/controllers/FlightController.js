@@ -83,27 +83,11 @@ async function createFlights(req, res) {
   try {
     if (true) {
       const dbFirestore = firebase.firestore();
-      let flightdb = await dbFirestore.collection("db").doc(flight.id);
+      let flightdb = await dbFirestore.collection("db").doc(flight.flight);
       if (false) {
       }
       else {
-        let flightCreate = await flightdb.set(
-          {
-            airline: flight.airline,
-            arrivalDate: flight.arrivalDate,
-            arrivalHour: flight.arrivalHour,
-            departureDate: flight.departureDate,
-            departureHour: flight.departureHour,
-            description: flight.description,
-            destination: flight.destination,
-            durationEstimated: flight.duration,
-            flight: flight.flight,
-            logo: flight.logo,
-            origin: flight.origin,
-            price: flight.price,
-            stock: flight.stock
-
-          });
+        let flightCreate = await flightdb.set(flight);
         return res.status(201).json(flightCreate);
       }
     }
@@ -115,19 +99,22 @@ async function createFlights(req, res) {
 
 async function deleteFlights(req, res) {
   const { flightIds } = req.body;
-
+ 
+   console.log(flightIds);
+   console.log(req.params);
+   console.log(req.body);
   try {
-    if (!flightIds.leght > 0) {
-
+    if (flightIds.length > 0) {
       const dbFirestore = firebase.firestore();
-      let flightdb
-      await flightIds.foreach(async (f) => {
+       let flightdb
+      await flightIds.forEach(async (f) => {
+        console.log(f);
         flightdb = await dbFirestore.collection("db").doc(f).delete();
       });
       if (false) {
       }
       else {
-        return res.status(201).json(flightdb);
+        return res.status(201).json("Flight was deleted ");
       }
     }
   } catch (error) {

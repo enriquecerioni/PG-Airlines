@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Ticket from './Ticket'
 import style from '../styles/Display.module.css'
@@ -6,11 +6,15 @@ import Paginate from './Paginate';
 import Filter from '../Filter'
 // import Filter from './Filter'
 import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines, getAllUsers, currentUser, getAllAirlines} from '../../redux/actions/index'
+import { darkModeContext } from "../DarkModeContext";
 
 export default function Display() {
-// console.log(details)
-    const dispatch = useDispatch()
 
+    const { darkMode } = useContext(darkModeContext)
+
+    const dispatch = useDispatch()
+    const airlinesState=useSelector(state=>state.airlines)
+    //console.log("airlinesss",airlines);
     // const [price, setPrice] = React.useState('');
 
     const details = useSelector((state) => state.flights)
@@ -97,7 +101,8 @@ export default function Display() {
 
     function handleSearchAirlines(e) {
         e.preventDefault();      
-        const allAirlines = filterArray.map(f => f.airline);
+        const allAirlines = airlinesState.map(f => f.name);
+        
         let airlines = allAirlines.filter((v, i) => {
             return allAirlines.indexOf(v) === i;
         })
@@ -129,7 +134,7 @@ export default function Display() {
                         arrivalHour={e.arrivalHour}
                         origin={e.origin}
                         destination={e.destination}
-                        stock={e.tickets}              
+                        tickets={e.tickets}              
                     />) 
                            
                 }) :

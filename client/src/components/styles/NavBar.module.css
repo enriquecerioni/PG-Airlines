@@ -1,5 +1,24 @@
-nav {
+.nav_container {
   background-color: #3985cb;
+  padding-left: 150px;
+  padding-top: 17px;
+  padding-bottom: 16px;
+  margin: 0;
+  z-index: 500;
+  width: 100%;
+  max-height: 66px;
+  top: 0;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Raleway", sans-serif;
+  font-size: large;
+  font-weight: 700;
+}
+
+.nav_container_dark {
+  background-color: #121212;
   padding-left: 150px;
   padding-top: 17px;
   padding-bottom: 16px;
@@ -83,6 +102,21 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.numCart_dark {
+  margin-left: -5px;
+  position: absolute;
+  background-color: #BB86FC;
+  border-radius: 50%;
+  height: 20px;
+  font-size: 12px;
+  font-family: sans-serif;
+  font-weight: 400;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
 }
 
 .bkg {

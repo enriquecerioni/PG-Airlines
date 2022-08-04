@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getFlightByID, cleanDetails, createComment, getAllAirlines } from "../redux/actions/index.js";
+import { getFlightByID, cleanDetails, getAllAirlines } from "../redux/actions/index.js";
 import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 
 // import  addProductToCart  from './CartComponents/CartContext.jsx'
 import { CartContext } from "./CartComponents/CartContext";
@@ -47,6 +45,7 @@ function Details() {
     airline,
     arrivalHour,
     departureHour,
+    tickets
   }) => {
     // console.log({id, origin, price, logo, airline, arrivalHour, departureHour})
     addProductToCart({
@@ -57,6 +56,7 @@ function Details() {
       airline,
       arrivalHour,
       departureHour,
+      tickets
     });
     toast.info("Added to cart", {
       icon: "✈️",
@@ -124,6 +124,7 @@ function Details() {
                     Arrival Hour: {details.arrivalHour}
                   </div>
                 </div>
+
                 <div className={s.divInfo2}>
                   <div className={s.origin}>Origin: {details.origin}</div>
                   <div className={s.description}>
@@ -132,11 +133,11 @@ function Details() {
                   <div className={s.destination}>
                     Destination: {details.destination}
                   </div>
-                </div>
+                </div>     
 
-                <Comments airlines={airlines} details={details} />               
               </div>
-            </div>
+              
+            </div>           
 
               <div key={details.id} className={s.divPrices}>
                 <img className={s.logoPrice} src={details.logo} alt="Img" />
@@ -155,12 +156,33 @@ function Details() {
                         arrivalHour: details.arrivalHour,
                         departureHour: details.departureHour,
                       })
-                    }>Reservar</button>
-                ) : null }
-              </div>
+                    }>Add to cart</button>
+                ) : !user.length ? (
+                  <button
+                    className={s.btn}
+                    onClick={() =>
+                      handleAddToCart({
+                        id: details.id,
+                        origin: details.origin,
+                        price: details.price,
+                        logo: details.logo,
+                        airline: airline,
+                        arrivalHour: details.arrivalHour,
+                        departureHour: details.departureHour,
+                        tickets:details.tickets
+                      })
+                    }>Add to cart</button>
+
+                ): null }
+       
+            </div> 
+
+             <Comments airlines={airlines} details={details} />  
 
           </div>
-        ) : null}
+
+        ) : null }
+        
       </div>
     </div>
   );

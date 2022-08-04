@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import style from './styles/Display.module.css'
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -8,6 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
+import { darkModeContext } from './DarkModeContext';
 
 const marks = [
     {value: 10, label: '< $20.000'},
@@ -27,9 +28,11 @@ function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, hand
     function valuetext(value) {
         return `${value}`;
     }
+    
+    const { darkMode } = useContext(darkModeContext)
 
   return (
-    <div className={style.main_container}>
+    <div className={ darkMode ? style.main_container_dark : style.main_container}>
         {/* 
         <button>Lowest price</button>
         <button>The best option</button>
