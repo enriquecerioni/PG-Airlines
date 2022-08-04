@@ -306,6 +306,7 @@ export function getOrders() {
         })
     }
 }
+/////////////
 export function editToFlights(payload){
    const flight = {
       flight:payload
@@ -326,10 +327,10 @@ export function deleteStockBack(payload){
     const flightIdAmount={
         flightIdAmount:payload
     }
-    console.log("delete stockkk",flightIdAmount);
+    // console.log("delete stockkk",flightIdAmount);
         axios.put('http://localhost:3001/flights/stock',flightIdAmount )
         .then(()=>{
-            console.log("todo okey");
+            console.log('todookey')
         })       
         .catch((error)=>{
             console.log(error.message);

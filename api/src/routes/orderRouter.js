@@ -22,6 +22,7 @@ orderRouter.post('/', async (req, res) => {
     const { stocks, price, userId, idpurchase, creationdate } = req.body
     try {
         console.log(stocks, price, userId, idpurchase, creationdate);
+
         let newOrder = await Order.create({
             stocks,
             price,
@@ -31,7 +32,7 @@ orderRouter.post('/', async (req, res) => {
         //console.log("compro");
         let cliente =  await User.findOne({
             where: {
-                id: userId
+                id: userId 
             }
         })
 

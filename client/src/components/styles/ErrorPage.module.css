@@ -12,7 +12,17 @@
   height: 100vh;
   gap: 80px;
   color: white;
-  
+}
+
+.container_dark {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 80px;
+  color: #121212;
 }
 
 .links{
@@ -35,6 +45,12 @@
     transform: scale(1.1);
     letter-spacing: 5px;
     color: black;
+}
+
+.h1_dark:hover {
+  transform: scale(1.1);
+  letter-spacing: 5px;
+  color: #FFFFFF;
 }
 
 .h2 {
@@ -74,8 +90,28 @@
     transition: .6s ease;
 }
 
+.btn_dark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Rubik', sans-serif;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 0px;
+  font-size: 20px;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: .6s ease;
+}
+
 .btn:hover{
     transform: scale(1.1);
     background-color: white;
     color: black;
+}
+
+.btn_dark:hover {
+  transform: scale(1.1);
+  background-color: #121212;
+  color: #FFFFFF;
 }

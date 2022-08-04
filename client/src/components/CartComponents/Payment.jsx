@@ -7,7 +7,7 @@ import css from "../styles/Payment.module.css";
 import { Link, useHistory } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
-import firebase from "firebase";
+// import firebase from "firebase";
 import { LoadingButton } from "@mui/lab";
 import { TextField } from "@mui/material";
 import Swal from "sweetalert2";
@@ -21,22 +21,22 @@ import { createOrder, getAllUsers,deleteStockBack } from "../../redux/actions/in
 
 function Payment() {
   const user = useSelector((state) => state.currentUser);
+
   const { products, setProducts, setPay } = useContext(CartContext);
-  // console.log(products)
+  console.log(products)
+
+  const arrAirlines = useSelector(state => state.airlines) 
+
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
-
   const history = useHistory();
-
   const stripe = useStripe();
   const elements = useElements();
-
   const [errorMsg, setErrorMsg] = useState({
     value: null,
     string: "",
   });
-
   const [/*error*/, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const [succeeded, setSucceeded] = useState(false);
@@ -44,7 +44,7 @@ function Payment() {
   const [email, setEmail] = useState("");
 
   const [subTotal, setSubTotal] = useState();
-  console.log("este es el user de payment", user);
+  // console.log("este es el user de payment", user);
   useEffect(() => {
     dispatch(getAllUsers());
     if (products.length !== 0)
@@ -53,7 +53,7 @@ function Payment() {
           .map((p) => p.price * p.amount)
           .reduce((previousValue, currentValue) => previousValue + currentValue)
       );
-  }, [dispatch,products]);
+  }, [dispatch, products]);
 
   ///------------------------------
 
@@ -110,12 +110,33 @@ function Payment() {
     });
   }
 
+  async function ejecutarArray() {
+      let array = products.map((product)=>{
+        return {
+            id: product.id, 
+            amount: product.amount
+          };
+      })
+      dispatch(deleteStockBack(array));
+  }
+
+  async function ejecutarGuardarVenta() {
+    let arr = products.map(product => {
+      return {
+        id: product.id, 
+        amount: product.amount,
+        airlineId: product.airlineId,
+        price: product.price
+      }
+    })
+
+    dispatch()
+  }
+
+
   async function handleSubmit(e) {
-    //
     e.preventDefault();
-
     if (email) {
-
       setLoading(true);
       setProcessing(true);
 
@@ -125,9 +146,9 @@ function Payment() {
       });
 
       if (!error) {
-        const { id } = paymentMethod;
-
         try {
+          const { id } = paymentMethod;
+
           const { data } = await axios.post("http://localhost:3001/stripe", {
             id,
             amount: subTotal * 100, // lo tengo que mandar en centavos  //1 METODO
@@ -139,38 +160,28 @@ function Payment() {
             stocks: products.map((e) => {
               return {
                 amount: e.amount,
-                airline: e.airline,
+                // airline: e.airline,
                 value: e.price,
-                link: e.id,
+                link: e.airlineId,
               };
             }),
-            userId: user.length ? user[0].id : null,
+            userId: user.length ? user[0].id : 0,
             idpurchase: id,
             creationdate: new Date(),
           };
-          console.log(sendOrder);
+
           dispatch(createOrder(sendOrder));
-          let array=products.map((product)=>{
-            return {
-              id: product.id, amount: product.amount
-              };
-          })
-          dispatch(deleteStockBack(array));
-          // console.log(data) // {message: 'succesfull payment'}
+
           setLoading(false);
           setSucceeded(true);
           setError(null);
           setProcessing(false);
           elements.getElement(CardElement).clear();
-           setPay(true);
-          setProducts([]);
-          // alert('Payment successful')
-          //  Swal.fire({
-          //     icon: 'success',
-          //     title: 'Done',
-          //     text: 'Payment succesful!',
-          //     confirmButtonColor: '#10408F'
-          // })
+          setPay(true);
+
+          ejecutarArray();
+
+          setProducts([])          
           toast.success("Payment Succesful!", {
             // icon: "✈️",
             position: "bottom-left",
@@ -183,12 +194,13 @@ function Payment() {
           });
           window.localStorage.clear();
           history.replace("/success");
+
         } catch (error) {
           alert(error);
         }
       }
+      
     } else {
-      //
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -271,9 +283,7 @@ function Payment() {
                 </div>
                 <div className={style.card_content}>
                   <h2 className={style.card_title}>{e.airline}</h2>
-                  <h5>
-                    Origin: {e.origin} | Destination: {e.destination}{" "}
-                  </h5>
+                  <h5>Origin: {e.origin} | Destination: {e.destination}</h5>
                 </div>
                 <div>
                   <p className={style.card_text}>${e.price}</p>
@@ -346,68 +356,6 @@ function Payment() {
             </form>            
         </div>
         <br />
-
-        {/* MERCADO PAGO
-        <hr className={css.hr_separator} />
-        <br />
-        <MPPayment
-          loading={loading}
-          disabled={disabled}
-          subTotal={subTotal}
-          products={products}
-          user={user}
-        />
-        <br />
-        <hr className={css.hr_separator} />
-        {/* PAYPAL */}
-        {/* <br />
-        <PayPalScriptProvider
-          options={{
-            "client-id":
-              "Af5RBL-IS1S6n_djlUuVWC-SSHDEWJDfTMVCyBPAJBISiKn6lgZmNmLX9D5KvBhWZ38jY_2Sy3ExLLQN",
-          }}
-        >
-          <PayPalButtons
-            disabled={loading || !disabled}
-            createOrder={createOrderPayPal}
-            onApprove={onApprove}
-          />
-        </PayPalScriptProvider>
-        <br />
-        <hr className={css.hr_separator} />
-        <br /> */} 
-        {/* STRIPE
-        <form className={css.form_container}>
-          <br />
-
-          <TextField
-            id="outlined-size-small"
-            label="Email"
-            type="text"
-            value={email}
-            name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <br />
-          <br />
-          <CardElement onChange={handleChange} />
-          <br />
-
-          <br />
-          <LoadingButton
-            onClick={handleSubmit}
-            endIcon="✔"
-            loading={loading}
-            loadingPosition="end"
-            variant="contained"
-            disabled={processing || disabled || succeeded || errorMsg.value}
-          >
-            <span>{loading ? <p>Processing</p> : "Buy now"}</span>
-          </LoadingButton>
-
-          {errorMsg.string && <span>{errorMsg.string}</span>}
-        </form> */}
     </div>
   );
 }

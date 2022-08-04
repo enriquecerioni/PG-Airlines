@@ -163,8 +163,10 @@ async function deleteFlights(req, res) {
 
 async function updateStock(req,res){
   try {
+
     const{flightIdAmount}=req.body;
     console.log(flightIdAmount);
+
     if(flightIdAmount.length){
 
       flightIdAmount.map((flight)=>{
@@ -196,10 +198,11 @@ async function updateStock(req,res){
           })
        
       })
-
-      res.status(200).json({message: "Flight updated"})
       })
-  } }catch (error) {
+  } 
+    return res.status(200).json({message: "Flight updated"})
+    
+  } catch (error) {
     res.status(400).json({error: error.message})
   }
 }

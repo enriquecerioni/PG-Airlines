@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFlightInfo } from '../../redux/actions/index'
 import s from '../styles/SearchBar.module.css'
+import { darkModeContext } from "../DarkModeContext";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -59,11 +60,13 @@ export default function SearchBar() {
     }
   }
 
+  const { darkMode } = useContext(darkModeContext)
+
   return (
     <div className={s.container}>
       <div className={s.form}>
         <input
-          className={s.inputSearch}
+          className={ darkMode ? s.inputSearch_dark : s.inputSearch}
           type="text"
           name="origin"
           id='origin'
@@ -87,7 +90,7 @@ export default function SearchBar() {
       </div>
       <div className={s.form}>
         <input
-          className={s.inputSearch}
+          className={ darkMode ? s.inputSearch_dark : s.inputSearch}
           type="text"
           name="destination"
           id='destination'
@@ -110,7 +113,7 @@ export default function SearchBar() {
         </label>
       </div>
       <button
-        className={s.btn}
+        className={ darkMode ? s.btnSearch_dark : s.btnSearch}
         type="submit"
         onClick={(e) => handleSubmit(e)}
       >
