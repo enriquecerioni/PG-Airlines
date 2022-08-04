@@ -2,7 +2,7 @@ const firebase = require("firebase");
 const {Flight} = require('../db')
 const {Airline}=require('../db')
 
-const getAllFlight = async (req, res) => {
+const getAllFlight = async (req, res,next) => {
   // const dbFirestore = firebase.firestore();  
   try {
     // let obj = [];
@@ -24,7 +24,7 @@ const getAllFlight = async (req, res) => {
   }
 };
 
-async function getOriginFlight(req, res) {
+async function getOriginFlight(req, res,next) {
   try {
     const { origen } = req.query;
     const dbFirestore = firebase.firestore();
@@ -96,7 +96,7 @@ async function createFlights(req, res) {
   //console.log(flight);
   try {
     if (id && stock && price) {
-     console.log(id,
+     console.log(id,  // user id
       arrivalDate,
       arrivalHour,
       departureDate,
@@ -107,10 +107,11 @@ async function createFlights(req, res) {
       origin,
       price,
       stock);
-      let airline=await Airline.findOne({where:{id}})
+      let airline=await Airline.findOne({where:{userId:id}})
+      console.log("airline",airline);
       if(airline){
         await Flight.create({
-          airlineId:id,
+          airlineId:airline.id,
           arrivalDate:arrivalDate,
           arrivalHour:arrivalHour,
           departureDate:departureDate,

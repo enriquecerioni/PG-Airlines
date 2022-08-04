@@ -31,7 +31,7 @@ function handleRowSelection(selectedRows) {
       console.log(flightIds);
   }
 
-function CatalogFlights({ rows,airlineFlights }) {
+function CatalogFlights({ rows,airlineFlights,setAirlineFlights}) {
     const dispatch = useDispatch()
     const [open, setOpen] = React.useState(false);
     const [dataFlight, getData] = React.useState(false);
@@ -44,14 +44,16 @@ function CatalogFlights({ rows,airlineFlights }) {
     const handleSave = (e) => {
         e.preventDefault();
         dispatch(editToFlights(dataFlight));
+        setAirlineFlights(false)
+        setTimeout(()=>(window.location.reload()),500) 
     }
     
     function handleDelete(e){
         if(flightIds.length > 0){
             e.preventDefault();
             dispatch(deleteFlights(flightIds));
-            
-            //window.location.href = "http://localhost:3000/catalog";
+            setAirlineFlights(false)
+            setTimeout(()=>(window.location.reload()),500) 
         }else{
             alert("Choose a flight");
         }
@@ -77,7 +79,7 @@ function CatalogFlights({ rows,airlineFlights }) {
         dataFlight.origin = e.target.value;
     }
     function handleDuration(e) {
-        dataFlight.duration = e.target.value;
+        dataFlight.durationEstimated = e.target.value;
     }
     function handleDepH(e) {
         dataFlight.departureHour = e.target.value;
@@ -118,7 +120,7 @@ function CatalogFlights({ rows,airlineFlights }) {
 
             /> 
            
-            : <Loader/>
+            : <h2>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h2>
             }
         </Box>,
          <button className={s.btn} onClick={(e)=>handleDelete(e)}>Delete</button>,

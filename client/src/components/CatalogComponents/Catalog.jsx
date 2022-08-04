@@ -9,7 +9,7 @@ import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import CatalogFlights from './CatalogFlights';
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from 'react';
-import { getAllFlights, getAllUsers } from '../../redux/actions/index';
+import { getAllAirlines, getAllFlights, getAllUsers } from '../../redux/actions/index';
 import ModalAdd from './ModalAdd'
 import Loader from '../HomeComponents/Loader'
 
@@ -55,12 +55,17 @@ export function Catalog() {
     useEffect(() => {
         dispatch(getAllUsers())
         dispatch(getAllFlights())
+        dispatch(getAllAirlines())
         setAirlineFlights(true)
-    }, [dispatch,airlineFlights]);
+    }, [dispatch,setAirlineFlights]);
 
     const currentUser = useSelector((state)=>state.currentUser)
+
     const Flights = useSelector((state) => state.flights)
-    let currentFlights=Flights?.filter((f)=>f.airlineId===currentUser[0]?.id)
+    let Airlines = useSelector((state)=>state.airlines)
+    
+    Airlines=Airlines?.filter((airlines)=>airlines.userId===currentUser[0]?.id)
+    let currentFlights=Flights?.filter((f)=>f.airlineId===Airlines[0]?.id)
 
 
 
@@ -119,7 +124,7 @@ if(currentUser[0] && airlineFlights ){
                         }
                     
                     <div id="btnAddAL">
-                        <ModalAdd setAirlineFlights={setAirlineFlights}/>
+                        <ModalAdd setAirlineFlights={setAirlineFlights} />
 
                     </div>
                 </TabPanel>
