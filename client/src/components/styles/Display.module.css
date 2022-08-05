@@ -36,7 +36,16 @@
 }
 
 .main_container_dark {
-  background-color: #FFFFFF;
+  background-color: #121212;
+}
+.textColor {
+  color: black;
+  font-family: 'Roboto', sans-serif;
+  
+}
+.textColor_dark {
+  color: rgb(255, 255, 255);
+  font-family: 'Roboto', sans-serif;
 }
 
 .paginate_container {
