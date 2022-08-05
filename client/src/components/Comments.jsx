@@ -1,18 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import { createComment } from "../redux/actions/index.js";
+import { createComment, getAllComments, getAllUsers } from "../redux/actions/index.js";
 
-function Comments({details, airlines}) {
+function Comments({airline, details, allAirlines, detailsID}) {
+  // console.log(detailsID)
 
   const dispatch = useDispatch()
-//////////////////////
-  // CREAR COMENTARIO //
-  const allComments = useSelector(state => state.comments)
-  console.log(allComments)
-  // console.log(allComments)
   const user = useSelector(state => state.currentUser)
+
+  const allComments = useSelector(state => state.comments)
+
+  const [ comments, updateComments ] = useState([allComments])
+
+  const getData = async () => {
+    updateComments(allComments);
+  }
+
+  useEffect(() => {
+    localStorage.getItem("comments") !== null
+      ? updateComments(JSON.parse(localStorage.getItem("comments")))
+      : getData();
+  }, []);
+
+
+  const airlineComments = comments.filter(e => detailsID === e.airlineId)
+
+  // console.log(allComments)
+  // console.log(airlineComments)
 
   function validate(input) {
     let error = {}
@@ -49,14 +65,15 @@ function Comments({details, airlines}) {
   const [ input, setInput ] = useState({
       rating: '',
       comment: '',
-      name: '',
+      name: user[0]?.name,
       moreInfo: [
         {
         flightName: '',
         origin: '',
         destination: ''        
       }
-    ]
+      ],
+    airlineId: detailsID,
   })
 
   function handleInputChange(e) {
@@ -74,67 +91,67 @@ function Comments({details, airlines}) {
   function handleSubmitComment(e) {
     e.preventDefault()
 
-    if(
-      input.rating && input.comment && input.name
-    ) {
+    console.log(input.rating ,input.comment ,input.name)
+    if(input.rating && input.comment && input.name) {
 
       dispatch(createComment(input))
+      let updatedComments = [...comments, input]
+
+      updateComments(updatedComments)
+
       setInput({
         rating: '',
         comment: '',
-        name: '',
+        name: user[0]?.name,
         moreInfo: [
           {
-          flightName: ''     
+            flightName: '',
+            origin: '',
+            destination: ''     
           } 
-        ]       
+        ],
+        airlineId: detailsID,    
       })
-
     } else {
         console.log('formulario incorrecto')
     }
   }
 
-  // function handleQuestion(e) {
-  //   e.preventDefault()
-
-  // }
+  useEffect(() => {
+    dispatch(getAllComments())
+    dispatch(getAllUsers())
+  }, [comments])
 
   return (
     <div>
-        {/* CREAR COMENTARIO - FALTAN RUTAS EN BACK */}
         <div style={{ "margin": 10 + 'rem'}}>
-            <h3>Este vuelo fue publicado por: {details.airline} </h3>
+
+        <h3>COMENTARIOS PREVIOS</h3>
+          {airlineComments.length ? airlineComments.map(e => {
+                 return (<div key={e.id}>
+                  <p>{e.comment}</p>
+                     <p>{e.rating}</p>
+                     <p>{e.name}</p>
+                   </div>) 
+            }) 
+            : <h5>No hay nada</h5>}
+
+            <br />
+            <h3>Este vuelo fue publicado por: {airline} </h3>
             <h3>RATING DE LA AEROLINEA</h3>
-            <h3>COMENTARIOS PREVIOS</h3>
-            {/* {comments.map(e => 
-            return (<span>{e.rating}</span>))} */}
             <h3>Publicar comentario y rating</h3>
             <form onSubmit={handleSubmitComment}>
             <h3>INPUT DE RATING</h3>
-            {/* <Box sx={{'& > legend': { mt: 2 },}}>
-                <Rating
-                name="simple-controlled"
-                value={value}
-                onChange={(event, newValue) => {
-                setValue(newValue);
-                }}
-                />
-            </Box> */}
-            {/* <input 
-            type="number"
-            name='rating'
-            value={input.rating}
-            onChange={handleInputChange}
-            /> */}
 
             <Box sx={{'& > legend': { mt: 2 },}}>
                 <Rating
+                    type="number"
                     name='rating'
                     value={input.rating}
                     onChange={handleInputChange}
                 />
             </Box>
+            {input.rating}
             {error.rating && <span>{error.rating}</span>}
 
             <h5>Input nombre de la persona que quiere hacer comentario</h5>
@@ -144,6 +161,7 @@ function Comments({details, airlines}) {
             name='name'
             onChange={handleInputChange}
             />
+            {input.name}
             {error.name && <span>{error.name}</span>}
 
             <h5>Input nombre del vuelo de donde lo conocen</h5>
@@ -153,6 +171,7 @@ function Comments({details, airlines}) {
             value={input.flightName}
             onChange={handleInputChange}
             />
+            {input.flightName}
 
             <h3>INPUT DE COMENTARIO</h3>
             <input 
@@ -161,28 +180,17 @@ function Comments({details, airlines}) {
             value={input.comment}
             onChange={handleInputChange}
             />
+            {input.comment}
             {error.comment && <span>{error.comment}</span>}
 
+            <br />
             <button type="submit">Publicar</button>
             <br />
             <span>Su comentario puede ser eleminado si es conciderado inapropiado o se demuestra que no tiene relacion con la aerolinea</span>                    
             </form> 
-
             <br />
             <br />
 
-            {/* <form>
-            <h3>PREGUNTAS SOBRE LA AEROLINEA O VUELO</h3>
-            <h5>Aca iria la pregunta del cliente</h5>
-                <input
-                type="text"
-                placeholder='Escribi tu pregunta'
-                onChange={handleQuestion}
-            /> 
-
-            <h5>Aca iria la respuesta de la aerolinea</h5>
-            </form> */}
-            
         </div>   
     </div>
   )

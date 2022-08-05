@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getFlightByID, cleanDetails, getAllAirlines } from "../redux/actions/index.js";
+import { getFlightByID, cleanDetails, getAllAirlines, getAllUsers } from "../redux/actions/index.js";
 import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
@@ -21,6 +21,7 @@ function Details() {
   const user = useSelector((state) => state.currentUser);
   const airlines = useSelector((state) => state.airlines);
   // console.log(details)
+  // console.log(airlines)
 
   // const item = details.map(e => {
   //       let obj = {
@@ -71,19 +72,24 @@ function Details() {
   };
 
   useEffect(() => {
+    dispatch(getAllUsers())
+  }, [])
+
+  useEffect(() => {
     dispatch(getFlightByID(id));
     dispatch(getAllAirlines());
     return () => {
       dispatch(cleanDetails());
     };
   }, [dispatch, id]);
-  console.log(details);
+  // console.log(details);
 
   let airline = airlines.map((airline) => {
     if (details.airlineId === airline.id) {
       return airline.name
     }
   })
+
   return (
     <div>
       <div className={s.container}>
@@ -177,7 +183,7 @@ function Details() {
        
             </div> 
 
-             <Comments airline={airline} details={details} />  
+             <Comments airline={airline} detailsID={details.airlineId} allAirlines={airlines} />  
 
           </div>
 
