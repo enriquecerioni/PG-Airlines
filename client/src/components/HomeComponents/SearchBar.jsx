@@ -114,7 +114,7 @@ export default function SearchBar() {
       </div>
       
       <button
-        className={ darkMode ? s.btnSearch_dark : s.btnSearch}
+        className={ darkMode ? s.btn_dark : s.btn}
         type="submit"
         onClick={(e) => handleSubmit(e)}
       >

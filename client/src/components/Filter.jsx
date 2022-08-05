@@ -33,19 +33,12 @@ function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, hand
 
   return (
     <div className={ darkMode ? style.main_container_dark : style.main_container}>
-        {/* 
-        <button>Lowest price</button>
-        <button>The best option</button>
-        <button>Faster</button> */}
 
-        <h2>Filter by:</h2>
-        <label>Price: </label>
-            {/* <button value='all' onClick={handleFilterPrice}>All</button>
-            <button value='>20.000' onClick={handleFilterPrice}> &gt; $20.000</button>
-            <button value='between' onClick={handleFilterPrice}> $20.000 - $40.000 </button>     
-            <button value='<40.000' onClick={handleFilterPrice}> $40.000 &gt;</button> */}
-        <Box sx={{ width: 300 }}>
-                <Slider
+
+        <h2 className={darkMode ? style.textColor_dark : style.textColor}>Filter by:</h2>
+        <label className={darkMode ? style.textColor_dark : style.textColor}>Price: </label>
+        <Box sx={{ width: 300, color: '#fff' }}>
+                <Slider 
                     aria-label="Custom marks"
                     defaultValue={100}
                     getAriaValueText={valuetext}
@@ -55,7 +48,7 @@ function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, hand
                 />
             </Box>
         <div>
-        <label>Airlines: </label>
+        <label className={darkMode ? style.textColor_dark : style.textColor}>Airlines: </label>
             <input
                 id='search'
                 type="text"
@@ -74,7 +67,7 @@ function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, hand
                 <div></div>}
         </div> 
         
-        <h2>Order:</h2>
+        <h2 className={darkMode ? style.textColor_dark : style.textColor}>Order:</h2>
         {/* <select onChange={e => handlePrice(e)} ref={orderPriceSelect} >
             <option value='initial'>Price</option>
             <option value="high">High to low</option>
