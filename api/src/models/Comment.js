@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
     },
     airlineId:{
       type:DataTypes.INTEGER,
-      allowNull:false
+      allowNull: false
     },
     comment: {
       type: DataTypes.STRING,

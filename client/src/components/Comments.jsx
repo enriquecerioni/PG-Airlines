@@ -11,6 +11,8 @@ function Comments({details, airlines}) {
   // CREAR COMENTARIO //
   const allComments = useSelector(state => state.comments)
   console.log(allComments)
+  // console.log(allComments)
+  const user = useSelector(state => state.currentUser)
 
   function validate(input) {
     let error = {}
@@ -93,17 +95,10 @@ function Comments({details, airlines}) {
     }
   }
 
+  // function handleQuestion(e) {
+  //   e.preventDefault()
 
-  let airline = airlines.map((airline) => {
-    if (details.airlineId === airline.id) {
-      return airline.name
-    }
-  })
-
-  function handleQuestion(e) {
-    e.preventDefault()
-
-  }
+  // }
 
   return (
     <div>

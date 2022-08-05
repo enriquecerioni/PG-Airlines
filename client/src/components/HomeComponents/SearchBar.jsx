@@ -112,6 +112,7 @@ export default function SearchBar() {
           </span>
         </label>
       </div>
+      
       <button
         className={ darkMode ? s.btnSearch_dark : s.btnSearch}
         type="submit"

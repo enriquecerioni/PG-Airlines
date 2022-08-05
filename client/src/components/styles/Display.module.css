@@ -35,8 +35,8 @@
   align-items: stretch;
 }
 
-.main_container_dark h2, label, input {
-  color: #FFFFFF;
+.main_container_dark {
+  background-color: #FFFFFF;
 }
 
 .paginate_container {
