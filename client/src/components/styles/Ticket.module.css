@@ -66,9 +66,9 @@
     font-weight: 400;
 }
 
-img {
-    height: auto;
-    max-width: 100%;
+.logo {
+    width: 18rem;
+    height: 8rem;
     vertical-align: middle;
 }
 

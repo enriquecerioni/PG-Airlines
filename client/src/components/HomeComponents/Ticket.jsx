@@ -129,7 +129,7 @@ function Ticket({
         ) : null}
         <div className={style.card}>
           <div className={style.card_image}>
-            <img src={logo} alt="#" />
+            <img className={style.logo} src={logo} alt="#" />
           </div>
           <div className={style.card_content}>
             {airlines.map((airline) => {

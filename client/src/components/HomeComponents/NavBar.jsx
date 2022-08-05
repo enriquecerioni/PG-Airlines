@@ -139,12 +139,12 @@ export default function NavBar({ toogleTheme }) {
         ) : user.length && !user[0].permissions ? (
           <>
             <li id="offers">
-              <Box sx={{ color: "primary.main" }}>
+              <Box sx={{ color: "action.active" }}>
                 <Link
                   className={darkMode ? s.navLink_dark : s.navLink}
                   to="/offers"
                 >
-                  <Badge color="primary.main" badgeContent={5}>
+                  <Badge color="secondary" badgeContent={5}>
                     <LoyaltyIcon />
                     Offers
                   </Badge>
@@ -182,12 +182,12 @@ export default function NavBar({ toogleTheme }) {
               >
                 <img className={s.cart} alt="#" src={shoppingCart} />
               </Link>
+              <h5 id="nCarrito" className={s.price}>
+                <div className={darkMode ? s.numCart_dark : s.numCart}>
+                  {stateCart ? stateCart : 0}
+                </div>
+              </h5>
             </li>
-            <h5 id="nCarrito" className={s.price}>
-              <div className={darkMode ? s.numCart_dark : s.numCart}>
-                {stateCart ? stateCart : 0}
-              </div>
-            </h5>
           </>
         ) : (
           <>
