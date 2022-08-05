@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import s from "../styles/NavBar.module.css";
 import logo from "../styles/logo2.png";
@@ -25,8 +25,28 @@ export default function NavBar({ toogleTheme }) {
   const navigate = useHistory();
   const [stateCart, setStateCart] = useState(products.length);
   const user = useSelector((state) => state.currentUser);
-  // const dispatch = useDispatch();
-  //console.log(Object.keys(user).length)
+  const toggle = document.querySelector("#toggle");
+  const nav = document.querySelector("#navUl");
+  const navLinks = document.querySelectorAll("#navUl li");
+  function navSlide() {
+    // const menutoggle = document.querySelector("#toggle");
+    // toggle.addEventListener("click", () => {
+    toggle.classList.toggle(s.active);
+    nav.classList.toggle(s.navActive);
+
+    navLinks.forEach((link, index) => {
+      console.log(link);
+      console.log(index);
+      if (link.style.animation) {
+        link.style.animation = "";
+      } else {
+        link.style.animation = `navLinksFade 0.5s ease forwards ${
+          index / 7 + 0.2
+        }s`;
+      }
+    });
+    // });
+  }
 
   useEffect(() => {
     setStateCart(products.length);
@@ -50,26 +70,27 @@ export default function NavBar({ toogleTheme }) {
     window.location.reload();
   }
 
-  const { darkMode } = useContext(darkModeContext)
+  const { darkMode } = useContext(darkModeContext);
 
   return (
-    <nav className={ darkMode ? s.nav_container_dark : s.nav_container}>
+    <nav className={darkMode ? s.nav_container_dark : s.nav_container}>
       {/* <Link className={s.navLink} to="/catalog">
                 Catalog
               </Link> */}
-        <Link className={s.navImg} to="/">
-          <img className={s.logoImg} src={logo} alt="logo" />
-        </Link>
+      <Link className={s.navImg} to="/">
+        <img className={s.logoImg} src={logo} alt="logo" />
+      </Link>
       {/* LIGHT/NIGHT MODE SETUP */}
-
-      <DarkModeSwitch toogleTheme={toogleTheme} />
-
       {/* LIGHT/NIGHT MODE SETUP */}
-      <ul className={s.navUl}>
+      <ul id="navUl" className={s.navUl}>
+        <DarkModeSwitch className={s.darkModeBtn} toogleTheme={toogleTheme} />
         {user.length && user[0].superAdmin ? (
           <>
             <li id="catalog">
-              <Link className={s.navLink} to="/catalog">
+              <Link
+                className={darkMode ? s.navLink_dark : s.navLink}
+                to="/catalog"
+              >
                 Catalog
               </Link>
             </li>
@@ -85,7 +106,10 @@ export default function NavBar({ toogleTheme }) {
         ) : user.length && user[0].permissions ? (
           <>
             <li id="catalog">
-              <Link className={s.navLink} to="/catalog">
+              <Link
+                className={darkMode ? s.navLink_dark : s.navLink}
+                to="/catalog"
+              >
                 Catalog
               </Link>
             </li>
@@ -96,9 +120,9 @@ export default function NavBar({ toogleTheme }) {
             </li>
             <li>
               {/* <a id="myProfile"> */}
-                <Link to="/profile">
-                  <ImageAvatars></ImageAvatars>
-                </Link>
+              <Link to="/profile">
+                <ImageAvatars></ImageAvatars>
+              </Link>
               {/* </a> */}
             </li>
             <li id="logOut">
@@ -113,9 +137,12 @@ export default function NavBar({ toogleTheme }) {
         ) : user.length && !user[0].permissions ? (
           <>
             <li id="offers">
-              <Box sx={{ color: "action.active" }}>
-                <Link className={s.navLink} to="/offers">
-                  <Badge color="secondary" badgeContent={5}>
+              <Box sx={{ color: "primary.main" }}>
+                <Link
+                  className={darkMode ? s.navLink_dark : s.navLink}
+                  to="/offers"
+                >
+                  <Badge color="primary.main" badgeContent={5}>
                     <LoyaltyIcon />
                     Offers
                   </Badge>
@@ -123,7 +150,10 @@ export default function NavBar({ toogleTheme }) {
               </Box>
             </li>
             <li id="favs">
-              <Link className={s.navLink} to="/favs">
+              <Link
+                className={darkMode ? s.navLink_dark : s.navLink}
+                to="/favs"
+              >
                 Favs
               </Link>
             </li>
@@ -138,25 +168,33 @@ export default function NavBar({ toogleTheme }) {
 
             <li>
               {/* <a id="myProfile"> */}
-                <Link to="/profile">
-                  <ImageAvatars></ImageAvatars>
-                </Link>
+              <Link to="/profile">
+                <ImageAvatars></ImageAvatars>
+              </Link>
               {/* </a> */}
             </li>
             <li id="carrito" className={s.cart_container}>
-              <Link className={s.navLink} to="/cart">
+              <Link
+                className={darkMode ? s.navLink_dark : s.navLink}
+                to="/cart"
+              >
                 <img className={s.cart} alt="#" src={shoppingCart} />
               </Link>
             </li>
             <h5 id="nCarrito" className={s.price}>
-              <div className={ darkMode ? s.numCart_dark : s.numCart}>{stateCart ? stateCart : 0}</div>
+              <div className={darkMode ? s.numCart_dark : s.numCart}>
+                {stateCart ? stateCart : 0}
+              </div>
             </h5>
           </>
         ) : (
           <>
             <li id="offers">
               <Box sx={{ color: "action.active" }}>
-                <Link className={s.navLink} to="/offers">
+                <Link
+                  className={darkMode ? s.navLink_dark : s.navLink}
+                  to="/offers"
+                >
                   <Badge color="secondary" badgeContent={5}>
                     <LoyaltyIcon />
                     Offers
@@ -166,31 +204,50 @@ export default function NavBar({ toogleTheme }) {
             </li>{" "}
             {/*guest */}
             <li id="favs">
-              <Link className={s.navLink} to="/favs">
+              <Link
+                className={darkMode ? s.navLink_dark : s.navLink}
+                to="/favs"
+              >
                 Favs
               </Link>
             </li>
             <li id="logIn">
-              <Link className={s.navLink} to="/login">
+              <Link
+                className={darkMode ? s.navLink_dark : s.navLink}
+                to="/login"
+              >
                 Log In
               </Link>
             </li>
             <li id="register">
-              <Link className={s.navLink} to="/register">
+              <Link
+                className={darkMode ? s.navLink_dark : s.navLink}
+                to="/register"
+              >
                 Sign In
               </Link>
             </li>
             <li id="carrito" className={s.cart_container}>
-              <Link className={s.navLink} to="/cart">
+              <Link
+                className={darkMode ? s.navLink_dark : s.navLink}
+                to="/cart"
+              >
                 <img className={s.cart} alt="#" src={shoppingCart} />
               </Link>
+              <h5 id="nCarrito" className={s.price}>
+                <div className={darkMode ? s.numCart_dark : s.numCart}>
+                  {stateCart ? stateCart : 0}
+                </div>
+              </h5>
             </li>
-            <h5 id="nCarrito" className={s.price}>
-              <div className={darkMode ? s.numCart_dark : s.numCart}>{stateCart ? stateCart : 0}</div>
-            </h5>
           </>
         )}
       </ul>
+      <div id="toggle" className={s.toggle} onClick={navSlide}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </nav>
   );
 }

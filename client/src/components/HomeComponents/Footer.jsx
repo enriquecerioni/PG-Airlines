@@ -1,11 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import s from "../styles/Footer.module.css";
 import Logo from "../styles/logo3.png";
 // import gitHubLogo from "../styles/github.png";
+import { darkModeContext } from "../DarkModeContext";
 
 export default function Footer() {
+  const { darkMode } = useContext(darkModeContext)
   return (
-    <div className={s.footer}>
+    <div className={darkMode ? s.footer_dark : s.footer}>
       <div className={s.leftInfo}>
         <h1 className={s.about}>About Us</h1>
         <p className={s.p}>
