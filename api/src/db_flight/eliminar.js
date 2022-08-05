@@ -1,5 +1,6 @@
 const admin=require("firebase-admin")
-const firebase=require("firebase")
+const firebase=require("firebase");
+const { sendNodemailerPassword } = require("../controllers/MailController");
 
 
 
@@ -21,6 +22,28 @@ const firebase=require("firebase")
     }  
 }  
 
+async function resetPasswordFirebase(email){
+    try {
+
+       const serviceAccount= require("./key_service_account.json")
+       if(!firebase.apps.length){
+       admin.initializeApp({
+           credential: admin.credential.cert(serviceAccount),
+        }); 
+        let link = await admin.auth().generatePasswordResetLink(email)        
+        console.log("1" + " " + link, " ", email)
+        await sendNodemailerPassword(link, email)
+
+    }else{
+        admin.app()
+        let link = await admin.auth().generatePasswordResetLink(email)        
+        console.log("2" + " " + link, " ", email)
+        await sendNodemailerPassword(link, email)
+    }
+    } catch (error) {
+        console.log(error);
+    }  
+}  
 
 // async function verificateEmail(req,res){
 //     try {
@@ -33,6 +56,7 @@ const firebase=require("firebase")
 
 
 module.exports = { 
-    deleteAuthUser ,
+    deleteAuthUser,
+    resetPasswordFirebase
     // verificateEmail
   };   

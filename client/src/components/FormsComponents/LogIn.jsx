@@ -125,6 +125,15 @@ function LogIn() {
         </Link>
       </p>
 
+      <p>
+        <p className={style.sing}>
+          Forgot your password? Write your email down here
+        </p>
+        <input></input>
+      </p>
+      <button></button>
+      
+
       {/* <div className={style.containerAirline}>
         <p>Want to partner up your airline with us?</p>
         <button><Link to='/register/airline'>Register Airline</Link></button>

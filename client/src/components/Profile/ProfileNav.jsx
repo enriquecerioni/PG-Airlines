@@ -11,9 +11,9 @@ export default function ProfileNav() {
     dispatch(getAllUsers());
   }, [dispatch]);
 
-  function isImage(anImage) {
-    return /.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(anImage);
-  }
+  // function isImage(anImage) {
+  //   return /.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(anImage);
+  // }
 
   const users = useSelector((state) => state.allUsers);
   const currentUser = useSelector((state) => state.currentUser)[0];

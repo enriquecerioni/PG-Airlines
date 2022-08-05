@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ProfileNav from "./ProfileNav";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllUsers } from "../../redux/actions";
+import { getAllUsers, resetPassword } from "../../redux/actions";
 import Loader from "../HomeComponents/Loader";
 import s from "../styles/UserProfile.module.css";
 
@@ -18,6 +18,10 @@ export default function UserProfile() {
   const currentUser = useSelector((state) => state.currentUser)[0];
   console.log(users);
   console.log(currentUser);
+
+  function executeButton () {
+    dispatch(resetPassword(currentUser.email))
+  }
   return (
     <>
       {currentUser !== undefined ? (
@@ -42,7 +46,7 @@ export default function UserProfile() {
               {/* To display flights matching origin country first */}
               <h4>Origin country:</h4>              
               <h4>Display Language:</h4>
-              <h4>Change Password:</h4>
+              <h4>Change Password:<button onClick={() => {executeButton()}}>Change Password</button></h4>
             </div>
           </div>
         </div>
