@@ -20,6 +20,8 @@ commentsRouter.post('/', async (req, res) => {
     try {
         const { airlineId, comment, rating, moreInfo, name } = req.body
 
+        // console.log(airlineId, comment, rating, moreInfo, name)
+
         let newComment = await Comment.create({
             comment,
             rating,
