@@ -177,7 +177,7 @@ function Details() {
        
             </div> 
 
-             <Comments airlines={airlines} details={details} />  
+             <Comments airline={airline} details={details} />  
 
           </div>
 

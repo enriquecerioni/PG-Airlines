@@ -24,22 +24,24 @@ commentsRouter.post('/', async (req, res) => {
             comment,
             rating,
             moreInfo,
-            name
+            name,
+            airlineId
         })
 
-        console.log(newComment)
+        // console.log(newComment)
 
-        let flightComments = await Airline.findOne({
+        let airlineComments = await Airline.findOne({
             where: {
-                id: airlineId
+                userId: airlineId
             }
         })
 
-        console.log(flightComments)
+        // console.log(flightComments)
 
-        await flightComments.addComment(newComment)
+        await airlineComments.addComment(newComment)
 
-        return res.send('funciona comments', newComment)
+        return res.status(200).send(newComment)
+
     } catch (error) {
         res.status(404).send('No se pudo cargar el comentario')
     }
