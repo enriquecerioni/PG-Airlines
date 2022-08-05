@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import s from "../styles/Footer.module.css";
-import Logo from "../styles/logo3.png";
+import Logo from "../styles/assets/logo14.png";
 // import gitHubLogo from "../styles/github.png";
 import { darkModeContext } from "../DarkModeContext";
 
