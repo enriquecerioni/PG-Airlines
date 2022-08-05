@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import s from "../styles/NavBar.module.css";
-import logo from "../styles/logo2.png";
+import logo from "../styles/assets/logo14.png";
+import logo2 from '../styles/assets/logo14.png'
 import shoppingCart from "../styles/shopping-cart.png";
 import { logOut } from "../scripts/auth";
 import { CartContext } from "../CartComponents/CartContext";
@@ -78,7 +79,8 @@ export default function NavBar({ toogleTheme }) {
                 Catalog
               </Link> */}
       <Link className={s.navImg} to="/">
-        <img className={s.logoImg} src={logo} alt="logo" />
+        {darkMode ? <img className={s.logoImg} src={logo2} alt="logo" /> : <img className={s.logoImg} src={logo} alt="logo" />}
+        {/* <img className={s.logoImg} src={logo} alt="logo" /> */}
       </Link>
       {/* LIGHT/NIGHT MODE SETUP */}
       {/* LIGHT/NIGHT MODE SETUP */}
