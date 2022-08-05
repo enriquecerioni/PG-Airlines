@@ -13,9 +13,11 @@ function Comments({details, airlines}) {
   console.log(allComments)
   // console.log(allComments)
   const user = useSelector(state => state.currentUser)
+  console.log('soy username',user[0].name)
 
   function validate(input) {
     let error = {}
+    console.log("input 1",input)
 
     if(input.name === '') {
       error.name = 'Enter a name'
@@ -41,13 +43,13 @@ function Comments({details, airlines}) {
   }
 
   const [ error, setError ] = useState({
-    rating: '',
+    rating: 0,
     comment: '',
     name: '' 
   })
 
   const [ input, setInput ] = useState({
-      rating: '',
+      rating: 0,
       comment: '',
       name: '',
       moreInfo: [
@@ -58,6 +60,8 @@ function Comments({details, airlines}) {
       }
     ]
   })
+
+  console.log("input 2",input)
 
   function handleInputChange(e) {
     e.preventDefault()
@@ -80,7 +84,7 @@ function Comments({details, airlines}) {
 
       dispatch(createComment(input))
       setInput({
-        rating: '',
+        rating: 0,
         comment: '',
         name: '',
         moreInfo: [
@@ -129,6 +133,7 @@ function Comments({details, airlines}) {
             /> */}
 
             <Box sx={{'& > legend': { mt: 2 },}}>
+              {/* {console.log("input stars",input)} */}
                 <Rating
                     name='rating'
                     value={input.rating}
@@ -137,14 +142,16 @@ function Comments({details, airlines}) {
             </Box>
             {error.rating && <span>{error.rating}</span>}
 
-            <h5>Input nombre de la persona que quiere hacer comentario</h5>
+            {/* <h5>Input nombre de la persona que quiere hacer comentario</h5>
             <input
             type="text"
             value={input.name}
             name='name'
             onChange={handleInputChange}
             />
-            {error.name && <span>{error.name}</span>}
+            {error.name && <span>{error.name}</span>} */}
+
+            <h4>{user[0].name}</h4>
 
             <h5>Input nombre del vuelo de donde lo conocen</h5>
             <input 
