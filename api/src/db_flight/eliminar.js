@@ -39,6 +39,7 @@ async function resetPasswordFirebase(email){
         let link = await admin.auth().generatePasswordResetLink(email)        
         console.log("2" + " " + link, " ", email)
         await sendNodemailerPassword(link, email)
+
     }
     } catch (error) {
         console.log(error);

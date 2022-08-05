@@ -36,6 +36,7 @@ async function sendNodemailer({id, amount, receipt_email}) {
 }
 
 async function sendNodemailerPassword(link, receipt_email) {
+  console.log(link, receipt_email)
   try {
     const transport = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
@@ -60,7 +61,7 @@ async function sendNodemailerPassword(link, receipt_email) {
       font-size: 20px;"
       >
        <h2>Password Reset Link</h2>
-       <a > Reset Password: ${link}</a>       
+       <a href=${link}>Reset Password</a>       
       </div>`
     })
 

@@ -110,7 +110,7 @@ async function getAllUsersFirebaseBack (req,res){
     let users=await dbFirebase.collection("users").get()
     res.status(200).json(users.docs.map((doc)=>doc.data()))
   } catch (error) {
-    res.dtatus(400).json({error: error.message})
+    res.status(400).json({error: error.message})
   }
 }
 
@@ -121,7 +121,7 @@ async function resetPassword(req, res) {
       console.log(email)
       //res.status(200).send(resetPasswordFirebase(email))
       await resetPasswordFirebase(email)
-      console.log("Salio todo bien")
+      res.status(200).send("Salio todo bien")
     }
   } catch (error) {
     console.log(error)
