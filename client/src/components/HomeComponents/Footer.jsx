@@ -1,11 +1,11 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import s from "../styles/Footer.module.css";
 import Logo from "../styles/assets/logo14.png";
 // import gitHubLogo from "../styles/github.png";
 import { darkModeContext } from "../DarkModeContext";
 
 export default function Footer() {
-  const { darkMode } = useContext(darkModeContext)
+  const { darkMode } = useContext(darkModeContext);
   return (
     <div className={darkMode ? s.footer_dark : s.footer}>
       <div className={s.leftInfo}>
@@ -24,15 +24,18 @@ export default function Footer() {
         <h1 className={s.about}>Contact Us</h1>
         <ul className={s.ul}>
           <li>
-            <p className={s.p1}>pg.airlines.ecommerce@gmail.com</p>
+            <p className={s.p1}>
+              pg.airlines.ecommerce@gmail.com <i class="bx bxl-gmail"></i>
+            </p>
           </li>
           <li>
-            <i className="bx bxl-github"></i>
-            <p className={s.p1}>GitHub</p>
+            <p className={s.p1}>
+              GitHub <i id="gitHubIcon" className="bx bxl-github"></i>
+            </p>
           </li>
-          <li>
-            <p className={s.p1}>address</p>
-          </li>
+          {/* <li>
+            <p className={s.p1}></p>
+          </li> */}
         </ul>
       </div>
     </div>

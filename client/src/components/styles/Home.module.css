@@ -126,7 +126,6 @@ button + button {
 .btn {
   width: 130px;
   height: 50px;
-  margin-top: 40px;
   font-size: 18px;
   border: none;
   border-radius: 10px;
@@ -252,4 +251,22 @@ button + button {
   justify-content: flex-end;
   /* align-items: center; */
   font-family: "Raleway", sans-serif;
+}
+.planeInput {
+  height: 5rem;
+}
+.dealInput {
+  height: 7rem;
+  width: 11rem;
+}
+.contact {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.text_dark {
+  color: white;
+}
+.contactContainer {
+  margin-top: 7rem;
 }

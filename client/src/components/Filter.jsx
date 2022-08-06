@@ -38,7 +38,7 @@ function Filter({handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, hand
         <h2 className={darkMode ? style.textColor_dark : style.textColor}>Filter by:</h2>
         <label className={darkMode ? style.textColor_dark : style.textColor}>Price: </label>
         <Box sx={{ width: 300, color: '#fff' }}>
-                <Slider 
+                <Slider className={style.slider}
                     aria-label="Custom marks"
                     defaultValue={100}
                     getAriaValueText={valuetext}
