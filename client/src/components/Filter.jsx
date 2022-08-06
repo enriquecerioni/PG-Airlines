@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import style from './styles/Display.module.css'
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -8,6 +8,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
+
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 const marks = [
     { value: 10, label: '< $20.000' },
@@ -19,13 +22,13 @@ const marks = [
 // {handlePrice, handleAlph}
 function Filter({ handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, handleFilterPrice, airlinesData, handleClick, orderByPrice, orderAlphabetically }) {
 
-       const allAirlines = airlinesData.map(f => {
+    const allAirlines = airlinesData.map(f => {
         return({
-           name: f.name,
-           id:f.id
+            name: f.name,
+            id:f.id
         });
-           
-       });
+
+    });
 
     function handleReset(e) {
         e.preventDefault();
@@ -36,20 +39,11 @@ function Filter({ handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, han
         return `${value}`;
     }
 
-  return (
-    <div className={style.main_container}>
-        {/* 
-        <button>Lowest price</button>
-        <button>The best option</button>
-        <button>Faster</button> */}
-
-        <h2>Filter by:</h2>
-        <label>Price: </label>
-            {/* <button value='all' onClick={handleFilterPrice}>All</button>
-            <button value='>20.000' onClick={handleFilterPrice}> &gt; $20.000</button>
-            <button value='between' onClick={handleFilterPrice}> $20.000 - $40.000 </button>     
-            <button value='<40.000' onClick={handleFilterPrice}> $40.000 &gt;</button> */}
-        <Box sx={{ width: 300 }}>
+    return (
+        <div className={style.main_container}>
+            <h2>Filter by:</h2>
+            <label>Price: </label>
+            <Box sx={{ width: 300 }}>
                 <Slider
                     aria-label="Custom marks"
                     defaultValue={100}
@@ -59,53 +53,40 @@ function Filter({ handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, han
                     onChange={handleFilterPrice}
                 />
             </Box>
-        <div>
-        <label>Airlines: </label>
-            <input
-                id='search'
-                type="text"
-                placeholder='Search...'
-                onChange={(e) => { handleSearchAirlines(e)}}
-            />
+            <div>
+                <Autocomplete
+                    disablePortal
+                    id="combo-box"
+                    options={allAirlines.map((option) => option.name)}
+                    sx={{ width: 300 }}
+                    onChange={(e, value) =>{
+                        handleClick(value)
+                    } }
+                    renderInput={(params) => <TextField {...params} label="By Airlines" />}
+                />
+            </div>
 
-            {airlinesData.length !== 0 ?
-                <div >
-                {airlinesData?.map(a => {
-                    return (<input value={a} type="text" onClick={e => handleClick(e)} />)
-                })}
+            <h2>Order:</h2>
+            <div>
+                <FormControl sx={{ m: 1, minWidth: 250 }}>
+                    <InputLabel id="demo-simple-select-autowidth-label">Price</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-autowidth-label"
+                        id="demo-simple-select-autowidth"
+                        value={orderByPrice}
+                        ref={orderPriceSelect}
+                        onChange={e => handlePrice(e)}
+                        autoWidth
+                        label="Price"
+                    >
+                        <MenuItem value={"initial"}>Price</MenuItem>
+                        <MenuItem value={"high"}>High to low</MenuItem>
+                        <MenuItem value={"low"}>Low to High</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
 
-                </div>
-                :
-                <div></div>}
-        </div> 
-        
-        <h2>Order:</h2>
-        {/* <select onChange={e => handlePrice(e)} ref={orderPriceSelect} >
-            <option value='initial'>Price</option>
-            <option value="high">High to low</option>
-            <option value="low">Low to High</option>
-        </select> */}
-
-        <div>
-            <FormControl sx={{ m: 1, minWidth: 250 }}>
-                <InputLabel id="demo-simple-select-autowidth-label">Price</InputLabel>
-                <Select
-                    labelId="demo-simple-select-autowidth-label"
-                    id="demo-simple-select-autowidth"
-                    value={orderByPrice}
-                    ref={orderPriceSelect}
-                    onChange={e => handlePrice(e)}
-                    autoWidth
-                    label="Price"
-                >
-                    <MenuItem value={"initial"}>Price</MenuItem>
-                    <MenuItem value={"high"}>High to low</MenuItem>
-                    <MenuItem value={"low"}>Low to High</MenuItem>
-                </Select>
-            </FormControl>
-        </div>
-
-        {/* <select onChange={e => handleAlph(e)} ref={orderAlpSelect} >
+            {/* <select onChange={e => handleAlph(e)} ref={orderAlpSelect} >
             <option value='initial'>Alphabet</option>
             <option value="asc">A - Z</option>
             <option value="dsc">Z - A</option>
