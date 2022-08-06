@@ -109,8 +109,9 @@ export default function AddModal({setAirlineFlights}) {
                                 <label>Airline: {currentUser[0]?.name} </label>
                                 
                             </div> 
-                            <div><label>Logo: </label>
-                                <input
+                            <div>
+                                {/* <label>Logo: </label> */}
+                                <TextField sx={style.inp}
                                     name='logo'
                                     type="text"
                                     // label='Logo'
@@ -125,8 +126,8 @@ export default function AddModal({setAirlineFlights}) {
                                     name='price'
                                     type="number"
                                     // label='Price'
-                                    placeholder='Price'
                                     id="price"
+                                    placeholder='Price'
                                     variant="standard"
 
                                 />
@@ -137,8 +138,8 @@ export default function AddModal({setAirlineFlights}) {
                                     name='stock'
                                     type="number"
                                     // label='Stock'
-                                    placeholder='Stock'
                                     id="stock"
+                                    placeholder='Stock'
                                     variant="standard"
 
                                 />
@@ -149,8 +150,8 @@ export default function AddModal({setAirlineFlights}) {
                                     name='origin'
                                     type="text"
                                     // label='Origin'
-                                    placeholder='Origin'
                                     id="origin"
+                                    placeholder='Origin'
                                     variant="standard"
                                 />
                             </div>
@@ -160,8 +161,8 @@ export default function AddModal({setAirlineFlights}) {
                                     name='duration'
                                     type="text"
                                     // label='Duration'
-                                    placeholder='Duration'
                                     id="duration"
+                                    placeholder='Duration'
                                     variant="standard"
                                 />
                             </div>
@@ -171,8 +172,8 @@ export default function AddModal({setAirlineFlights}) {
                                     name='depH'
                                     type="text"
                                     // label='DepH'
-                                    placeholder='Departure Hour'
                                     id="depH"
+                                    placeholder='Departure Hour'
                                     variant="standard"
                                 />
                             </div>
@@ -182,8 +183,8 @@ export default function AddModal({setAirlineFlights}) {
                                     name='arrH'
                                     type="text"
                                     // label='ArrH'
-                                    placeholder='Arrival Hour'
                                     id="arrH"
+                                    placeholder='Arrival Hour'
                                     variant="standard"
                                 />
                             </div>
@@ -193,8 +194,8 @@ export default function AddModal({setAirlineFlights}) {
                                     name='destination'
                                     type="text"
                                     // label='Destination'
-                                    placeholder='Destination'
                                     id="destination"
+                                    placeholder='Destination'
                                     variant="standard"
                                 />
                             </div>
@@ -204,8 +205,8 @@ export default function AddModal({setAirlineFlights}) {
                                     name='depD'
                                     type="text"
                                     // label='DepD'
-                                    placeholder='Departure Date'
                                     id="depD"
+                                    placeholder='Departure Date'
                                     variant="standard"
                                 />
                             </div>
@@ -215,8 +216,8 @@ export default function AddModal({setAirlineFlights}) {
                                     name='arrD'
                                     type="text"
                                     // label='ArrD'
-                                    placeholder='Arrival Date'
                                     id="arrD"
+                                    placeholder='Arrival Date'
                                     variant="standard"
                                 />
                             </div>

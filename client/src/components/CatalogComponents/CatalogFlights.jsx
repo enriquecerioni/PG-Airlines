@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteFlights } from '../../redux/actions/index'
 import Loader from '../HomeComponents/Loader'
 import useId from '@mui/material/utils/useId.js';
+import { TextField } from '@mui/material';
 
 const columns = data;
 let flightIds = [];
@@ -22,7 +23,14 @@ const style = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 5
+    p: 5,
+    "inp":{
+        width: 260,
+        marginTop: 1.5,
+        marginLeft: 2,
+        marginRight: 0,
+        marginButton: 0,
+    }
 };
 
 function handleRowSelection(selectedRows) {
@@ -154,94 +162,127 @@ function CatalogFlights({ rows,airlineFlights,setAirlineFlights}) {
                                     defaultValue={dataFlight.airline}
                                 />
                             </div> */}
-                            <div><label for="logo">Logo: </label>
-                                <input
+                            <div>
+                                {/* <label for="logo">Logo: </label> */}
+                                <TextField sx={style.inp}
                                     onChange={(e) => { handleLogo(e) }}
                                     name='logo'
                                     type="text"
                                     defaultValue={dataFlight.logo}
+                                    placeholder='Image'
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label for="price">Price: </label>
-                                <input
+                            <div>
+                                {/* <label for="price">Price: </label> */}
+                                <TextField sx={style.inp}
                                     onChange={(e) => { handlePrice(e) }}
                                     name='price'
                                     type="number"
                                     defaultValue={dataFlight.price}
+                                    placeholder='Price'
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label for="stock">Stock: </label>
-                                <input
+                            <div>
+                                {/* <label for="stock">Stock: </label> */}
+                                <TextField sx={style.inp}
                                     onChange={(e) => { handleStock(e) }}
                                     name='stock'
                                     type="number"
                                     label='Stock'
                                     defaultValue={dataFlight.stock}
+                                    placeholder='Stock'
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Origin: </label>
-                                <input
+                            <div>
+                                {/* <label>Origin: </label> */}
+                                <TextField sx={style.inp}
                                     onChange={(e) => { handleOrigin(e) }}
                                     name='origin'
                                     type="text"
                                     defaultValue={dataFlight.origin}
+                                    placeholder='Origin'
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label for="duration">Duration: </label>
-                                <input
+                            <div>
+                                {/* <label for="duration">Duration: </label> */}
+                                <TextField sx={style.inp}
                                     onChange={(e) => { handleDuration(e) }}
                                     name='duration'
                                     type="text"
                                     defaultValue={dataFlight.durationEstimated}
+                                    placeholder='Duration'
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Departure Hour: </label>
-                                <input
+                            <div>
+                                {/* <label>Departure Hour: </label> */}
+                                <TextField sx={style.inp}
                                     onChange={(e) => { handleDepH(e) }}
                                     name='depH'
                                     type="text"
                                     defaultValue={dataFlight.departureHour}
+                                    placeholder='Departure Hour'
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Arrival Hour: </label>
-                                <input
+                            <div>
+                                {/* <label>Arrival Hour: </label> */}
+                                <TextField sx={style.inp}   
                                     onChange={(e) => { handleArrH(e) }}
                                     name='arrH'
                                     type="text"
                                     defaultValue={dataFlight.arrivalHour}
+                                    placeholder='Arrival Hour'
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Destination: </label>
-                                <input
+                            <div>
+                                {/* <label>Destination: </label> */}
+                                <TextField sx={style.inp}
                                     onChange={(e) => { handleDestination(e) }}
                                     name='destination'
                                     type="text"
                                     defaultValue={dataFlight.destination}
+                                    placeholder='Destination'
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Departure Date: </label>
-                                <input
+                            <div>
+                                {/* <label>Departure Date: </label> */}
+                                <TextField sx={style.inp}
                                     onChange={(e) => { handleDepD(e) }}
                                     name='depD'
                                     type="text"
                                     defaultValue={dataFlight.departureDate}
+                                    placeholder='Departure Date'
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Arrival Date: </label>
-                                <input
+                            <div>
+                                {/* <label>Arrival Date: </label> */}
+                                <TextField sx={style.inp}
                                     onChange={(e) => { handleArrD(e) }}
                                     name='arrD'
                                     type="text"
                                     defaultValue={dataFlight.arrivalDate}
+                                    placeholder='Arrival Date'
+                                    variant="standard"
                                 />
                             </div>
-                            <div><label>Description: </label>
-                                <input
+                            <div>
+                                {/* <label>Description: </label> */}
+                                <TextField sx={style.inp}
                                     onChange={(e) => { handleDescription(e) }}
                                     name='description'
                                     type="text"
-                                    label='Description'
+                                    // label='Description'
                                     defaultValue={dataFlight.description}
+                                    placeholder='Description'
+                                    variant="standard"
                                 />
                             </div>
                             <div>
