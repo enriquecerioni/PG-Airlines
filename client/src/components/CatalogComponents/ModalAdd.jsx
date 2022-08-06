@@ -72,7 +72,7 @@ export default function AddModal({ setAirlineFlights }) {
         //        setAirlineFlights(false)
         //      window.location.reload()
     }
-    const realTime = Date.today().toString("MM/dd/yyyy");
+    const realTime = Date.now();
     const [value, setValue] = React.useState(new Date(realTime));
     
 const handleChange = (newValue) => {
