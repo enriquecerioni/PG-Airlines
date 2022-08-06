@@ -18,6 +18,22 @@ html {
   background-size: cover;
   justify-content: space-evenly;
 }
+
+.sec1_dark {
+  display: flex;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #121212;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23202020' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%23FFFFFF'%3E%3Ccircle cx='769' cy='229' r='5'/%3E%3Ccircle cx='539' cy='269' r='5'/%3E%3Ccircle cx='603' cy='493' r='5'/%3E%3Ccircle cx='731' cy='737' r='5'/%3E%3Ccircle cx='520' cy='660' r='5'/%3E%3Ccircle cx='309' cy='538' r='5'/%3E%3Ccircle cx='295' cy='764' r='5'/%3E%3Ccircle cx='40' cy='599' r='5'/%3E%3Ccircle cx='102' cy='382' r='5'/%3E%3Ccircle cx='127' cy='80' r='5'/%3E%3Ccircle cx='370' cy='105' r='5'/%3E%3Ccircle cx='578' cy='42' r='5'/%3E%3Ccircle cx='237' cy='261' r='5'/%3E%3Ccircle cx='390' cy='382' r='5'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.sec2_dark {
+  background-color: #121212;
+}
+
 .divInv {
   padding-top: 80px;
 }
@@ -73,6 +89,18 @@ html {
   transition: 0.3s ease;
 }
 
+.title_dark {
+  color: #e9dbdb;
+  font-size: 50px;
+  font-weight: bolder;
+  margin-bottom: 3rem;
+  transition: 0.3s ease;
+}
+
+.title_dark:hover {
+  transform: scale(1.1);
+}
+
 .title:hover {
   transform: scale(1.1);
 }
@@ -80,6 +108,13 @@ html {
 .text {
   font-size: 24px;
   color: #00283d;
+  margin-top: 0px;
+  margin-bottom: 2rem;
+}
+
+.text_dark {
+  font-size: 24px;
+  color: #e9dbdb;
   margin-top: 0px;
   margin-bottom: 2rem;
 }
@@ -105,23 +140,45 @@ button + button {
   background-color: rgb(220, 224, 255);
   color: rgb(32, 32, 32);
 }
+
 .scrollText {
   position: absolute;
   margin-left: 10vw;
   bottom: 80px;
-  color: black;
+  color: #535353;
   font-family: "Rubik", sans-serif;
 }
+
+.scrollText_dark {
+  position: absolute;
+  margin-left: 10vw;
+  bottom: 80px;
+  color: #FFFFFF;
+  font-family: "Rubik", sans-serif;
+}
+
 .scrollDown {
   height: 50px;
   width: 30px;
-  border: 2px solid black;
+  border: 2px solid #535353;
   position: absolute;
   left: 50%;
   bottom: 20px;
   border-radius: 50px;
   cursor: pointer;
 }
+
+.scrollDown_dark {
+  height: 50px;
+  width: 30px;
+  border: 2px solid #FFFFFF;
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
 .scrollDown::before,
 .scrollDown::after {
   content: "";
@@ -131,16 +188,39 @@ button + button {
   height: 10px;
   width: 10px;
   transform: translate(-50%, -100%) rotate(45deg);
-  border: 2px solid black;
+  border: 2px solid #535353;
   border-top: transparent;
   border-left: transparent;
   animation: scroll-down 1s ease-in-out infinite;
 }
+
+.scrollDown_dark::before,
+.scrollDown_dark::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  height: 10px;
+  width: 10px;
+  transform: translate(-50%, -100%) rotate(45deg);
+  border: 2px solid #FFFFFF;
+  border-top: transparent;
+  border-left: transparent;
+  animation: scroll-down 1s ease-in-out infinite;
+}
+
 .scrollDown::before {
   top: 30%;
   animation-delay: 0.3s;
   /* animation: scroll-down 1s ease-in-out infinite; */
 }
+
+.scrollDown_dark::before {
+  top: 30%;
+  animation-delay: 0.3s;
+  /* animation: scroll-down 1s ease-in-out infinite; */
+}
+
 @keyframes scroll-down {
   0% {
     /* top:20%; */
@@ -163,11 +243,10 @@ button + button {
         margin-left: 4vw;
     }
 }
+
 .whatsapp{
-  margin: 45% 10% 0% 0%;
   width: 100%;
-  /* height: 85px; */
-  top: 0;
+  top: 80vh;
   position: fixed;
   display: flex;
   justify-content: flex-end;

@@ -13,9 +13,10 @@ function Orders() {
     // console.log(user)
     const { products, setProducts } = useContext(CartContext)
     const ordersArr = useSelector(state => state.orders)
-    const navigate= useHistory()
-    const user=useSelector(state=>state.currentUser)
-    console.log(ordersArr)
+    console.log(ordersArr)    
+
+    const navigate = useHistory()
+    const user = useSelector(state=>state.currentUser)
 
     // useEffect(() => {
     //   /*
@@ -43,13 +44,18 @@ function Orders() {
       setProducts([])
       localStorage.setItem("cartProducts", JSON.stringify(products))
     }, [dispatch])
-function handleClick(e){
-  e.preventDefault();
-  navigate.replace('/')
-  window.location.reload()
-  
-}
-let userOrders=ordersArr?.filter((data) => user.length && data.userId=== user[0].id)
+
+    function handleClick(e){
+      e.preventDefault();
+      navigate.replace('/')
+      window.location.reload()
+      
+    }
+
+    let userOrders = ordersArr?.filter((data) => user.length && data.userId === user[0].id)
+    // user.length && data.userId === user[0].id
+    // console.log(userOrders)
+
   return (
     <div className={style.main_container}>
         <h1>Your orders</h1>

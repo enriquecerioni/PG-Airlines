@@ -29,6 +29,25 @@
     align-items: stretch;
 }
 
+.main_container_dark {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.main_container_dark {
+  background-color: #121212;
+}
+.textColor {
+  color: black;
+  font-family: 'Roboto', sans-serif;
+  
+}
+.textColor_dark {
+  color: rgb(255, 255, 255);
+  font-family: 'Roboto', sans-serif;
+}
+
 .paginate_container {
     display: flex;
     align-items: center;

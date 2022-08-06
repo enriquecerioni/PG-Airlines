@@ -31,6 +31,7 @@ import {
   GET_COMMENTS,
   GET_ALL_USER_FIREBASE,
 } from "../actions";
+import Swal from 'sweetalert2'
 
 const initialState = {
   flights: [], // todos los vuelos
@@ -199,7 +200,11 @@ const rootReducer = (state = initialState, action) => {
           ],
         };
       } else {
-        alert("Origin Not Found");
+        Swal.fire({
+          icon: 'error',
+          title: 'opps...',
+          text: 'Origin not found'
+        })
         return {
           ...state,
           currrentFilter: state.copy,
@@ -439,6 +444,7 @@ const rootReducer = (state = initialState, action) => {
         comments: action.payload
       }
     }
+
 
     default:
       return state;

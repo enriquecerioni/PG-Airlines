@@ -6,6 +6,16 @@
     height: 28vh;
     font-family: "Lato", sans-serif;
     background-color: #292f39;
+
+}
+.footer_dark {
+    display: flex;
+    justify-content: space-around;
+    /* align-items: center; */
+    width: 100%;
+    height: 28vh;
+    font-family: "Lato", sans-serif;
+    background-color: #171a20;
 }
 
 .leftInfo, .rightInfo, .center {

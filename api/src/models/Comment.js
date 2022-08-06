@@ -10,14 +10,14 @@ module.exports = (sequelize) => {
     },
     airlineId:{
       type:DataTypes.INTEGER,
-      allowNull:false
+      allowNull: false
     },
     comment: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     rating: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.STRING,
       allowNull: false
     },
     name: {

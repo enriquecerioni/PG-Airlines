@@ -26,18 +26,21 @@ import FlightManagement from "./components/Profile/FlightManagement";
 import UserManagement from "./components/Profile/UserManagement";
 import SuperAdminFlightManagement from "./components/Profile/SuperAdminFlightManagement";
 import AirlinePendingRequests from "./components/Profile/PendingRequests";
+import { DarkModeProvider } from './components/DarkModeContext';
+import Business from "./components/HomeComponents/Business";
 
 const promise = loadStripe('pk_test_51LOWloHpIoeoktUtIVJXPVwS0wwgOLL4jWid6ymn1ZWdhL69T0JQxkwADRmqwnQ1RHGPiVTnTlHTnhrLWPbDASPr006V4SPmtp')
 
+
 function App() {
-  // const user = true;
-  // const notify = () => toast("Wow so easy!");
+
   return (
     <>
       <BrowserRouter>
         <div className="App">
+        <DarkModeProvider>
           <CartProvider>
-             <NavBar /> 
+            <NavBar /> 
             <Switch>
               <Route exact path="/">
                 <Home />
@@ -98,12 +101,16 @@ function App() {
               <Route path="/catalog">
                   <Catalog />
               </Route>
+              <Route path='/business'>
+                <Business />
+              </Route>
               <Route component={ErrorPage} /> 
             </Switch>
           </CartProvider>
-          <ToastContainer />
+          <ToastContainer />          
+        </DarkModeProvider>
         </div>
-      </BrowserRouter>
+      </BrowserRouter>        
     </>
   );
 }
