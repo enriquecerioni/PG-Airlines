@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAllUsers } from "../../redux/actions";
 import s from "../styles/ProfileNav.module.css";
+import {darkModeContext} from "../DarkModeContext"
 import defaultProfilePic from "../styles/defaultProfilePic.png";
 
 export default function ProfileNav() {
+  const { darkMode } = useContext(darkModeContext)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllUsers());
@@ -22,8 +24,8 @@ export default function ProfileNav() {
   // currentUser.image === null ? defaultProfilePic : isImage(currentUser.image) ? currentUser.image : defaultProfilePic
 
   var AccInfo = (
-    <li className={s.navLink}>
-      <Link className={s.links} to="/profile">
+    <li className={darkMode ? s.navLink_dark: s.navLink}>
+      <Link className={darkMode ? s.links_dark : s.links} to="/profile">
         <i className="bx bx-home-alt icon"></i>
         <span className={s.text}>Account Information</span>
       </Link>
@@ -31,8 +33,8 @@ export default function ProfileNav() {
   );
 
   var TicketsBought = (
-    <li className={s.navLink}>
-      <Link className={s.links} to="/purchases">
+    <li className={darkMode ? s.navLink_dark: s.navLink}>
+      <Link className={darkMode ? s.links_dark : s.links} to="/purchases">
         <i className="bx bx-bar-chart-alt-2 icon"></i>
         <span className={s.text}>My Orders </span>
       </Link>
@@ -40,8 +42,8 @@ export default function ProfileNav() {
   );
 
   var MyAirline = (
-    <li className={s.navLink}>
-      <Link className={s.links} to="/airlineProfile">
+    <li className={darkMode ? s.navLink_dark: s.navLink}>
+      <Link className={darkMode ? s.links_dark : s.links} to="/airlineProfile">
         <i className="bx bx-bell icon"></i>
         <span className={s.text}>Manage Airline</span>
       </Link>
@@ -49,8 +51,8 @@ export default function ProfileNav() {
   );
 
   var OwnFlights = (
-    <li className={s.navLink}>
-      <Link className={s.links} to="/catalog">
+    <li className={darkMode ? s.navLink_dark: s.navLink}>
+      <Link className={darkMode ? s.links_dark : s.links} to="/catalog">
         <i className="bx bx-pie-chart-alt icon"></i>
         <span className={s.text}>Manage Airline Flights</span>
       </Link>
@@ -58,8 +60,8 @@ export default function ProfileNav() {
   );
 
   var UserManagement = (
-    <li className={s.navLink}>
-      <Link className={s.links} to="/userManagement">
+    <li className={darkMode ? s.navLink_dark: s.navLink}>
+      <Link className={darkMode ? s.links_dark : s.links} to="/userManagement">
         {/* <i className='bx bx-pie-chart-alt icon' ></i> */}
         <span className={s.text}>User Management</span>
       </Link>
@@ -67,8 +69,8 @@ export default function ProfileNav() {
   );
 
   var AirlineManagement = (
-    <li className={s.navLink}>
-      <Link className={s.links} to="/airlineManagement">
+    <li className={darkMode ? s.navLink_dark: s.navLink}>
+      <Link className={darkMode ? s.links_dark : s.links} to="/airlineManagement">
         {/* <i className='bx bx-pie-chart-alt icon' ></i> */}
         <span className={s.text}>Airline Management</span>
       </Link>
@@ -76,8 +78,8 @@ export default function ProfileNav() {
   );
 
   var AirlinePendingRequests = (
-    <li className={s.navLink}>
-      <Link className={s.links} to="/airlinePendingRequests">
+    <li className={darkMode ? s.navLink_dark: s.navLink}>
+      <Link className={darkMode ? s.links_dark : s.links} to="/airlinePendingRequests">
         {/* <i className='bx bx-pie-chart-alt icon' ></i> */}
         <span className={s.text}>AirlinePendingRequests</span>
       </Link>
@@ -88,7 +90,7 @@ export default function ProfileNav() {
   return (
     <>
       {currentUser !== undefined ? (
-        <aside className={s.sidebar}>
+        <aside className={darkMode ? s.sidebar_dark : s.sidebar}>
           <header>
             <div className={s.imageText}>
               <span className={s.image}>
@@ -135,8 +137,8 @@ export default function ProfileNav() {
               )}
             </div>
             <div className={s.bottomContent}>
-              <li className={s.navLink}>
-                <Link className={s.links} to="/logout">
+              <li className={darkMode ? s.navLink_dark: s.navLink}>
+                <Link className={darkMode ? s.links_dark : s.links} to="/logout">
                   <i className="bx bx-log-out icon"></i>
                   <span className={s.text}>Logout</span>
                 </Link>
@@ -145,7 +147,7 @@ export default function ProfileNav() {
           </div>
         </aside>
       ) : (
-        <aside className={s.sidebar}></aside>
+        <aside className={darkMode ? s.sidebar_dark : s.sidebar}></aside>
       )}
     </>
   );

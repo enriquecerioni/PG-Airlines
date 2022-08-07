@@ -74,10 +74,14 @@
   /* ===== Colors ===== */
   --body-color: #E4E9F7;
   --sidebar-color: #FFF;
+  --sidebar-color_dark: #121212f9;;
   --primary-color: #3985CB;
   --primary-color-light: #F6F5FF;
+  --primary-color-dark: #030303;
   --toggle-color: #DDD;
+  --toggle-color-dark: #DDD;
   --text-color: #707070;
+  --text-color_dark: #313131;
 
   /* ====== Transition ====== */
   --tran-03: all 0.2s ease;
@@ -93,16 +97,35 @@
 }
 
 /* ===== Sidebar ===== */
+/* ---------------------------------------- */
+
 .links{
   text-decoration: none;
   color: var(--text-color);
   padding-left: 0rem;
 }
+.links_dark{
+  text-decoration: none;
+  color: var(--text-color);
+  padding-left: 0rem;
+}
 
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
 .sidebar:hover .navLink:hover .links:hover{
   color: white;
   padding-left: 1rem;
 }
+
+.sidebar_dark .navLink_dark:hover .links_dark:hover{
+  color: white;
+  padding-left: 1rem;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+
 .sidebar{
   position: fixed;
   top: 0;
@@ -123,27 +146,14 @@
   height: 100%;
   width: 4rem;
   padding: 5rem 14px 10rem 14px;
-  background: var(--sidebar-color);
+  background: var(--sidebar-color_dark);
   transition: all .8s ease;
   z-index: 100;
   margin-right: 5rem;
 }
+/* ---------------------------------------- */
 
-
-.sidebar_dark:hover .navLink:hover .links:hover{
-  color: black;
-  padding-left: 1rem;
-}
-
-
-.sidebar_dark figure {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1rem;
-  opacity: 0;
-  transition: all 0.6s ease;
-}
+/* ---------------------------------------- */
 
 .sidebar figure{
   display: flex;
@@ -154,12 +164,27 @@
   transition: all 0.6s ease;
 }
 
+.sidebar_dark figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+
 .sidebar:hover figure{
   opacity: 1;
 }
 .sidebar_dark:hover figure {
   opacity: 1;
 }
+/* ---------------------------------------- */
+
 
 .imgProfile{
   border-radius: 50%;
@@ -190,14 +215,19 @@ figcaption.fig1, .fig2{
 /* .sidebar.close{
   width: 88px;
 } */
+
+/* ---------------------------------------- */
 .sidebar:hover{
   width: 20rem;
 }
 .sidebar_dark:hover{
   width: 20rem;
 }
+/* ---------------------------------------- */
+
 
 /* ===== Reusable code - Here ===== */
+/* ---------------------------------------- */
 .sidebar .navLink{
   height: 50px;
   list-style: none;
@@ -205,15 +235,30 @@ figcaption.fig1, .fig2{
   align-items: center;
   margin-top: 10px;
 }
+.sidebar_dark .navLink_dark{
+  height: 50px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+/* ---------------------------------------- */
 
-.sidebar_dark .navLinkzz
-
+/* ---------------------------------------- */
 .sidebar header .image,
 .sidebar .bx{
   min-width: 60px;
   border-radius: 6px;
 }
+.sidebar_dark header .image,
+.sidebar_dark .bx{
+  min-width: 60px;
+  border-radius: 6px;
+}
 
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
 .sidebar .bx{
   min-width: 60px;
   background-color: red;
@@ -224,17 +269,44 @@ figcaption.fig1, .fig2{
   justify-content: center;
   font-size: 20px;
 }
+.sidebar_dark .bx{
+  min-width: 60px;
+  background-color: red;
+  border-radius: 6px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+/* ---------------------------------------- */
 
+/* ---------------------------------------- */
 .sidebar .text,
 .sidebar .bx{
   color: var(--text-color);
   transition: var(--tran-03);
 }
+.sidebar_dark .text,
+.sidebar_dark .bx{
+  color: var( --text-color);
+  transition: var(--tran-03);
+}
+/* ---------------------------------------- */
 
+/* ---------------------------------------- */
 .sidebar .text{
   opacity: 0;
   transition: all .3s ease;
 }
+.sidebar_dark .text{
+  opacity: 0;
+  transition: all .3s ease;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+
 .sidebar:hover .text{
   font-size: 17px;
   font-weight: 500;
@@ -242,20 +314,50 @@ figcaption.fig1, .fig2{
   white-space: nowrap;
   opacity: 1;
 }
+.sidebar_dark:hover .text{
+  font-size: 17px;
+  font-weight: 500;
+  padding-left: 1rem;
+  white-space: nowrap;
+  opacity: 1;
+}
+/* ---------------------------------------- */
+
 /* =========================== */
 
+/* ---------------------------------------- */
 .sidebar header{
   position: relative;
 }
+.sidebar_dark header{
+  position: relative;
+}
+/* ---------------------------------------- */
 
+/* ---------------------------------------- */
 .sidebar header .imageText{
   display: flex;
   align-items: center;
 }
+.sidebar_dark header .imageText{
+  display: flex;
+  align-items: center;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
 .sidebar header .logo-text{
   display: flex;
   flex-direction: column;
 }
+.sidebar_dark header .logo-text{
+  display: flex;
+  flex-direction: column;
+}
+/* ---------------------------------------- */
+
+
+
 header .imageText .name {
   margin-top: 2px;
   font-size: 18px;
@@ -268,17 +370,32 @@ header .imageText .profession{
   display: block;
 }
 
+
+/* ---------------------------------------- */
 .sidebar header .image{
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.sidebar_dark header .image{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ---------------------------------------- */
 
+/* ---------------------------------------- */
 .sidebar header .image img{
   width: 40px;
   border-radius: 6px;
 }
+.sidebar_dark header .image img{
+  width: 40px;
+  border-radius: 6px;
+}
+/* ---------------------------------------- */
 
+/* ---------------------------------------- */
 .sidebar header .toggle{
   position: absolute;
   top: 20rem;
@@ -298,21 +415,60 @@ header .imageText .profession{
   transition: var(--tran-05);
 }
 
-.sidebar:hover .toggle{
-  transform: translateY(-50%) rotate(180deg);
-}
-
-.sidebar .menu{
-  margin-top: 40px;
-}
-
-.sidebar li.search-box{
-  border-radius: 6px;
-  background-color: var(--primary-color-light);
+.sidebar_dark header .toggle{
+  position: absolute;
+  top: 20rem;
+  right: -12px;
+  transform: translateY(50%) rotate(0deg);
+  height: 20px;
+  width: 20px;
+  background-color: #3985CB;
+  color: #3985CB;
+  border-radius: 50%;
+  background:  url("arrow.svg") no-repeat 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
   cursor: pointer;
   transition: var(--tran-05);
 }
+/* ---------------------------------------- */
 
+
+/* ---------------------------------------- */
+.sidebar:hover .toggle{
+  transform: translateY(-50%) rotate(180deg);
+}
+.sidebar_dark:hover .toggle{
+  transform: translateY(-50%) rotate(180deg);
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar .menu{
+  margin-top: 40px;
+}
+.sidebar_dark .menu{
+  margin-top: 40px;
+}
+/* ---------------------------------------- */
+
+
+/* ---------------------------------------- */
+.sidebar li.search-box{
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--tran-05);
+}
+.sidebar_dark li.search-box{
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--tran-05);
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
 .sidebar .navLink.search-box input{
   height: 100%;
   width: 100%;
@@ -325,6 +481,21 @@ header .imageText .profession{
   font-weight: 500;
   transition: var(--tran-05);
 }
+.sidebar_dark .navLink_dark .search-box input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  background-color: var(--primary-color-light);
+  color: white;
+  border-radius: 6px;
+  font-size: 17px;
+  font-weight: 500;
+  transition: var(--tran-05);
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
 .sidebar .navLink .links{
   list-style: none;
   height: 100%;
@@ -337,15 +508,41 @@ header .imageText .profession{
   text-decoration: none;
   transition: var(--tran-03);
 }
+.sidebar_dark .navLink_dark .links_dark{
+  list-style: none;
+  height: 100%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 90%;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: var(--tran-03);
+}
+/* ---------------------------------------- */
 
+/* ---------------------------------------- */
 .sidebar .navLink .links:hover{
   background-color: var(--primary-color);
 }
+.sidebar_dark .navLink_dark .links_dark:hover{
+  background-color: var(--primary-color);
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
 .sidebar .navLink .links:hover .bx,
 .sidebar .navLink .links:hover .text{
   color: white;
 }
+.sidebar_dark .navLink_dark .links_dark:hover .bx,
+.sidebar_dark .navLink_dark .links_dark:hover .text{
+  color: black;
+}
+/* ---------------------------------------- */
 
+/* ---------------------------------------- */
 .sidebar .menuBar{
   height: calc(100% - 55px);
   display: flex;
@@ -353,15 +550,36 @@ header .imageText .profession{
   justify-content: space-between;
   overflow-y: scroll;
 }
+.sidebar_dark .menuBar{
+  height: calc(100% - 55px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: scroll;
+}
+/* ---------------------------------------- */
+
+
 .menuBar::-webkit-scrollbar{
   display: none;
 }
+
+/* ---------------------------------------- */
+
 .sidebar .menuBar .mode{
   border-radius: 6px;
   background-color: var(--primary-color-light);
   position: relative;
   transition: var(--tran-05);
 }
+
+.sidebar_dark .menuBar .mode{
+  border-radius: 6px;
+  background-color: var(--primary-color-light );
+  position: relative;
+  transition: var(--tran-05);
+}
+/* ---------------------------------------- */
 
 .menuBar .mode .sun-moon{
   height: 50px;
@@ -392,6 +610,7 @@ header .imageText .profession{
   background-color: var(--body-color);
   transition: var(--tran-05);
 }
+
 .home .text{
   font-size: 30px;
   font-weight: 500;
