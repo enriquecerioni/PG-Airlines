@@ -120,7 +120,7 @@ function CatalogFlights({ rows,airlineFlights,setAirlineFlights}) {
 
             /> 
            
-            : <h2>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h2>
+            : <h2></h2>
             }
         </Box>,
          <button className={s.btn} onClick={(e)=>handleDelete(e)}>Delete</button>,
