@@ -255,13 +255,14 @@ const countries = [
     { code: 'ZW', label: 'Zimbabwe' },
 ];
 
-function CountriesList({ label }) {
+function CountriesList({ label,handleCountriesList }) {
     return (<Autocomplete
         id="country-select"
         sx={{ width: 300 }}
         options={countries}
         autoHighlight
         getOptionLabel={(option) => option.label}
+        onChange={handleCountriesList}
         renderOption={(props, option) => (
             <Box component="li" sx={{ '& > img': { mr: 1, flexShrink: 0 } }} {...props}>
                 <img className={s.img}

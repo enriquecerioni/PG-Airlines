@@ -4,7 +4,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
-function TimeDate({label, handleChange, value}) {
+function TimeDate({label, handleChangeDate, value}) {
   
 
     return (
@@ -13,7 +13,7 @@ function TimeDate({label, handleChange, value}) {
             label={label}
             inputFormat="yyyy/MM/dd"
             value={value}
-            onChange={handleChange}
+            onChange={handleChangeDate}
             renderInput={(params) => <TextField size="small" {...params} />}
           />
        
