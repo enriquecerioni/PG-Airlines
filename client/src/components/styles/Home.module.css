@@ -38,16 +38,7 @@ html {
   padding-top: 80px;
 }
 
-.home {
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  align-items: center;
-  justify-content: space-between;
-  /* margin-right: 5px;
-    padding-right: 0px;
-    padding-left: 0px; */
-}
+
 .contactContainer {
   width: 100%;
   height: 20vh;
@@ -70,6 +61,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   color: black;
   font-family: "Rubik", sans-serif;
   /* background-color: rgba(0, 0, 0, 0.541); */
@@ -86,7 +78,7 @@ html {
   font-size: 50px;
   font-weight: bolder;
   margin-bottom: 3rem;
-  transition: 0.3s ease;
+  transition: 0.3s ease; 
 }
 
 .title_dark {
@@ -220,29 +212,6 @@ button + button {
   /* animation: scroll-down 1s ease-in-out infinite; */
 }
 
-@keyframes scroll-down {
-  0% {
-    /* top:20%; */
-    opacity: 0;
-  }
-  30% {
-    opacity: 1;
-  }
-  60% {
-    opacity: 1;
-  }
-  100% {
-    top: 90%;
-    opacity: 0;
-  }
-}
-@media screen and (max-width: 800px) {
-    
-    .scrollText {
-        margin-left: 4vw;
-    }
-}
-
 .whatsapp{
   width: 100%;
   top: 80vh;
@@ -269,4 +238,90 @@ button + button {
 }
 .contactContainer {
   margin-top: 7rem;
+}
+
+@keyframes scroll-down {
+  0% {
+    /* top:20%; */
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    top: 90%;
+    opacity: 0;
+  }
+}
+@media screen and (max-width: 800px) {
+    
+    .scrollText {
+        margin-left: 4vw;
+    }
+}
+
+@media (max-width: 450px) {
+  /* body{
+    max-width: 450px;
+    height: 100vh;
+  } */
+
+/* SEC 1 */
+
+  .Home{
+    width: 450px;
+    height: 100vh;
+  }
+  .divImg{
+    margin-left: 0;
+  }
+  .img{
+    width: 10rem;
+    margin-right: 3rem;
+
+  }
+
+  .container{
+    margin-left: 0;
+    width: 150px;
+    height: 200px;
+  }
+
+  .title{
+    width: 12rem;
+    height: 4rem;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  .text{
+    font-size: 10px;
+    margin-top: 20px;
+  }
+
+  .scrollText{
+    margin-left: 0;
+    bottom: 50px;
+    font-size: 10px;
+  }
+
+  .scrollDown{
+    height: 20px;
+    width: 10px;
+    left: 43%;
+
+  }
+
+  /* ------------------- */
+
+  /* SEC 2 */
+
+  .sec2{
+    width: 100%;
+  }
+
+  /* ------------------- */
 }
