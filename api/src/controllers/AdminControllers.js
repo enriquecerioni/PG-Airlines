@@ -60,6 +60,7 @@ async function createAdmin(
           email: email,
           permissions: true,
           uid: uid,
+          image: logo
         },
       });
 
@@ -83,6 +84,7 @@ async function createAdmin(
           email: email,
           permissions: true,
           uid: uid,
+          image: logo
         },
       });
 
