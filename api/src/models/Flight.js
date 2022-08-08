@@ -12,10 +12,10 @@ module.exports = (sequelize) => {
       type:DataTypes.INTEGER,
       allowNull:false
     },
-    airlineName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+    // airlineName: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false
+    // },
     origin: {
       type: DataTypes.STRING,
       allowNull: false,
