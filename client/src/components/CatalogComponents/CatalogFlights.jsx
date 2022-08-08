@@ -7,123 +7,144 @@ import Modal from '@mui/material/Modal';
 import s from "../styles/Catalog.module.css";
 import { editToFlights } from '../../redux/actions/index'
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteFlights } from '../../redux/actions/index'
-import Loader from '../HomeComponents/Loader'
-import useId from '@mui/material/utils/useId.js';
+import { deleteFlights } from '../../redux/actions/index';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import ImageSearchIcon from '@mui/icons-material/ImageSearch';
+import CountriesList from './CountriesList';
+import TimeDate from './TimeDate';
+import TimeHour from './TimeHour';
+import InputAdornment from '@mui/material/InputAdornment';
+import FilledInput from '@mui/material/FilledInput';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 
 const columns = data;
 let flightIds = [];
 const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    position: "absolute",
+    top: "35%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 800,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
     boxShadow: 24,
-    p: 5
+    p: 4,
+    "inp": {
+        width: 260,
+        marginTop: 1.5,
+        marginLeft: 2,
+        marginRight: 0,
+        marginButton: 0,
+    }
 };
 
 function handleRowSelection(selectedRows) {
- 
-        flightIds = selectedRows;
-      console.log(flightIds);
-  }
 
-function CatalogFlights({ rows,airlineFlights,setAirlineFlights}) {
+    flightIds = selectedRows;
+    console.log(flightIds);
+}
+
+function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
+
     const dispatch = useDispatch()
-    const [open, setOpen] = React.useState(false);
-    const [dataFlight, getData] = React.useState(false);
-    // const mese = useSelector(state => state.messeage)    
-     
-    const handleOpen = () => setOpen(true);
 
-    //const handleOpen = () => setOpen(true);
+    const currentUser = useSelector((state) => state.currentUser)
+    const [open, setOpen] = React.useState(false);
+    const [dataFlight, getData] = React.useState([]);
+    // const mese = useSelector(state => state.messeage)   
+
+    const [valuesPrice, setValuesPrice] = React.useState({ price: '' });
+    const realTime = new Date;
+    const [DateDeparture, setValueDep] = React.useState(new Date(realTime));
+    const [DateArrival, setValueArriv] = React.useState(new Date(realTime));
+    const [dateHour, setHour] = React.useState(new Date(realTime));
+    const [dateDepHour, SetDepHour] = React.useState(new Date(realTime));
+    const [dateCountriesList, setCountriesList] = React.useState('');
+    const [dateCountriesListDest, setCountriesListDest] = React.useState('');
+
+    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
     const handleSave = (e) => {
         e.preventDefault();
         dispatch(editToFlights(dataFlight));
         setAirlineFlights(false)
-        setTimeout(()=>(window.location.reload()),500) 
+        setTimeout(() => (window.location.reload()), 500)
     }
-    
-    function handleDelete(e){
-        if(flightIds.length > 0){
+    const data = [  { code: 'AD', label: 'Andorra' }];
+    function setFormData() {
+        debugger;
+   
+        
+        setHour(dataFlight.arrivalHour);
+        console.log(dataFlight);
+    }
+
+    function handleDelete(e) {
+        if (flightIds.length > 0) {
             e.preventDefault();
             dispatch(deleteFlights(flightIds));
             setAirlineFlights(false)
-            setTimeout(()=>(window.location.reload()),500) 
-        }else{
+            setTimeout(() => (window.location.reload()), 500)
+        } else {
             alert("Choose a flight");
         }
-         
     }
 
-    // function handleFlight(e) {
-    //     dataFlight.flight = e.target.value;
-    // }
-    // function handleAirline(e) {
-    //     dataFlight.airline = e.target.value;
-    // }
-    function handleLogo(e) {
-        dataFlight.logo = e.target.value;
+    const handleChangeTime = (e) => {
+        const date = e;
+        console.log(date.toISOString().slice(0, 10))
+        setValueArriv(date);
     }
-    function handlePrice(e) {
-        dataFlight.price = e.target.value;
+    const handleChangeHour = (e) => {
+        console.log(e);
+        setHour(e);
     }
-    function handleStock(e) {
-        dataFlight.stock = e.target.value;
+    const handleChangeDepHour = (e) => {
+        console.log(e);
+        SetDepHour(e);
     }
-    function handleOrigin(e) {
-        dataFlight.origin = e.target.value;
+    const handleChangeDepDate = (newValue) => {
+        setValueDep(newValue);
     }
-    function handleDuration(e) {
-        dataFlight.durationEstimated = e.target.value;
+    const handleCountriesListOrig = (e) => {
+        setCountriesList(e.currentTarget.innerText);
     }
-    function handleDepH(e) {
-        dataFlight.departureHour = e.target.value;
+    const handleCountriesListDest = (e) => {
+        console.log(e);
+        setCountriesListDest(e.currentTarget.innerText);
     }
-    function handleArrH(e) {
-        dataFlight.arrivalHour = e.target.value;
-    }
-    function handleDestination(e) {
-        dataFlight.destination = e.target.value;
-    }
-    function handleDepD(e) {
-        dataFlight.departureDate = e.target.value;
-    }
-    function handleArrD(e) {
-        dataFlight.arrivalDate = e.target.value;
-    }
-    function handleDescription(e) {
-        dataFlight.description = e.target.value;
-    }
-
+    const handleChangeAdo = (prop) => (event) => {
+        setValuesPrice({ ...valuesPrice, [prop]: event.target.value });
+    };
 
     return [
         <Box sx={{ height: 400, width: '100%' }}>
-            { airlineFlights && rows ?
+            {airlineFlights && rows ?
                 <DataGrid
-                onRowDoubleClick={(params, event) => {
+                    onRowDoubleClick={(params, event) => {
+                        debugger;
+                        setOpen(true);
+                        getData(params?.row);
+                        setFormData();
 
-                    setOpen(true);
-                    getData(params?.row);
+                    }}
+                    onSelectionModelChange={(e) => { handleRowSelection(e) }}
+                    rows={rows}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}
+                    checkboxSelection
 
-                }}
-                onSelectionModelChange ={(e) => { handleRowSelection(e)}}
-                rows={rows}
-                columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                checkboxSelection
+                />
 
-            /> 
-           
-            : <h2></h2>
+                : <h2></h2>
             }
         </Box>,
-         <button className={s.btn} onClick={(e)=>handleDelete(e)}>Delete</button>,
+        <button className={s.btn} onClick={(e) => handleDelete(e)}>Delete</button>,
         <div>
 
             <Modal
@@ -132,122 +153,152 @@ function CatalogFlights({ rows,airlineFlights,setAirlineFlights}) {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style} >
+                <Box sx={style} className={s.container}>
                     <button className={s.button} onClick={handleClose}>x</button>
                     <Typography id="modal-modal-title" variant="h6" component="h2" fontWeight='bold'>
                         Edit flight:
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }} >
-                        <form className={s.form}>
-                            {/* <div><label for="flight">Flight: </label>
-                                <input
-                                    onChange={(e) => { handleFlight(e) }}
-                                    name='flight'
-                                    value={dataFlight.id}
-                                />
-                            </div>
-                            <div><label>Airline: </label>
-                                <input
-                                    onChange={(e) => { handleAirline(e) }}
-                                    name='airline'
-                                    type="text"
-                                    defaultValue={dataFlight.airline}
-                                />
-                            </div> */}
-                            <div><label for="logo">Logo: </label>
-                                <input
-                                    onChange={(e) => { handleLogo(e) }}
-                                    name='logo'
-                                    type="text"
-                                    defaultValue={dataFlight.logo}
-                                />
-                            </div>
-                            <div><label for="price">Price: </label>
-                                <input
-                                    onChange={(e) => { handlePrice(e) }}
-                                    name='price'
-                                    type="number"
-                                    defaultValue={dataFlight.price}
-                                />
-                            </div>
-                            <div><label for="stock">Stock: </label>
-                                <input
-                                    onChange={(e) => { handleStock(e) }}
-                                    name='stock'
-                                    type="number"
-                                    label='Stock'
-                                    defaultValue={dataFlight.stock}
-                                />
-                            </div>
-                            <div><label>Origin: </label>
-                                <input
-                                    onChange={(e) => { handleOrigin(e) }}
-                                    name='origin'
-                                    type="text"
-                                    defaultValue={dataFlight.origin}
-                                />
-                            </div>
-                            <div><label for="duration">Duration: </label>
-                                <input
-                                    onChange={(e) => { handleDuration(e) }}
-                                    name='duration'
-                                    type="text"
-                                    defaultValue={dataFlight.durationEstimated}
-                                />
-                            </div>
-                            <div><label>Departure Hour: </label>
-                                <input
-                                    onChange={(e) => { handleDepH(e) }}
-                                    name='depH'
-                                    type="text"
-                                    defaultValue={dataFlight.departureHour}
-                                />
-                            </div>
-                            <div><label>Arrival Hour: </label>
-                                <input
-                                    onChange={(e) => { handleArrH(e) }}
-                                    name='arrH'
-                                    type="text"
-                                    defaultValue={dataFlight.arrivalHour}
-                                />
-                            </div>
-                            <div><label>Destination: </label>
-                                <input
-                                    onChange={(e) => { handleDestination(e) }}
-                                    name='destination'
-                                    type="text"
-                                    defaultValue={dataFlight.destination}
-                                />
-                            </div>
-                            <div><label>Departure Date: </label>
-                                <input
-                                    onChange={(e) => { handleDepD(e) }}
-                                    name='depD'
-                                    type="text"
-                                    defaultValue={dataFlight.departureDate}
-                                />
-                            </div>
-                            <div><label>Arrival Date: </label>
-                                <input
-                                    onChange={(e) => { handleArrD(e) }}
-                                    name='arrD'
-                                    type="text"
-                                    defaultValue={dataFlight.arrivalDate}
-                                />
-                            </div>
-                            <div><label>Description: </label>
-                                <input
-                                    onChange={(e) => { handleDescription(e) }}
-                                    name='description'
-                                    type="text"
-                                    label='Description'
-                                    defaultValue={dataFlight.description}
-                                />
-                            </div>
-                            <div>
-                                <button className={s.btn} onClick={(e)=>handleSave(e)} >Save</button>
-                                <button className={s.btn} onClick={handleClose}>Cancel</button>
-                            </div>
+                        <form >
+                            <Stack spacing={1} >
+                                {/* <div>
+                                    {/* <label>Flight: </label> 
+                                        <TextField sx={style.inp}
+                                            type='text'
+                                            label='ID Flight'
+                                            placeholder='Flight'
+                                            name='flight'
+                                            id="flight" 
+                                            variant="standard"
+                                        />
+                                    </div> */}
+                                <div className={s.inputCont}>
+                                    <div>
+                                        {/* <TextField
+                                            disabled
+                                            id="outlined-disabled"
+                                            label="Airline"
+                                            defaultValue="Arline"
+                                        /> */}
+                                        <label>Airline: {currentUser[0]?.name} </label>
+                                    </div>
+                                    <div>
+                                        <TextField sx={style.inp}
+                                            name='logo'
+                                            defaultValue={dataFlight.logo}
+                                            type="text"
+                                            size="small"
+                                            // label='Logo'
+                                            placeholder='Logo'
+                                            id="logo"
+                                            variant="standard"
+                                        />
+                                        <IconButton color="primary" aria-label="upload picture" component="label">
+                                            <input hidden accept="image/*" type="file" />
+                                            <ImageSearchIcon />
+                                        </IconButton>
+                                    </div>
+                                </div>
+                                <div className={s.inputCont}>
+                                    <div >
+                                        <CountriesList
+                                            label={"Origin"}
+                                            id="outlined-origin"
+                                            handleCountriesList={handleCountriesListOrig}
+                                            defaultValue={data[0]}
+                                        />
+                                    </div>
+                                    <div>
+                                        <CountriesList
+                                            label={"Destination"}
+                                            id="outlined-destination"
+                                            handleCountriesList={handleCountriesListDest}
+                                            //defaultValue={dataFlight.destination}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <TextField sx={style.inp}
+                                        name='duration'
+                                        type="text"
+                                        // label='Duration'
+                                        placeholder='Duration Estimated'
+                                        id="duration"
+                                        variant="standard"
+                                        defaultValue={dataFlight.durationEstimated}
+                                    />
+                                </div>
+                                <div className={s.inputCont}>
+                                    <TimeDate
+                                        label={"Departure Date"}
+                                        id="depD"
+                                        handleChangeDate={handleChangeDepDate}
+                                        value={DateDeparture} 
+                                        defaultValue={dataFlight.departureDate}/>
+                                    <TimeHour
+                                        label={"Departure Hour"}
+                                        id="depH"
+                                        handleChangeHour={handleChangeDepHour}
+                                        value={dateDepHour}
+                                        defaultValue={dataFlight.departureHour}
+                                    />
+                                </div>
+                                <div className={s.inputCont}>
+                                    <TimeDate
+                                        label={"Arrival Date"}
+                                        id="arrD"
+                                        handleChangeDate={handleChangeTime}
+                                        value={DateArrival}
+                                        defaultValue={dataFlight.arrivalDate} />
+                                    <TimeHour
+                                        label={"Arrival Hour"}
+                                        id="arrH"
+                                        handleChangeHour={handleChangeHour}
+                                        value={dateHour}
+                                        //defaultValue={dataFlight.arrivalHour}
+                                    />
+                                </div>
+                                <div className={s.inputCont}>
+                                    <div>
+                                        <FormControl variant="filled">
+                                            <InputLabel htmlFor="filled-adornment">Price</InputLabel>
+                                            <FilledInput
+                                                id="filled-adornment"
+                                                //value={valuesPrice.price}                                                
+                                                onChange={handleChangeAdo('price')}
+                                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                                                defaultValue={dataFlight.price}
+                                            />
+                                        </FormControl>
+                                    </div>
+                                    <div>
+                                        <TextField sx={style.inp}
+                                            name='stock'
+                                            type="number"
+                                            placeholder='Stock'
+                                            id="stock"
+                                            variant="standard"
+                                            defaultValue={dataFlight.stock}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <TextField fullWidth sx={{ m: 1 }}
+                                        multiline
+                                        name='description'
+                                        type="text"
+                                        // label='Description'
+                                        placeholder='Description'
+                                        variant="standard"
+                                        id="description"
+                                        defaultValue={dataFlight.description}
+                                    />
+                                </div>
+                                <div>
+                                    <button className={s.btn} onClick={(e) => handleSave(e)} >Save</button>
+                                    <button className={s.btn} onClick={handleClose}>Cancel</button>
+                                </div>
+                            </Stack>
                         </form>
                     </Typography>
                 </Box>

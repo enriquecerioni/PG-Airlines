@@ -1,6 +1,5 @@
 import React, { useEffect, /*useState*/ } from 'react'
 import s from "../styles/Catalog.module.css";
-import st from '../styles/Forms.module.css'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -126,15 +125,15 @@ export default function AddModal({ setAirlineFlights }) {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style} className={st.container} variant="scrollable">
+                <Box sx={style} className={s.container} variant="scrollable">
                     <button className={s.button} onClick={handleClose}>x</button>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Add new Flight
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        <div className=''>
+                        <div>
                             <form >
-                                <Stack spacing={.8}>
+                                <Stack spacing={1} >
                                     {/* <div>
                                     {/* <label>Flight: </label> 
                                         <TextField sx={style.inp}
@@ -146,63 +145,47 @@ export default function AddModal({ setAirlineFlights }) {
                                             variant="standard"
                                         />
                                     </div> */}
-                                    <div>
-                                        {/* <TextField
+                                    <div className={s.inputCont}>
+                                        <div>
+                                            {/* <TextField
                                             disabled
                                             id="outlined-disabled"
                                             label="Airline"
                                             defaultValue="Arline"
                                         /> */}
-                                        <label>Airline: {currentUser[0]?.name} </label>
-                                    </div>
-                                    <div>
-                                        <TextField sx={style.inp}
-                                            name='logo'
-                                            type="text"
-                                            size="small"
-                                            // label='Logo'
-                                            placeholder='Logo'
-                                            id="logo"
-                                            variant="standard"
-                                        />
-                                        <IconButton color="primary" aria-label="upload picture" component="label">
-                                            <input hidden accept="image/*" type="file" />
-                                            <ImageSearchIcon />
-                                        </IconButton>
-                                    </div>
-                                    <div>
-                                        <FormControl variant="filled">
-                                            <InputLabel htmlFor="filled-adornment">Price</InputLabel>
-                                            <FilledInput
-                                                id="filled-adornment"
-                                                value={valuesPrice.price}
-                                                onChange={handleChangeAdo('price')}
-                                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                                            <label>Airline: {currentUser[0]?.name} </label>
+                                        </div>
+                                        <div>
+                                            <TextField sx={style.inp}
+                                                name='logo'
+                                                type="text"
+                                                size="small"
+                                                // label='Logo'
+                                                placeholder='Logo'
+                                                id="logo"
+                                                variant="standard"
                                             />
-                                        </FormControl>
+                                            <IconButton color="primary" aria-label="upload picture" component="label">
+                                                <input hidden accept="image/*" type="file" />
+                                                <ImageSearchIcon />
+                                            </IconButton>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <TextField sx={style.inp}
-                                            name='stock'
-                                            type="number"
-                                            placeholder='Stock'
-                                            id="stock"
-                                            variant="standard"
-                                        />
-                                    </div>
-                                    <div >
-                                        <CountriesList
-                                            label={"Origin"}
-                                            id="outlined-origin"
-                                            handleCountriesList={handleCountriesListOrig}
-                                        />
-                                    </div>
-                                    <div >
-                                        <CountriesList
-                                            label={"Destination"}
-                                            id="outlined-destination"
-                                            handleCountriesList={handleCountriesListDest}
-                                        />
+                                    <div className={s.inputCont}>
+                                        <div >
+                                            <CountriesList
+                                                label={"Origin"}
+                                                id="outlined-origin"
+                                                handleCountriesList={handleCountriesListOrig}
+                                            />
+                                        </div>
+                                        <div >
+                                            <CountriesList
+                                                label={"Destination"}
+                                                id="outlined-destination"
+                                                handleCountriesList={handleCountriesListDest}
+                                            />
+                                        </div>
                                     </div>
                                     <div>
                                         <TextField sx={style.inp}
@@ -214,14 +197,12 @@ export default function AddModal({ setAirlineFlights }) {
                                             variant="standard"
                                         />
                                     </div>
-                                    <div>
+                                    <div className={s.inputCont}>
                                         <TimeDate
                                             label={"Departure Date"}
                                             id="depD"
                                             handleChangeDate={handleChangeDepDate}
                                             value={DateDeparture} />
-                                    </div>
-                                    <div>
                                         <TimeHour
                                             label={"Departure Hour"}
                                             id="depH"
@@ -229,14 +210,12 @@ export default function AddModal({ setAirlineFlights }) {
                                             value={dateDepHour}
                                         />
                                     </div>
-                                    <div>
+                                    <div className={s.inputCont}>
                                         <TimeDate
                                             label={"Arrival Date"}
                                             id="arrD"
                                             handleChangeDate={handleChangeTime}
                                             value={DateArrival} />
-                                    </div>
-                                    <div>
                                         <TimeHour
                                             label={"Arrival Hour"}
                                             id="arrH"
@@ -244,8 +223,31 @@ export default function AddModal({ setAirlineFlights }) {
                                             value={dateHour}
                                         />
                                     </div>
-                                    <div>                                        
-                                        <TextField sx={style.inp}
+                                    <div className={s.inputCont}>
+                                        <div>
+                                            <FormControl variant="filled">
+                                                <InputLabel htmlFor="filled-adornment">Price</InputLabel>
+                                                <FilledInput
+                                                    id="filled-adornment"
+                                                    value={valuesPrice.price}
+                                                    onChange={handleChangeAdo('price')}
+                                                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                                                />
+                                            </FormControl>
+                                        </div>
+                                        <div>
+                                            <TextField sx={style.inp}
+                                                name='stock'
+                                                type="number"
+                                                placeholder='Stock'
+                                                id="stock"
+                                                variant="standard"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <TextField fullWidth sx={{ m: 1 }}
+                                            multiline
                                             name='description'
                                             type="text"
                                             // label='Description'
