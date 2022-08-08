@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Ticket from './Ticket'
 import style from '../styles/Display.module.css'
 import Paginate from './Paginate';
-import Filter from '../Filter'
+// import Filter from './Filter'
 import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines, getAllUsers, currentUser, getAllAirlines} from '../../redux/actions/index'
 import { darkModeContext } from "../DarkModeContext";
 
@@ -36,7 +36,7 @@ export default function Display() {
 
         orderPriceSelect.current.value = orderState
         orderAlpSelect.current.value = orderState        
-    }, [dispatch])
+    }, [dispatch, /*orderState*/])
 
     // PAGINATE
     const [currentPage, setCurrentPage] = useState(1)
@@ -91,13 +91,27 @@ export default function Display() {
         }
     }
 
-    function handleClick(value){
-       if(value == undefined){
-        dispatch(filterByAirlines("all"));
-        return
-       }
-        const data = airlinesState.find(f=> f.name == value);
-        dispatch(filterByAirlines(data.id));
+    function handleClick(e) {
+        e.preventDefault();
+         dispatch(filterByAirlines(e.target.value));
+        document.getElementById('search').value = e.target.value;
+        setAirlines([]);
+    }
+
+    function handleSearchAirlines(e) {
+        e.preventDefault();      
+        const allAirlines = airlinesState.map(f => f.name);
+        
+        let airlines = allAirlines.filter((v, i) => {
+            return allAirlines.indexOf(v) === i;
+        })
+        if (e.target.value !== '') {
+            airlines = airlines.filter(f => f.toLowerCase().includes(e.target.value.toLowerCase()));
+            setAirlines(airlines);
+        } else {
+               dispatch(filterByAirlines('all'));
+               setAirlines([]);
+        }
     }
 
   return (
@@ -150,8 +164,8 @@ export default function Display() {
                 orderAlpSelect={orderAlpSelect}
                 handleFilterPrice={handleFilterPrice}
                 handleClick={handleClick}
-                //handleSearchAirlines={handleSearchAirlines}
-                airlinesData={airlinesState}
+                handleSearchAirlines={handleSearchAirlines}
+                airlinesData={airlinesData}
                 />
 
             </div>

@@ -51,7 +51,9 @@ const initialState = {
   currentUser: [],
   reset: true,
   orderState: "initial",
-  favoriteList: [],
+
+  favoriteList: localStorage.getItem('fav-list') ? JSON.parse(localStorage.getItem('fav-list')) : [] ,
+
   shoppingCart: [],
   filterPrecioData: "",
   filterAirlinesData: "",

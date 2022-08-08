@@ -187,6 +187,7 @@ export function deleteFromCart(payload) {
     payload,
   };
 }
+
 export function crearAerolinea(payload) {
   return function (dispatch) {
     axios.post("http://localhost:3001/airlines", payload).then((response) => {
@@ -198,15 +199,21 @@ export function crearAerolinea(payload) {
   };
 }
 export function deleteAirline(payload) {
-  console.log(payload);
-  axios
-    .delete(`http://localhost:3001/airlines/delete/${payload}`)
-    .then(() => {
-      console.log("se borro la empresa perro");
-    })
-    .catch(() => {
-      console.log("no se pudo borrar");
-    });
+  return function(dispatch) {
+    axios
+      .delete(`http://localhost:3001/airlines/delete/${payload}`)
+      .then((res) => {
+        console.log("se borro la empresa perro")
+        dispatch({
+          type: 'BORRAR',
+          payload: res.data
+        })
+
+      })
+      .catch(() => {
+        console.log("no se pudo borrar");
+      });
+  }
 }
 
 export function createUser(payload) {
@@ -228,25 +235,17 @@ export function createUser(payload) {
   };
 }
 
-// export function generateEmailLink(payload){
-//     axios.get("http://localhost:3001/user/verificate",payload)
-//     .then(()=>{
-//         console.log("verification email send ");
-//     })
-//     .catch((error)=>{
-//         console.log(error);
-//     })
-// }
 export function currentUser(payload) {
   return {
     type: CURRENT_USER,
     payload,
   };
 }
+
 export function makeAdminPostgres(payload) {
-  console.log(payload);
   return function (dispatch) {
-    axios.put("http://localhost:3001/user/update", payload).then((response) => {
+    axios.put("http://localhost:3001/user/update", payload)
+    .then((response) => {
       dispatch({
         type: UPDATE_USER,
         payload: response.data,
@@ -255,7 +254,6 @@ export function makeAdminPostgres(payload) {
   };
 }
 export function deleteUser(payload) {
-  console.log(payload);
   return function (dispatch) {
     axios
       .delete(`http://localhost:3001/user/delete/${payload}`)
@@ -306,8 +304,8 @@ export function deleteFavorite(payload) {
 
 ///////
 export function createOrder(payload) {
-  return async function (dispatch) {
-    await axios
+  return function (dispatch) {
+    axios
       .post("http://localhost:3001/orders", payload)
       .then((res) => {
         dispatch({
@@ -320,8 +318,8 @@ export function createOrder(payload) {
 }
 
 export function getOrders() {
-  return async function (dispatch) {
-    await axios.get("http://localhost:3001/orders").then((res) => {
+  return function (dispatch) {
+    axios.get("http://localhost:3001/orders").then((res) => {
       dispatch({
         type: GET_ORDERS,
         payload: res.data,
@@ -351,15 +349,19 @@ export function deleteStockBack(payload) {
   const flightIdAmount = {
     flightIdAmount: payload,
   };
-  // console.log("delete stockkk",flightIdAmount);
-  axios
-    .put("http://localhost:3001/flights/stock", flightIdAmount)
-    .then(() => {
-      console.log("todookey");
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
+  return function (dispatch) {
+      axios.put("http://localhost:3001/flights/stock", flightIdAmount)
+      .then((res) => {
+        console.log("todookey");
+        dispatch({
+          type: 'STOCKS',
+          payload: res.data
+        })
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });    
+  }
 }
 
 export function createFlights(payload) {
@@ -381,11 +383,9 @@ export function createFlights(payload) {
 
 export function deleteFlights(payload) {
   const flightIds = { flightIds: payload };
-
   //  debugger;
   //console.log(flightIds);
   return function (dispatch) {
-    //console.log(flightIds)
     axios
       .post("http://localhost:3001/flights/delete", flightIds)
       .then((response) => {
@@ -398,8 +398,8 @@ export function deleteFlights(payload) {
 }
 
 export function getAllComments() {
-  return async function (dispatch) {
-    await axios
+  return function (dispatch) {
+     axios
       .get("http://localhost:3001/comments")
       .then((res) => {
         dispatch({
@@ -428,22 +428,28 @@ export function createComment(payload) {
 export function createSales(payload) {
   const sales = {
     sales: payload,
-  };
-  // console.log("delete stockkk",flightIdAmount);
-  axios
-    .post("http://localhost:3001/sales", sales)
-    .then(() => {
-      console.log("se creó la venta");
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
+  }
+  return function (dispatch) {
+    axios
+      .post("http://localhost:3001/sales", sales)
+      .then((res) => {
+        console.log("se creó la venta");
+        dispatch({
+          type: 'SALES',
+          payload: res
+        })
+      })
+      .catch((error) => {
+        console.log(error.message);
+      })  
+  }
+
 }
 
 export function resetPassword(email) {
-        axios.post(`http://localhost:3001/user/resetPassword/${email}`)
-      .then(() => {console.log( "se reseteo la password" )}
-      ).catch((error) =>  {
-        console.log(error)        
-      })
+    axios.post(`http://localhost:3001/user/resetPassword/${email}`)
+    .then(() => {console.log( "se reseteo la password" )}
+    ).catch((error) =>  {
+      console.log(error)        
+    })
 }

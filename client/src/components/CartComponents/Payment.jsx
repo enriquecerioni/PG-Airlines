@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
+import { darkModeContext } from '../DarkModeContext';
 import style from "../styles/Ticket.module.css";
 import css from "../styles/Payment.module.css";
 import { Link, useHistory } from "react-router-dom";
@@ -17,16 +18,15 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 // MERCADO PAGO
 import MPPayment from "./MPPayment";
 // CREAR ORDENES
-import { createOrder, getAllUsers,deleteStockBack, createSales } from "../../redux/actions/index";
+import { createOrder, getAllUsers,deleteStockBack, createSales, getAllAirlines } from "../../redux/actions/index";
 
 function Payment() {
   const user = useSelector((state) => state.currentUser);
+  const airlines = useSelector((state) => state.airlines);
 
   const { products, setProducts, setPay } = useContext(CartContext);
-  console.log(products)
 
-  const arrAirlines = useSelector(state => state.airlines) 
-
+  const { darkMode } = useContext(darkModeContext)
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -44,9 +44,11 @@ function Payment() {
   const [email, setEmail] = useState("");
 
   const [subTotal, setSubTotal] = useState();
-  // console.log("este es el user de payment", user);
+
   useEffect(() => {
     dispatch(getAllUsers());
+    dispatch(getAllAirlines())
+
     if (products.length !== 0)
       setSubTotal(
         products
@@ -54,8 +56,6 @@ function Payment() {
           .reduce((previousValue, currentValue) => previousValue + currentValue)
       );
   }, [dispatch, products]);
-
-  ///------------------------------
 
   // PAYPAL SETTING
 
@@ -83,10 +83,15 @@ function Payment() {
         stocks: products.map((e) => {
           return {
             amount: e.amount,
-            airline: e.airline,
             value: e.price,
-            link: e.id,
-          };
+            airlineId: e.airlineId,
+            moreinfo: {
+              origin: e.origin,
+              destination: e.destination,
+              departureHour: e.departureHour,
+              arrivalHour: e.arrivalHour
+            }
+          }
         }),
         userId: user.length ? user[0].id : null,
         idpurchase: details.id,
@@ -94,9 +99,8 @@ function Payment() {
       };
 
       dispatch(createOrder(sendOrderPP));
-      //   alert(`payment completado por` + details.payer.name.given_name);
+
       toast.success(`Payment Succesful ` + details.payer.name.given_name, {
-        // icon: "✈️",
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,
@@ -110,7 +114,7 @@ function Payment() {
     });
   }
 
-  async function ejecutarArray() {
+ function ejecutarArray() {
       let array = products.map((product)=>{
         return {
             id: product.id, 
@@ -120,7 +124,7 @@ function Payment() {
       dispatch(deleteStockBack(array));
   }
 
-  async function ejecutarGuardarVenta() {
+  function ejecutarGuardarVenta() {
     let arr = products.map(product => {
       return {
         id: product.id, 
@@ -135,7 +139,8 @@ function Payment() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (email) {
+
+    if(email) {
       setLoading(true);
       setProcessing(true);
 
@@ -153,15 +158,21 @@ function Payment() {
             amount: subTotal * 100, // lo tengo que mandar en centavos  //1 METODO
             receipt_email: email,
           });
+          console.log(data)
 
           const sendOrder = {
             price: subTotal,
             stocks: products.map((e) => {
               return {
                 amount: e.amount,
-                // airline: e.airline,
                 value: e.price,
-                link: e.airlineId,
+                airlineId: e.airlineId,
+                moreinfo: {
+                  origin: e.origin,
+                  destination: e.destination,
+                  departureHour: e.departureHour,
+                  arrivalHour: e.arrivalHour
+                }
               };
             }),
             userId: user.length ? user[0].id : 0,
@@ -177,10 +188,11 @@ function Payment() {
           setProcessing(false);
           elements.getElement(CardElement).clear();
           setPay(true);
+          setProducts([])             
 
           ejecutarArray();
           ejecutarGuardarVenta();
-          setProducts([])          
+       
           toast.success("Payment Succesful!", {
             // icon: "✈️",
             position: "bottom-left",
@@ -209,38 +221,6 @@ function Payment() {
     }
   }
 
-  // function deleteStockFirebase() {
-  //   let dbs = firebase.firestore();
-  //   products.map((flight) => {
-  //     if (flight.amount < flight.stock) {
-  //       dbs
-  //         .collection("db")
-  //         .doc(flight.id)
-  //         .update({
-  //           stock: flight.stock - flight.amount,
-  //         })
-  //         .then(() => {
-  //           setProducts({
-  //             ...flight,
-  //             stock: flight.stock - flight.amount,
-  //           });
-  //           console.log("stock modificado", products.stock);
-  //         })
-  //         .catch((error) => {
-  //           console.log(error);
-  //         });
-  //     } else {
-  //       dbs
-  //         .collection("db")
-  //         .doc(flight.id)
-  //         .delete()
-  //         .then(() => {
-  //           console.log("flight completed");
-  //         });
-  //     }
-  //   });
-  // }
-
   function handleChange(e) {
     setLoading(false);
     setDisabled(e.empty);
@@ -259,47 +239,48 @@ function Payment() {
   }
 
   return (
-    <div className={css.payment_container}>
-        <h1>Checkout (
+    <div className={ darkMode ? css.payment_container_dark : css.payment_container}>
+        <h1 className={ darkMode ? css.main_title_dark : css.main_title}>Checkout (
             <Link to='/cart'>{products.length} tickets</Link>    
         ) </h1>
 
         {/* PAYMENT DETAIL */}
-        <h1>Your purchase:</h1>
-        {products?.map(e => {
-            return (<div key={e.id} className={style.cards}>
-                <li className={style.cards_item}> 
-                <div className={css.card}>
-                    <div className={style.card_image}><img src={e.logo} alt='#'/></div>
-                    <div className={style.card_content}>
-                    <h2 className={style.card_title}>{e.airline}</h2>
-                    <h5>Origin: {e.origin} | Destination: {e.destination} </h5>
-                    </div>
-                    <div>
-                    <p className={style.card_text}>${e.price}</p>
-                    </div>
-                    <h5>Amount:{e.amount}</h5>
-                </div>
+        <h1 className={ darkMode ? css.main_title_dark : css.main_title} >Your purchase:</h1>
+      { products.length ? 
+          products.map(c => {
+            return (<div className={darkMode ? style.cards_dark : style.cards} key={c.id}>
+              <li className={ darkMode ? style.cards_item_dark : style.cards_item}>
+              <div className={ darkMode ? style.card_dark : style.card}>
+
+              <div className={style.card_image}>
+                <img src={c.logo} alt='#'/>
+              </div>
                 <div className={style.card_content}>
-                  <h2 className={style.card_title}>{e.airline}</h2>
-                  <h5>Origin: {e.origin} | Destination: {e.destination}</h5>
+                {airlines.map((airline) => {
+                  if(c.airlineId === airline.id){
+                    return <h2 key={c.airlineId} className={darkMode ? style.card_title_dark : style.card_title}>{airline.name}</h2>
+                  }
+                })}
+                <h5 className={darkMode ? style.card_desinfo_dark : style.card_desinfo}>Origin: {c.origin} | Destination: {c.destination} </h5>
+                <p className={darkMode ? style.card_text_dark : style.card_text} >{c.departureHour} / {c.arrivalHour}</p>
                 </div>
                 <div>
-                  <p className={style.card_text}>${e.price}</p>
+                <p className={darkMode ? style.card_text_dark : style.card_text}>${c.price}</p>
                 </div>
-                <h5>Amount:{e.amount}</h5>
-                </li>
-              </div>
-        );
-      })}
+                <h5 className={darkMode ? style.card_text_dark : style.card_text}>Amount: {c.amount}</h5>
+            </div>
+            </li>
+            </div>
+          );
+        }) : <></>
+      }
 
       <div className={css.methods}>
         {/* PAYMENT METHOD */}
-        <h1>Payment Method</h1>
+        <h1 className={ darkMode ? css.main_title_dark : css.main_title}>Payment Method</h1>
         <br />
-
             <div>
-                <h5>Order Total:</h5>{ subTotal && <span>${subTotal}</span>}
+                <h5 className={ darkMode ? css.main_title_dark : css.main_title}>Order Total:</h5>{ subTotal && <span className={ darkMode ? css.main_title_dark : css.main_title}>${subTotal}</span>}
             </div>
             <br />
 
@@ -325,20 +306,26 @@ function Payment() {
             {/* STRIPE */}
             <form className={css.form_container}>
                 <br />
+                <div className={darkMode ? css.card_form : undefined}>
+                  <br />
+                  <div>
+                    <TextField 
+                    id="outlined-size-small"
+                    color="primary"
+                    focused 
+                    label='Email'
+                    type="email" 
+                    value={email} 
+                    name='email'
+                    onChange={e => setEmail(e.target.value)}
+                    required
+                    />
+                    <br />                  
+                  </div>
 
-                <TextField 
-                id="outlined-size-small"
-                label='Email'
-                type="text" 
-                value={email} 
-                name='email'
-                onChange={e => setEmail(e.target.value)}
-                required
-                />
-                <br />
-                <br />
-                 <CardElement onChange={handleChange}/> 
-                <br />
+                  <CardElement onChange={handleChange}/> 
+                  <br />
+                </div>
 
                 <br />
                 <LoadingButton
@@ -347,11 +334,13 @@ function Payment() {
                     loading={loading}
                     loadingPosition="end"
                     variant="contained"
+                    color='primary'
+                    className={darkMode ? css.btnLoading : undefined}
                     disabled={processing || disabled || succeeded || errorMsg.value}
                     ><span>{loading ? <p>Processing</p> : 'Buy now'}</span></LoadingButton>
 
                 <br />
-                {errorMsg.string && <span>{errorMsg.string}</span>}
+                {errorMsg.string && <span className={darkMode ? css.msg_error_dark : css.msg_error} >{errorMsg.string}</span>}
             </form>            
         </div>
         <br />

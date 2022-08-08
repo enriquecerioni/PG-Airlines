@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getFlightByID, cleanDetails, getAllAirlines, getAllUsers } from "../redux/actions/index.js";
@@ -23,19 +23,6 @@ function Details() {
   // console.log(details)
   // console.log(airlines)
 
-  // const item = details.map(e => {
-  //       let obj = {
-  //         id: e.flight,
-  //         origin: e.origin,
-  //         price: e.price,
-  //         logo: e.logo,
-  //         airline: e.airline,
-  //         arrivalHour: e.arrivalHour,
-  //         departureHour: e.departureHour,
-  //   }
-  //   return obj
-  // })
-  // console.log(item)
   const { addProductToCart } = useContext(CartContext);
 
   const handleAddToCart = ({
@@ -73,7 +60,7 @@ function Details() {
 
   useEffect(() => {
     dispatch(getAllUsers())
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(getFlightByID(id));
