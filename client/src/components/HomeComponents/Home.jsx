@@ -57,7 +57,7 @@ export default function Home() {
             </div>
             <div className={s.divImg}>
               <img className={s.img} src={test} alt="#" />
-            </div>
+            </div> 
           </div>
 
           <div id="sec-2" className={darkMode ? s.sec2_dark : s.sec2}>

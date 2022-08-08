@@ -31,7 +31,7 @@
 }
 
 .logoImg {
-  height: 55px;
+  height: 52px;
   padding: 0;
 }
 
@@ -220,7 +220,7 @@ NAV BUTTON CSS
     height: 92vh;
     top: 8vh;
     background-color: #002660d6;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
     width: 80%;
@@ -249,7 +249,7 @@ NAV BUTTON CSS
 
 @media (max-width: 450px){
   .nav_container{
-    width: 78%;
+    width: 100%;
   }
 
 
