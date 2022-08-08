@@ -38,7 +38,7 @@
   transition: background-color 1.25s;
   cursor: pointer;
   color: crimson;
-  margin-left: 20rem;
+  margin-left: 40rem;
 }
 
 .button:hover {
@@ -52,4 +52,27 @@
   align-items: center;
   width: 100%;
   row-gap: 10px;
+}
+
+.img {
+  width: 30px;
+  height: 20px;
+}
+
+.container {
+  display: grid;
+  align-items: center;
+  margin: 5rem auto;
+  justify-items: center;
+}
+
+.inputCont {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+}
+
+.inputF {
+  margin: 20px;
 }

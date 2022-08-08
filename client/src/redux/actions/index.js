@@ -341,15 +341,13 @@ export function deleteStockBack(payload) {
 }
 
 export function createFlights(payload) {
-  // debugger;
-  //     const flight = {
-  //        flight:payload
-  //     };
+      const flight = {
+         flight:payload
+      };
   //console.log(payload);
-  // debugger;
   return function (dispatch) {
     axios
-      .post("http://localhost:3001/flights/create", payload)
+      .post("http://localhost:3001/flights/create", flight)
       .then((response) => {
         dispatch({
           type: CREATER_FLIGHTS,
