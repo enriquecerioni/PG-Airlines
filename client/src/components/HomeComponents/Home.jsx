@@ -16,6 +16,9 @@ import Button from "@mui/material/Button";
 import Administration from "./Administration";
 import Footer from "./Footer";
 import { darkModeContext } from "../DarkModeContext";
+import plane from "../styles/assets/plane.svg";
+import planeDark from "../styles/assets/plane_dark.svg";
+import dealInput from "../styles/assets/deal-input.svg";
 
 export default function Home() {
   const { darkMode } = useContext(darkModeContext);
@@ -68,7 +71,7 @@ export default function Home() {
             </div>
             <div className={s.divImg}>
               <img className={s.img} src={test} alt="#" />
-            </div>
+            </div> 
           </div>
 
           <div id="sec-2" className={darkMode ? s.sec2_dark : s.sec2}>
@@ -77,14 +80,16 @@ export default function Home() {
             <Display />
             <div className={s.contactContainer}>
               <div className={s.contact}>
-                <p className={s.text}>
-                  If you're interested in working with us...
+                <img src={darkMode ? planeDark : plane} alt="airplane" className={s.planeInput} />
+                <p className={darkMode ? s.text_dark : s.text}>
+                  If you're interested in working with us
                 </p>
-                <div id="btnHomeGuest">
-                  <Link to="/register/airline">
-                    <button className={s.btn}>Contact Us!</button>
-                  </Link>
-                </div>
+                <img src={dealInput} alt="deal" className={s.dealInput} />
+              </div>
+              <div id="btnHomeGuest">
+                <Link to="/register/airline">
+                  <button className={s.btn}>Contact Us!</button>
+                </Link>
               </div>
             </div>
             <Footer />
