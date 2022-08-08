@@ -19,6 +19,8 @@ export default function ProfileNav() {
 
   const users = useSelector((state) => state.allUsers);
   const currentUser = useSelector((state) => state.currentUser)[0];
+  const profilePic = `"${currentUser.image}"`;
+  console.log(profilePic);
 
   var currentlyUsingPic = defaultProfilePic;
   // currentUser.image === null ? defaultProfilePic : isImage(currentUser.image) ? currentUser.image : defaultProfilePic
@@ -90,6 +92,7 @@ export default function ProfileNav() {
   return (
     <>
       {currentUser !== undefined ? (
+        // console.log(currentUser.image)
         <aside className={darkMode ? s.sidebar_dark : s.sidebar}>
           <header>
             <div className={s.imageText}>
@@ -104,7 +107,7 @@ export default function ProfileNav() {
                   <img
                     className={s.imgProfile}
                     // "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
-                    src={currentlyUsingPic}
+                    src={currentUser.image ? currentUser.image : defaultProfilePic}
                     alt="profile"
                   />
                 </figure>
