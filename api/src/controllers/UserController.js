@@ -118,13 +118,13 @@ async function resetPassword(req, res) {
   const email = req.params.email 
   try {
     if (email) {
-      console.log(email)
+      // console.log(email)
       //res.status(200).send(resetPasswordFirebase(email))
       await resetPasswordFirebase(email)
-      res.status(200).send("Salio todo bien")
+      return res.status(200).send({ msg: "Salio todo bien"})
     }
   } catch (error) {
-    console.log(error)
+    return res.status(400).send({ error: "Salio mal"})
   }
 }
 

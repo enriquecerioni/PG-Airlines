@@ -14,8 +14,8 @@ export default function UserPurchases() {
   }, [dispatch]);
   const users = useSelector((state) => state.allUsers);
   const currentUser = useSelector((state) => state.currentUser)[0];
-  console.log(users);
-  console.log(currentUser);
+  // console.log(users);
+  // console.log(currentUser);
   return (
     <>
       {currentUser !== undefined ? (

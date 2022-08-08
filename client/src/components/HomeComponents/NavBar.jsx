@@ -75,12 +75,9 @@ export default function NavBar({ toogleTheme }) {
 
   return (
     <nav className={darkMode ? s.nav_container_dark : s.nav_container}>
-      {/* <Link className={s.navLink} to="/catalog">
-                Catalog
-              </Link> */}
+
       <Link className={s.navImg} to="/">
         {darkMode ? <img className={s.logoImg} src={logo2} alt="logo" /> : <img className={s.logoImg} src={logo} alt="logo" />}
-        {/* <img className={s.logoImg} src={logo} alt="logo" /> */}
       </Link>
 
       <ul id="navUl" className={s.navUl}>

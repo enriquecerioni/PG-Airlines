@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import { createComment, getAllComments, getAllUsers } from "../redux/actions/index.js";
+import css from './styles/Comments.module.css'
 
 function Comments({airline, details, allAirlines, detailsID}) {
   // console.log(detailsID)
@@ -123,9 +124,7 @@ function Comments({airline, details, allAirlines, detailsID}) {
   }, [comments])
 
   return (
-    <div>
-        <div style={{ "margin": 10 + 'rem'}}>
-
+    <div className={css.comments_container}>
         <h3>COMENTARIOS PREVIOS</h3>
           {airlineComments.length ? airlineComments.map(e => {
                  return (<div key={e.id}>
@@ -191,8 +190,7 @@ function Comments({airline, details, allAirlines, detailsID}) {
             <br />
             <br />
 
-        </div>   
-    </div>
+    </div>   
   )
 }
 

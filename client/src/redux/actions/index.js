@@ -447,9 +447,18 @@ export function createSales(payload) {
 }
 
 export function resetPassword(email) {
-    axios.post(`http://localhost:3001/user/resetPassword/${email}`)
-    .then(() => {console.log( "se reseteo la password" )}
-    ).catch((error) =>  {
-      console.log(error)        
-    })
+  return function(dispatch) {
+      axios.post(`http://localhost:3001/user/resetPassword/${email}`)
+      .then((res) => {
+        console.log( "se reseteo la password")
+        dispatch({
+          type: 'RESET',
+          payload: res
+        })
+      }
+      ).catch((error) =>  {
+        console.log(error)        
+      })    
+  }
+
 }
