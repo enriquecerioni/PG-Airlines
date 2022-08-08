@@ -112,6 +112,7 @@ async function createFlights(req, res) {
       if(airline){
         await Flight.create({
           airlineId:airline.id,
+          airlineName:flight.airline,
           arrivalDate:flight.arrivalDate,
           arrivalHour:flight.arrivalHour,
           departureDate:flight.departureDate,

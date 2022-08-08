@@ -1,15 +1,16 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
+import React, { useState, useEffect } from "react";
+import ProfileNav from "./ProfileNav";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllUsers,
   getAllUsersFirebase,
   crearAerolinea,
-  deleteAirline,
-} from "../../redux/actions";
+  deleteAirline, } from "../../redux/actions";
+import Loader from "../HomeComponents/Loader";
+import s from "../styles/UserProfile.module.css";
 
-import { Delete, makeAdmin } from "../scripts/auth";
+import { Delete } from "../scripts/auth";
 
-export default function Administration() {
+export default function AirlineManagement() {
   const dispatch = useDispatch();
 
   const allUser = useSelector((state) => state.allUsersFirebase);
@@ -19,24 +20,14 @@ export default function Administration() {
   const business = allUser.filter(
     (user) => user.hasOwnProperty("empresa") && user.empresa
   );
-  const toBeBusiness = allUser.filter(
-    (user) => user.hasOwnProperty("empresa") && !user.empresa
-  );
 
   const [refreshAccounts, setRefreshAccounts] = useState(0);
 
-  // business.map((u)=>console.log("empresas" ,u
-  //     ))
-  // console.log(user);
-  // console.log(business);
-  // console.log(toBeBusiness);
-  async function acceptRequest(email) {
-    //console.log(e.target.email.value);
-    await makeAdmin(email);
-    dispatch(crearAerolinea({ email }));
-    // window.location.reload()
-    setRefreshAccounts(refreshAccounts + 1);
-  }
+  // getAllUsers()
+  const users = useSelector((state) => state.allUsers);
+  const currentUser = useSelector((state) => state.currentUser)[0];
+  console.log(users);
+  console.log(currentUser);
 
   async function deleteUser(UID, email) {
     await Delete(email, UID);
@@ -48,43 +39,43 @@ export default function Administration() {
   }
 
   useEffect(() => {
+    dispatch(getAllUsers());
     dispatch(getAllUsersFirebase());
+    setInterval(() => {}, 1000);
     return () => {
       console.log("Will Unmount");
     };
   }, [dispatch, refreshAccounts]);
-  return (
-    <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <h2>USERS</h2>
 
-      {user.length ? (
-        user.map((u) => {
+  return (
+    <>
+      {currentUser !== undefined ? (
+        <div className={s.container}>
+          <ProfileNav />
+          <div className={s.infoContainer}>
+            <h1 className={s.title}>Airline Management</h1>
+            {business.length ? (
+        business.map((u) => {
           return (
-            <div key={u.uid}>
+            <div>
               <br />
               <br />
               <div key={u.uid}>
                 email: {u.email},Name: {u.name ? u.name : null}, uid: {u.uid}
               </div>
-              <button
-                onClick={() => {
-                  deleteUser(u.uid, u.email);
-                }}
-              >
-                Delete User
-              </button>
             </div>
           );
         })
       ) : (
-        <h1>No users?</h1>
+        <h1>No airlines?</h1>
       )}
-    </div>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <h1>{<Loader />}</h1>
+        </div>
+      )}
+    </>
   );
 }
