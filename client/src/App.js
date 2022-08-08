@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import Orders from "./components/CartComponents/Orders";
+import Sales from "./components/CartComponents/Sales";
 import Success from "./components/CartComponents/Success";
 import UserProfile from "./components/Profile/UserProfile";
 import UserPurchases from "./components/Profile/UserPurchases";
@@ -99,6 +100,9 @@ function App() {
               </Route>
               <Route path="/catalog">
                   <Catalog />
+              </Route>
+              <Route path="/sales">
+                  <Sales />
               </Route>
               <Route component={ErrorPage} /> 
             </Switch>
