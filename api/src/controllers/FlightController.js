@@ -22,7 +22,7 @@ const getAllFlight = async (req, res,next) => {
         }
       }
     });
-    console.log(allFligths)
+    // console.log(allFligths)
     
     if (allFligths.length) {
       res.status(200).json(allFligths);

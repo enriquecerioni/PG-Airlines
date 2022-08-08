@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import style from './styles/Display.module.css'
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -11,6 +11,8 @@ import Button from '@mui/material/Button';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+
+import { darkModeContext } from './DarkModeContext';
 
 const marks = [
     { value: 10, label: '< $20.000' },

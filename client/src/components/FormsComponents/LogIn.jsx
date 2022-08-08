@@ -125,12 +125,12 @@ function LogIn() {
         </Link>
       </p>
 
-      <p>
+      <div>
         <p className={style.sing}>
           Forgot your password? Write your email down here
         </p>
         <input></input>
-      </p>
+      </div>
       <button></button>
       
 

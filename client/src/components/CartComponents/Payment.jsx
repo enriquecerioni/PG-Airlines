@@ -172,7 +172,8 @@ function Payment() {
                   destination: e.destination,
                   departureHour: e.departureHour,
                   arrivalHour: e.arrivalHour
-                }
+                },
+                review: false
               };
             }),
             userId: user.length ? user[0].id : 0,

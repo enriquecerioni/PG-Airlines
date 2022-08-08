@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllAirlines, getAllUsers, getOrders } from '../../redux/actions/index'
 import { Card, TableRow, TableHead, TableContainer, TableCell, TableBody, Table, Button, IconButton, Collapse } from '@mui/material';
@@ -27,7 +27,7 @@ function Orders() {
       dispatch(getAllAirlines())
       setProducts([])
       localStorage.setItem("cartProducts", JSON.stringify(products))
-    }, [dispatch, ordersArr])
+    }, [dispatch])
 
     function handleClick(e){
       e.preventDefault();
@@ -35,7 +35,7 @@ function Orders() {
       window.location.reload()
     }
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
   return (
     <div className={ darkMode ? style.main_container_dark : style.main_container}>
@@ -67,6 +67,7 @@ function Orders() {
                         <TableCell key='airline' className={darkMode ? style.cell_dark : undefined}><strong>Airline</strong></TableCell>
                         <TableCell key='amount' className={darkMode ? style.cell_dark : undefined}><strong>Amount</strong></TableCell>
                         <TableCell key='value' className={darkMode ? style.cell_dark : undefined}><strong>Value</strong></TableCell>
+                        <TableCell key='review' className={darkMode ? style.cell_dark : undefined}><strong>Review</strong></TableCell>
                         <TableCell key='moreinfo' className={darkMode ? style.cell_dark : undefined}><strong>More info</strong></TableCell>                        
                       </TableRow>
                     </TableHead>
@@ -84,6 +85,9 @@ function Orders() {
 
                           <TableCell className={darkMode ? style.cell_dark : undefined} key={e.amount[p]}>{e.amount}</TableCell>   
                           <TableCell className={darkMode ? style.cell_dark : undefined} key={e.value[p]}>${e.value}</TableCell> 
+                          <TableCell className={darkMode ? style.cell_dark : undefined}>
+                            <button disabled={undefined}>Review</button>
+                          </TableCell>
 
                           <TableCell className={darkMode ? style.cell_dark : undefined}>
                               <IconButton

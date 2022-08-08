@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import style from "../styles/Payment.module.css";
 import { Link, useHistory } from "react-router-dom";
-import empty from "../styles/assets/emptyorders.jpg";
+import empty from "../styles/assets/emptyorders.png";
 import { CartContext } from "./CartContext";
 
 function Sales() {
