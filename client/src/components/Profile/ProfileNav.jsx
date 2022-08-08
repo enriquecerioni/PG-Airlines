@@ -13,15 +13,17 @@ export default function ProfileNav() {
     dispatch(getAllUsers());
   }, [dispatch]);
 
-  // function isImage(anImage) {
-  //   return /.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(anImage);
-  // }
+  function isImage(anImage) {
+    return /.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(anImage);
+  }
 
   const users = useSelector((state) => state.allUsers);
   const currentUser = useSelector((state) => state.currentUser)[0];
 
-  var currentlyUsingPic = defaultProfilePic;
-  // currentUser.image === null ? defaultProfilePic : isImage(currentUser.image) ? currentUser.image : defaultProfilePic
+  //defaultProfilePic;
+  var currentlyUsingPic = currentUser.image === null ? defaultProfilePic : isImage(currentUser.image) || null ? currentUser.image : defaultProfilePic
+
+console.log(isImage(currentUser.image))
 
   var AccInfo = (
     <li className={darkMode ? s.navLink_dark: s.navLink}>
@@ -81,7 +83,7 @@ export default function ProfileNav() {
     <li className={darkMode ? s.navLink_dark: s.navLink}>
       <Link className={darkMode ? s.links_dark : s.links} to="/airlinePendingRequests">
         {/* <i className='bx bx-pie-chart-alt icon' ></i> */}
-        <span className={s.text}>AirlinePendingRequests</span>
+        <span className={s.text}>Airline Pending Requests</span>
       </Link>
     </li>
   );
