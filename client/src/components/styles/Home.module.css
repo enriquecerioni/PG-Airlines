@@ -212,15 +212,14 @@ button + button {
   /* animation: scroll-down 1s ease-in-out infinite; */
 }
 
-.whatsapp{
+/* .whatsapp{
   width: 100%;
   top: 80vh;
   position: fixed;
   display: flex;
   justify-content: flex-end;
-  /* align-items: center; */
   font-family: "Raleway", sans-serif;
-}
+} */
 .planeInput {
   height: 5rem;
 }
@@ -279,7 +278,7 @@ button + button {
     margin-left: 0;
   }
   .img{
-    width: 10rem;
+    width: 8rem;
     margin-right: 3rem;
 
   }
@@ -291,8 +290,8 @@ button + button {
   }
 
   .title{
-    width: 12rem;
-    height: 4rem;
+    width: 10rem;
+    height: 6rem;
     font-size: 18px;
     margin-top: 20px;
   }
@@ -324,4 +323,8 @@ button + button {
   }
 
   /* ------------------- */
+
+  /* .whatsapp{
+    width: 78%;
+  } */
 }

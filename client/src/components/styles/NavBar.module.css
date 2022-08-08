@@ -195,7 +195,7 @@ NAV BUTTON CSS
 */
 @media screen and (max-width: 900px) {
   .navUl {
-    display: flex;
+    display: none;
     justify-content: space-around;
     list-style: none;
     width: 40%;
@@ -204,7 +204,7 @@ NAV BUTTON CSS
 
 @media screen and (max-width: 768px) {
   .navUl {
-    display: flex;
+    display: none;
     justify-content: space-around;
     list-style: none;
     width: 55%;
@@ -234,6 +234,7 @@ NAV BUTTON CSS
 }
 .navActive {
   transform: translateX(0%);
+  display: flex;
 }
 @keyframes navLinksFade {
     from {
@@ -244,4 +245,12 @@ NAV BUTTON CSS
         opacity: 1;
         transform: translateX(0px);
     }
+}
+
+@media (max-width: 450px){
+  .nav_container{
+    width: 78%;
+  }
+
+
 }
