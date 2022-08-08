@@ -4,7 +4,6 @@ import Ticket from './Ticket'
 import style from '../styles/Display.module.css'
 import Paginate from './Paginate';
 import Filter from '../Filter'
-// import Filter from './Filter'
 import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines, getAllUsers, currentUser, getAllAirlines} from '../../redux/actions/index'
 import { darkModeContext } from "../DarkModeContext";
 
@@ -92,27 +91,13 @@ export default function Display() {
         }
     }
 
-    function handleClick(e) {
-        e.preventDefault();
-         dispatch(filterByAirlines(e.target.value));
-        document.getElementById('search').value = e.target.value;
-        setAirlines([]);
-    }
-
-    function handleSearchAirlines(e) {
-        e.preventDefault();      
-        const allAirlines = airlinesState.map(f => f.name);
-        
-        let airlines = allAirlines.filter((v, i) => {
-            return allAirlines.indexOf(v) === i;
-        })
-        if (e.target.value !== '') {
-            airlines = airlines.filter(f => f.toLowerCase().includes(e.target.value.toLowerCase()));
-            setAirlines(airlines);
-        } else {
-               dispatch(filterByAirlines('all'));
-               setAirlines([]);
-        }
+    function handleClick(value){
+       if(value == undefined){
+        dispatch(filterByAirlines("all"));
+        return
+       }
+        const data = airlinesState.find(f=> f.name == value);
+        dispatch(filterByAirlines(data.id));
     }
 
   return (
@@ -138,7 +123,7 @@ export default function Display() {
                     />) 
                            
                 }) :
-                <p>Vuelos no encontrados, te invitamos a volver a buscar!</p>
+                <p>Flights not found, search again please!</p>
                 // paginateCards
                 // .map(e => {
                 //     return (<Ticket 
@@ -165,8 +150,8 @@ export default function Display() {
                 orderAlpSelect={orderAlpSelect}
                 handleFilterPrice={handleFilterPrice}
                 handleClick={handleClick}
-                handleSearchAirlines={handleSearchAirlines}
-                airlinesData={airlinesData}
+                //handleSearchAirlines={handleSearchAirlines}
+                airlinesData={airlinesState}
                 />
 
             </div>

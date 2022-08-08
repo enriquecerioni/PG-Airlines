@@ -37,6 +37,7 @@ export const CREATE_ORDER = "CREATE_ORDER";
 export const GET_ORDERS = "GET_ORDERS";
 export const CREATE_COMMENT = "CREATE_COMMENT";
 export const GET_COMMENTS = "GET_COMMENTS";
+export const RESET_PASSWORD = "RESET_PASSWORD"
 
 export const GET_ALL_USER_FIREBASE = "GET_ALL_USER_FIREBASE";
 
@@ -362,15 +363,13 @@ export function deleteStockBack(payload) {
 }
 
 export function createFlights(payload) {
-  // debugger;
-  //     const flight = {
-  //        flight:payload
-  //     };
+      const flight = {
+         flight:payload
+      };
   //console.log(payload);
-  // debugger;
   return function (dispatch) {
     axios
-      .post("http://localhost:3001/flights/create", payload)
+      .post("http://localhost:3001/flights/create", flight)
       .then((response) => {
         dispatch({
           type: CREATER_FLIGHTS,
@@ -413,8 +412,8 @@ export function getAllComments() {
 }
 
 export function createComment(payload) {
-  return async function (dispatch) {
-    await axios
+  return function (dispatch) {
+    axios
       .post("http://localhost:3001/comments", payload)
       .then((res) => {
         dispatch({
@@ -439,4 +438,12 @@ export function createSales(payload) {
     .catch((error) => {
       console.log(error.message);
     });
+}
+
+export function resetPassword(email) {
+        axios.post(`http://localhost:3001/user/resetPassword/${email}`)
+      .then(() => {console.log( "se reseteo la password" )}
+      ).catch((error) =>  {
+        console.log(error)        
+      })
 }

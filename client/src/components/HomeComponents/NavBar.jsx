@@ -88,12 +88,25 @@ export default function NavBar({ toogleTheme }) {
         <DarkModeSwitch className={s.darkModeBtn} toogleTheme={toogleTheme} />
         {user.length && user[0].superAdmin ? (
           <>
+          <li>
+            <Link
+              className={darkMode ? s.navLink_dark : s.navLink}
+              to='/business'
+            >
+              Business
+            </Link>
+          </li>
             <li id="catalog">
               <Link
                 className={darkMode ? s.navLink_dark : s.navLink}
                 to="/catalog"
               >
                 Catalog
+              </Link>
+            </li>
+            <li>
+            <Link to="/profile">
+                <ImageAvatars></ImageAvatars>
               </Link>
             </li>
             <li id="logOut">
