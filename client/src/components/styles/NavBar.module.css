@@ -219,15 +219,29 @@ NAV BUTTON CSS
     right: 0px;
     height: 92vh;
     top: 8vh;
-    background-color: #002660d6;
+    background-color: #002660f5;
     /* display: flex; */
     flex-direction: column;
     align-items: center;
-    width: 80%;
+    width: 100%;
     transform: translateX(100%);
     transition: 0.5s ease-in;
   }
-
+  .navLink {
+    margin: 0px;
+  }
+  .navLink_dark {
+    margin: 0px;
+  }
+  .cart {
+    height: 80%;
+  }
+  .numCart_dark {
+    margin-left: 30px;
+  }
+  .numCart {
+    margin-left: 30px;
+  }
   .toggle {
     display: flex;
   }
@@ -237,20 +251,68 @@ NAV BUTTON CSS
   display: flex;
 }
 @keyframes navLinksFade {
-    from {
-        opacity: 0;
-        transform: translateX(200px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0px);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
 }
 
-@media (max-width: 450px){
-  .nav_container{
+@media (max-width: 450px) {
+  .nav_container {
     width: 100%;
   }
+  .nav_container_dark {
+    width: 100%;
+  }
+  .toggle_dark {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    background: #ffffff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.58);
+    border-radius: 8px;
+    display: flex;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .toggle_dark span {
+    position: absolute;
+    width: 30px;
+    height: 4px;
+    background: #3985cb;
+    border-radius: 8px;
+    transition: 0.5s;
+  }
+  .toggle_dark span:nth-child(1) {
+    transform: translateY(-12px);
+    width: 20px;
+    left: 8px;
+  }
 
+  .toggle_dark span:nth-child(2) {
+    transform: translateY(12px);
+    width: 20px;
+    left: 8px;
+  }
+  .toggle_dark.active span:nth-child(1) {
+    width: 28px;
+    transform: translateY(0px) rotate(45deg);
+    transition-delay: 0.125s;
+  }
+  .toggle_dark.active span:nth-child(2) {
+    transform: translateY(0px) rotate(315deg);
+    width: 28px;
+    transition-delay: 0.25s;
+  }
 
+  .toggle_dark.active span:nth-child(3) {
+    transform: translateX(100px);
+  }
 }

@@ -262,7 +262,7 @@ export default function NavBar({ toogleTheme }) {
           </>
         )}
       </ul>
-      <div id="toggle" className={s.toggle} onClick={navSlide}>
+      <div id="toggle" className={darkMode ? s.toggle_dark : s.toggle} onClick={navSlide}>
         <span></span>
         <span></span>
         <span></span>
