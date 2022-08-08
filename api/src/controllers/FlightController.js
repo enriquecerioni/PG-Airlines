@@ -13,7 +13,17 @@ const getAllFlight = async (req, res,next) => {
     // });
     // res.json(obj);
     // console.log("Llego la info");
-    let allFligths = await Flight.findAll();
+    let allFligths = await Flight.findAll({
+      includes: {
+        model: Airline,
+        attributes: ['name'],
+        through: {
+          attributes: []
+        }
+      }
+    });
+    console.log(allFligths)
+    
     if (allFligths.length) {
       res.status(200).json(allFligths);
     } else {
@@ -165,40 +175,34 @@ async function updateStock(req,res){
   try {
 
     const{flightIdAmount}=req.body;
-    console.log(flightIdAmount);
+    // console.log(flightIdAmount);
 
     if(flightIdAmount.length){
+      await Promise.all( flightIdAmount.map(async (flight)=>{
 
-      flightIdAmount.map((flight)=>{
-        Flight.findByPk(flight.id).then((res)=>{
-          //console.log(res);
-          let flightDB=res
+        let flightToUpdate=await Flight.findByPk(flight.id)
 
-          Flight.update(
-            {
-               tickets:flightDB.tickets-flight.amount,
-            },
-            {
-             where:{id:flight.id}
-            }
-          ).then(()=>{
-                Flight.findByPk(flight.id).then((res)=>{
-                let f=res
-                //console.log(f);
-                
-                if(!f.tickets){
-                   Flight.destroy({
-                    where:{id:flight.id},
-                    force:true
-                  })
-                  
-                }
-                })
+        if(flightToUpdate.tickets===flight.amount){
 
+          await Flight.destroy({
+            where:{id:flight.id},
+            force:true
           })
-       
-      })
-      })
+
+        }
+        else{
+
+          await Flight.update(
+          {
+            tickets:flightToUpdate.tickets-flight.amount
+          },
+          {
+            where:{id:flightToUpdate.id}
+          }
+
+        )}
+
+    }))
   } 
     return res.status(200).json({message: "Flight updated"})
     

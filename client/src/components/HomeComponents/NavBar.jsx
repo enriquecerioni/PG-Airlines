@@ -82,10 +82,11 @@ export default function NavBar({ toogleTheme }) {
         {darkMode ? <img className={s.logoImg} src={logo2} alt="logo" /> : <img className={s.logoImg} src={logo} alt="logo" />}
         {/* <img className={s.logoImg} src={logo} alt="logo" /> */}
       </Link>
-      {/* LIGHT/NIGHT MODE SETUP */}
-      {/* LIGHT/NIGHT MODE SETUP */}
+
       <ul id="navUl" className={s.navUl}>
+
         <DarkModeSwitch className={s.darkModeBtn} toogleTheme={toogleTheme} />
+        
         {user.length && user[0].superAdmin ? (
           <>
           <li>

@@ -55,19 +55,30 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 export default function DarkModeSwitch() {
 
-  const { toggleDarkMode } = useContext(darkModeContext)
+  const { toggleDarkMode, darkMode } = useContext(darkModeContext)
 
   function handleClickToggle() {
     toggleDarkMode()
   }
 
+  let json = localStorage.getItem("site-dark-mode");
+  let currentMode = JSON.parse(json);
+
   return (
     <FormGroup>
+      { darkMode || currentMode ? 
+        <FormControlLabel
+        control={<MaterialUISwitch sx={{ m: 1 }}/>}  
+        defaultChecked={currentMode || darkMode}
+        checked={darkMode}
+        onChange={handleClickToggle} 
+        />
+     :
       <FormControlLabel
-        control={<MaterialUISwitch sx={{ m: 1 }}  
-        onChange={handleClickToggle}
-        />}
+      control={<MaterialUISwitch sx={{ m: 1 }}/>}  
+      onChange={handleClickToggle}
       />
+      } 
     </FormGroup>
   );
 }

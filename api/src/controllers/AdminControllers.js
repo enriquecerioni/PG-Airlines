@@ -105,6 +105,7 @@ async function createAdmin(
     let flight = await Flight.findOrCreate({
       where: {
         airlineId: airline[0].dataValues.id,
+        airlineName: airline[0].dataValues.name,
         origin: origin,
         destination: destination,
         durationEstimated: durationEstimated,

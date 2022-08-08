@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "../styles/Ticket.module.css";
 import { Link } from "react-router-dom";
 import { addToFavorite } from "../../redux/actions/index";
 import { CartContext } from "../CartComponents/CartContext";
-import { useContext } from "react";
 import { toast } from "react-toastify";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { IconButton } from "@mui/material";
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import { IconButton, Chip } from "@mui/material";
+import { darkModeContext } from '../DarkModeContext';
+import Swal from 'sweetalert2'
 
 function Ticket({
   id,
@@ -34,8 +37,11 @@ function Ticket({
     destination,
   };
 
+  const { darkMode } = useContext(darkModeContext)
+
   const { addProductToCart } = useContext(CartContext);
   const airlines = useSelector((state) => state.airlines);
+  
   const dispatch = useDispatch();
   const user = useSelector((state) => state.currentUser);
   //console.log(user.permissions);
@@ -65,22 +71,34 @@ function Ticket({
   let listDisabled = saved ? true : false;
 
   function addFav(e) {
-    dispatch(addToFavorite(item));
-    console.log(`agregaste ${id} `);
-    toast.info("Ticket added to favorites", {
-      icon: "✈️",
-      position: "bottom-left",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    if(user.length) {
+      dispatch(addToFavorite(item));
+      toast.info("Ticket added to favorites", {
+        icon: "✈️",
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'Log in to save your favorites!',
+        confirmButtonColor: '#10408F'
+      })
+    }
   }
 
+  useEffect(() => {
+    localStorage.setItem('fav-list', JSON.stringify(favoriteList))
+  }, [favoriteList])
+
   return (
-    <div className={style.cards}>
+    <div className={ darkMode ? style.cards_dark : style.cards}>
       <li className={style.cards_item}>
         {user.length && !user[0].permissions ? (
           <IconButton
@@ -89,7 +107,7 @@ function Ticket({
             disabled={listDisabled}
             onClick={() => addFav(item)}
           >
-            <FavoriteIcon />
+          { listDisabled ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
           </IconButton>
         ) : !user.length ? (
           <IconButton
@@ -98,9 +116,10 @@ function Ticket({
             disabled={listDisabled}
             onClick={() => addFav(item)}
           >
-            <FavoriteIcon />
+          { listDisabled ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
           </IconButton>
         ) : null}
+
         <div className={style.info}>
           <button className={style.button}>i </button>
           <div className={style.propiedades}>
@@ -110,49 +129,54 @@ function Ticket({
             <h5 className={style.a}> {origin} </h5>
           </div>
         </div>
+
         {user.length && !user[0].permissions ? (
           <IconButton
             id="addToCart"
             className={style.btnCart}
             onClick={handleAddCart}
+            color='primary'
           >
-            <AddShoppingCartIcon />
+            <AddShoppingCartIcon color='primary' />
           </IconButton>
         ) : !user.length ? (
           <IconButton
             id="addToCart"
             className={style.btnCart}
             onClick={handleAddCart}
+            color='primary'
           >
-            <AddShoppingCartIcon />
+            <AddShoppingCartIcon color="primary" />
           </IconButton>
         ) : null}
-        <div className={style.card}>
+
+          {tickets < 60 ? (
+            <Chip label={`Solo ${tickets} asientos disponibles!`} color="warning" size="small" icon={<NewReleasesIcon />} />
+          ) : (
+            <></>
+          )}
+
+        <div className={darkMode ? style.card_dark : style.card}>
           <div className={style.card_image}>
             <img className={style.logo} src={logo} alt="#" />
           </div>
           <div className={style.card_content}>
             {airlines.map((airline) => {
               if(airlineId === airline.id){
-                return <h2 className={style.card_title}>{airline.name}</h2>
+                return <h2 className={darkMode ? style.card_title_dark : style.card_title}>{airline.name}</h2>
               }
             })}
-            <h5>
+            <h5 className={darkMode ? style.card_desinfo_dark : style.card_desinfo}>
               Origin: {origin} | Destination: {destination}{" "}
             </h5>
           </div>
           <div>
-            <p className={style.card_text}>${price} | price | price</p>
+            <p className={darkMode ? style.card_text_dark : style.card_text}>${price}</p>
             <Link to={`/ticket/${id}`}>
-              <button className={style.btn}>View Deal</button>
+              <button className={darkMode ? style.btn_dark : style.btn}>View Deal</button>
             </Link>
           </div>
         </div>
-        {tickets < 40 ? (
-          <span>{`Solo ${tickets} asientos disponibles`}</span>
-        ) : (
-          <></>
-        )}
       </li>
     </div>
   );

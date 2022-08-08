@@ -4,20 +4,21 @@ async function createSale(req, res) {
   try {
     const { sales } = req.body;
     if (sales.length) {
-      sales.map((sale) => {
+      Promise.all(sales.map((sale) => {
         Sale.create({
           idFlight: sale.id,
           amount: sale.amount,
           airlineId: sale.airlineId,
           price: sale.price,
         });
-      });
+      }))
     }
     res.status(201).json({ message: "Sale created" });
   } catch (error) {
     res.status(404).json({ error: error });
   }
 }
+
 async function getAllSales(req, res, next) {
   try {
     let allSales = await Sale.findAll();

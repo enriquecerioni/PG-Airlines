@@ -2,11 +2,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
 
 .favs_containers {
-    margin-top: 5rem;
+    margin-top: 3.4rem;
+    height: 94vh;
+}
+
+.favs_container_dark {
+    margin-top: 3.4rem;
+    height: 94.2vh;
+    background-color: #121212;
+}
+
+.favs_container_dark h1 {
+    color: #FFFFFF;
+    padding-top: 3rem;
+    margin-top: 2rem;
+    font-family: 'Rubik', sans-serif; 
 }
 
 .favs_containers h1 {
-    padding-top: 2rem;
+    padding-top: 3rem;
     margin-top: 2rem;
     font-family: 'Rubik', sans-serif;    
 }
@@ -33,4 +47,11 @@
     padding-top: 2rem;
     margin-top: 2rem;
     font-family: 'Rubik', sans-serif; 
+}
+
+.img_empty {
+    width: 40rem;
+    height: 100%;
+    margin-top: 1rem;
+    padding: 1rem;
 }

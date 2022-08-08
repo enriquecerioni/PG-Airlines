@@ -1,7 +1,7 @@
-import { useSelect } from "@mui/base";
+// import { useSelect } from "@mui/base";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllAirlines, getAllFlights, getAllUsersFirebase } from "../../redux/actions";
+import { getAllAirlines, getAllFlights, /*getAllUsersFirebase*/ } from "../../redux/actions";
 
 export default function Business(){
     const dispatch=useDispatch()
@@ -11,7 +11,7 @@ export default function Business(){
    useEffect(()=>{
         dispatch(getAllAirlines())
         dispatch(getAllFlights())
-   },[])
+   },[dispatch])
                                                                 //FUNCIONA SOLO CON LOS DATOS DEL POSTGRES
     return(
         <div>

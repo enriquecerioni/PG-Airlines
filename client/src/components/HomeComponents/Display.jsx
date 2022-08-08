@@ -1,16 +1,13 @@
-import React, { useEffect, useState, useRef, useContext } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Ticket from './Ticket'
 import style from '../styles/Display.module.css'
 import Paginate from './Paginate';
 import Filter from '../Filter'
 // import Filter from './Filter'
-import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines, getAllUsers, currentUser, getAllAirlines} from '../../redux/actions/index'
-import { darkModeContext } from "../DarkModeContext";
+import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines, getAllAirlines} from '../../redux/actions/index'
 
 export default function Display() {
-
-    const { darkMode } = useContext(darkModeContext)
 
     const dispatch = useDispatch()
     const airlinesState=useSelector(state=>state.airlines)
@@ -37,7 +34,7 @@ export default function Display() {
 
         orderPriceSelect.current.value = orderState
         orderAlpSelect.current.value = orderState        
-    }, [dispatch])
+    }, [dispatch, /*orderState*/])
 
     // PAGINATE
     const [currentPage, setCurrentPage] = useState(1)
