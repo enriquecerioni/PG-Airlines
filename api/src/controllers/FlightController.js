@@ -81,47 +81,37 @@ async function updateToflights(req, res) {
 
 
 async function createFlights(req, res) {
-  const { id,
-    arrivalDate,
-    arrivalHour,
-    departureDate,
-    departureHour,
-    destination,
-    durationEstimated,
-    logo,
-    origin,
-    price,
-    stock
-  } = req.body;
-  //console.log(flight);
+  // const { id,
+  //   arrivalDate,
+  //   arrivalHour,
+  //   departureDate,
+  //   departureHour,
+  //   destination,
+  //   durationEstimated,
+  //   logo,
+  //   origin,
+  //   price,
+  //   stock
+  // } = req.body;
+  const  {flight} = req.body;
+  console.log(flight); 
   try {
-    if (id && stock && price) {
-     console.log(id,  // user id
-      arrivalDate,
-      arrivalHour,
-      departureDate,
-      departureHour,
-      destination,
-      durationEstimated,
-      logo,
-      origin,
-      price,
-      stock);
-      let airline=await Airline.findOne({where:{userId:id}})
-      console.log("airline",airline);
+    if (flight.id && flight.stock && flight.price) {
+      let airline= await Airline.findOne({where:{userId:flight.id}})
+      console.log("airline",airline.id);
       if(airline){
         await Flight.create({
           airlineId:airline.id,
-          arrivalDate:arrivalDate,
-          arrivalHour:arrivalHour,
-          departureDate:departureDate,
-          departureHour:departureHour,
-          destination:destination,
-          durationEstimated:durationEstimated,
-          logo:logo,
-          origin:origin,
-          price:price,
-          tickets:stock
+          arrivalDate:flight.arrivalDate,
+          arrivalHour:flight.arrivalHour,
+          departureDate:flight.departureDate,
+          departureHour:flight.departureHour,
+          destination:flight.destination,
+          durationEstimated:flight.durationEstimated,
+          logo:flight.logo,
+          origin:flight.origin,
+          price:flight.price,
+          tickets:flight.stock
         })
         return res.status(200).json({message: "Flight added"})
       }else{

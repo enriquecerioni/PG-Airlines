@@ -1,6 +1,8 @@
 const axios = require("axios");
 export const GET_ALL_FLIGHTS = "GET_ALL_FLIGHTS";
 export const GET_ALL_AIRLINES = "GET_ALL_AIRLINES";
+export const GET_ALL_SALES = "GET_ALL_SALES";
+export const GET_AIRLINE_ID = "GET_AIRLINE_ID";
 export const GET_FLIGHT_INFO = "GET_FLIGHT_INFO";
 export const GET_USER_INFO = "GET_USER_INFO";
 export const GET_USERS = "GET_USERS";
@@ -105,6 +107,28 @@ export function getAllUsersFirebase() {
       .catch((error) => {
         console.log("Users not found");
       });
+  };
+}
+
+export function getSales() {
+  return function (dispatch) {
+    axios(`http://localhost:3001/sales`)
+      .then((res) => {
+        dispatch({
+          type: GET_ALL_SALES,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        console.log("Sales not found.");
+      });
+  };
+}
+
+export function getAirlineId(airlineId) {
+  return {
+    type: GET_AIRLINE_ID,
+    payload: airlineId
   };
 }
 
@@ -339,15 +363,13 @@ export function deleteStockBack(payload) {
 }
 
 export function createFlights(payload) {
-  // debugger;
-  //     const flight = {
-  //        flight:payload
-  //     };
+      const flight = {
+         flight:payload
+      };
   //console.log(payload);
-  // debugger;
   return function (dispatch) {
     axios
-      .post("http://localhost:3001/flights/create", payload)
+      .post("http://localhost:3001/flights/create", flight)
       .then((response) => {
         dispatch({
           type: CREATER_FLIGHTS,

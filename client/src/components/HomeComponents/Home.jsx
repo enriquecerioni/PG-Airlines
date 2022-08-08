@@ -5,7 +5,11 @@ import Display from "./Display";
 import SearchBar from "./SearchBar";
 import test from "../styles/assets/test3.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../../redux/actions/index";
+import {
+  getAirlineId,
+  getAllAirlines,
+  getAllUsers,
+} from "../../redux/actions/index";
 import Loader from "./Loader";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Button from "@mui/material/Button";
@@ -21,13 +25,23 @@ export default function Home() {
   const [isDisplayed, setIsDisplayed] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.currentUser);
+  const airlines = useSelector((state) => state.airlines);
+  // console.log(airlines);
+  // console.log(user);
+  const currentAirlineId = airlines?.filter(
+    (air) => air.userId === user[0]?.id
+  );
+  // console.log(currentAirlineId[0]?.id);
+  // console.log(user);
 
-  console.log(user);
+  if(currentAirlineId[0]?.id) dispatch(getAirlineId(currentAirlineId[0]?.id));
   useEffect(() => {
     dispatch(getAllUsers());
+    dispatch(getAllAirlines());
     setInterval(() => {
       setIsDisplayed(true);
     }, 3000);
+    
   }, [dispatch]);
 
   return (

@@ -128,10 +128,13 @@ export default function NavBar({ toogleTheme }) {
                 Catalog
               </Link>
             </li>
-            <li>
-              <button id="addAirline">
-                <Link to="/register/airline">Add your airline</Link>
-              </button>
+            <li id="sales">
+              <Link
+                className={darkMode ? s.navLink_dark : s.navLink}
+                to="/sales"
+              >
+                Sales
+              </Link>
             </li>
             <li>
               {/* <a id="myProfile"> */}
