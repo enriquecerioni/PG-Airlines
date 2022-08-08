@@ -25,7 +25,7 @@ import UserPurchases from "./components/Profile/UserPurchases";
 import AirlineProfile from "./components/Profile/AirlineProfile";
 import FlightManagement from "./components/Profile/FlightManagement";
 import UserManagement from "./components/Profile/UserManagement";
-import SuperAdminFlightManagement from "./components/Profile/SuperAdminFlightManagement";
+import AirlineManagement from "./components/Profile/AirlineManagement";
 import AirlinePendingRequests from "./components/Profile/PendingRequests";
 import { DarkModeProvider } from "./components/DarkModeContext";
 import Business from "./components/HomeComponents/Business";
@@ -83,7 +83,7 @@ function App() {
                   <UserManagement />
                 </Route>
                 <Route path="/airlineManagement">
-                  <SuperAdminFlightManagement />
+                  <AirlineManagement />
                 </Route>
                 <Route path="/airlinePendingRequests">
                   <AirlinePendingRequests />
