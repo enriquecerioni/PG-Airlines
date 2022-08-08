@@ -13,7 +13,19 @@
   font-size: large;
   font-weight: 700;
 }
-
+.imgProfile {
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  /* margin-top: 1rem; */
+}
+.imgProfile_dark {
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid white;
+  /* margin-top: 1rem; */
+}
 .nav_container_dark {
   background-color: #121212;
   margin: 0;
@@ -36,6 +48,13 @@
 }
 
 .navUl {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  width: 68%;
+}
+.navUl_dark {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -157,6 +176,20 @@ NAV BUTTON CSS
   cursor: pointer;
   overflow: hidden;
 }
+.toggle_dark {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  background: #002660a5;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.58);
+  border-radius: 8px;
+  display: none;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+}
 .toggle span {
   position: absolute;
   width: 30px;
@@ -200,11 +233,23 @@ NAV BUTTON CSS
     list-style: none;
     width: 40%;
   }
+  .navUl_dark {
+    display: none;
+    justify-content: space-around;
+    list-style: none;
+    width: 40%;
+  }
 }
 
 @media screen and (max-width: 768px) {
   .navUl {
     display: none;
+    justify-content: space-around;
+    list-style: none;
+    width: 55%;
+  }
+  .navUl_dark {
+     display: none;
     justify-content: space-around;
     list-style: none;
     width: 55%;
@@ -220,7 +265,20 @@ NAV BUTTON CSS
     height: 92vh;
     top: 8vh;
     background-color: #002660f5;
-    /* display: flex; */
+
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transform: translateX(100%);
+    transition: 0.5s ease-in;
+  }
+  .navUl_dark {
+    position: absolute;
+    right: 0px;
+    height: 92vh;
+    top: 8vh;
+    background-color: #002660f5;
+
     flex-direction: column;
     align-items: center;
     width: 100%;
