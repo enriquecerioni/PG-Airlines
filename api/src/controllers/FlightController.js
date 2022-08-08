@@ -13,15 +13,17 @@ const getAllFlight = async (req, res,next) => {
     // });
     // res.json(obj);
     // console.log("Llego la info");
-    let allFligths = await Flight.findAll({
-      includes: {
-        model: Airline,
-        attributes: ['name'],
-        through: {
-          attributes: []
-        }
-      }
-    });
+    let allFligths = await Flight.findAll(
+    //   {
+    //   includes: {
+    //     model: Airline,
+    //     attributes: ['name'],
+    //     through: {
+    //       attributes: []
+    //     }
+    //   }
+    // }
+    );
     // console.log(allFligths)
     
     if (allFligths.length) {
