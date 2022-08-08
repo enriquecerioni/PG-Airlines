@@ -69,7 +69,6 @@ export default function AddModal({ setAirlineFlights }) {
         SetDepHour(e);
     }
     const handleAdd = (e) => {
-        debugger
         e.preventDefault();
         const dataNew = {
             id: currentUser[0]?.id,
