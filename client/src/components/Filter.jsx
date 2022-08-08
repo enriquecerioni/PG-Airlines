@@ -38,13 +38,17 @@ function Filter({ handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, han
     function valuetext(value) {
         return `${value}`;
     }
+    
+    const { darkMode } = useContext(darkModeContext)
 
-    return (
-        <div className={style.main_container}>
-            <h2>Filter by:</h2>
-            <label>Price: </label>
-            <Box sx={{ width: 300 }}>
-                <Slider
+  return (
+    <div className={ darkMode ? style.main_container_dark : style.main_container}>
+
+
+        <h2 className={darkMode ? style.textColor_dark : style.textColor}>Filter by:</h2>
+        <label className={darkMode ? style.textColor_dark : style.textColor}>Price: </label>
+        <Box sx={{ width: 300, color: '#fff' }}>
+                <Slider className={style.slider}
                     aria-label="Custom marks"
                     defaultValue={100}
                     getAriaValueText={valuetext}
