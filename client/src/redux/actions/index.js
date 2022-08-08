@@ -64,6 +64,7 @@ export const getAllAirlines = () => {
 };
 
 export function getFlightInfo(payload) {
+  console.log("este es lo que recibeeeee",payload);
   return {
     type: FILTER_BY_ORIGIN,
     payload,

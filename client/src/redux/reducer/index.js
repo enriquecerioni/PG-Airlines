@@ -175,32 +175,42 @@ const rootReducer = (state = initialState, action) => {
       }
 
     case FILTER_BY_ORIGIN: {
-      const searchFlightByOrigin = state.flights.filter((e) =>
-        e.origin.toLowerCase().includes(action.payload.origin.toLowerCase())
-      );
-      // console.log(searchFlight)
-      const originAndDest = searchFlightByOrigin.filter((e) =>
-        e.destination
-          .toLowerCase()
-          .includes(action.payload.destination.toLowerCase())
-      );
-      const searchFlightByDestination = state.flights.filter((e) =>
-        e.destination
-          .toLowerCase()
-          .includes(action.payload.destination.toLowerCase())
+      //console.log(action.payload);
+      const searchFlightByOrigin = state.flights.filter((e) =>{
+          
+     for (const f of action.payload.origin) {
+      
+        if(e.origin.toLowerCase().includes(f.toLowerCase())) return e
+        }
+      }
+     )
+
+     const searchFlightByDestination = state.flights.filter((e) =>
+      {for (const f of action.payload.destination) {
+      
+        if(e.destination.toLowerCase().includes(f.toLowerCase())) return e
+      }}
+       )
+
+      const originAndDest = searchFlightByDestination.filter((e) =>
+        
+      {for (const f of action.payload.origin) {
+      
+        if(e.origin.toLowerCase().includes(f.toLowerCase())) return e
+      }}
       );
 
-      console.log(
-        state.flights.map(
-          (e) =>
-            e.origin.toLowerCase() /**.includes(action.payload.origin.toLowerCase()) */
-        ),
-        action.payload
-      );
+      // console.log(
+      //   state.flights.map(
+      //     (e) =>
+      //       e.origin.toLowerCase() /**.includes(action.payload.origin.toLowerCase()) */
+      //   ),
+      //   action.payload
+      // );
 
-      console.log(searchFlightByOrigin);
-      console.log(originAndDest);
-      console.log(searchFlightByDestination);
+      // console.log(searchFlightByOrigin);
+      // console.log(originAndDest);
+      // console.log(searchFlightByDestination);
 
       if (originAndDest.length) {
         return {
@@ -214,8 +224,9 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           currrentFilter: [
-            ...searchFlightByOrigin,
             ...searchFlightByDestination,
+            ...searchFlightByOrigin,
+            
           ],
         };
       } else {
@@ -348,7 +359,6 @@ const rootReducer = (state = initialState, action) => {
       if (action.payload !== "all")
         copyFlights = copyFlights.filter((f) =>
           f.airlineId == action.payload);
-
       if (filterData !== "" && filterData !== "all") {
         copyFlights =
           filterData === ">20.000"
