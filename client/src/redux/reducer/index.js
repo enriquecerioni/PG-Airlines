@@ -1,6 +1,8 @@
 import {
   GET_ALL_FLIGHTS,
   GET_ALL_AIRLINES,
+  GET_ALL_SALES,
+  GET_AIRLINE_ID,
   ORDER_ALPHABETICALLY,
   GET_FLIGHT_INFO,
   ORDER_PRICE,
@@ -31,11 +33,13 @@ import {
   GET_COMMENTS,
   GET_ALL_USER_FIREBASE,
 } from "../actions";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 const initialState = {
   flights: [], // todos los vuelos
   airlines: [], // todas las aerolineas
+  sales: [],
+  currentAirlineId: [],
   cart: [],
   copy: [],
   currrentFilter: [],
@@ -51,9 +55,9 @@ const initialState = {
   favoriteList: localStorage.getItem('fav-list') ? JSON.parse(localStorage.getItem('fav-list')) : [] ,
 
   shoppingCart: [],
-  filterPrecioData: '',
-  filterAirlinesData: '',
-  error: '',
+  filterPrecioData: "",
+  filterAirlinesData: "",
+  error: "",
   comments: [],
 };
 
@@ -74,7 +78,20 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         airlines: action.payload,
+      };
+    }
 
+    case GET_ALL_SALES: {
+      return {
+        ...state,
+        sales: action.payload,
+      };
+    }
+
+    case GET_AIRLINE_ID: {
+      return {
+        ...state,
+        currentAirlineId: action.payload,
       };
     }
 
@@ -99,13 +116,13 @@ const rootReducer = (state = initialState, action) => {
     case GET_USERS:
       return {
         ...state,
-        allUsers: action.payload
-      }
+        allUsers: action.payload,
+      };
     case GET_ALL_USER_FIREBASE:
       return {
         ...state,
         allUsersFirebase: action.payload,
-      }
+      };
     case CREATE_USER:
       return {
         ...state,
@@ -203,10 +220,10 @@ const rootReducer = (state = initialState, action) => {
         };
       } else {
         Swal.fire({
-          icon: 'error',
-          title: 'opps...',
-          text: 'Origin not found'
-        })
+          icon: "error",
+          title: "opps...",
+          text: "Origin not found",
+        });
         return {
           ...state,
           currrentFilter: state.copy,
@@ -443,10 +460,9 @@ const rootReducer = (state = initialState, action) => {
     case GET_COMMENTS: {
       return {
         ...state,
-        comments: action.payload
-      }
+        comments: action.payload,
+      };
     }
-
 
     default:
       return state;
