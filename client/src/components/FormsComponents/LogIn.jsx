@@ -158,7 +158,7 @@ function LogIn() {
           {validForm === true && <span>Welcome back</span>}
         </form>
 
-        <br />
+        {/* <br />
         <hr className={style.separator} />
         <br />
 
@@ -174,7 +174,7 @@ function LogIn() {
 
 
         {validForm === true && <span>Welcome back</span>}
-      </form>
+      </form> */}
 
       <br />
       <hr className={style.separator} />
@@ -220,7 +220,7 @@ function LogIn() {
           </Box>
         </Modal>  
       </div>
-
+      </div>
 
     </div>
   );
