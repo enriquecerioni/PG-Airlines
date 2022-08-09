@@ -150,7 +150,7 @@ function Ticket({
           </IconButton>
         ) : null}
 
-          {tickets < 60 ? (
+          {tickets < 50 ? (
             <Chip label={`Solo ${tickets} asientos disponibles!`} color="warning" size="small" icon={<NewReleasesIcon />} />
           ) : (
             <></>
@@ -171,7 +171,7 @@ function Ticket({
             </h5>
           </div>
           <div>
-            <p className={darkMode ? style.card_text_dark : style.card_text}>${price}</p>
+            <strong><p className={darkMode ? style.card_text_dark : style.card_text}>${price}</p></strong>
             <Link to={`/ticket/${id}`}>
               <button className={darkMode ? style.btn_dark : style.btn}>View Deal</button>
             </Link>

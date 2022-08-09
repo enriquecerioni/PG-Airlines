@@ -25,7 +25,7 @@ export default function Footer() {
         <ul className={s.ul}>
           <li>
             <p className={s.p1}>
-              pg.airlines.ecommerce@gmail.com <i class="bx bxl-gmail"></i>
+              pg.airlines.ecommerce@gmail.com <i className="bx bxl-gmail"></i>
             </p>
           </li>
           <li>
