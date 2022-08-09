@@ -19,13 +19,12 @@ commentsRouter.get('/', async (req, res) => {
 
 commentsRouter.post('/', async (req, res) => {
     try {
-        const { airlineId, comment, rating, moreInfo, name } = req.body
-        console.log(airlineId, comment, rating, moreInfo, name);
+        const { airlineId, comment, rating, name } = req.body
+        console.log(airlineId, comment, rating, name);
         
         let newComment = await Comment.create({
             comment,
             rating,
-            moreInfo,
             name,
             airlineId
         })
@@ -47,14 +46,14 @@ commentsRouter.post('/', async (req, res) => {
 
 commentsRouter.put('/', async (req, res) => {
     try {
-        const { orderID, detail } = req.body
-        console.log(orderID, detail)
+        const { orderID, allStocks } = req.body
+        console.log(orderID, allStocks)
         
         if(orderID) {
             console.log('aca')
             let reviewID = await Order.update(
             {
-                stocks: [detail],
+                stocks: allStocks,
             }, 
             { 
                 where: { id: orderID }, 

@@ -173,7 +173,8 @@ function Payment() {
                   departureHour: e.departureHour,
                   arrivalHour: e.arrivalHour
                 },
-                review: false
+                review: false,
+                flightId:e.id
               };
             }),
             userId: user.length ? user[0].id : 0,

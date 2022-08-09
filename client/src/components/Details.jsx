@@ -170,7 +170,7 @@ function Details() {
        
             </div> 
 
-             <Comments airline={airline} detailsID={details.airlineId} allAirlines={airlines} />  
+              <Comments  />   
 
           </div>
 

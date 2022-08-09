@@ -5,10 +5,10 @@ import Rating from '@mui/material/Rating';
 import { createComment, getAllComments, getAllUsers, updateReview } from "../redux/actions/index.js";
 import css from './styles/Comments.module.css'
 
-function Comments({airline, detail, detailsID, orderID}) {
-   console.log('este es detail', detail)
-   console.log('este es orderID', orderID)
-  //  console.log('este es orderID', airline)
+function Comments({ detail, orderID,flightId, allStocks}) {
+   console.log('este es detail commets', detail)
+   console.log('este es allStocks', allStocks)
+  console.log('este es flightId', flightId)
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.currentUser)
@@ -28,7 +28,7 @@ function Comments({airline, detail, detailsID, orderID}) {
   }, []);
 
 
-  const airlineComments = comments.filter(e => detailsID === e.airlineId)
+  const airlineComments = comments.filter(e => detail.airlineId === e.airlineId)
   function validate(input) {
     let error = {}
 
@@ -65,14 +65,7 @@ function Comments({airline, detail, detailsID, orderID}) {
       rating: '',
       comment: '',
       name: user[0]?.name,
-      moreInfo: [
-        {
-        flightName: '',
-        origin: '',
-        destination: ''        
-      }
-      ],
-    airlineId: detailsID,
+    airlineId: detail.airlineId,
   })
 
   function handleInputChange(e) {
@@ -96,8 +89,13 @@ function Comments({airline, detail, detailsID, orderID}) {
       let updatedComments = [...comments, input]
       updateComments(updatedComments)
 
-      detail.review = true
-      dispatch(updateReview({orderID, detail}))
+      allStocks?.map((stock)=>{
+        if(stock.flightId===flightId) stock.review = true
+      })
+      
+
+
+      dispatch(updateReview({orderID, allStocks}))
 
       setInput({
         rating: '',
@@ -110,7 +108,7 @@ function Comments({airline, detail, detailsID, orderID}) {
             destination: ''     
           } 
         ],
-        airlineId: detailsID,    
+        airlineId: detail.airlineId,    
       })
 
     } else {
@@ -136,7 +134,7 @@ function Comments({airline, detail, detailsID, orderID}) {
             : <h5>No hay nada</h5>}
 
             <br />
-            <h3>Este vuelo fue publicado por: {airline} </h3>
+            {/* <h3>Este vuelo fue publicado por: {} </h3> */}
             <h3>RATING DE LA AEROLINEA</h3>
             <h3>Publicar comentario y rating</h3>
             <form onSubmit={handleSubmitComment}>
