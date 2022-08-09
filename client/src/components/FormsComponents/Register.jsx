@@ -59,7 +59,7 @@ function Register() {
       });
     } else {
       navigate.push("/");
-      window.location.reload();
+      //window.location.reload();
     }
     setLoading(false);
   }

@@ -90,9 +90,9 @@ function LogIn() {
   }
 
   async function handleClick(e) {
-    await ejecutar();
-    navigate.push("/");
-    window.location.reload();
+    await  ejecutar()
+   navigate.push("/")
+    window.location.reload()
   }
 
   const [ open, setOpen ] = useState(false)

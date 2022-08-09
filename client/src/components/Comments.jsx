@@ -114,10 +114,12 @@ export default function Comments({ detail, orderID,flightId, allStocks}) {
     }
   }
 
-  useEffect(() => {
-    dispatch(getAllComments())
-    dispatch(getAllUsers())
-  }, [comments])
+
+  // useEffect(() => {
+  //   dispatch(getAllComments())
+  //   dispatch(getAllUsers())
+  // }, [])
+
 
   return (
     <div className={css.comments_container}>

@@ -15,10 +15,11 @@ export default function ProfileNav() {
   const navigate = useHistory();
   const { darkMode } = useContext(darkModeContext)
   const dispatch = useDispatch();
-  
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(getAllUsers());
+  // }, []);
+
 
   async function handleLogOut(e) {
     e.preventDefault();
