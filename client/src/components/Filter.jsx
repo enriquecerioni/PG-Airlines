@@ -22,7 +22,7 @@ const marks = [
 ];
 
 // {handlePrice, handleAlph}
-function Filter({ handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, handleFilterPrice, airlinesData, handleClick, orderByPrice, orderAlphabetically }) {
+function Filter({ handleAvailability, handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, handleFilterPrice, airlinesData, handleClick, orderByPrice, orderAlphabetically, orderAvailabilitySelect, orderByAvailability }) {
 
     const allAirlines = airlinesData.map(f => {
         return({
@@ -73,6 +73,25 @@ function Filter({ handlePrice, handleAlph, orderPriceSelect, orderAlpSelect, han
             </div>
 
             <h2>Order:</h2>
+            <div>
+                <FormControl sx={{ m: 1, minWidth: 250 }}>
+                    <InputLabel id="demo-simple-select-autowidth-label">Availability</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-autowidth-label"
+                        id="demo-simple-select-autowidth"
+                        value={orderByAvailability}
+                        onChange={e => handleAvailability(e)}
+                        ref={orderAvailabilitySelect}
+                        autoWidth
+                        label="Alphabet"
+                    >
+                        <MenuItem value={'initial'}>Availability</MenuItem>
+                        <MenuItem value={"high"}>High</MenuItem>
+                        <MenuItem value={"low"}>Low</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
+
             <div>
                 <FormControl sx={{ m: 1, minWidth: 250 }}>
                     <InputLabel id="demo-simple-select-autowidth-label">Price</InputLabel>

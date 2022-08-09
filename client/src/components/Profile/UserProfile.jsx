@@ -12,8 +12,8 @@ export default function UserProfile() {
 
   useEffect(() => {
     dispatch(getAllUsers());
-    setInterval(() => {}, 1000);
-  }, [dispatch]);
+    // setInterval(() => {}, 1000);
+  }, []);
 
   // getAllUsers()
   const users = useSelector((state) => state.allUsers);
@@ -24,6 +24,7 @@ export default function UserProfile() {
   function executeButton () {
     dispatch(resetPassword(currentUser.email))
   }
+
   return (
     <>
       {currentUser !== undefined ? (

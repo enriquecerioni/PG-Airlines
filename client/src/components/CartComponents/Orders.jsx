@@ -22,7 +22,7 @@ function Orders() {
     const user = useSelector(state=>state.currentUser)
 
     let userOrders = ordersArr?.filter((data) => user.length && data.userId === user[0].id)
-    console.log(userOrders)
+    // console.log(userOrders)
 
     useEffect(() => {
       dispatch(getOrders())
@@ -41,7 +41,9 @@ function Orders() {
     function Row(props) {
       const { row, orderID,allStocks } = props
       const [open, setOpen] = useState(false);
+
       const [ openReview, setOpenReview ] = useState(false);
+      console.log(openReview)
 
       const handleOpenReview = () => {
         setOpenReview(true);
@@ -117,8 +119,6 @@ function Orders() {
         </TableRow>                        
       </>
     }
-
-    const [open, setOpen] = useState(false);
 
   return (
     <div className={ darkMode ? style.main_container_dark : style.main_container}>

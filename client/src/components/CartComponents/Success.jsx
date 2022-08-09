@@ -13,7 +13,7 @@ function Success() {
       setIsDisplayed(true)
       setInterval(() => {
         setIsDisplayed(false);
-        history.replace('/orders')
+        history.replace('/purchases')
       }, 4000);
     }, [history]) 
 

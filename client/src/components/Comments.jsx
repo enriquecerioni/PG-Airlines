@@ -12,9 +12,7 @@ function Comments({ detail, orderID,flightId, allStocks}) {
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.currentUser)
-
   const allComments = useSelector(state => state.comments)
-
   const [ comments, updateComments ] = useState([allComments])
 
   const getData = async () => {
@@ -119,22 +117,11 @@ function Comments({ detail, orderID,flightId, allStocks}) {
   useEffect(() => {
     dispatch(getAllComments())
     dispatch(getAllUsers())
-  }, [])
+  }, [comments])
 
   return (
     <div className={css.comments_container}>
-        <h3>COMENTARIOS PREVIOS</h3>
-          {airlineComments.length ? airlineComments.map(e => {
-                 return (<div key={e.id}>
-                  <p>{e.comment}</p>
-                     <p>{e.rating}</p>
-                     <p>{e.name}</p>
-                   </div>) 
-            }) 
-            : <h5>No hay nada</h5>}
-
             <br />
-            {/* <h3>Este vuelo fue publicado por: {} </h3> */}
             <h3>RATING DE LA AEROLINEA</h3>
             <h3>Publicar comentario y rating</h3>
             <form onSubmit={handleSubmitComment}>
@@ -148,6 +135,7 @@ function Comments({ detail, orderID,flightId, allStocks}) {
                     onChange={handleInputChange}
                 />
             </Box>
+
             {input.rating}
             {error.rating && <span>{error.rating}</span>}
 
@@ -186,10 +174,7 @@ function Comments({ detail, orderID,flightId, allStocks}) {
             <span>Su comentario puede ser eleminado si es conciderado inapropiado o se demuestra que no tiene relacion con la aerolinea</span>                    
             </form> 
             <br />
-            <br />
-
+            <br /> 
     </div>   
   )
 }
-
-export default Comments

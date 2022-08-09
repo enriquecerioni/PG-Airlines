@@ -15,6 +15,7 @@ export default function ProfileNav() {
   const navigate = useHistory();
   const { darkMode } = useContext(darkModeContext)
   const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch]);
@@ -44,7 +45,7 @@ export default function ProfileNav() {
   const users = useSelector((state) => state.allUsers);
   const currentUser = useSelector((state) => state.currentUser)[0];
   const profilePic = `"${currentUser.image}"`;
-  console.log(profilePic);
+  // console.log(profilePic);
 
   var currentlyUsingPic = defaultProfilePic;
   // currentUser.image === null ? defaultProfilePic : isImage(currentUser.image) ? currentUser.image : defaultProfilePic
@@ -112,7 +113,7 @@ export default function ProfileNav() {
     </li>
   );
 
-  console.log(users);
+  // console.log(users);
   return (
     <>
       {currentUser !== undefined ? (
