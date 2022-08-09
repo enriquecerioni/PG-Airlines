@@ -8,10 +8,10 @@ import Orders from "../CartComponents/Orders";
 
 export default function UserPurchases() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllUsers());
-    setInterval(() => {}, 1000);
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllUsers());
+  //   setInterval(() => {}, 1000);
+  // }, []);
   const users = useSelector((state) => state.allUsers);
   const currentUser = useSelector((state) => state.currentUser)[0];
   // console.log(users);

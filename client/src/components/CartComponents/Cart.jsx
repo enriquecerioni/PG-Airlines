@@ -14,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2'
 import firebase from 'firebase'
 import { darkModeContext } from '../DarkModeContext';
+import { logOut } from '../scripts/auth'
 
 function Cart() {
   const { darkMode } = useContext(darkModeContext)
@@ -60,20 +61,32 @@ function Cart() {
     }    
   }, [products])
 
-  function handleCheckout(){
+    function handleCheckout(){
     auth.onAuthStateChanged(user=>{
       if(user){
         if(user.emailVerified){
           history.push('/payment')
         }else{
           // alert("You need to verify you email")
+        //    Swal.fire({
+        //   icon: 'question',
+        //   title: 'Oops...',
+        //   text: 'You need to verify you email',
+        //   confirmButtonColor: '#10408F'
+        // })
+         logOut().then(()=>{
           Swal.fire({
-          icon: 'question',
-          title: 'Oops...',
-          text: 'You need to verify you email',
-          confirmButtonColor: '#10408F'
+            icon: 'question',
+            title: 'Oops...',
+            text: 'You need to verify you email',
+            confirmButtonColor: '#10408F'
+          })
+          history.push('/');
+          window.location.reload()
         })
-          history.push("/")
+       
+        
+          
         }
       }
       else {
@@ -96,6 +109,8 @@ function Cart() {
             </Link>
             { products.length ? 
             products.map(c => {
+              console.log("esto es products en cart",products);
+              console.log("esto es c de products en cart",c);
               return (<div className={darkMode ? css.card_dark : css.card} key={c.id}>
                 <li className={ darkMode ? style.cards_item_dark : style.cards_item}>
                 <div className={ darkMode ? style.card_dark : style.card}>

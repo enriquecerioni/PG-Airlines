@@ -170,7 +170,7 @@ function Details() {
        
             </div> 
 
-              <Comments  />   
+              {/* <Comments  />    */}
 
           </div>
 

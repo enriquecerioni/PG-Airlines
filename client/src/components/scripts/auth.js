@@ -30,8 +30,8 @@ auth.onAuthStateChanged(async (user) => {
 
   if (user) {
     //console.log(user.email);
-    
-      await  store.dispatch(currentUser(user.email));
+    setTimeout(()=>{store.dispatch(currentUser(user.email))},2800)
+
     
   
     
@@ -190,10 +190,12 @@ export async function ejecutar() {
   try {
     let google_provider = new firebase.auth.GoogleAuthProvider();
     let data = await firebase.auth().signInWithPopup(google_provider);
+
     let email = data.user.email;
     let name = data.user.displayName;
     let img = data.user.photoURL;
     let uid = data.user.uid;
+
     let hay = await dbFirebase.collection("users").doc(email).get();
     if (!hay.data()) {
       await store.dispatch(createUser({ email, name, uid, img }));
@@ -203,8 +205,11 @@ export async function ejecutar() {
         photo: img,
         uid: uid,
         superAdmin: false,
-      });
+      })
+    }else{
+
     }
+   
   } catch (error) {
     console.log(error);
   }

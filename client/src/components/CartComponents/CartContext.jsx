@@ -61,7 +61,7 @@ const CartProvider = ({ children }) => {
       setProducts(
         products.map((p) => {
           if (p.id === id) {
-            if (p.tickets >= p.amount) {
+            if (p.tickets > p.amount) {
               return { ...p, amount: p.amount + 1 };
             } else {
               Swal.fire({
@@ -69,8 +69,13 @@ const CartProvider = ({ children }) => {
                 title: "Oops...",
                 text: "You can't buy more tickets, there's not enough in stock " + p.amount,
               })
+              return{
+                ...p,
+              }
             }
-          } else return p;
+          } else return {
+            ...p,
+          }
         })
       );
     } else {
@@ -106,6 +111,7 @@ const CartProvider = ({ children }) => {
     }
   };
 
+
   function substractdProductFromCart(id, operacion) {
     // let inCart = products && products.filter((p) => p.id === id);
     // p.id === id
@@ -131,10 +137,14 @@ const CartProvider = ({ children }) => {
               text: "No stock available",
               confirmButtonColor: "#3085d6",
             })
-            return p;
+            return {
+              ...p,
+            }
           }
         } else {
-          return p;
+          return {
+            ...p,
+          }
         }
       })
     );
@@ -159,6 +169,5 @@ const CartProvider = ({ children }) => {
       {children}
     </CartContext.Provider>
   );
-};
-
+    }
 export default CartProvider;

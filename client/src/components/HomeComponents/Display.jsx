@@ -111,7 +111,8 @@ export default function Display() {
                 { 
                 filterArray.length !== 0 ? 
                 paginateCards.map(e => {
-                    if(e.tickets)return (<Ticket 
+                    //console.log(e);
+                    if(e.tickets){return (<Ticket 
                         key={e.id}
                         id={e.id}
                         airlineId={e.airlineId}
@@ -123,7 +124,7 @@ export default function Display() {
                         origin={e.origin}
                         destination={e.destination}
                         tickets={e.tickets}              
-                    />) 
+                    />) }
                            
                 }) :
                 <p>Flights not found, search again please!</p>
