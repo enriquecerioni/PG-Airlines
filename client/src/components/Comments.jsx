@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import { createComment, getAllComments, getAllUsers } from "../redux/actions/index.js";
+import { createComment, getAllComments, getAllUsers, updateReview } from "../redux/actions/index.js";
+import css from './styles/Comments.module.css'
 
-function Comments({airline, details, allAirlines, detailsID}) {
-  // console.log(detailsID)
+function Comments({ detail, orderID,flightId, allStocks}) {
+   console.log('este es detail commets', detail)
+   console.log('este es allStocks', allStocks)
+  console.log('este es flightId', flightId)
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.currentUser)
@@ -25,11 +28,7 @@ function Comments({airline, details, allAirlines, detailsID}) {
   }, []);
 
 
-  const airlineComments = comments.filter(e => detailsID === e.airlineId)
-
-  // console.log(allComments)
-  // console.log(airlineComments)
-
+  const airlineComments = comments.filter(e => detail.airlineId === e.airlineId)
   function validate(input) {
     let error = {}
 
@@ -66,14 +65,7 @@ function Comments({airline, details, allAirlines, detailsID}) {
       rating: '',
       comment: '',
       name: user[0]?.name,
-      moreInfo: [
-        {
-        flightName: '',
-        origin: '',
-        destination: ''        
-      }
-      ],
-    airlineId: detailsID,
+    airlineId: detail.airlineId,
   })
 
   function handleInputChange(e) {
@@ -88,16 +80,22 @@ function Comments({airline, details, allAirlines, detailsID}) {
     }))
   }
 
-  function handleSubmitComment(e) {
+ async function handleSubmitComment(e) {
     e.preventDefault()
-
-    console.log(input.rating ,input.comment ,input.name)
+    // console.log(input.rating ,input.comment ,input.name)
     if(input.rating && input.comment && input.name) {
-
-      dispatch(createComment(input))
+      console.log("este es el input de mierda",input);
+      await dispatch(createComment(input))
       let updatedComments = [...comments, input]
-
       updateComments(updatedComments)
+
+      allStocks?.map((stock)=>{
+        if(stock.flightId===flightId) stock.review = true
+      })
+      
+
+
+      dispatch(updateReview({orderID, allStocks}))
 
       setInput({
         rating: '',
@@ -110,8 +108,9 @@ function Comments({airline, details, allAirlines, detailsID}) {
             destination: ''     
           } 
         ],
-        airlineId: detailsID,    
+        airlineId: detail.airlineId,    
       })
+
     } else {
         console.log('formulario incorrecto')
     }
@@ -120,12 +119,10 @@ function Comments({airline, details, allAirlines, detailsID}) {
   useEffect(() => {
     dispatch(getAllComments())
     dispatch(getAllUsers())
-  }, [comments])
+  }, [])
 
   return (
-    <div>
-        <div style={{ "margin": 10 + 'rem'}}>
-
+    <div className={css.comments_container}>
         <h3>COMENTARIOS PREVIOS</h3>
           {airlineComments.length ? airlineComments.map(e => {
                  return (<div key={e.id}>
@@ -137,7 +134,7 @@ function Comments({airline, details, allAirlines, detailsID}) {
             : <h5>No hay nada</h5>}
 
             <br />
-            <h3>Este vuelo fue publicado por: {airline} </h3>
+            {/* <h3>Este vuelo fue publicado por: {} </h3> */}
             <h3>RATING DE LA AEROLINEA</h3>
             <h3>Publicar comentario y rating</h3>
             <form onSubmit={handleSubmitComment}>
@@ -191,8 +188,7 @@ function Comments({airline, details, allAirlines, detailsID}) {
             <br />
             <br />
 
-        </div>   
-    </div>
+    </div>   
   )
 }
 

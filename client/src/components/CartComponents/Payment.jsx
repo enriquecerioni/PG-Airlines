@@ -173,14 +173,16 @@ function Payment() {
                   departureHour: e.departureHour,
                   arrivalHour: e.arrivalHour
                 },
-                review: false
+                review: false,
+                flightId:e.id
               };
             }),
             userId: user.length ? user[0].id : 0,
             idpurchase: id,
             creationdate: new Date(),
-          };
+          }
 
+            
           dispatch(createOrder(sendOrder));
 
           setLoading(false);

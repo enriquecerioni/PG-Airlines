@@ -29,7 +29,7 @@ export default function NavBar({ toogleTheme }) {
   const navigate = useHistory();
   const currentUser = useSelector((state) => state.currentUser)[0];
   const users = useSelector((state) => state.allUsers);
-  console.log("desde el nav", currentUser);
+  // console.log("desde el nav", currentUser);
   const [stateCart, setStateCart] = useState(products.length);
   const user = useSelector((state) => state.currentUser);
   const toggle = document.querySelector("#toggle");
@@ -82,9 +82,7 @@ export default function NavBar({ toogleTheme }) {
 
   return (
     <nav className={darkMode ? s.nav_container_dark : s.nav_container}>
-      {/* <Link className={s.navLink} to="/catalog">
-                Catalog
-              </Link> */}
+
       <Link className={s.navImg} to="/">
         {darkMode ? (
           <img className={s.logoImg} src={logo2} alt="logo" />
