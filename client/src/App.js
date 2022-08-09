@@ -22,7 +22,7 @@ import Sales from "./components/CartComponents/Sales";
 import Success from "./components/CartComponents/Success";
 import UserProfile from "./components/Profile/UserProfile";
 import UserPurchases from "./components/Profile/UserPurchases";
-import AirlineProfile from "./components/Profile/AirlineProfile";
+import AirlineSales from "./components/Profile/AirlineSales";
 import FlightManagement from "./components/Profile/FlightManagement";
 import UserManagement from "./components/Profile/UserManagement";
 import AirlineManagement from "./components/Profile/AirlineManagement";
@@ -74,7 +74,7 @@ function App() {
                   <UserPurchases />
                 </Route>
                 <Route path="/airlineProfile">
-                  <AirlineProfile />
+                  <AirlineSales />
                 </Route>
                 <Route path="/catalogProfile">
                   <FlightManagement />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Input from "./Input";
 import { ejecutar, logIn } from "../scripts/auth";
 import { Link } from "react-router-dom";
@@ -10,10 +10,12 @@ import { Box, Modal, Button,TextField } from '@mui/material';
 import Swal from "sweetalert2";
 import { resetPassword } from '../../redux/actions/index'
 import { useDispatch } from "react-redux";
+import { darkModeContext } from "../DarkModeContext";
 
 function LogIn() {
   let navigate = useHistory();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const { darkMode } = useContext(darkModeContext);
   const [validForm, /*setValidForm*/] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -103,49 +105,73 @@ function LogIn() {
   };
 
   return (
-    <div className={style.container}>
-      <h1>Log In</h1>
-      <form
-        className={style.form_container}
-        onSubmit={(e) => handleSubmit(e)}
-        id="sing-up"
-      >
-        <Input
-          state={emailLogIn}
-          setState={setEmailLogIn}
-          label="Email"
-          id="singup-email"
-          name="emailLogIn"
-          type="email"
-          placeholder="Enter email"
-          // error='This email is not valid'
-          // regularExpression={expression.email}
-        />
+    <div className={darkMode ?  style.todo_dark : style.todo}>
+      <div className={darkMode ? style.container_dark : style.container}>
+        <h1 className={darkMode ? style.letra_dark : style.letra}>Log In</h1>
+        <form
+          className={darkMode ? style.form_container_dark : style.form_container}
+          onSubmit={(e) => handleSubmit(e)}
+          id="sing-up"
+        >
+          <label  className={darkMode ? style.letra1_dark : style.letra1} >
+            EMAIL
+          </label>
+          <Input
+            state={emailLogIn}
+            setState={setEmailLogIn}
+            // label="Email"
+            id="singup-email"
+            name="emailLogIn"
+            type="email"
+            placeholder="Enter email"
+            // error='This email is not valid'
+            // regularExpression={expression.email}
+          />
+          <label  className={darkMode ? style.letra1_dark : style.letra1} >
+            PASWORD
+          </label>
+          <Input
+            state={passwordLogIn}
+            setState={setPasswordLogIn}
+            // label="Pasword"
+            id="singup-password"
+            name="passwordLogIn"
+            type="password"
+            placeholder="Enter password"
+            // error='Incorrect password'
+            // regularExpression={expression.password}
+          />
 
-        <Input
-          state={passwordLogIn}
-          setState={setPasswordLogIn}
-          label="Pasword"
-          id="singup-password"
-          name="passwordLogIn"
-          type="password"
-          placeholder="Enter password"
-          // error='Incorrect password'
-          // regularExpression={expression.password}
-        />
+          {validForm === false && (
+            <span>Please complete all fields correctly</span>
+          )}
+          <LoadingButton
+            type="submit"
+            endIcon="✔"
+            loading={loading}
+            loadingPosition="end"
+            variant="contained"
+          >
+            Log In
+          </LoadingButton>
 
-        {validForm === false && (
-          <span>Please complete all fields correctly</span>
-        )}
+          {validForm === true && <span>Welcome back</span>}
+        </form>
+
+        <br />
+        <hr className={style.separator} />
+        <br />
+
         <LoadingButton
-          type="submit"
-          endIcon="✔"
+          onClick={() => handleClick()}
+          endIcon={<GoogleIcon />}
           loading={loading}
           loadingPosition="end"
           variant="contained"
         >
-          Log In
+          Log in with Google
         </LoadingButton>
+
 
         {validForm === true && <span>Welcome back</span>}
       </form>
@@ -194,6 +220,7 @@ function LogIn() {
           </Box>
         </Modal>  
       </div>
+
 
     </div>
   );

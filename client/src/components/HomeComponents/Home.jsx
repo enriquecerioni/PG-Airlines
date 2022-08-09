@@ -57,7 +57,7 @@ export default function Home() {
                 Browse our options to get the best deals on airline tickets, no
                 matter where you’re headed.
               </h1>
-              <p id="ad" className={darkMode ? s.text_dark : s.text}>
+              <p id="ad" className={darkMode ? s.textHome_dark : s.textHome}>
                 Explore destinations and find great deals on plane tickets.
               </p>
               <a href="#sec-2">
@@ -78,8 +78,8 @@ export default function Home() {
             <div id="divInv" className={s.divInv}></div>
             <SearchBar />
             <Display />
-            <div className={s.contactContainer}>
-              <div className={s.contact}>
+            <div className={darkMode ? s.contactContainer_dark : s.contactContainer}>
+              <div className={darkMode ? s.contact_dark : s.contact}>
                 <img src={darkMode ? planeDark : plane} alt="airplane" className={s.planeInput} />
                 <p className={darkMode ? s.text_dark : s.text}>
                   If you're interested in working with us
@@ -93,7 +93,7 @@ export default function Home() {
               </div>
             </div>
             <Footer />
-            <div className={s.whatsapp}>
+            {/* <div className={s.whatsapp}>
               <Button
                 id="whatsapp"
                 href="https://walink.co/000b86"
@@ -104,7 +104,7 @@ export default function Home() {
                 <WhatsAppIcon></WhatsAppIcon>
                 <p>Chat</p>
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
       ) : (

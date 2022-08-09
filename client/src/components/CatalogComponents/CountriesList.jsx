@@ -255,11 +255,20 @@ const countries = [
     { code: 'ZW', label: 'Zimbabwe' },
 ];
 
-function CountriesList({ label,handleCountriesList }) {
+function CountriesList({ label, handleCountriesList, value =""}) {
+    let valorLst;
+    if (value == "") {
+        valorLst = null;
+    } else {
+        const bs = countries.find(f => f.label.trim() == value.trim());
+        valorLst = bs
+    }
+
     return (<Autocomplete
         id="country-select"
         sx={{ width: 300 }}
         options={countries}
+        defaultValue={valorLst}
         autoHighlight
         getOptionLabel={(option) => option.label}
         onChange={handleCountriesList}
@@ -271,7 +280,7 @@ function CountriesList({ label,handleCountriesList }) {
                     srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
                     alt=""
                 />
-                {option.label} 
+                {option.label}
             </Box>
         )}
         renderInput={(params) => (

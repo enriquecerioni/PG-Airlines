@@ -1,31 +1,53 @@
 import React, { useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { getAllUsers } from "../../redux/actions";
 import s from "../styles/ProfileNav.module.css";
 import {darkModeContext} from "../DarkModeContext"
 import defaultProfilePic from "../styles/defaultProfilePic.png";
+import { logOut } from "../scripts/auth";
+import { toast } from "react-toastify";
+
+
+
 
 export default function ProfileNav() {
+  const navigate = useHistory();
   const { darkMode } = useContext(darkModeContext)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch]);
 
-  function isImage(anImage) {
-    return /.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(anImage);
+  async function handleLogOut(e) {
+    e.preventDefault();
+    await logOut();
+    // window.location.reload();
+    toast.success("✔ Log out!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      type: "info",
+    });
+    navigate.replace("/");
+    window.location.reload();
   }
+
+  // function isImage(anImage) {
+  //   return /.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(anImage);
+  // }
 
   const users = useSelector((state) => state.allUsers);
   const currentUser = useSelector((state) => state.currentUser)[0];
   const profilePic = `"${currentUser.image}"`;
   console.log(profilePic);
 
-  //defaultProfilePic;
-  var currentlyUsingPic = currentUser.image === null ? defaultProfilePic : isImage(currentUser.image) || null ? currentUser.image : defaultProfilePic
-
-console.log(isImage(currentUser.image))
+  var currentlyUsingPic = defaultProfilePic;
+  // currentUser.image === null ? defaultProfilePic : isImage(currentUser.image) ? currentUser.image : defaultProfilePic
 
   var AccInfo = (
     <li className={darkMode ? s.navLink_dark: s.navLink}>
@@ -85,7 +107,7 @@ console.log(isImage(currentUser.image))
     <li className={darkMode ? s.navLink_dark: s.navLink}>
       <Link className={darkMode ? s.links_dark : s.links} to="/airlinePendingRequests">
         {/* <i className='bx bx-pie-chart-alt icon' ></i> */}
-        <span className={s.text}>Airline Pending Requests</span>
+        <span className={s.text}>AirlinePendingRequests</span>
       </Link>
     </li>
   );
@@ -145,7 +167,14 @@ console.log(isImage(currentUser.image))
               <li className={darkMode ? s.navLink_dark: s.navLink}>
                 <Link className={darkMode ? s.links_dark : s.links} to="/logout">
                   <i className="bx bx-log-out icon"></i>
-                  <span className={s.text}>Logout</span>
+                  <li id="logOut">
+                    <span
+                      className={s.text}
+                      onClick={e=> handleLogOut(e)}>
+                      Log Out
+                    </span>
+
+                  </li>
                 </Link>
               </li>
             </div>
