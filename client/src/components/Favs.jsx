@@ -78,9 +78,9 @@ function Favs() {
         })
       ) : (
         <div className={s.empty_list}>
-          <h1>Your list is empty</h1>
+          <h1 className={s.h1}>Your list is empty</h1>
           <img className={s.img_empty} src={ darkMode ? noFavsDark : noFavs} alt="#" />   
-          <h1>Add tickets to your favorites!</h1>       
+          <h1 className={s.h1}>Add tickets to your favorites!</h1>       
         </div>
       )}
     </div>
