@@ -6,39 +6,75 @@ import style from "../styles/Forms.module.css";
 import { useHistory } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import GoogleIcon from "@mui/icons-material/Google";
+import { Box, Modal, Button,TextField } from '@mui/material';
 import Swal from "sweetalert2";
+import { resetPassword } from '../../redux/actions/index'
+import { useDispatch } from "react-redux";
 
 function LogIn() {
   let navigate = useHistory();
+  const dispatch = useDispatch()
   const [validForm, /*setValidForm*/] = useState(null);
 
   const [loading, setLoading] = useState(false);
-
   const [emailLogIn, setEmailLogIn] = useState({ value: "", valid: null });
   const [passwordLogIn, setPasswordLogIn] = useState({
     value: "",
     valid: null,
   });
 
+  const [ emailReset, setEmailReset] = useState('')
+
+  function handleResetPassword(e) {
+    e.preventDefault()
+    if(emailReset) {
+      dispatch(resetPassword(emailReset))
+      Swal.fire({
+        icon: "success",
+        title: "Check your email",
+        // text: "The password is invalid or the user does not have a password.",
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#10408F',
+      })
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops... Something went wrong!",
+        text: "Please enter an email",
+        showConfirmButton: false,
+        confirmButtonColor: '#10408F',
+      })
+
+    }
+    
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     if (e.target.emailLogIn.value && e.target.passwordLogIn.value) {
+
       let type = await logIn(
         e.target.emailLogIn.value,
         e.target.passwordLogIn.value
-      );
+      )
+
       if (typeof type == "string") {
-        // alert(type);
+
       Swal.fire({
         icon: "error",
         title: "Oops... Something went wrong!",
         text: "The password is invalid or the user does not have a password.",
         showConfirmButton: false,
         confirmButtonColor: '#10408F',
-      }); 
-      } else navigate.push("/");
-      setTimeout(() => {window.location.reload();}, 2500);
+      })
+
+      } else {
+        navigate.push("/");
+        setTimeout(() => {window.location.reload();}, 2500);
+      } 
+      
     } else {
       setLoading(false);
       // alert('enter valid email')
@@ -56,6 +92,15 @@ function LogIn() {
     navigate.push("/");
     window.location.reload();
   }
+
+  const [ open, setOpen ] = useState(false)
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div className={style.container}>
@@ -126,18 +171,30 @@ function LogIn() {
       </p>
 
       <div>
-        <p className={style.sing}>
-          Forgot your password? Write your email down here
-        </p>
-        <input></input>
-      </div>
-      <button></button>
-      
+        <Button onClick={handleOpen}>
+          Forgot your password?
+        </Button>   
 
-      {/* <div className={style.containerAirline}>
-        <p>Want to partner up your airline with us?</p>
-        <button><Link to='/register/airline'>Register Airline</Link></button>
-      </div> */}
+        <Modal open={open} onClose={handleClose}>
+            <Box className={style.modal_login}>
+              <Button color="secondary" onClick={handleClose}>X</Button>
+              <div className={style.modal_content}>
+                  <h2>Please enter your email</h2>
+                    <TextField 
+                    focused
+                    variant="standard"
+                    label='Email'
+                    value={emailReset} 
+                    type='email' 
+                    color="warning"
+                    onChange={e => setEmailReset(e.target.value)}
+                    />
+                <Button variant="contained" onClick={handleResetPassword}>Send request</Button>                
+              </div>
+          </Box>
+        </Modal>  
+      </div>
+
     </div>
   );
 }

@@ -179,8 +179,7 @@ function Payment() {
             userId: user.length ? user[0].id : 0,
             idpurchase: id,
             creationdate: new Date(),
-          };
-
+          }
           dispatch(createOrder(sendOrder));
 
           setLoading(false);

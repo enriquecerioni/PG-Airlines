@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import { createComment, getAllComments, getAllUsers } from "../redux/actions/index.js";
+import { createComment, getAllComments, getAllUsers, updateReview } from "../redux/actions/index.js";
+import css from './styles/Comments.module.css'
 
-function Comments({airline, details, allAirlines, detailsID}) {
-  // console.log(detailsID)
+function Comments({airline, detail, detailsID, orderID}) {
+  // console.log('este es detail', detail)
+  // console.log('este es orderID', orderID)
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.currentUser)
@@ -26,10 +28,6 @@ function Comments({airline, details, allAirlines, detailsID}) {
 
 
   const airlineComments = comments.filter(e => detailsID === e.airlineId)
-
-  // console.log(allComments)
-  // console.log(airlineComments)
-
   function validate(input) {
     let error = {}
 
@@ -73,7 +71,7 @@ function Comments({airline, details, allAirlines, detailsID}) {
         destination: ''        
       }
       ],
-    airlineId: detailsID,
+    airlineId: detail.airlineId,
   })
 
   function handleInputChange(e) {
@@ -90,14 +88,15 @@ function Comments({airline, details, allAirlines, detailsID}) {
 
   function handleSubmitComment(e) {
     e.preventDefault()
-
-    console.log(input.rating ,input.comment ,input.name)
+    // console.log(input.rating ,input.comment ,input.name)
     if(input.rating && input.comment && input.name) {
 
       dispatch(createComment(input))
       let updatedComments = [...comments, input]
-
       updateComments(updatedComments)
+
+      detail.review = true
+      dispatch(updateReview({orderID, detail}))
 
       setInput({
         rating: '',
@@ -112,6 +111,7 @@ function Comments({airline, details, allAirlines, detailsID}) {
         ],
         airlineId: detailsID,    
       })
+
     } else {
         console.log('formulario incorrecto')
     }
@@ -123,9 +123,7 @@ function Comments({airline, details, allAirlines, detailsID}) {
   }, [comments])
 
   return (
-    <div>
-        <div style={{ "margin": 10 + 'rem'}}>
-
+    <div className={css.comments_container}>
         <h3>COMENTARIOS PREVIOS</h3>
           {airlineComments.length ? airlineComments.map(e => {
                  return (<div key={e.id}>
@@ -191,8 +189,7 @@ function Comments({airline, details, allAirlines, detailsID}) {
             <br />
             <br />
 
-        </div>   
-    </div>
+    </div>   
   )
 }
 
