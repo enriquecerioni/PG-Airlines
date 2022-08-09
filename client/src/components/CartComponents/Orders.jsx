@@ -30,7 +30,7 @@ function Orders() {
       dispatch(getAllAirlines())
       setProducts([])
       localStorage.setItem("cartProducts", JSON.stringify(products))
-    }, [dispatch])
+    }, [])
 
     function handleClick(e){
       e.preventDefault();
@@ -51,22 +51,24 @@ function Orders() {
       };
 
       return <>
-      <TableRow key={row}>
-        {airlines.map((airline) => {
+      <TableRow key={row.id}>
+        {/* {airlines.map((airline) => {
             if(row.airlineId === airline.id) {
               return <TableCell className={darkMode ? style.cell_dark : undefined} key={airline.name}>{airline.name}</TableCell>
             }
-        })}
+        })} */}
+        {console.log("este es el row",row)}
 
-        <TableCell className={darkMode ? style.cell_dark : undefined} key={row.amount}>{row.amount}</TableCell>   
-        <TableCell className={darkMode ? style.cell_dark : undefined} key={row.value}>${row.value}</TableCell> 
+        <TableCell className={darkMode ? style.cell_dark : undefined} key={row[0]?.amount}>{row[0]?.amount}</TableCell>   
+        <TableCell className={darkMode ? style.cell_dark : undefined} key={row[0]?.value}>${row[0]?.value}</TableCell> 
 
         <TableCell className={darkMode ? style.cell_dark : undefined}>
 
-          <Button onClick={handleOpenReview} disabled={row.review === true}>Review</Button>
+          <Button onClick={handleOpenReview} disabled={row[0]?.review === true}>Review</Button>
             <Modal open={openReview} onClose={handleCloseReview}>
 
               <Box className={style.modal_review}>
+                {console.log("aca aparece el row", row, "luego el orderID",orderID)}
                 <Comments detail={row} orderID={orderID} />
               </Box>
             </Modal>
@@ -101,10 +103,10 @@ function Orders() {
 
                 <TableBody>
                   <TableRow>
-                    <TableCell key={row.moreinfo.origin} className={darkMode ? style.cell_dark : undefined}>{row.moreinfo.origin}</TableCell>
-                    <TableCell key={row.moreinfo.destination} className={darkMode ? style.cell_dark : undefined}>{row.moreinfo.destination}</TableCell>
-                    <TableCell key={row.moreinfo.arrivalHour} className={darkMode ? style.cell_dark : undefined}>{row.moreinfo.arrivalHour}</TableCell>
-                    <TableCell key={row.moreinfo.departureHour} className={darkMode ? style.cell_dark : undefined}>{row.moreinfo.departureHour}</TableCell>
+                    <TableCell key={row[0]?.moreinfo.origin} className={darkMode ? style.cell_dark : undefined}>{row[0]?.moreinfo.origin}</TableCell>
+                    <TableCell key={row[0]?.moreinfo.destination} className={darkMode ? style.cell_dark : undefined}>{row[0]?.moreinfo.destination}</TableCell>
+                    <TableCell key={row[0]?.moreinfo.arrivalHour} className={darkMode ? style.cell_dark : undefined}>{row[0]?.moreinfo.arrivalHour}</TableCell>
+                    <TableCell key={row[0]?.moreinfo.departureHour} className={darkMode ? style.cell_dark : undefined}>{row[0]?.moreinfo.departureHour}</TableCell>
                   </TableRow>
                 </TableBody>
     
@@ -152,9 +154,14 @@ function Orders() {
                     </TableHead>
 
                     <TableBody key={data.id}>
-                      {data.stocks?.map((e, p)=> {
+                      {/* {data.stocks?.map((e, p)=> {
+                        
                         return <Row key={p} row={e} orderID={data.id} />
-                      })}                    
+                      })}                     */}
+                      {
+                        //console.log("este es data",data)
+                         <Row key={data.id} row={data.stocks} orderID={data.id} />
+                      }  
                     </TableBody>
                     
                   </Table>

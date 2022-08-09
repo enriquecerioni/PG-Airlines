@@ -180,6 +180,8 @@ function Payment() {
             idpurchase: id,
             creationdate: new Date(),
           }
+
+            
           dispatch(createOrder(sendOrder));
 
           setLoading(false);

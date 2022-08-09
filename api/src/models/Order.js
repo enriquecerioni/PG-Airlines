@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
     },
     //stocks = tickets
     stocks: {
-      type: DataTypes.ARRAY(DataTypes.JSON),
+      type: DataTypes.JSON,    //ARRAY(DataTypes.JSON)
       allowNull: false,
     },
     idpurchase: {

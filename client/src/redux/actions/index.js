@@ -413,6 +413,7 @@ export function getAllComments() {
 }
 
 export function createComment(payload) {
+  console.log("este es el payload papi",payload);
   return function (dispatch) {
     axios
       .post("http://localhost:3001/comments", payload)
