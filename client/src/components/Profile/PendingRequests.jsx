@@ -49,27 +49,27 @@ export default function AirlinePendingRequests() {
           <div className={s.infoContainer}>
             <h1 className={s.title}>Airline Pending Requests</h1>
             {toBeBusiness.length ? (
-        toBeBusiness.map((u) => {
-          return (
-            <div>
-              <br />
-              <br />
-              <div key={u.uid}>
-                email: {u.email},Name: {u.name ? u.name : null}, uid: {u.uid}
-              </div>
-              <button
-                onClick={() => {
-                  acceptRequest(u.email);
-                }}
-              >
-                Make Admin 
-              </button>
-            </div>
-          );
-        })
-      ) : (
-        <h1>No airlines?</h1>
-      )} 
+                toBeBusiness.map((u) => {
+                  return (
+                    <div>
+                      <br />
+                      <br />
+                      <div key={u.uid}>
+                        email: {u.email},Name: {u.name ? u.name : null}, uid: {u.uid}
+                      </div>
+                      <button
+                        onClick={() => {
+                          acceptRequest(u.email);
+                        }}
+                      >
+                        Make Admin 
+                      </button>
+                    </div>
+                  );
+                })
+              ) : (
+                <h1>No airlines?</h1>
+              )} 
 
             {/* <h2>If there's any airlines wanting to parter up with us, those will wait here for an approval</h2> */}
           </div>

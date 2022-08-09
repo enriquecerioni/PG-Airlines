@@ -10,6 +10,7 @@ export const SEARCH_BY_DESTINATION = "SEARCH_BY_DESTINATION";
 export const CLEAN = "CLEAN";
 export const ORDER_PRICE = "ORDER_PRICE";
 export const ORDER_ALPHABETICALLY = "ORDER_ALPHABETICALLY";
+export const ORDER_AVAILABILITY = 'ORDER_AVAILABILITY'
 export const RESET_FILTER = "RESET_FILTER";
 export const FILTER_PRICE = "FILTER_PRICE";
 export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN";
@@ -143,6 +144,13 @@ export function addToCart(payload) {
 export const orderAlphabetically = (payload) => {
   return {
     type: ORDER_ALPHABETICALLY,
+    payload,
+  };
+};
+
+export const orderByAvailability = (payload) => {
+  return {
+    type: ORDER_AVAILABILITY,
     payload,
   };
 };

@@ -167,6 +167,7 @@ function Payment() {
                 amount: e.amount,
                 value: e.price,
                 airlineId: e.airlineId,
+
                 moreinfo: {
                   origin: e.origin,
                   destination: e.destination,
@@ -176,6 +177,7 @@ function Payment() {
                 review: false
               };
             }),
+            
             userId: user.length ? user[0].id : 0,
             idpurchase: id,
             creationdate: new Date(),
@@ -285,11 +287,11 @@ function Payment() {
             <br />
 
             {/* MERCADO PAGO */}
-            <hr className={css.hr_separator} />
+            {/* <hr className={css.hr_separator} />
             <br />
             <MPPayment loading={loading} disabled={disabled} subTotal={subTotal} products={products} user={user} />
             <br />
-            <hr className={css.hr_separator} />
+            <hr className={css.hr_separator} /> */}
             {/* PAYPAL */}
             <br />
             <PayPalScriptProvider 

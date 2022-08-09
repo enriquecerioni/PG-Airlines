@@ -5,12 +5,8 @@ import { getFlightByID, cleanDetails, getAllAirlines, getAllUsers } from "../red
 import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
-// import Typography from '@mui/material/Typography';
-
-// import  addProductToCart  from './CartComponents/CartContext.jsx'
 import { CartContext } from "./CartComponents/CartContext";
 import { useContext } from "react";
-import Comments from "./Comments.jsx";
 
 function Details() {
   let { id } = useParams();
@@ -20,8 +16,6 @@ function Details() {
   const details = useSelector((state) => state.flight);
   const user = useSelector((state) => state.currentUser);
   const airlines = useSelector((state) => state.airlines);
-  // console.log(details)
-  // console.log(airlines)
 
   const { addProductToCart } = useContext(CartContext);
 
@@ -69,7 +63,6 @@ function Details() {
       dispatch(cleanDetails());
     };
   }, [dispatch, id]);
-  // console.log(details);
 
   let airline = airlines.map((airline) => {
     if (details.airlineId === airline.id) {
@@ -80,9 +73,13 @@ function Details() {
   return (
     <div>
       <div className={s.container}>
-        <Link className={s.links} to="/">
-          <button className={s.btnHome}>Go to Home</button>
-        </Link>
+
+        <div className={s.links}>
+          <Link to="/">
+            <button className={s.btnHome}>Go to Home</button>
+          </Link>          
+        </div>
+        
         {details ? (
           <div key={details.id}>
             <div className={s.detail}>
@@ -169,11 +166,7 @@ function Details() {
                 ): null }
        
             </div> 
-
-             <Comments airline={airline} detailsID={details.airlineId} allAirlines={airlines} />  
-
           </div>
-
         ) : null }
         
       </div>

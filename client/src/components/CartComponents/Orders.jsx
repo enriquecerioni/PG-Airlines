@@ -22,7 +22,7 @@ function Orders() {
     const user = useSelector(state=>state.currentUser)
 
     let userOrders = ordersArr?.filter((data) => user.length && data.userId === user[0].id)
-    console.log(userOrders)
+    // console.log(userOrders)
 
     useEffect(() => {
       dispatch(getOrders())
@@ -30,7 +30,7 @@ function Orders() {
       dispatch(getAllAirlines())
       setProducts([])
       localStorage.setItem("cartProducts", JSON.stringify(products))
-    }, [dispatch])
+    }, [])
 
     function handleClick(e){
       e.preventDefault();
@@ -40,8 +40,11 @@ function Orders() {
 
     function Row(props) {
       const { row, orderID } = props
+      console.log(row)
       const [open, setOpen] = useState(false);
+
       const [ openReview, setOpenReview ] = useState(false);
+      console.log(openReview)
 
       const handleOpenReview = () => {
         setOpenReview(true);
@@ -51,7 +54,7 @@ function Orders() {
       };
 
       return <>
-      <TableRow key={row}>
+      <TableRow key={row.id}>
         {airlines.map((airline) => {
             if(row.airlineId === airline.id) {
               return <TableCell className={darkMode ? style.cell_dark : undefined} key={airline.name}>{airline.name}</TableCell>
@@ -61,16 +64,16 @@ function Orders() {
         <TableCell className={darkMode ? style.cell_dark : undefined} key={row.amount}>{row.amount}</TableCell>   
         <TableCell className={darkMode ? style.cell_dark : undefined} key={row.value}>${row.value}</TableCell> 
 
-        <TableCell className={darkMode ? style.cell_dark : undefined}>
-
-          <Button onClick={handleOpenReview} disabled={row.review === true}>Review</Button>
-            <Modal open={openReview} onClose={handleCloseReview}>
-
-              <Box className={style.modal_review}>
-                <Comments detail={row} orderID={orderID} />
-              </Box>
-            </Modal>
-
+        <TableCell key='comments-section' className={darkMode ? style.cell_dark : undefined}>
+          <div>
+            <Button onClick={handleOpenReview}>Review</Button>
+              <Modal open={openReview}>
+                <Box className={style.modal_review}>
+                  <Button onClick={handleCloseReview}>X</Button>
+                  <Comments />
+                </Box>
+              </Modal>            
+          </div>
         </TableCell>
 
         <TableCell className={darkMode ? style.cell_dark : undefined}>
@@ -115,8 +118,6 @@ function Orders() {
       </>
     }
 
-    const [open, setOpen] = useState(false);
-
   return (
     <div className={ darkMode ? style.main_container_dark : style.main_container}>
         <Button 
@@ -152,9 +153,11 @@ function Orders() {
                     </TableHead>
 
                     <TableBody key={data.id}>
+
                       {data.stocks?.map((e, p)=> {
                         return <Row key={p} row={e} orderID={data.id} />
-                      })}                    
+                      })}          
+
                     </TableBody>
                     
                   </Table>

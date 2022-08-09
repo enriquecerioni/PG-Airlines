@@ -5,14 +5,14 @@
     margin-top: 4%;
     width: 100%;
     height: 120vh;
-    background: #E6F4F1;
+    background-color: #E6F4F1;
 }
 .container_dark {
   display: flex;
   margin-top: 4%;
   width: 100%;
   height: 120vh;
-  background: #121212f9;
+  background-color: #121212f9;
 }
   
   
@@ -103,7 +103,6 @@
     height: 90%;
     padding-top: 2rem;
     font-family: 'Roboto', sans-serif;
-    color: white;
   }
 
   .title, .text{

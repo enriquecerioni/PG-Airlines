@@ -5,15 +5,11 @@ import Rating from '@mui/material/Rating';
 import { createComment, getAllComments, getAllUsers, updateReview } from "../redux/actions/index.js";
 import css from './styles/Comments.module.css'
 
-function Comments({airline, detail, detailsID, orderID}) {
-  // console.log('este es detail', detail)
-  // console.log('este es orderID', orderID)
+export default function Comments() {
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.currentUser)
-
   const allComments = useSelector(state => state.comments)
-
   const [ comments, updateComments ] = useState([allComments])
 
   const getData = async () => {
@@ -26,8 +22,6 @@ function Comments({airline, detail, detailsID, orderID}) {
       : getData();
   }, []);
 
-
-  const airlineComments = comments.filter(e => detailsID === e.airlineId)
   function validate(input) {
     let error = {}
 
@@ -71,7 +65,7 @@ function Comments({airline, detail, detailsID, orderID}) {
         destination: ''        
       }
       ],
-    airlineId: detail.airlineId,
+    // airlineId: detail?.airlineId,
   })
 
   function handleInputChange(e) {
@@ -95,8 +89,8 @@ function Comments({airline, detail, detailsID, orderID}) {
       let updatedComments = [...comments, input]
       updateComments(updatedComments)
 
-      detail.review = true
-      dispatch(updateReview({orderID, detail}))
+      // detail.review = true
+      // dispatch(updateReview({orderID, detail}))
 
       setInput({
         rating: '',
@@ -108,8 +102,7 @@ function Comments({airline, detail, detailsID, orderID}) {
             origin: '',
             destination: ''     
           } 
-        ],
-        airlineId: detailsID,    
+        ]    
       })
 
     } else {
@@ -117,25 +110,9 @@ function Comments({airline, detail, detailsID, orderID}) {
     }
   }
 
-  useEffect(() => {
-    dispatch(getAllComments())
-    dispatch(getAllUsers())
-  }, [comments])
-
   return (
     <div className={css.comments_container}>
-        <h3>COMENTARIOS PREVIOS</h3>
-          {airlineComments.length ? airlineComments.map(e => {
-                 return (<div key={e.id}>
-                  <p>{e.comment}</p>
-                     <p>{e.rating}</p>
-                     <p>{e.name}</p>
-                   </div>) 
-            }) 
-            : <h5>No hay nada</h5>}
-
             <br />
-            <h3>Este vuelo fue publicado por: {airline} </h3>
             <h3>RATING DE LA AEROLINEA</h3>
             <h3>Publicar comentario y rating</h3>
             <form onSubmit={handleSubmitComment}>
@@ -149,6 +126,7 @@ function Comments({airline, detail, detailsID, orderID}) {
                     onChange={handleInputChange}
                 />
             </Box>
+
             {input.rating}
             {error.rating && <span>{error.rating}</span>}
 
@@ -187,10 +165,7 @@ function Comments({airline, detail, detailsID, orderID}) {
             <span>Su comentario puede ser eleminado si es conciderado inapropiado o se demuestra que no tiene relacion con la aerolinea</span>                    
             </form> 
             <br />
-            <br />
-
+            <br /> 
     </div>   
   )
 }
-
-export default Comments
