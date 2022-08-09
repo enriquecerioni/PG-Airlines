@@ -19,12 +19,12 @@ commentsRouter.get('/', async (req, res) => {
 
 commentsRouter.post('/', async (req, res) => {
     try {
-        const { airlineId, comment, rating, moreInfo, name } = req.body
-
+        const { airlineId, comment, rating, name } = req.body
+        console.log(airlineId, comment, rating, name);
+        
         let newComment = await Comment.create({
             comment,
             rating,
-            moreInfo,
             name,
             airlineId
         })
@@ -46,21 +46,25 @@ commentsRouter.post('/', async (req, res) => {
 
 commentsRouter.put('/', async (req, res) => {
     try {
-        const { orderID, detail } = req.body
-        // console.log(orderID, detail)
+        const { orderID, allStocks } = req.body
+        console.log(orderID, allStocks)
         
         if(orderID) {
             console.log('aca')
             let reviewID = await Order.update(
             {
-                stock: detail,
+                stocks: allStocks,
             }, 
-            { where: { id: orderID }, }
+            { 
+                where: { id: orderID }, 
+            }
         )
-            console.log(reviewID)
+            console.log("entroo",reviewID)
+        }else{
+            return res.status(400).json({error: "manda un id fracasado"})
         }
         
-        return res.status(200).send(reviewID)
+         res.status(200).json({message: "todo bien"})
 
     } catch (error) {
         res.status(404).send('No se pudo cambiar')

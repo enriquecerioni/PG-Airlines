@@ -421,6 +421,7 @@ export function getAllComments() {
 }
 
 export function createComment(payload) {
+  console.log("este es el payload papi",payload);
   return function (dispatch) {
     axios
       .post("http://localhost:3001/comments", payload)
@@ -472,7 +473,7 @@ export function resetPassword(email) {
 }
 
 export function updateReview(payload) {
-  console.log(payload)
+  //console.log("esto es el payload de revie",payload)
   
   return function (dispatch) {
     axios.put(`http://localhost:3001/comments`, payload)

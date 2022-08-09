@@ -39,8 +39,7 @@ function Orders() {
     }
 
     function Row(props) {
-      const { row, orderID } = props
-      console.log(row)
+      const { row, orderID,allStocks } = props
       const [open, setOpen] = useState(false);
 
       const [ openReview, setOpenReview ] = useState(false);
@@ -54,6 +53,7 @@ function Orders() {
       };
 
       return <>
+
       <TableRow key={row.id}>
         {airlines.map((airline) => {
             if(row.airlineId === airline.id) {
@@ -61,19 +61,21 @@ function Orders() {
             }
         })}
 
+
         <TableCell className={darkMode ? style.cell_dark : undefined} key={row.amount}>{row.amount}</TableCell>   
         <TableCell className={darkMode ? style.cell_dark : undefined} key={row.value}>${row.value}</TableCell> 
 
-        <TableCell key='comments-section' className={darkMode ? style.cell_dark : undefined}>
-          <div>
-            <Button onClick={handleOpenReview}>Review</Button>
-              <Modal open={openReview}>
-                <Box className={style.modal_review}>
-                  <Button onClick={handleCloseReview}>X</Button>
-                  <Comments />
-                </Box>
-              </Modal>            
-          </div>
+        <TableCell className={darkMode ? style.cell_dark : undefined}>
+
+          <Button onClick={handleOpenReview} disabled={row.review === true}>Review</Button>
+            <Modal open={openReview} onClose={handleCloseReview}>
+
+              <Box className={style.modal_review}>
+                {console.log("aca aparece el row", row, "luego el orderID",orderID)}
+                <Comments detail={row && row} orderID={orderID} flightId={row.flightId} allStocks={allStocks}/>
+              </Box>
+            </Modal>
+
         </TableCell>
 
         <TableCell className={darkMode ? style.cell_dark : undefined}>
@@ -153,11 +155,14 @@ function Orders() {
                     </TableHead>
 
                     <TableBody key={data.id}>
+        
+                      {
+                        data.stocks?.map((stock)=>{
+                        return (<Row key={data.id} row={stock} orderID={data.id} allStocks={data.stocks}/>)
+                        })
 
-                      {data.stocks?.map((e, p)=> {
-                        return <Row key={p} row={e} orderID={data.id} />
-                      })}          
-
+                          
+                      }  
                     </TableBody>
                     
                   </Table>

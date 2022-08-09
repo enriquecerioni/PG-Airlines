@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
 import { CartContext } from "./CartComponents/CartContext";
 import { useContext } from "react";
+import Comments from "./Comments.jsx";
 
 function Details() {
   let { id } = useParams();
@@ -166,6 +167,9 @@ function Details() {
                 ): null }
        
             </div> 
+
+              <Comments  />   
+
           </div>
         ) : null }
         

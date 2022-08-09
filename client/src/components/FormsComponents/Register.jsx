@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import style from "../styles/Forms.module.css";
 import Input from "./Input";
@@ -10,8 +10,11 @@ import { LoadingButton } from "@mui/lab";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { darkModeContext } from "../DarkModeContext";
+
 
 function Register() {
+  const { darkMode } = useContext(darkModeContext);
   const [validForm, /*setValidForm*/] = useState(null);
   const navigate = useHistory();
   const error = useSelector((state) => state.error);
@@ -91,112 +94,129 @@ function Register() {
   }
 
   return (
-    <div className={style.containerRegister}>
-      <form onSubmit={(e) => handleSubmit(e)} className={style.form_container_register}>
-        <h1>Create your account</h1>
+    <div className={darkMode ?  style.todo_dark : style.todo}>
+      <div className={darkMode ? style.containerRegister_dark : style.containerRegister}>
+        <form onSubmit={(e) => handleSubmit(e)} className={style.form_container_register}>
+          <h1 className={darkMode ? style.letra_dark : style.letra}>Create your account</h1>
 
-        <Input
-          state={name}
-          setState={setName}
-          type="text"
-          label="First Name"
-          placeholder="First Name"
-          name="name"
-          error="Your first name cannot contain numbers or special characters"
-          regularExpression={expression.name}
-        />
 
-        <Input
-          state={surname}
-          setState={setSurname}
-          name="surname"
-          type="text"
-          label="Last Name"
-          placeholder="Last Name"
-          error="Your last name cannot contain numbers or special characters"
-          regularExpression={expression.surname}
-        />
+          <label  className={darkMode ? style.letra3_dark : style.letra3} >
+            First Name
+          </label>
+          <Input
+            state={name}
+            setState={setName}
+            type="text"
+            // label="First Name"
+            placeholder="First Name"
+            name="name"
+            error="Your first name cannot contain numbers or special characters"
+            regularExpression={expression.name}
+          />
 
-        <Input
-          state={email}
-          setState={setEmail}
-          name="email"
-          type="email"
-          label="E-mail"
-          placeholder="E-mail"
-          error="Please enter a valid email"
-          regularExpression={expression.email}
-        />
+           <label  className={darkMode ? style.letra3_dark : style.letra3} >
+            Last Name
+          </label>
+          <Input
+            state={surname}
+            setState={setSurname}
+            name="surname"
+            type="text"
+            // label="Last Name"
+            placeholder="Last Name"
+            error="Your last name cannot contain numbers or special characters"
+            regularExpression={expression.surname}
+          />
+            <label  className={darkMode ? style.letra3_dark : style.letra3} >
+            E-mail
+            </label>
+          <Input
+            state={email}
+            setState={setEmail}
+            name="email"
+            type="email"
+            // label="E-mail"
+            placeholder="E-mail"
+            error="Please enter a valid email"
+            regularExpression={expression.email}
+          />
+           <label  className={darkMode ? style.letra3_dark : style.letra3} >
+           Phone
+            </label>
+          <Input
+            state={phone}
+            setState={setPhone}
+            name="phone"
+            type="number"
+            // label="Phone"
+            placeholder="Phone"
+            error="Please enter a valid phone number"
+            regularExpression={expression.phone}
+          />
+            <label  className={darkMode ? style.letra3_dark : style.letra3} >
+            Password
+            </label>
+          <Input
+            state={password}
+            setState={setPassword}
+            name="password"
+            type="password"
+            // label="Password"
+            placeholder="Password"
+            error="Your passwords needs 8-12 characters, one special symbol, one number, at least one lowercase letter and at least one uppercase letter"
+            regularExpression={expression.password}
+          />
+            <label  className={darkMode ? style.letra3_dark : style.letra3} >
+            Confirm password
+            </label>
+          <Input
+            state={password2}
+            setState={setPassword2}
+            name="confirm-password"
+            type="password"
+            // label="Confirm password"
+            placeholder="Confirm password"
+          />
+          {password2.value !== password.value && (
+            <span>Password does not match</span>
+          )}
 
-        <Input
-          state={phone}
-          setState={setPhone}
-          name="phone"
-          type="number"
-          label="Phone"
-          placeholder="Phone"
-          error="Please enter a valid phone number"
-          regularExpression={expression.phone}
-        />
+          {validForm === false && (
+            <span>Please complete all fields correctly</span>
+          )}
 
-        <Input
-          state={password}
-          setState={setPassword}
-          name="password"
-          type="password"
-          label="Password"
-          placeholder="Password"
-          error="Your passwords needs 8-12 characters, one special symbol, one number, at least one lowercase letter and at least one uppercase letter"
-          regularExpression={expression.password}
-        />
+          <LoadingButton
+            type="submit"
+            endIcon="✔"
+            loading={loading}
+            loadingPosition="end"
+            variant="contained"
+          >
+            Register
+          </LoadingButton>
 
-        <Input
-          state={password2}
-          setState={setPassword2}
-          name="confirm-password"
-          type="password"
-          label="Confirm password"
-          placeholder="Confirm password"
-        />
-        {password2.value !== password.value && (
-          <span>Password does not match</span>
-        )}
-
-        {validForm === false && (
-          <span>Please complete all fields correctly</span>
-        )}
-
+          {validForm === true && <span>Thank you!</span>}
+        </form>
+        <br />
+        <hr className={style.separator} />
+        <br />
         <LoadingButton
-          type="submit"
-          endIcon="✔"
+          onClick={(e) => handleClick(e)}
+          endIcon={<GoogleIcon />}
           loading={loading}
           loadingPosition="end"
           variant="contained"
         >
-          Register
+          Sign in with Google
         </LoadingButton>
 
-        {validForm === true && <span>Thank you!</span>}
-      </form>
-      <br />
-      <hr className={style.separator} />
-      <br />
-      <LoadingButton
-        onClick={(e) => handleClick(e)}
-        endIcon={<GoogleIcon />}
-        loading={loading}
-        loadingPosition="end"
-        variant="contained"
-      >
-        Sign in with Google
-      </LoadingButton>
-
-      {error && <span>{error}</span>}
-      <p>
-        <Link className={style.sing} to="/login">
-          Already have an account? Log in
-        </Link>
-      </p>
+        {error && <span>{error}</span>}
+        <p>
+          <Link className={style.sing} to="/login">
+            Already have an account? Log in
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

@@ -55,7 +55,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
     const [open, setOpen] = React.useState(false);
     const [dataFlight, getData] = React.useState([]);
     // const mese = useSelector(state => state.messeage)   
-
+    //let dataFlight = [];
     const [valuesPrice, setValuesPrice] = React.useState({ price: '' });
     const realTime = new Date;
     const [DateDeparture, setValueDep] = React.useState(new Date(realTime));
@@ -64,22 +64,48 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
     const [dateDepHour, SetDepHour] = React.useState(new Date(realTime));
     const [dateCountriesList, setCountriesList] = React.useState('');
     const [dateCountriesListDest, setCountriesListDest] = React.useState('');
-
+    
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleSave = (e) => {
         e.preventDefault();
-        dispatch(editToFlights(dataFlight));
+        debugger
+        const dataNew = {
+            id:dataFlight.id,
+            arrivalDate: DateArrival.toISOString().slice(0, 10),
+            arrivalHour: dateHour.toTimeString().slice(0, 5),
+            departureDate: DateDeparture.toISOString().slice(0, 10),//document.getElementById('depD').value,
+            departureHour: dateDepHour.toTimeString().slice(0, 5),//document.getElementById('depH').value,
+            description: document.getElementById('description').value,
+            destination: dateCountriesListDest,//document.getElementById('destination').value,
+            durationEstimated: document.getElementById('duration').value,
+            logo: document.getElementById('logo').value,
+            origin: dateCountriesList,// document.getElementById('origin').value,
+            price: valuesPrice.price,//document.getElementById('price').value,
+            stock: document.getElementById('stock').value
+            // flight: document.getElementById('flight').value,
+        }
+        dispatch(editToFlights(dataNew));
         setAirlineFlights(false)
         setTimeout(() => (window.location.reload()), 500)
     }
-    const data = [  { code: 'AD', label: 'Andorra' }];
-    function setFormData() {
-        debugger;
-   
-        
-        setHour(dataFlight.arrivalHour);
+
+     function  setFormData(data) {
+         const dataFlight = data;
+         
+        let dateDepD = new Date(Date.parse(dataFlight.departureDate + "T00:00:00.420")); 
+        let dateArrD = new Date(Date.parse(dataFlight.arrivalDate + "T00:00:00.420"));
+        let dateDepH = new Date(Date.parse("2022-01-26T" + dataFlight.departureHour + ":00.420"));
+        let dateArrH = new Date(Date.parse("2022-01-26T" + dataFlight.arrivalHour + ":00.420"));
+     
+        setValuesPrice({precio:dataFlight.price});
+        setCountriesList(dataFlight.origin);
+        setCountriesListDest(dataFlight.destination);
+        setValueDep(dateDepD);
+        setValueArriv(dateArrD);
+        SetDepHour(dateDepH);
+        setHour(dateArrH);        
         console.log(dataFlight);
     }
 
@@ -96,7 +122,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
 
     const handleChangeTime = (e) => {
         const date = e;
-        console.log(date.toISOString().slice(0, 10))
+        //console.log(date.toISOString().slice(0, 10))
         setValueArriv(date);
     }
     const handleChangeHour = (e) => {
@@ -104,7 +130,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
         setHour(e);
     }
     const handleChangeDepHour = (e) => {
-        console.log(e);
+        console.log(e);    
         SetDepHour(e);
     }
     const handleChangeDepDate = (newValue) => {
@@ -125,11 +151,10 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
         <Box sx={{ height: 400, width: '100%' }}>
             {airlineFlights && rows ?
                 <DataGrid
-                    onRowDoubleClick={(params, event) => {
-                        debugger;
-                        setOpen(true);
+                    onRowDoubleClick={(params, event) => {                        
                         getData(params?.row);
-                        setFormData();
+                        setFormData(params?.row);
+                        setOpen(true);    
 
                     }}
                     onSelectionModelChange={(e) => { handleRowSelection(e) }}
@@ -205,7 +230,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                             label={"Origin"}
                                             id="outlined-origin"
                                             handleCountriesList={handleCountriesListOrig}
-                                            defaultValue={data[0]}
+                                            value={dateCountriesList}
                                         />
                                     </div>
                                     <div>
@@ -213,7 +238,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                             label={"Destination"}
                                             id="outlined-destination"
                                             handleCountriesList={handleCountriesListDest}
-                                            //defaultValue={dataFlight.destination}
+                                            value={dateCountriesListDest}
                                         />
                                     </div>
                                 </div>
@@ -233,14 +258,15 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         label={"Departure Date"}
                                         id="depD"
                                         handleChangeDate={handleChangeDepDate}
-                                        value={DateDeparture} 
-                                        defaultValue={dataFlight.departureDate}/>
+                                        value={DateDeparture}
+                                        //defaultValue={dataFlight.departureDate} 
+                                        />
                                     <TimeHour
                                         label={"Departure Hour"}
                                         id="depH"
                                         handleChangeHour={handleChangeDepHour}
                                         value={dateDepHour}
-                                        defaultValue={dataFlight.departureHour}
+                                    // defaultValue={dataFlight.departureHour}
                                     />
                                 </div>
                                 <div className={s.inputCont}>
@@ -249,13 +275,13 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         id="arrD"
                                         handleChangeDate={handleChangeTime}
                                         value={DateArrival}
-                                        defaultValue={dataFlight.arrivalDate} />
+                                    />
                                     <TimeHour
                                         label={"Arrival Hour"}
                                         id="arrH"
                                         handleChangeHour={handleChangeHour}
                                         value={dateHour}
-                                        //defaultValue={dataFlight.arrivalHour}
+                                    //defaultValue={dataFlight.arrivalHour}
                                     />
                                 </div>
                                 <div className={s.inputCont}>
@@ -291,7 +317,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         placeholder='Description'
                                         variant="standard"
                                         id="description"
-                                        defaultValue={dataFlight.description}
+                                       // defaultValue={dataFlight.description}
                                     />
                                 </div>
                                 <div>

@@ -174,7 +174,8 @@ function Payment() {
                   departureHour: e.departureHour,
                   arrivalHour: e.arrivalHour
                 },
-                review: false
+                review: false,
+                flightId:e.id
               };
             }),
             
@@ -182,6 +183,8 @@ function Payment() {
             idpurchase: id,
             creationdate: new Date(),
           }
+
+            
           dispatch(createOrder(sendOrder));
 
           setLoading(false);

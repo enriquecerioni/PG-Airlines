@@ -5,7 +5,10 @@ import Rating from '@mui/material/Rating';
 import { createComment, getAllComments, getAllUsers, updateReview } from "../redux/actions/index.js";
 import css from './styles/Comments.module.css'
 
-export default function Comments() {
+function Comments({ detail, orderID,flightId, allStocks}) {
+   console.log('este es detail commets', detail)
+   console.log('este es allStocks', allStocks)
+  console.log('este es flightId', flightId)
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.currentUser)
@@ -22,6 +25,8 @@ export default function Comments() {
       : getData();
   }, []);
 
+
+  const airlineComments = comments.filter(e => detail.airlineId === e.airlineId)
   function validate(input) {
     let error = {}
 
@@ -58,14 +63,7 @@ export default function Comments() {
       rating: '',
       comment: '',
       name: user[0]?.name,
-      moreInfo: [
-        {
-        flightName: '',
-        origin: '',
-        destination: ''        
-      }
-      ],
-    // airlineId: detail?.airlineId,
+    airlineId: detail.airlineId,
   })
 
   function handleInputChange(e) {
@@ -80,17 +78,22 @@ export default function Comments() {
     }))
   }
 
-  function handleSubmitComment(e) {
+ async function handleSubmitComment(e) {
     e.preventDefault()
     // console.log(input.rating ,input.comment ,input.name)
     if(input.rating && input.comment && input.name) {
-
-      dispatch(createComment(input))
+      console.log("este es el input de mierda",input);
+      await dispatch(createComment(input))
       let updatedComments = [...comments, input]
       updateComments(updatedComments)
 
-      // detail.review = true
-      // dispatch(updateReview({orderID, detail}))
+      allStocks?.map((stock)=>{
+        if(stock.flightId===flightId) stock.review = true
+      })
+      
+
+
+      dispatch(updateReview({orderID, allStocks}))
 
       setInput({
         rating: '',
@@ -102,13 +105,19 @@ export default function Comments() {
             origin: '',
             destination: ''     
           } 
-        ]    
+        ],
+        airlineId: detail.airlineId,    
       })
 
     } else {
         console.log('formulario incorrecto')
     }
   }
+
+  useEffect(() => {
+    dispatch(getAllComments())
+    dispatch(getAllUsers())
+  }, [comments])
 
   return (
     <div className={css.comments_container}>
