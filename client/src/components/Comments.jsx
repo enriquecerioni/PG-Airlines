@@ -5,7 +5,7 @@ import Rating from '@mui/material/Rating';
 import { createComment, getAllComments, getAllUsers, updateReview } from "../redux/actions/index.js";
 import css from './styles/Comments.module.css'
 
-function Comments({ detail, orderID,flightId, allStocks}) {
+export default function Comments({ detail, orderID,flightId, allStocks}) {
    console.log('este es detail commets', detail)
    console.log('este es allStocks', allStocks)
   console.log('este es flightId', flightId)
