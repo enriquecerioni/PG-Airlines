@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Input from "./Input";
 import { ejecutar, logIn } from "../scripts/auth";
 import { Link } from "react-router-dom";
@@ -7,9 +7,14 @@ import { useHistory } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import GoogleIcon from "@mui/icons-material/Google";
 import Swal from "sweetalert2";
+import { darkModeContext } from "../DarkModeContext";
+
 
 function LogIn() {
   let navigate = useHistory();
+
+  const { darkMode } = useContext(darkModeContext);
+  
   const [validForm, /*setValidForm*/] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -58,86 +63,93 @@ function LogIn() {
   }
 
   return (
-    <div className={style.container}>
-      <h1>Log In</h1>
-      <form
-        className={style.form_container}
-        onSubmit={(e) => handleSubmit(e)}
-        id="sing-up"
-      >
-        <Input
-          state={emailLogIn}
-          setState={setEmailLogIn}
-          label="Email"
-          id="singup-email"
-          name="emailLogIn"
-          type="email"
-          placeholder="Enter email"
-          // error='This email is not valid'
-          // regularExpression={expression.email}
-        />
+    <div className={darkMode ?  style.todo_dark : style.todo}>
+      <div className={darkMode ? style.container_dark : style.container}>
+        <h1 className={darkMode ? style.letra_dark : style.letra}>Log In</h1>
+        <form
+          className={darkMode ? style.form_container_dark : style.form_container}
+          onSubmit={(e) => handleSubmit(e)}
+          id="sing-up"
+        >
+          <label  className={darkMode ? style.letra1_dark : style.letra1} >
+            EMAIL
+          </label>
+          <Input
+            state={emailLogIn}
+            setState={setEmailLogIn}
+            // label="Email"
+            id="singup-email"
+            name="emailLogIn"
+            type="email"
+            placeholder="Enter email"
+            // error='This email is not valid'
+            // regularExpression={expression.email}
+          />
+          <label  className={darkMode ? style.letra1_dark : style.letra1} >
+            PASWORD
+          </label>
+          <Input
+            state={passwordLogIn}
+            setState={setPasswordLogIn}
+            // label="Pasword"
+            id="singup-password"
+            name="passwordLogIn"
+            type="password"
+            placeholder="Enter password"
+            // error='Incorrect password'
+            // regularExpression={expression.password}
+          />
 
-        <Input
-          state={passwordLogIn}
-          setState={setPasswordLogIn}
-          label="Pasword"
-          id="singup-password"
-          name="passwordLogIn"
-          type="password"
-          placeholder="Enter password"
-          // error='Incorrect password'
-          // regularExpression={expression.password}
-        />
+          {validForm === false && (
+            <span>Please complete all fields correctly</span>
+          )}
+          <LoadingButton
+            type="submit"
+            endIcon="✔"
+            loading={loading}
+            loadingPosition="end"
+            variant="contained"
+          >
+            Log In
+          </LoadingButton>
 
-        {validForm === false && (
-          <span>Please complete all fields correctly</span>
-        )}
+          {validForm === true && <span>Welcome back</span>}
+        </form>
+
+        <br />
+        <hr className={style.separator} />
+        <br />
+
         <LoadingButton
-          type="submit"
-          endIcon="✔"
+          onClick={() => handleClick()}
+          endIcon={<GoogleIcon />}
           loading={loading}
           loadingPosition="end"
           variant="contained"
         >
-          Log In
+          Log in with Google
         </LoadingButton>
 
-        {validForm === true && <span>Welcome back</span>}
-      </form>
-
-      <br />
-      <hr className={style.separator} />
-      <br />
-
-      <LoadingButton
-        onClick={() => handleClick()}
-        endIcon={<GoogleIcon />}
-        loading={loading}
-        loadingPosition="end"
-        variant="contained"
-      >
-        Log in with Google
-      </LoadingButton>
-
-      <p>
-        <Link className={style.sing} to="/register">
-          Don't have an account? Sing Up
-        </Link>
-      </p>
-
-      <div>
-        <p className={style.sing}>
-          Forgot your password? Write your email down here
+        <p>
+          <Link className={style.sing} to="/register">
+            Don't have an account? Sing Up
+          </Link>
         </p>
-        <input></input>
-      </div>
-      <button></button>
-      
 
-      {/* <div className={style.containerAirline}>
-        <p>Want to partner up your airline with us?</p>
-        <button><Link to='/register/airline'>Register Airline</Link></button>
-      </div> */}
+        <div>
+          <p className={darkMode ? style.letra2_dark : style.letra2}>
+            Forgot your password? Write your email down here
+          </p>
+          <input></input>
+        </div>
+        {/* <button></button> */}
+          
+
+        {/* <div className={style.containerAirline}>
+          <p>Want to partner up your airline with us?</p>
+          <button><Link to='/register/airline'>Register Airline</Link></button>
+        </div> */}
+      </div>
     </div>
   );
 }
