@@ -132,7 +132,7 @@ function Cart() {
                     <IconButton size='large' onClick={()=>handleDelete(c.id)}><DeleteIcon color="primary" /></IconButton>
                 </div>
                 </li>
-                <div>
+                <div className={css.amountBtn}>
                   <Button 
                   onClick={() => handleSum(c.id)}>
                   <AddIcon /></Button>
@@ -154,7 +154,7 @@ function Cart() {
             
           {subTotal !== 0 && products.length && 
             <Card className={ darkMode ? css.payment_container_dark : css.payment_container}>
-              <div className={css.card_content}>
+              <div className={darkMode ? css.card_content_dark : css.card_content}>
                 <h1 className={ darkMode ? css.title_summary_dark : css.title_summary} >Order Summary</h1>
 
                 <h4 className={ darkMode ? css.text_summary_dark : css.text_summary}>Subtotal</h4>{subTotal !== 0 && <span className={ darkMode ? css.text_summary_dark : css.text_summary}>${subTotal}</span>}

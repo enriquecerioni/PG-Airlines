@@ -212,10 +212,12 @@
     }
     .cards_item{
         width: 90%;
-        /* background-color: #3985CB; */
-        /* border: 1px solid #121212; */
+    }
+    .cards_item_dark{
+        width: 90%;
     }
     .button{
         display: none;
     }
+
 }
