@@ -21,11 +21,17 @@ export default function SearchBar() {
       })
       if (e.target.value !== '') {
         countriesOrig = countriesOrig.filter(f => f.toLowerCase().includes(e.target.value.toLowerCase()));
+        console.log("countriesOrig",countriesOrig);
         setlistOrigin(countriesOrig);
+        setOrigin(countriesOrig)
       } else {
         setlistOrigin([]);
       }
     }
+    
+    
+    
+    
     if (e.target.name === "destination") {
       const allDestinations = flights.map(f => f.destination);
       let countriesDest = allDestinations.filter((v, i) => {
@@ -34,6 +40,7 @@ export default function SearchBar() {
       if (e.target.value !== '') {
         countriesDest = countriesDest.filter(f => f.toLowerCase().includes(e.target.value.toLowerCase()));
         setlistDestination(countriesDest);
+        setDestination(countriesDest)
       } else {
         setlistDestination([]);
       }
@@ -42,9 +49,12 @@ export default function SearchBar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("SEARCH BAR",origin,destination);
     dispatch(getFlightInfo({ origin: origin, destination: destination }));
     setOrigin("");
     setDestination("");
+    // document.getElementById('origin').value = "";
+    // document.getElementById('destination').value = "";
   };
 
   function handleClick(e) {

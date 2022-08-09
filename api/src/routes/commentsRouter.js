@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { Comment } = require('../db');
 const { Airline }= require('../db');
+const { Order }= require('../db');
 const commentsRouter = Router();
 
 commentsRouter.get('/', async (req, res) => {
@@ -20,8 +21,6 @@ commentsRouter.post('/', async (req, res) => {
     try {
         const { airlineId, comment, rating, moreInfo, name } = req.body
 
-        // console.log(airlineId, comment, rating, moreInfo, name)
-
         let newComment = await Comment.create({
             comment,
             rating,
@@ -30,15 +29,11 @@ commentsRouter.post('/', async (req, res) => {
             airlineId
         })
 
-        // console.log(newComment)
-
         let airlineComments = await Airline.findOne({
             where: {
                 userId: airlineId
             }
         })
-
-        // console.log(flightComments)
 
         await airlineComments.addComment(newComment)
 
@@ -46,6 +41,29 @@ commentsRouter.post('/', async (req, res) => {
 
     } catch (error) {
         res.status(404).send('No se pudo cargar el comentario')
+    }
+});
+
+commentsRouter.put('/', async (req, res) => {
+    try {
+        const { orderID, detail } = req.body
+        // console.log(orderID, detail)
+        
+        if(orderID) {
+            console.log('aca')
+            let reviewID = await Order.update(
+            {
+                stock: detail,
+            }, 
+            { where: { id: orderID }, }
+        )
+            console.log(reviewID)
+        }
+        
+        return res.status(200).send(reviewID)
+
+    } catch (error) {
+        res.status(404).send('No se pudo cambiar')
     }
 });
 

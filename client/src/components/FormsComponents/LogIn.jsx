@@ -27,7 +27,27 @@ function LogIn() {
 
   function handleResetPassword(e) {
     e.preventDefault()
-    dispatch(resetPassword(emailReset))
+    if(emailReset) {
+      dispatch(resetPassword(emailReset))
+      Swal.fire({
+        icon: "success",
+        title: "Check your email",
+        // text: "The password is invalid or the user does not have a password.",
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#10408F',
+      })
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops... Something went wrong!",
+        text: "Please enter an email",
+        showConfirmButton: false,
+        confirmButtonColor: '#10408F',
+      })
+
+    }
+    
   }
 
   async function handleSubmit(e) {

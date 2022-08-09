@@ -1,29 +1,35 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import s from "../styles/NavBar.module.css";
 import logo from "../styles/assets/logo14.png";
-import logo2 from '../styles/assets/logo14.png'
+import logo2 from "../styles/assets/logo14.png";
 import shoppingCart from "../styles/shopping-cart.png";
 import { logOut } from "../scripts/auth";
 import { CartContext } from "../CartComponents/CartContext";
+import { getAllUsers } from "../../redux/actions";
 // import { Alert, dividerClasses } from "@mui/material";
 import Box from "@mui/material/Box";
 import Badge from "@mui/material/Badge";
-import ImageAvatars from "../avatar";
+// import ImageAvatars from "../avatar";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import { toast } from "react-toastify";
+import defaultProfilePic from "../styles/defaultProfilePic.png";
 // import { currentUser } from "../../redux/actions";
 import DarkModeSwitch from "../DarkModeSwitch";
 import { darkModeContext } from "../DarkModeContext";
 
 export default function NavBar({ toogleTheme }) {
   const { products } = useContext(CartContext);
+  const dispatch = useDispatch();
 
   // const [alert, setAlert] = useState(false);
   // const [open, setOpen] = useState(false);
   // const handleClose = () => setOpen(false);
   const navigate = useHistory();
+  const currentUser = useSelector((state) => state.currentUser)[0];
+  const users = useSelector((state) => state.allUsers);
+  // console.log("desde el nav", currentUser);
   const [stateCart, setStateCart] = useState(products.length);
   const user = useSelector((state) => state.currentUser);
   const toggle = document.querySelector("#toggle");
@@ -51,7 +57,8 @@ export default function NavBar({ toogleTheme }) {
 
   useEffect(() => {
     setStateCart(products.length);
-  }, [products]);
+    dispatch(getAllUsers());
+  }, [products, dispatch]);
 
   async function handleLogOut(e) {
     e.preventDefault();
@@ -77,23 +84,30 @@ export default function NavBar({ toogleTheme }) {
     <nav className={darkMode ? s.nav_container_dark : s.nav_container}>
 
       <Link className={s.navImg} to="/">
-        {darkMode ? <img className={s.logoImg} src={logo2} alt="logo" /> : <img className={s.logoImg} src={logo} alt="logo" />}
+        {darkMode ? (
+          <img className={s.logoImg} src={logo2} alt="logo" />
+        ) : (
+          <img className={s.logoImg} src={logo} alt="logo" />
+        )}
+        {/* <img className={s.logoImg} src={logo} alt="logo" /> */}
       </Link>
 
-      <ul id="navUl" className={s.navUl}>
+      <ul id="navUl" className={darkMode ? s.navUl_dark : s.navUl}>
+        <DarkModeSwitch
+          className={darkMode ? s.darkModeBtn_dark : s.darkModeBtn}
+          toogleTheme={toogleTheme}
+        />
 
-        <DarkModeSwitch className={s.darkModeBtn} toogleTheme={toogleTheme} />
-        
         {user.length && user[0].superAdmin ? (
           <>
-          <li>
-            <Link
-              className={darkMode ? s.navLink_dark : s.navLink}
-              to='/business'
-            >
-              Business
-            </Link>
-          </li>
+            <li>
+              <Link
+                className={darkMode ? s.navLink_dark : s.navLink}
+                to="/business"
+              >
+                Business
+              </Link>
+            </li>
             <li id="catalog">
               <Link
                 className={darkMode ? s.navLink_dark : s.navLink}
@@ -103,8 +117,14 @@ export default function NavBar({ toogleTheme }) {
               </Link>
             </li>
             <li>
-            <Link to="/profile">
-                <ImageAvatars></ImageAvatars>
+              <Link to="/profile">
+                <img
+                  className={darkMode ? s.imgProfile_dark : s.imgProfile}
+                  src={
+                    currentUser.image ? currentUser.image : defaultProfilePic
+                  }
+                  alt="image"
+                />
               </Link>
             </li>
             <li id="logOut">
@@ -137,7 +157,13 @@ export default function NavBar({ toogleTheme }) {
             <li>
               {/* <a id="myProfile"> */}
               <Link to="/profile">
-                <ImageAvatars></ImageAvatars>
+                <img
+                  className={darkMode ? s.imgProfile_dark : s.imgProfile}
+                  src={
+                    currentUser.image ? currentUser.image : defaultProfilePic
+                  }
+                  alt="image"
+                />
               </Link>
               {/* </a> */}
             </li>
@@ -185,7 +211,13 @@ export default function NavBar({ toogleTheme }) {
             <li>
               {/* <a id="myProfile"> */}
               <Link to="/profile">
-                <ImageAvatars></ImageAvatars>
+                <img
+                  className={darkMode ? s.imgProfile_dark : s.imgProfile}
+                  src={
+                    currentUser.image ? currentUser.image : defaultProfilePic
+                  }
+                  alt="image"
+                />
               </Link>
               {/* </a> */}
             </li>
@@ -259,7 +291,11 @@ export default function NavBar({ toogleTheme }) {
           </>
         )}
       </ul>
-      <div id="toggle" className={s.toggle} onClick={navSlide}>
+      <div
+        id="toggle"
+        className={darkMode ? s.toggle_dark : s.toggle}
+        onClick={navSlide}
+      >
         <span></span>
         <span></span>
         <span></span>

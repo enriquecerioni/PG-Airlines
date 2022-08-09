@@ -91,8 +91,8 @@ function Register() {
   }
 
   return (
-    <div className={style.container}>
-      <form onSubmit={(e) => handleSubmit(e)} className={style.form_container}>
+    <div className={style.containerRegister}>
+      <form onSubmit={(e) => handleSubmit(e)} className={style.form_container_register}>
         <h1>Create your account</h1>
 
         <Input

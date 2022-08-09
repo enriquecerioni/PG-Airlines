@@ -64,6 +64,7 @@ export const getAllAirlines = () => {
 };
 
 export function getFlightInfo(payload) {
+  console.log("este es lo que recibeeeee",payload);
   return {
     type: FILTER_BY_ORIGIN,
     payload,
@@ -418,7 +419,7 @@ export function createComment(payload) {
       .then((res) => {
         dispatch({
           type: CREATE_COMMENT,
-          payload: res,
+          payload: res.data,
         });
       })
       .catch((error) => console.log(error));
@@ -460,5 +461,20 @@ export function resetPassword(email) {
         console.log(error)        
       })    
   }
+}
 
+export function updateReview(payload) {
+  console.log(payload)
+  
+  return function (dispatch) {
+    axios.put(`http://localhost:3001/comments`, payload)
+    .then(res => {
+      console.log('todo tranqui')
+      dispatch({
+        type: 'UPDATE_REVIEW',
+        payload: res.data
+      })
+    })
+    .catch(error => console.log(error)) 
+  }
 }

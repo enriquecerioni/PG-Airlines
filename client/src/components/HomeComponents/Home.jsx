@@ -49,7 +49,7 @@ export default function Home() {
       {!isDisplayed ? (
         <Loader />
       ) : !user[0]?.superAdmin ? (
-        <div className={s.Home}>
+        <div className={darkMode ? s.Home_dark : s.Home}>
           {/* <NavBar /> */}
           <div id="sec-1" className={darkMode ? s.sec1_dark : s.sec1}>
             <div className={s.container}>

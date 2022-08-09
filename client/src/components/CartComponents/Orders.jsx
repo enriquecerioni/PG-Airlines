@@ -22,7 +22,7 @@ function Orders() {
     const user = useSelector(state=>state.currentUser)
 
     let userOrders = ordersArr?.filter((data) => user.length && data.userId === user[0].id)
-    // console.log(userOrders)
+    console.log(userOrders)
 
     useEffect(() => {
       dispatch(getOrders())
@@ -39,7 +39,7 @@ function Orders() {
     }
 
     function Row(props) {
-      const { row } = props
+      const { row, orderID } = props
       const [open, setOpen] = useState(false);
       const [ openReview, setOpenReview ] = useState(false);
 
@@ -63,13 +63,14 @@ function Orders() {
 
         <TableCell className={darkMode ? style.cell_dark : undefined}>
 
-          <Button onClick={handleOpenReview} disabled={undefined}>Review</Button>
-
+          <Button onClick={handleOpenReview} disabled={row.review === true}>Review</Button>
             <Modal open={openReview} onClose={handleCloseReview}>
-            <Box className={style.modal_review}>
-              <Comments />
-            </Box>
-          </Modal>
+
+              <Box className={style.modal_review}>
+                <Comments detail={row} orderID={orderID} />
+              </Box>
+            </Modal>
+
         </TableCell>
 
         <TableCell className={darkMode ? style.cell_dark : undefined}>
@@ -152,7 +153,7 @@ function Orders() {
 
                     <TableBody key={data.id}>
                       {data.stocks?.map((e, p)=> {
-                        return <Row key={p} row={e} />
+                        return <Row key={p} row={e} orderID={data.id} />
                       })}                    
                     </TableBody>
                     

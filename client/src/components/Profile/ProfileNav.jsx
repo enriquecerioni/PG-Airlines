@@ -13,15 +13,19 @@ export default function ProfileNav() {
     dispatch(getAllUsers());
   }, [dispatch]);
 
-  // function isImage(anImage) {
-  //   return /.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(anImage);
-  // }
+  function isImage(anImage) {
+    return /.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(anImage);
+  }
 
   const users = useSelector((state) => state.allUsers);
   const currentUser = useSelector((state) => state.currentUser)[0];
+  const profilePic = `"${currentUser.image}"`;
+  console.log(profilePic);
 
-  var currentlyUsingPic = defaultProfilePic;
-  // currentUser.image === null ? defaultProfilePic : isImage(currentUser.image) ? currentUser.image : defaultProfilePic
+  //defaultProfilePic;
+  var currentlyUsingPic = currentUser.image === null ? defaultProfilePic : isImage(currentUser.image) || null ? currentUser.image : defaultProfilePic
+
+console.log(isImage(currentUser.image))
 
   var AccInfo = (
     <li className={darkMode ? s.navLink_dark: s.navLink}>
@@ -81,7 +85,7 @@ export default function ProfileNav() {
     <li className={darkMode ? s.navLink_dark: s.navLink}>
       <Link className={darkMode ? s.links_dark : s.links} to="/airlinePendingRequests">
         {/* <i className='bx bx-pie-chart-alt icon' ></i> */}
-        <span className={s.text}>AirlinePendingRequests</span>
+        <span className={s.text}>Airline Pending Requests</span>
       </Link>
     </li>
   );
@@ -90,6 +94,7 @@ export default function ProfileNav() {
   return (
     <>
       {currentUser !== undefined ? (
+        // console.log(currentUser.image)
         <aside className={darkMode ? s.sidebar_dark : s.sidebar}>
           <header>
             <div className={s.imageText}>
@@ -104,7 +109,7 @@ export default function ProfileNav() {
                   <img
                     className={s.imgProfile}
                     // "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
-                    src={currentlyUsingPic}
+                    src={currentUser.image ? currentUser.image : defaultProfilePic}
                     alt="profile"
                   />
                 </figure>
