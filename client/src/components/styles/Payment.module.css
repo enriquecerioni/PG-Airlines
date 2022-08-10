@@ -2,263 +2,285 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
 
 .form_container {
-    margin: 0 auto;
-    width: 80%;
+  margin: 0 auto;
+  width: 80%;
 }
 
 .form_container_dark {
-    margin: 0 auto;
-    width: 80%;
-    background-color: #ffffff86;
-    padding: 1rem;
-    border-radius: 1rem;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #ffffff86;
+  padding: 1rem;
+  border-radius: 1rem;
 }
 
 .payment_container {
-    margin-top: 4rem;
+    margin-top: 3rem;
     padding-bottom: 5rem;
     height: 100%;
 }
 
 .payment_container_dark {
-    margin-top: 4rem;
+    margin-top: 3rem;
     padding-bottom: 5rem;
     background-color: #121212;
     height: 100%;
 }
 
 .main_title {
-    padding-top: 2rem;
-    font-family: 'Rubik', sans-serif;
-    letter-spacing: .1rem;
+  padding-top: 2rem;
+  font-family: "Rubik", sans-serif;
+  letter-spacing: 0.1rem;
 }
 
 .main_title_dark {
-    padding-top: 2rem;
-    font-family: 'Rubik', sans-serif;
-    letter-spacing: .1rem;
-    color: #FFFFFF;
+  padding-top: 2rem;
+  font-family: "Rubik", sans-serif;
+  letter-spacing: 0.1rem;
+  color: #ffffff;
 }
 
 .card {
-    display: flex;
-    flex-direction: row;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border-radius: 0.25rem;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border-radius: 0.25rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 1rem;
 }
-
 
 /* SUCCESS COMPONENT */
 .success_container {
-    margin-top: 4rem;
-    height: 100vh;
+  margin-top: 4rem;
+  height: 100vh;
 }
 
 .success_container_dark {
-    margin-top: 4rem;
-    background-color: #121212;
-    height: 93.2vh;
+  margin-top: 4rem;
+  background-color: #121212;
+  height: 93.2vh;
 }
 
 .success_title {
-    font-family: 'Rubik', sans-serif;
-    font-size: 2.8rem;
-    padding: 3rem 0;
+  font-family: "Rubik", sans-serif;
+  font-size: 2.8rem;
+  padding: 3rem 0 0 0;
 }
 
 .success_title_dark {
-    font-family: 'Rubik', sans-serif;
-    font-size: 2.8rem;
-    color: #FFFFFF;
-    padding: 3rem 0;
+  font-family: "Rubik", sans-serif;
+  font-size: 2.8rem;
+  color: #ffffff;
+  padding: 3rem 0 0 0;
 }
 
 .success_img {
-    width: 32rem;
-    height: 100%;
+  width: 60%;
+  height: 60%;
 }
 
 .success_img_dark {
-    width: 33rem;
-    height: 55%;
-    border-radius: 75% 25% 80% 20% / 20% 83% 17% 80%;
+  width: 60%;
+  height: 60%;
+  border-radius: 75% 25% 80% 20% / 20% 83% 17% 80%;
 }
 
 .hr_separator {
-    border: 0.1px solid rgb(143, 143, 143);
-    width: 80%;
-    margin: 0 auto;
+  border: 0.1px solid rgb(143, 143, 143);
+  width: 80%;
+  margin: 0 auto;
 }
 
 .methods {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;     /*warning dice que flex-start    ?? sera????*/
-    margin: 0 auto;
-    width: 70%;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: start; /*warning dice que flex-start    ?? sera????*/
+  margin: 0 auto;
+  width: 70%;
+  align-items: center;
 }
 /* ORDERS */
 
+.modal_review {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40rem !important;
+  height: 33rem !important;
+  background-color: white;
+  border: 1px solid #000;
+  border: 10px solid #4c87bee1;
+}
+
 .id_container {
-    display: flex;
-    justify-content: space-around;
-    padding: 1rem;
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
 }
 
 .main_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    margin-top: 4rem;
-    height: 100%;
-} 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  margin-top: 4rem;
+  height: 100%;
+}
 
 .main_container_dark {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 4rem;
-    padding: 1rem;
-    background-color: #121212;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  padding: 1rem;
+  background-color: #121212;
+  height: 100%;
 }
 
 .title_orders {
-    font-family: 'Rubik', sans-serif;
-    font-size: 2.8rem;  
-    padding: 2.5rem 0;
+  font-family: "Rubik", sans-serif;
+  font-size: 2.8rem;
+  padding: 2.5rem 0;
 }
 
 .title_orders_dark {
     font-family: 'Rubik', sans-serif;
-    font-size: 2.8rem;  
+    font-size: 2.8rem;
+    margin-top: 3rem;
     padding-top: 1rem;
     padding-bottom: 2.5rem;    
     color: #FFFFFF;
 }
 
 .card_container {
-    width: 52rem;
-    padding: 2rem;
-    text-align-last: center;
-    margin-bottom: 2rem;
-    overflow: visible !important;
+  width: 52rem;
+  padding: 2rem;
+  text-align-last: center;
+  margin-bottom: 2rem;
+  overflow: visible !important;
 }
 
 .card_container_dark {
-    width: 52rem;
-    padding: 2rem;
-    text-align-last: center;
-    margin-bottom: 2rem;
-    background-color: #121212 !important;
-    border: 1px solid #d3d2d2af;
-    overflow: visible !important;
+  width: 52rem;
+  padding: 2rem;
+  text-align-last: center;
+  margin-bottom: 2rem;
+  background-color: #121212 !important;
+  border: 1px solid #d3d2d2af;
+  overflow: visible !important;
 }
 
 .order_number {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.2rem;
-    padding-bottom: .5rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+  padding-bottom: 0.5rem;
 }
 
 .order_number_dark {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.2rem;
-    padding-bottom: .5rem;
-    color: #FFFFFF;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+  padding-bottom: 0.5rem;
+  color: #ffffff;
 }
 
 .info_order {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    padding-bottom: .5rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 .info_order_dark {
-    font-family: 'Roboto', sans-serif;
-    font-size: .9rem;
-    padding-bottom: .5rem;
-    color: #FFFFFF;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
+  padding-bottom: 0.5rem;
+  color: #ffffff;
 }
 
 .cell_dark {
-    color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 .ticket_detail {
-    display: flex;
-    justify-content: space-around;
-    row-gap: 1rem;
+  display: flex;
+  justify-content: space-around;
+  row-gap: 1rem;
 }
 
 .empty_order {
-    height: 100%;
+  height: 100%;
 }
 
 .empty_order_dark {
-    background-color: #121212;
-    height: 74.2vh;
+  background-color: #121212;
+  height: 74.2vh;
 }
 
 .empty_title {
-    font-family: 'Rubik', sans-serif;
-    font-size: 1.5rem;  
-    padding: 3rem 0;
+  font-family: "Rubik", sans-serif;
+  font-size: 1.5rem;
+  padding: 3rem 0;
 }
 
 .empty_title_dark {
-    font-family: 'Rubik', sans-serif;
-    font-size: 1.5rem;  
-    padding: 3rem 0;
-    color: #FFFFFF;
+  font-family: "Rubik", sans-serif;
+  font-size: 1.5rem;
+  padding: 3rem 0;
+  color: #ffffff;
 }
 
 .img_empty {
-    width: 30rem;
-    height: 100%;
-    padding-bottom: 1rem;
+  width: 30rem;
+  height: 100%;
+  padding-bottom: 1rem;
 }
 
 .img_empty_dark {
-    width: 28rem;
-    height: 60%;
-    padding-bottom: 1rem;
+  width: 28rem;
+  height: 60%;
+  padding-bottom: 1rem;
 }
 
 .card_form {
-    margin: 0 auto;
-    width: 90%;
-    background-color: #d3d2d2af;
-    padding: .6rem;
-    border-radius: 1rem;
-    display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
+  margin: 0 auto;
+  width: 90%;
+  background-color: #d3d2d2af;
+  padding: 0.6rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
 }
 
 .btnLoading {
-    background-color: #4c87bee1 !important;
+  background-color: #4c87bee1 !important;
 }
 
 .msg_error {
-    padding-top: 1rem;
-    font-size: 1rem;
-    color: #FF0266;
+  padding-top: 1rem;
+  font-size: 1rem;
+  color: #ff0266;
 }
 
 .msg_error_dark {
-    padding-top: 1rem;
-    font-size: 1rem;
-    color: #FF7597;
+  padding-top: 1rem;
+  font-size: 1rem;
+  color: #ff7597;
+}
+@media screen and (max-width: 450px) {
+  .success_img {
+    width: 100%;
+    height: 50%;
+  }
+  .success_img_dark {
+    width: 100%;
+    height: 50%;
+  }
 }

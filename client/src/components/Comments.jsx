@@ -2,33 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import { createComment, getAllComments, getAllUsers } from "../redux/actions/index.js";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { createComment, updateReview } from "../redux/actions/index.js";
+import css from './styles/Comments.module.css'
+import Swal from "sweetalert2";
 
-function Comments({airline, details, allAirlines, detailsID}) {
-  // console.log(detailsID)
-
+export default function Comments({ detail, orderID,flightId, allStocks, setOpenReview}) {
   const dispatch = useDispatch()
   const user = useSelector(state => state.currentUser)
-
-  const allComments = useSelector(state => state.comments)
-
-  const [ comments, updateComments ] = useState([allComments])
-
-  const getData = async () => {
-    updateComments(allComments);
-  }
-
-  useEffect(() => {
-    localStorage.getItem("comments") !== null
-      ? updateComments(JSON.parse(localStorage.getItem("comments")))
-      : getData();
-  }, []);
-
-
-  const airlineComments = comments.filter(e => detailsID === e.airlineId)
-
-  // console.log(allComments)
-  // console.log(airlineComments)
 
   function validate(input) {
     let error = {}
@@ -66,14 +48,7 @@ function Comments({airline, details, allAirlines, detailsID}) {
       rating: '',
       comment: '',
       name: user[0]?.name,
-      moreInfo: [
-        {
-        flightName: '',
-        origin: '',
-        destination: ''        
-      }
-      ],
-    airlineId: detailsID,
+    airlineId: detail.airlineId,
   })
 
   function handleInputChange(e) {
@@ -88,16 +63,25 @@ function Comments({airline, details, allAirlines, detailsID}) {
     }))
   }
 
-  function handleSubmitComment(e) {
+ async function handleSubmitComment(e) {
     e.preventDefault()
-
-    console.log(input.rating ,input.comment ,input.name)
     if(input.rating && input.comment && input.name) {
+      // console.log("este es el input de mierda",input);
+      await dispatch(createComment(input))
 
-      dispatch(createComment(input))
-      let updatedComments = [...comments, input]
+      allStocks?.map((stock)=>{
+        if(stock.flightId===flightId) stock.review = true
+      })
+      
+      dispatch(updateReview({orderID, allStocks}))
 
-      updateComments(updatedComments)
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your feedback has been send!',
+        showConfirmButton: false,
+        timer: 1000
+      })
 
       setInput({
         rating: '',
@@ -110,90 +94,64 @@ function Comments({airline, details, allAirlines, detailsID}) {
             destination: ''     
           } 
         ],
-        airlineId: detailsID,    
+        airlineId: detail.airlineId,    
       })
+      setOpenReview(false)
+
     } else {
-        console.log('formulario incorrecto')
+      setOpenReview(false)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Complete all fields!",
+        confirmButtonColor: "#10408F",
+      });
     }
   }
 
-  useEffect(() => {
-    dispatch(getAllComments())
-    dispatch(getAllUsers())
-  }, [comments])
-
   return (
-    <div>
-        <div style={{ "margin": 10 + 'rem'}}>
+    <div className={css.comments_container}>
+        <h3 className={css.modal_title}>Give us your feedback!</h3>
 
-        <h3>COMENTARIOS PREVIOS</h3>
-          {airlineComments.length ? airlineComments.map(e => {
-                 return (<div key={e.id}>
-                  <p>{e.comment}</p>
-                     <p>{e.rating}</p>
-                     <p>{e.name}</p>
-                   </div>) 
-            }) 
-            : <h5>No hay nada</h5>}
-
-            <br />
-            <h3>Este vuelo fue publicado por: {airline} </h3>
-            <h3>RATING DE LA AEROLINEA</h3>
-            <h3>Publicar comentario y rating</h3>
-            <form onSubmit={handleSubmitComment}>
-            <h3>INPUT DE RATING</h3>
-
-            <Box sx={{'& > legend': { mt: 2 },}}>
-                <Rating
-                    type="number"
-                    name='rating'
-                    value={input.rating}
-                    onChange={handleInputChange}
-                />
-            </Box>
-            {input.rating}
-            {error.rating && <span>{error.rating}</span>}
-
-            <h5>Input nombre de la persona que quiere hacer comentario</h5>
-            <input
-            type="text"
-            value={input.name}
-            name='name'
-            onChange={handleInputChange}
+        <form className={css.form_container} onSubmit={handleSubmitComment}>
+        <Box sx={{'& > legend': { mt: 2 },}}>
+            <Rating
+                type="number"
+                name='rating'
+                value={input.rating}
+                onChange={handleInputChange}
             />
-            {input.name}
-            {error.name && <span>{error.name}</span>}
+        </Box>
+        {error.rating && <span>{error.rating}</span>}
 
-            <h5>Input nombre del vuelo de donde lo conocen</h5>
-            <input 
-            type="text" 
-            name="flightName"
-            value={input.flightName}
-            onChange={handleInputChange}
-            />
-            {input.flightName}
+        <TextField
+          type="text"
+          id="outlined-uncontrolled"
+          label="Users name"
+          name='name'
+          defaultValue={input.name}
+          focused
+        />
+        {error.name && <span>{error.name}</span>}
 
-            <h3>INPUT DE COMENTARIO</h3>
-            <input 
-            type="text" 
-            name='comment'
-            value={input.comment}
-            onChange={handleInputChange}
-            />
-            {input.comment}
-            {error.comment && <span>{error.comment}</span>}
+        <TextField
+          id="outlined-multiline-static"
+          label="Your comment"
+          multiline
+          rows={4}
+          type="text" 
+          name='comment'
+          value={input.comment}
+          onChange={handleInputChange}
+          focused
+        />
 
-            <br />
-            <button type="submit">Publicar</button>
-            <br />
-            <span>Su comentario puede ser eleminado si es conciderado inapropiado o se demuestra que no tiene relacion con la aerolinea</span>                    
-            </form> 
-            <br />
-            <br />
+        {error.comment && <span>{error.comment}</span>}
 
-        </div>   
-    </div>
+        <br />
+        <Button type="submit" variant="contained">Publicar</Button>
+        </form> 
+        <br />
+    </div>   
   )
 }
-
-export default Comments

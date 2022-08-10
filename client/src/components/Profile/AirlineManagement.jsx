@@ -7,8 +7,9 @@ import { getAllUsers,
   deleteAirline, } from "../../redux/actions";
 import Loader from "../HomeComponents/Loader";
 import s from "../styles/UserProfile.module.css";
-
+import { Button, Table, TableHead, TableBody, TableCell, TableRow } from '@mui/material'
 import { Delete } from "../scripts/auth";
+import Swal from 'sweetalert2'
 
 export default function AirlineManagement() {
   const dispatch = useDispatch();
@@ -26,16 +27,33 @@ export default function AirlineManagement() {
   // getAllUsers()
   const users = useSelector((state) => state.allUsers);
   const currentUser = useSelector((state) => state.currentUser)[0];
-  console.log(users);
-  console.log(currentUser);
+  // console.log(users);
+  // console.log(currentUser);
 
-  async function deleteUser(UID, email) {
-    await Delete(email, UID);
-    business.filter((b) => b.email === email).length
-      ? dispatch(deleteAirline(email))
-      : console.log("no esta");
-    //  aca va un loader porque las funciones se ejecutan tarde y se rompe con el window.location.reload()
-    setRefreshAccounts(refreshAccounts + 1);
+  async function handleDeleteAirline(UID, email) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Delete(email, UID);
+        business.filter((b) => b.email === email).length
+          ? dispatch(deleteAirline(email))
+          : console.log("no esta");
+        //  aca va un loader porque las funciones se ejecutan tarde y se rompe con el window.location.reload()
+        setRefreshAccounts(refreshAccounts + 1);        
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
   }
 
   useEffect(() => {
@@ -54,21 +72,40 @@ export default function AirlineManagement() {
           <ProfileNav />
           <div className={s.infoContainer}>
             <h1 className={s.title}>Airline Management</h1>
-            {business.length ? (
-        business.map((u) => {
-          return (
-            <div>
-              <br />
-              <br />
-              <div key={u.uid}>
-                email: {u.email},Name: {u.name ? u.name : null}, uid: {u.uid}
+            <div className={s.table_container}>
+              <Table>
+                <caption>All airlines using the website</caption>
+                <TableHead>
+                    <TableRow>
+                      <TableCell><strong>Email</strong></TableCell>
+                      <TableCell><strong>Name</strong></TableCell>
+                      <TableCell><strong>UID</strong></TableCell>
+                      <TableCell><strong>Delete Airline</strong></TableCell>
+                    </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {business.length ? (
+                      business.map((u) => {
+                        return (
+                          <TableRow key={u.uid}>
+                              <TableCell>{u.email}</TableCell>
+                              <TableCell>{u.name ? u.name : '(empty)'}</TableCell>
+                              <TableCell>{u.uid}</TableCell>
+                              <TableCell>
+                              <Button color='error' variant="contained" onClick={() => { handleDeleteAirline(u.uid, u.email)}}>
+                                Delete
+                              </Button>
+                              </TableCell>
+                          </TableRow>
+                        )
+                      })
+                    ) : (
+                      <h1>No airlines?</h1>
+                    )}                  
+                </TableBody>
+              </Table>
               </div>
-            </div>
-          );
-        })
-      ) : (
-        <h1>No airlines?</h1>
-      )}
           </div>
         </div>
       ) : (

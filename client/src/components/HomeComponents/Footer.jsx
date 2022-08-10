@@ -23,19 +23,19 @@ export default function Footer() {
       <div className={s.rightInfo}>
         <h1 className={s.about}>Contact Us</h1>
         <ul className={s.ul}>
-          {/* <li>
+          <li>
             <p className={s.p1}>
-              pg.airlines.ecommerce@gmail.com <i class="bx bxl-gmail"></i>
+              pg.airlines.ecommerce@gmail.com <i className="bx bxl-gmail"></i>
             </p>
           </li>
           <li>
             <p className={s.p1}>
               GitHub <i id="gitHubIcon" className="bx bxl-github"></i>
             </p>
-          </li> */}
-          {/* <li>
+          </li> 
+          <li>
             <p className={s.p1}></p>
-          </li> */}
+          </li>
         </ul>
       </div>
     </div>

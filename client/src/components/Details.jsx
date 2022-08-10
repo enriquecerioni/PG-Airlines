@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getFlightByID, cleanDetails, getAllAirlines, getAllUsers } from "../redux/actions/index.js";
+import { getFlightByID, cleanDetails, getAllAirlines, getAllUsers, getAllComments } from "../redux/actions/index.js";
 import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
-// import Typography from '@mui/material/Typography';
-
-// import  addProductToCart  from './CartComponents/CartContext.jsx'
 import { CartContext } from "./CartComponents/CartContext";
 import { useContext } from "react";
-import Comments from "./Comments.jsx";
+import FeedBack from "./FeedBack.jsx";
 
 function Details() {
   let { id } = useParams();
@@ -20,10 +17,8 @@ function Details() {
   const details = useSelector((state) => state.flight);
   const user = useSelector((state) => state.currentUser);
   const airlines = useSelector((state) => state.airlines);
-  // console.log(details)
-  // console.log(airlines)
 
-  const { addProductToCart } = useContext(CartContext);
+  const { addProductToCart,products } = useContext(CartContext);
 
   const handleAddToCart = ({
     id,
@@ -33,7 +28,8 @@ function Details() {
     airline,
     arrivalHour,
     departureHour,
-    tickets
+    tickets,
+    destination
   }) => {
     // console.log({id, origin, price, logo, airline, arrivalHour, departureHour})
     addProductToCart({
@@ -44,18 +40,37 @@ function Details() {
       airline,
       arrivalHour,
       departureHour,
-      tickets
+      tickets,
+      destination
     });
-    toast.info("Added to cart", {
-      icon: "✈️",
-      position: "bottom-left",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    let cant=0;
+    products?.map((p)=>{
+      if(p.id===id)cant++
+      if(p.id===id && p.amount < p.tickets){
+        toast.info("Ticket added to cart", {
+          icon: "✈️",
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
+    })
+    if(!cant) {
+      toast.info("Ticket added to cart", {
+        icon: "✈️",
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
   };
 
   useEffect(() => {
@@ -69,7 +84,6 @@ function Details() {
       dispatch(cleanDetails());
     };
   }, [dispatch, id]);
-  // console.log(details);
 
   let airline = airlines.map((airline) => {
     if (details.airlineId === airline.id) {
@@ -80,9 +94,13 @@ function Details() {
   return (
     <div>
       <div className={s.container}>
-        <Link className={s.links} to="/">
-          <button className={s.btnHome}>Go to Home</button>
-        </Link>
+
+        <div className={s.links}>
+          <Link to="/">
+            <button className={s.btnHome}>Go to Home</button>
+          </Link>          
+        </div>
+        
         {details ? (
           <div key={details.id}>
             <div className={s.detail}>
@@ -148,6 +166,8 @@ function Details() {
                         airline: airline,
                         arrivalHour: details.arrivalHour,
                         departureHour: details.departureHour,
+                        tickets:details.tickets,
+                        destination:details.destination
                       })
                     }>Add to cart</button>
                 ) : !user.length ? (
@@ -162,7 +182,8 @@ function Details() {
                         airline: airline,
                         arrivalHour: details.arrivalHour,
                         departureHour: details.departureHour,
-                        tickets:details.tickets
+                        tickets:details.tickets,
+                        destination:details.destination
                       })
                     }>Add to cart</button>
 
@@ -170,10 +191,9 @@ function Details() {
        
             </div> 
 
-             <Comments airline={airline} detailsID={details.airlineId} allAirlines={airlines} />  
+            <FeedBack airlineId={details.airlineId} airline={airline} />   
 
           </div>
-
         ) : null }
         
       </div>

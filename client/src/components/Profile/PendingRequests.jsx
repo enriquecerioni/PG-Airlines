@@ -7,14 +7,15 @@ import { getAllUsers,  getAllUsersFirebase,
 import Loader from "../HomeComponents/Loader";
 import { makeAdmin } from "../scripts/auth";
 import s from "../styles/UserProfile.module.css";
+import { Button, Table, TableHead, TableBody, TableCell, TableRow } from '@mui/material'
 
 export default function AirlinePendingRequests() {
   const dispatch = useDispatch();
   // getAllUsers()
   const users = useSelector((state) => state.allUsers);
   const currentUser = useSelector((state) => state.currentUser)[0];
-  console.log(users);
-  console.log(currentUser);
+  // console.log(users);
+  // console.log(currentUser);
 
   const allUser = useSelector((state) => state.allUsersFirebase);
 
@@ -44,34 +45,44 @@ export default function AirlinePendingRequests() {
   return (
     <>
       {currentUser !== undefined ? (
-        <div className={s.container}>
+        <div className={s.container_pending}>
           <ProfileNav />
           <div className={s.infoContainer}>
             <h1 className={s.title}>Airline Pending Requests</h1>
-            {toBeBusiness.length ? (
-        toBeBusiness.map((u) => {
-          return (
-            <div>
-              <br />
-              <br />
-              <div key={u.uid}>
-                email: {u.email},Name: {u.name ? u.name : null}, uid: {u.uid}
-              </div>
-              <button
-                onClick={() => {
-                  acceptRequest(u.email);
-                }}
-              >
-                Make Admin 
-              </button>
-            </div>
-          );
-        })
-      ) : (
-        <h1>No airlines?</h1>
-      )} 
+            <div className={s.table_container}>
+                <Table>
+                  <caption>This airlines are waiting to be accepted</caption>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell><strong>Email</strong></TableCell>
+                      <TableCell><strong>Name</strong></TableCell>
+                      <TableCell><strong>UID</strong></TableCell>
+                      <TableCell><strong>Accept Request</strong></TableCell>
+                    </TableRow>
+                  </TableHead>
 
-            {/* <h2>If there's any airlines wanting to parter up with us, those will wait here for an approval</h2> */}
+                  <TableBody>
+                    {toBeBusiness.length ? (
+                      toBeBusiness.map(u => {
+                        return (
+                          <TableRow key={u.uid}>
+                              <TableCell>{u.email}</TableCell>
+                              <TableCell>{u.name ? u.name : '(empty)'}</TableCell>
+                              <TableCell>{u.uid}</TableCell>
+                              <TableCell>
+                                <Button variant="contained" onClick = {() => {acceptRequest(u.email)}} >
+                                  Make Admin 
+                                </Button>
+                              </TableCell>
+                          </TableRow>
+                        )
+                      })
+                    ) : <h1>No airlines</h1>}
+                  </TableBody>
+
+
+                </Table>
+            </div>
           </div>
         </div>
       ) : (

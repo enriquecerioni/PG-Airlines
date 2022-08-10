@@ -42,12 +42,21 @@ function Register() {
     e.preventDefault();
     setLoading(true);
 
-    let type = await singUp(
-      e.target.email.value,
-      e.target.password.value,
-      e.target.phone.value,
-      `${e.target.name.value} ${e.target.surname.value}`
-    );
+    if(
+      name.valid === 'true' &&
+      surname.valid === 'true' &&
+      email.valid === 'true' &&
+      phone.valid === 'true' &&
+      password.valid === 'true' &&
+      password2.value === password.value 
+    ) 
+    {
+      let type = await singUp(
+        e.target.email.value,
+        e.target.password.value,
+        e.target.phone.value,
+        `${e.target.name.value} ${e.target.surname.value}`
+      );
 
     if (typeof type == "string") {
       // alert(type)
@@ -57,12 +66,21 @@ function Register() {
         text: "Something went wrong!",
         confirmButtonColor: "#10408F",
       });
+      setLoading(false);
     } else {
       navigate.push("/");
-      window.location.reload();
+      //window.location.reload();
     }
+  }else{
+    Swal.fire({
+      icon: "question",
+      title: "Oops...",
+      text: "Complete all fields",
+      confirmButtonColor: "#10408F",
+    });
     setLoading(false);
   }
+}
 
   // async function handleClick (e){
   //   try {
@@ -221,4 +239,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Register

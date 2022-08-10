@@ -256,8 +256,8 @@ export default function AddModal({ setAirlineFlights }) {
                                         <div>
                                             <label>Airline: {currentUser[0]?.name} </label>
                                         </div>
-                                        <div>                                           
-                                             <img  src={currentUser[0]?.image} alt="Img" />                                            
+                                        <div>
+                                            <img width='150px' height='100px' src={currentUser[0]?.image} alt="#" />
                                         </div>
                                     </div>
                                     <div className={s.inputCont}>

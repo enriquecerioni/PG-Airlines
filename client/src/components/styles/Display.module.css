@@ -9,12 +9,30 @@
   grid-template-rows: 100%;
   justify-items: center;
 }
+.container_ticket_dark {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 100%;
+  justify-items: center;
+}
 
 .ticket_container {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+.ticket_container_dark {
   grid-column: 2 / 3;
 }
 
 .filter_container {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 75px;
+}
+.filter_container_dark {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
   display: flex;
@@ -30,14 +48,19 @@
 }
 
 .main_container_dark {
+  color: white !important;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  background: rgba(255, 255, 255, 0.33);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(255, 255, 255, 0.174);
+  backdrop-filter: blur(3.1px);
+  -webkit-backdrop-filter: blur(3.1px);
+  padding: 1rem 1rem;
+  margin-left: 1rem;
 }
 
-.main_container_dark {
-  background-color: #121212;
-}
 .textColor {
   color: black;
   font-family: "Roboto", sans-serif;
@@ -54,7 +77,16 @@
   flex-direction: row;
   flex-wrap: wrap;
   column-gap: 0.7rem;
-  margin: 1rem 0 3rem 0;
+  margin: 1rem 0 1rem 0;
+}
+.paginate_container_dark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 0.7rem;
+  margin: 1rem 0 1rem 0;
 }
 
 .li_numbers {
@@ -172,4 +204,44 @@
 }
 .slider {
   color: white;
+}
+@media (max-width: 450px) {
+  .container_ticket {
+    grid-template-columns: 100%;
+    grid-template-rows: 20% 80%;
+    justify-items: center;
+    row-gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .container_ticket_dark {
+    grid-template-columns: 100%;
+    row-gap: 3rem;
+    grid-template-rows: 20% 80%;
+    justify-items: center;
+    margin-bottom: 3rem;
+  }
+
+  .main_container {
+    margin-left: 0;
+  }
+
+  .ticket_container {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+  .ticket_container_dark {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+
+  .filter_container {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    margin-left: 0px;
+  }
+  .filter_container_dark {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    margin-left: 0px;
+  }
 }

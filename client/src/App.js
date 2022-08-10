@@ -59,12 +59,9 @@ function App() {
                   <RegisterAirline />
                 </Route>
                 <Route path="/register">
-                  {/* {user ? <Redirect to='/' /> : <Register />} */}
                   <Register />
                 </Route>
-
                 <Route path="/login">
-                  {/* {user ? <Redirect to='/' /> : <LogIn />} */}
                   <LogIn />
                 </Route>
                 <Route path="/profile">

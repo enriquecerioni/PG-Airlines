@@ -46,6 +46,27 @@ async function resetPasswordFirebase(email){
     }  
 }  
 
+async function disableAuthUser(uid){
+    try {
+
+       const serviceAccount= require("./key_service_account.json")
+       if(!firebase.apps.length){
+       admin.initializeApp({
+           credential: admin.credential.cert(serviceAccount),
+        }); 
+        await admin.auth().updateUser(uid, { disabled: true })  
+    }else{
+        admin.app()
+        await admin.auth().updateUser(uid, { disabled: true })  
+    }
+    } catch (error) {
+        console.log(error);
+    }  
+}  
+
+
+
+
 // async function verificateEmail(req,res){
 //     try {
 //         const{email}=req.body
@@ -58,6 +79,7 @@ async function resetPasswordFirebase(email){
 
 module.exports = { 
     deleteAuthUser,
-    resetPasswordFirebase
+    resetPasswordFirebase,
+    disableAuthUser
     // verificateEmail
   };   

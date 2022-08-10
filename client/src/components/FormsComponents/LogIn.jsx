@@ -6,44 +6,78 @@ import style from "../styles/Forms.module.css";
 import { useHistory } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import GoogleIcon from "@mui/icons-material/Google";
+import { Box, Modal, Button,TextField } from '@mui/material';
 import Swal from "sweetalert2";
+import { resetPassword } from '../../redux/actions/index'
+import { useDispatch } from "react-redux";
 import { darkModeContext } from "../DarkModeContext";
-
 
 function LogIn() {
   let navigate = useHistory();
-
+  const dispatch = useDispatch();
   const { darkMode } = useContext(darkModeContext);
-  
   const [validForm, /*setValidForm*/] = useState(null);
 
   const [loading, setLoading] = useState(false);
-
   const [emailLogIn, setEmailLogIn] = useState({ value: "", valid: null });
-  const [passwordLogIn, setPasswordLogIn] = useState({
-    value: "",
-    valid: null,
-  });
+  const [passwordLogIn, setPasswordLogIn] = useState({value: "", valid: null});
+
+  const [ emailReset, setEmailReset] = useState('')
+
+  function handleResetPassword(e) {
+    e.preventDefault()
+    if(emailReset) {
+      dispatch(resetPassword(emailReset))
+      Swal.fire({
+        icon: "success",
+        title: "Check your email",
+        // text: "The password is invalid or the user does not have a password.",
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#10408F',
+      })
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops... Something went wrong!",
+        text: "Please enter an email",
+        showConfirmButton: false,
+        confirmButtonColor: '#10408F',
+      })
+
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    if (e.target.emailLogIn.value && e.target.passwordLogIn.value) {
+    if (
+      e.target.emailLogIn.value && e.target.passwordLogIn.value &&
+      emailLogIn.valid === 'true'
+      ) {
       let type = await logIn(
         e.target.emailLogIn.value,
         e.target.passwordLogIn.value
-      );
+      )
+
       if (typeof type == "string") {
-        // alert(type);
+
       Swal.fire({
         icon: "error",
         title: "Oops... Something went wrong!",
         text: "The password is invalid or the user does not have a password.",
         showConfirmButton: false,
         confirmButtonColor: '#10408F',
-      }); 
-      } else navigate.push("/");
-      setTimeout(() => {window.location.reload();}, 2500);
+      })
+      setLoading(false);
+      setTimeout(()=>{window.location.reload()},2000)
+
+      } else {
+        navigate.push("/");
+        setTimeout(() => {window.location.reload();}, 1200);
+        
+      } 
+      
     } else {
       setLoading(false);
       // alert('enter valid email')
@@ -57,15 +91,29 @@ function LogIn() {
   }
 
   async function handleClick(e) {
-    await ejecutar();
-    navigate.push("/");
-    window.location.reload();
+    await  ejecutar()
+   navigate.push("/")
+    window.location.reload()
   }
+
+  const [ open, setOpen ] = useState(false)
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const expression = {
+    email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, //eslint-disable-line
+  };
 
   return (
     <div className={darkMode ?  style.todo_dark : style.todo}>
       <div className={darkMode ? style.container_dark : style.container}>
         <h1 className={darkMode ? style.letra_dark : style.letra}>Log In</h1>
+        
         <form
           className={darkMode ? style.form_container_dark : style.form_container}
           onSubmit={(e) => handleSubmit(e)}
@@ -77,13 +125,12 @@ function LogIn() {
           <Input
             state={emailLogIn}
             setState={setEmailLogIn}
-            // label="Email"
             id="singup-email"
             name="emailLogIn"
             type="email"
             placeholder="Enter email"
-            // error='This email is not valid'
-            // regularExpression={expression.email}
+            error='This email is not valid'
+            regularExpression={expression.email}
           />
           <label  className={darkMode ? style.letra1_dark : style.letra1} >
             PASWORD
@@ -91,13 +138,10 @@ function LogIn() {
           <Input
             state={passwordLogIn}
             setState={setPasswordLogIn}
-            // label="Pasword"
             id="singup-password"
             name="passwordLogIn"
             type="password"
             placeholder="Enter password"
-            // error='Incorrect password'
-            // regularExpression={expression.password}
           />
 
           {validForm === false && (
@@ -116,7 +160,7 @@ function LogIn() {
           {validForm === true && <span>Welcome back</span>}
         </form>
 
-        <br />
+        {/* <br />
         <hr className={style.separator} />
         <br />
 
@@ -130,26 +174,52 @@ function LogIn() {
           Log in with Google
         </LoadingButton>
 
-        <p>
-          <Link className={style.sing} to="/register">
-            Don't have an account? Sing Up
-          </Link>
-        </p>
 
-        <div>
-          <p className={darkMode ? style.letra2_dark : style.letra2}>
-            Forgot your password? Write your email down here
-          </p>
-          <input></input>
-        </div>
-        {/* <button></button> */}
-          
+        {validForm === true && <span>Welcome back</span>}
+      </form> */}
 
-        {/* <div className={style.containerAirline}>
-          <p>Want to partner up your airline with us?</p>
-          <button><Link to='/register/airline'>Register Airline</Link></button>
-        </div> */}
+      <hr className={style.separator} />
+
+      <LoadingButton
+        onClick={() => handleClick()}
+        endIcon={<GoogleIcon />}
+        loading={loading}
+        loadingPosition="end"
+        variant="contained"
+      >
+        Log in with Google
+      </LoadingButton>
+
+      <Link className={style.sing} to="/register">
+        Don't have an account? Sing Up
+      </Link>
+
+      <div>
+        <Button onClick={handleOpen}>
+          Forgot your password?
+        </Button>   
+
+        <Modal open={open} onClose={handleClose}>
+            <Box className={style.modal_login}>
+              <Button color="secondary" onClick={handleClose}>X</Button>
+              <div className={style.modal_content}>
+                  <h2>Please enter your email</h2>
+                    <TextField 
+                    focused
+                    variant="standard"
+                    label='Email'
+                    value={emailReset} 
+                    type='email' 
+                    color="warning"
+                    onChange={e => setEmailReset(e.target.value)}
+                    />
+                <Button variant="contained" onClick={handleResetPassword}>Send request</Button>                
+              </div>
+          </Box>
+        </Modal>  
       </div>
+      </div>
+
     </div>
   );
 }

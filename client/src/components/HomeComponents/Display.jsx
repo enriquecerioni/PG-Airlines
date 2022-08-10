@@ -4,7 +4,7 @@ import Ticket from './Ticket'
 import style from '../styles/Display.module.css'
 import Paginate from './Paginate';
 import Filter from '../Filter';
-import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines, getAllUsers, currentUser, getAllAirlines} from '../../redux/actions/index'
+import { orderByAvailability, getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines, getAllUsers, currentUser, getAllAirlines} from '../../redux/actions/index'
 import { darkModeContext } from "../DarkModeContext";
 
 export default function Display() {
@@ -23,6 +23,7 @@ export default function Display() {
 
     const orderPriceSelect = useRef('')
     const orderAlpSelect = useRef('')
+    const orderAvailabilitySelect = useRef('')
 
     useEffect(() => {
         // if(filterArray.length !== 0) return filterArray
@@ -35,7 +36,9 @@ export default function Display() {
         }, 1000)
 
         orderPriceSelect.current.value = orderState
-        orderAlpSelect.current.value = orderState        
+        orderAlpSelect.current.value = orderState  
+        orderAvailabilitySelect.current.value = orderState
+
     }, [dispatch, /*orderState*/])
 
     // PAGINATE
@@ -65,10 +68,16 @@ export default function Display() {
     }
 
     function handlePrice(e) {
-         e.preventDefault()
+        e.preventDefault()
         dispatch(orderByPrice(e.target.value))
         setCurrentPage(1)
     }   
+
+    function handleAvailability(e) {
+        e.preventDefault()
+        dispatch(orderByAvailability(e.target.value))
+        setCurrentPage(1)
+    }
 
     function handleFilterPrice(e) {
         e.preventDefault()
@@ -105,13 +114,14 @@ export default function Display() {
 
   return (
     <div>
-        <div className={style.container_ticket}>
-            <div className={style.ticket_container} >
+        <div className={darkMode ? style.container_ticket_dark : style.container_ticket}>
+            <div className={darkMode ? style.ticket_container_dark : style.ticket_container} >
                 
                 { 
                 filterArray.length !== 0 ? 
                 paginateCards.map(e => {
-                    if(e.tickets)return (<Ticket 
+                    //console.log(e);
+                    if(e.tickets){return (<Ticket 
                         key={e.id}
                         id={e.id}
                         airlineId={e.airlineId}
@@ -123,7 +133,7 @@ export default function Display() {
                         origin={e.origin}
                         destination={e.destination}
                         tickets={e.tickets}              
-                    />) 
+                    />) }
                            
                 }) :
                 <p>Flights not found, search again please!</p>
@@ -144,13 +154,15 @@ export default function Display() {
             }  
             </div>
                            
-            <div className={style.filter_container}>
+            <div className={darkMode ? style.filter_container_dark : style.filter_container}>
                 
                 <Filter
                 handlePrice={handlePrice}
                 handleAlph={handleAlph} 
+                handleAvailability={handleAvailability}
                 orderPriceSelect={orderPriceSelect}
                 orderAlpSelect={orderAlpSelect}
+                orderAvailabilitySelect={orderAvailabilitySelect}
                 handleFilterPrice={handleFilterPrice}
                 handleClick={handleClick}
               //  handleSearchAirlines={handleSearchAirlines}

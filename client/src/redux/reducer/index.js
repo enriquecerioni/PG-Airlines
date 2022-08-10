@@ -32,6 +32,7 @@ import {
   GET_ORDERS,
   GET_COMMENTS,
   GET_ALL_USER_FIREBASE,
+  ORDER_AVAILABILITY,
 } from "../actions";
 import Swal from "sweetalert2";
 
@@ -316,6 +317,41 @@ const rootReducer = (state = initialState, action) => {
         currrentFilter: orderFiltered,
         orderState: action.payload,
       };
+    }
+
+    case ORDER_AVAILABILITY: {
+      let orderByAvailability =
+      action.payload === "low"
+        ? state.flights.sort((a, b) => {
+          if (a.tickets > b.tickets) return 1;
+          if (a.tickets < b.tickets) return -1;
+          else return 0;
+        })
+        : state.flights.sort((a, b) => {
+          if (a.tickets > b.tickets) return -1;
+          if (a.tickets < b.tickets) return 1;
+          else return 0;
+        });
+
+    let orderFiltered =
+      state.currrentFilter.length && action.payload === "low"
+        ? state.currrentFilter.sort((a, b) => {
+          if (a.tickets > b.tickets) return 1;
+          if (a.tickets < b.tickets) return -1;
+          else return 0;
+        })
+        : state.currrentFilter.sort((a, b) => {
+          if (a.tickets > b.tickets) return -1;
+          if (a.tickets < b.tickets) return 1;
+          else return 0;
+        });
+
+    return {
+      ...state,
+      flights: orderByAvailability,
+      currrentFilter: orderFiltered,
+      orderState: action.payload,
+    };
     }
 
     case RESET_FILTER: {

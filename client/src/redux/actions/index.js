@@ -10,6 +10,7 @@ export const SEARCH_BY_DESTINATION = "SEARCH_BY_DESTINATION";
 export const CLEAN = "CLEAN";
 export const ORDER_PRICE = "ORDER_PRICE";
 export const ORDER_ALPHABETICALLY = "ORDER_ALPHABETICALLY";
+export const ORDER_AVAILABILITY = 'ORDER_AVAILABILITY'
 export const RESET_FILTER = "RESET_FILTER";
 export const FILTER_PRICE = "FILTER_PRICE";
 export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN";
@@ -143,6 +144,13 @@ export function addToCart(payload) {
 export const orderAlphabetically = (payload) => {
   return {
     type: ORDER_ALPHABETICALLY,
+    payload,
+  };
+};
+
+export const orderByAvailability = (payload) => {
+  return {
+    type: ORDER_AVAILABILITY,
     payload,
   };
 };
@@ -406,18 +414,22 @@ export function getAllComments() {
           payload: res.data,
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => 
+      console.log(error)
+      
+      );
   };
 }
 
 export function createComment(payload) {
+  console.log("este es el payload papi",payload);
   return function (dispatch) {
     axios
       .post("http://localhost:3001/comments", payload)
       .then((res) => {
         dispatch({
           type: CREATE_COMMENT,
-          payload: res,
+          payload: res.data,
         });
       })
       .catch((error) => console.log(error));
@@ -446,9 +458,61 @@ export function createSales(payload) {
 }
 
 export function resetPassword(email) {
-    axios.post(`http://localhost:3001/user/resetPassword/${email}`)
-    .then(() => {console.log( "se reseteo la password" )}
-    ).catch((error) =>  {
-      console.log(error)        
+  return function(dispatch) {
+      axios.post(`http://localhost:3001/user/resetPassword/${email}`)
+      .then((res) => {
+        console.log( "se reseteo la password")
+        dispatch({
+          type: 'RESET',
+          payload: res
+        })
+      }
+      ).catch((error) =>  {
+        console.log(error)        
+      })    
+  }
+}
+
+export function updateReview(payload) {
+  //console.log("esto es el payload de revie",payload)
+  
+  return function (dispatch) {
+    axios.put(`http://localhost:3001/comments`, payload)
+    .then(res => {
+      console.log('todo tranqui')
+      dispatch({
+        type: 'UPDATE_REVIEW',
+        payload: res.data
+      })
     })
+    .catch(error => console.log(error)) 
+  }
+}
+
+export function verifyEmail(payload){
+  return function(dispatch) {
+    axios.put("http://localhost:3001/user/verificateEmail",payload)
+    .then((res) => {
+      console.log( "esta verificado pa")
+      dispatch({
+        type: 'verify',
+        payload: res
+      })
+    }
+    ).catch((error) =>  {
+      console.log(error.message)        
+    })    
+}
+}
+export function disableUser(payload) {
+  return function () {
+    axios
+      .put("http://localhost:3001/user/disableUser",payload)
+      .then(() => {
+        console.log("user auth firebase disable");
+      })
+      .catch(() => {
+        console.log("error al banear el auth user");
+      });
+  };
 }

@@ -6,9 +6,13 @@ import {
   deleteUser,
   deleteUserAuth,
   currentUser,
+  verifyEmail,
+  disableUser
 
  
 } from "../../redux/actions/index";
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGr8PQQDvTRK484636fOa1XJVhIJ0lmqA",
@@ -30,8 +34,8 @@ auth.onAuthStateChanged(async (user) => {
 
   if (user) {
     //console.log(user.email);
-    
-      await  store.dispatch(currentUser(user.email));
+    setTimeout(()=>{store.dispatch(currentUser(user.email))},2800)
+
     
   
     
@@ -56,6 +60,8 @@ auth.onAuthStateChanged(async (user) => {
       // document.getElementById("MyAirline").style.display = "";
       // document.getElementById("OwnFlights").style.display = "";
     } else if (user.emailVerified) {
+      let email=user.email
+      await store.dispatch(verifyEmail({email}))
       //console.log("user logged-in: ", user.displayName, user.email, user);
       // document.getElementById("btnHomeGuest").style.display = "none";
       console.log("user verificado");
@@ -123,7 +129,7 @@ export async function singUp(email, password, phone,name) {
     //console.log("2", email, name, uid);
 
     console.log(email, name, uid, img);
-    await store.dispatch(createUser({ email, name, uid, img, phone }));
+    await store.dispatch(createUser({ email, name, uid, img, phone}));
     return  dbFirebase.collection("users").doc(email).set({
       name: name,
       email: email,
@@ -132,6 +138,8 @@ export async function singUp(email, password, phone,name) {
       photo: img? img:"",
       uid: uid,
       superAdmin: false,
+      emailVerificated:false,
+      disable:false,
     });
   } catch (error) {
     return `${error.message}`;
@@ -151,6 +159,7 @@ export async function singUpAirline(email, password, name, image, phone) {
     console.log(email, name, uid, img);
     await store.dispatch(createUser({ email, name, uid, img, image, phone }));
     return  dbFirebase.collection("users").doc(email).set({
+      empresa: false,
       name: name,
       email: email,
       admin: false,
@@ -158,7 +167,7 @@ export async function singUpAirline(email, password, name, image, phone) {
       photo: image ? image : null,
       uid: uid,
       superAdmin: false,
-      empresa: false,
+  
     });
   } catch (error) {
     return `${error.message}`;
@@ -190,21 +199,30 @@ export async function ejecutar() {
   try {
     let google_provider = new firebase.auth.GoogleAuthProvider();
     let data = await firebase.auth().signInWithPopup(google_provider);
+
     let email = data.user.email;
     let name = data.user.displayName;
     let img = data.user.photoURL;
     let uid = data.user.uid;
+
     let hay = await dbFirebase.collection("users").doc(email).get();
     if (!hay.data()) {
-      await store.dispatch(createUser({ email, name, uid, img }));
+      let emailVerificated=true
+      await store.dispatch(createUser({ email, name, uid, img ,emailVerificated}));
       return dbFirebase.collection("users").doc(email).set({
         email: email,
         admin: false,
         photo: img,
         uid: uid,
+        empresa:false,
         superAdmin: false,
-      });
+        emailVerificated:true,
+        disable:false
+      })
+    }else{
+
     }
+   
   } catch (error) {
     console.log(error);
   }
@@ -226,6 +244,18 @@ export async function Delete(email, uid) {
     await dbFirebase.collection("users").doc(email).delete();
     await store.dispatch(deleteUser(email));
     await store.dispatch(deleteUserAuth(uid));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+export async function disableUserAuth( uid,email) {
+  try {
+   await dbFirebase.collection("users").doc(email).update({
+    disable:true
+   })
+    await store.dispatch(disableUser({uid}));
   } catch (error) {
     console.log(error);
   }

@@ -44,14 +44,16 @@ async function createAdmin(
       firebase.app();
     }
     const auth = firebase.auth();
+    
     const dbFirebase = firebase.firestore();
     let hayData = await dbFirebase.collection("users").doc(email).get();
     if (!hayData.data()) {
+      
       let cred = await auth.createUserWithEmailAndPassword(email, "empresa");
       let emailU = cred.user.email;
       let uid = cred.user.uid;
       let img = cred.user.photoURL;
-
+      
       await cred.user.sendEmailVerification();
 
       let user = await User.findOrCreate({

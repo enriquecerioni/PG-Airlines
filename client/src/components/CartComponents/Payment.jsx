@@ -167,20 +167,24 @@ function Payment() {
                 amount: e.amount,
                 value: e.price,
                 airlineId: e.airlineId,
+
                 moreinfo: {
                   origin: e.origin,
                   destination: e.destination,
                   departureHour: e.departureHour,
                   arrivalHour: e.arrivalHour
                 },
-                review: false
+                review: false,
+                flightId:e.id
               };
             }),
+            
             userId: user.length ? user[0].id : 0,
             idpurchase: id,
             creationdate: new Date(),
-          };
+          }
 
+            
           dispatch(createOrder(sendOrder));
 
           setLoading(false);
@@ -286,11 +290,11 @@ function Payment() {
             <br />
 
             {/* MERCADO PAGO */}
-            <hr className={css.hr_separator} />
+            {/* <hr className={css.hr_separator} />
             <br />
             <MPPayment loading={loading} disabled={disabled} subTotal={subTotal} products={products} user={user} />
             <br />
-            <hr className={css.hr_separator} />
+            <hr className={css.hr_separator} /> */}
             {/* PAYPAL */}
             <br />
             <PayPalScriptProvider 

@@ -38,7 +38,7 @@ export default function Paginate({
   }
 
   return (
-    <div className={style.paginate_container}>
+    <div className={darkMode ? style.paginate_container_dark : style.paginate_container}>
       <div>
         <button
           id={darkMode ? style.btns_paginate_dark : style.btns_paginate}

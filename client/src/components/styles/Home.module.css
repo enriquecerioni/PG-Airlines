@@ -38,6 +38,20 @@ html {
   padding-top: 80px;
 }
 
+.contact {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: -6rem;
+  height: 20vh;
+}
+.contact_dark {
+  height: 20vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 0rem;
+}
 .contactContainer {
   width: 100%;
   height: 20vh;
@@ -49,7 +63,16 @@ html {
   margin-right: 0px;
   margin-left: 50px;
 }
-
+.text {
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 90px;
+}
+.text_dark {
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 90px;
+}
 .img {
   display: flex;
   height: 90%;
@@ -96,14 +119,14 @@ html {
   transform: scale(1.1);
 }
 
-.text {
+.textHome {
   font-size: 24px;
   color: #00283d;
   margin-top: 0px;
   margin-bottom: 2rem;
 }
 
-.text_dark {
+.textHome_dark {
   font-size: 24px;
   color: #e9dbdb;
   margin-top: 0px;
@@ -127,6 +150,9 @@ button + button {
   background-color: #2682d8;
   cursor: pointer;
   transition: 0.5s ease;
+  left: 45%;
+  margin-top: -4rem;
+  position: absolute;
 }
 
 .btn:hover {
@@ -229,11 +255,6 @@ button + button {
   height: 7rem;
   width: 11rem;
 }
-.contact {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
 .text_dark {
   color: white;
 }
@@ -265,6 +286,18 @@ button + button {
   } */
 
   /* SEC 1 */
+  .textHome {
+    font-size: 20px;
+    color: #00283d;
+    margin-top: 54px;
+    margin-bottom: 5rem;
+  }
+  .textHome_dark {
+    font-size: 20px;
+    color: #e9dbdb;
+    margin-top: 54px;
+    margin-bottom: 5rem;
+  }
   .sec1 {
     flex-direction: column;
     justify-content: center;
@@ -308,14 +341,14 @@ button + button {
   }
 
   .text {
-    font-size: 14px;
-    margin-top: 62px;
-    margin-bottom: 55px;
+    font-size: 2rem;
+    margin-top: 30px;
+    margin-bottom: 90px;
   }
   .text_dark {
-    font-size: 14px;
-    margin-top: 62px;
-    margin-bottom: 55px;
+    font-size: 2rem;
+    margin-top: 30px;
+    margin-bottom: 90px;
   }
 
   .scrollText {
@@ -348,7 +381,46 @@ button + button {
   .sec2 {
     width: 100%;
   }
-
+  .sec2_dark {
+    width: 100%;
+    /* height: 100vh; */
+  }
+  .contact {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column-reverse;
+    /* height: 0; */
+    background-color: #ffffff00;
+    margin-top: 12rem;
+  }
+  .contact_dark {
+    /* height: 0; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column-reverse;
+    background-color: #121212;
+    margin-top: 12rem;
+  }
+  .contactContainer {
+    margin-top: 4rem;
+    background-color: #ffffff;
+    height: 45vh;
+  }
+  .contactContainer_dark {
+    margin-top: 4rem;
+    background-color: #121212;
+    height: 45vh;
+  }
+  /* .text_dark {
+    font-size: 2rem;
+  } */
+  .btn {
+    margin-top: -2.5rem;
+    left: 33%;
+    position: absolute;
+  }
   /* ------------------- */
 
   /* .whatsapp{

@@ -5,44 +5,32 @@ import {
   getAllUsersFirebase,
   crearAerolinea,
   deleteAirline,
+  currentUser,
+  disableUser,
+  deleteUser
 } from "../../redux/actions";
 
-import { Delete, makeAdmin } from "../scripts/auth";
+
+import { disableUserAuth } from "../scripts/auth";
+import s from "../styles/UserProfile.module.css";
+import { Button, Table, TableHead, TableBody, TableCell, TableRow } from '@mui/material'
+
+
 
 export default function Administration() {
   const dispatch = useDispatch();
 
   const allUser = useSelector((state) => state.allUsersFirebase);
+  const currentUser=useSelector(state=>state.currentUser)
   const user = allUser.filter(
-    (user) => !user.hasOwnProperty("empresa") && !user.admin
+    (user) => !user.hasOwnProperty("empresa") && !user.admin && user.email!==currentUser[0].email
   );
-  const business = allUser.filter(
-    (user) => user.hasOwnProperty("empresa") && user.empresa
-  );
-  const toBeBusiness = allUser.filter(
-    (user) => user.hasOwnProperty("empresa") && !user.empresa
-  );
+
 
   const [refreshAccounts, setRefreshAccounts] = useState(0);
 
-  // business.map((u)=>console.log("empresas" ,u
-  //     ))
-  // console.log(user);
-  // console.log(business);
-  // console.log(toBeBusiness);
-  async function acceptRequest(email) {
-    //console.log(e.target.email.value);
-    await makeAdmin(email);
-    dispatch(crearAerolinea({ email }));
-    // window.location.reload()
-    setRefreshAccounts(refreshAccounts + 1);
-  }
-
-  async function deleteUser(UID, email) {
-    await Delete(email, UID);
-    business.filter((b) => b.email === email).length
-      ? dispatch(deleteAirline(email))
-      : console.log("no esta");
+  async function disableUser(UID, email) {
+    await disableUserAuth(UID,email);
     //  aca va un loader porque las funciones se ejecutan tarde y se rompe con el window.location.reload()
     setRefreshAccounts(refreshAccounts + 1);
   }
@@ -54,37 +42,44 @@ export default function Administration() {
     };
   }, [dispatch, refreshAccounts]);
   return (
-    <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <h2>USERS</h2>
+    <div className={s.table_container}>
+      <Table>
+      <caption>All active users using the website</caption>
 
-      {user.length ? (
-        user.map((u) => {
-          return (
-            <div key={u.uid}>
-              <br />
-              <br />
-              <div key={u.uid}>
-                email: {u.email},Name: {u.name ? u.name : null}, uid: {u.uid}
-              </div>
-              <button
-                onClick={() => {
-                  deleteUser(u.uid, u.email);
-                }}
-              >
-                Delete User
-              </button>
-            </div>
-          );
-        })
-      ) : (
-        <h1>No users?</h1>
-      )}
+        <TableHead>
+            <TableRow>
+              <TableCell><strong>Email</strong></TableCell>
+              <TableCell><strong>Name</strong></TableCell>
+              <TableCell><strong>UID</strong></TableCell>
+              <TableCell><strong>Delete</strong></TableCell>
+            </TableRow>
+        </TableHead>
+
+        <TableBody>
+            {user.length ? (
+              user.map((u) => {
+                return (
+                  <TableRow key={u.uid}>
+                    <TableCell>{u.email}</TableCell>
+                    <TableCell>{u.name ? u.name : '(empty)'}</TableCell>
+                    <TableCell>{u.uid}</TableCell>
+                    <TableCell>
+                      {!u.disable ? (
+                        <Button color='error' variant="contained" onClick={() => { disableUser(u.uid, u.email)}}>
+                      Delete
+                    </Button>
+                      ) : <Button color='error' variant="contained" disabled={u.disable}>Disable</Button> }
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+            ) : (
+              <h1>No users</h1>
+            )}
+
+        </TableBody>
+      </Table>
+
     </div>
   );
 }
