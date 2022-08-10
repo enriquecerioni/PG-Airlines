@@ -18,6 +18,7 @@
 
 .ticket_container {
   grid-column: 2 / 3;
+  grid-row: 1 / 2;
 }
 .ticket_container_dark {
   grid-column: 2 / 3;
@@ -59,6 +60,7 @@
   padding: 1rem 1rem;
   margin-left: 1rem;
 }
+
 .textColor {
   color: black;
   font-family: "Roboto", sans-serif;

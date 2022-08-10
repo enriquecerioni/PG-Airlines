@@ -24,10 +24,8 @@ export default function UserManagement () {
           <div className={s.container}>
             <ProfileNav />
             <div className={s.infoContainer}>
-              <h1 className={s.title}>UserManagement</h1>
-              <h2 className={s.text}>
-                <Administration/>
-              </h2>
+              <h1 className={s.title}>User Management</h1>
+              <Administration/>
             </div>
           </div>
         ) : (
@@ -38,4 +36,3 @@ export default function UserManagement () {
       </>
     );
 }
-

@@ -70,7 +70,7 @@ export default function RegisterAirline() {
       Swal.fire({
         icon: "question",
         title: "Oops...",
-        text: "Please dale al check",
+        text: "Agree to terms and conditions to sent form",
         confirmButtonColor: "#10408F",
       });
     }

@@ -80,7 +80,7 @@ export default function AddModal({ setAirlineFlights }) {
             description: document.getElementById('description').value,
             destination: dateCountriesListDest,//document.getElementById('destination').value,
             durationEstimated: document.getElementById('duration').value,
-            logo: document.getElementById('logo').value,
+            logo: currentUser[0]?.image,
             origin: dateCountriesList,// document.getElementById('origin').value,
             price: valuesPrice.price,//document.getElementById('price').value,
             stock: document.getElementById('stock').value
@@ -155,19 +155,7 @@ export default function AddModal({ setAirlineFlights }) {
                                             <label>Airline: {currentUser[0]?.name} </label>
                                         </div>
                                         <div>
-                                            <TextField sx={style.inp}
-                                                name='logo'
-                                                type="text"
-                                                size="small"
-                                                // label='Logo'
-                                                placeholder='Logo'
-                                                id="logo"
-                                                variant="standard"
-                                            />
-                                            <IconButton color="primary" aria-label="upload picture" component="label">
-                                                <input hidden accept="image/*" type="file" />
-                                                <ImageSearchIcon />
-                                            </IconButton>
+                                            <img width='150px' height='100px' src={currentUser[0]?.image} alt="#" />
                                         </div>
                                     </div>
                                     <div className={s.inputCont}>

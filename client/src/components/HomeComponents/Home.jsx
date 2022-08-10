@@ -13,7 +13,7 @@ import {
 import Loader from "./Loader";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Button from "@mui/material/Button";
-import Administration from "./Administration";
+import UserProfile from '../Profile/UserProfile';
 import Footer from "./Footer";
 import { darkModeContext } from "../DarkModeContext";
 import plane from "../styles/assets/plane.svg";
@@ -112,9 +112,7 @@ export default function Home() {
         user.length &&
         user[0].superAdmin && (
           <>
-            <div>
-              <Administration />
-            </div>
+            <UserProfile />
           </>
         )
       )}

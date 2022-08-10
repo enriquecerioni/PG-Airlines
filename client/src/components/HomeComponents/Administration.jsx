@@ -8,7 +8,13 @@ import {
   currentUser,
 } from "../../redux/actions";
 
+
 import { disableUserAuth, makeAdmin } from "../scripts/auth";
+import s from "../styles/UserProfile.module.css";
+import { Delete, makeAdmin } from "../scripts/auth";
+import { Button, Table, TableHead, TableBody, TableCell, TableRow } from '@mui/material'
+
+
 
 export default function Administration() {
   const dispatch = useDispatch();
@@ -21,19 +27,6 @@ export default function Administration() {
 
 
   const [refreshAccounts, setRefreshAccounts] = useState(0);
-
-  // business.map((u)=>console.log("empresas" ,u
-  //     ))
-  // console.log(user);
-  // console.log(business);
-  // console.log(toBeBusiness);
-  // async function acceptRequest(email) {
-  //   //console.log(e.target.email.value);
-  //   await makeAdmin(email);
-  //   dispatch(crearAerolinea({ email }));
-  //   // window.location.reload()
-  //   setRefreshAccounts(refreshAccounts + 1);
-  // }
 
   async function disableUser(UID, email) {
     await disableUserAuth(UID,email);
@@ -48,14 +41,38 @@ export default function Administration() {
     };
   }, [dispatch, refreshAccounts]);
   return (
-    <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <h2>USERS</h2>
+    <div className={s.table_container}>
+      <Table>
+      <caption>All active users using the website</caption>
+
+        <TableHead>
+            <TableRow>
+              <TableCell><strong>Email</strong></TableCell>
+              <TableCell><strong>Name</strong></TableCell>
+              <TableCell><strong>UID</strong></TableCell>
+              <TableCell><strong>Delete</strong></TableCell>
+            </TableRow>
+        </TableHead>
+
+        <TableBody>
+            {user.length ? (
+              user.map((u) => {
+                return (
+                  <TableRow key={u.uid}>
+                    <TableCell>{u.email}</TableCell>
+                    <TableCell>{u.name ? u.name : '(empty)'}</TableCell>
+                    <TableCell>{u.uid}</TableCell>
+                    <TableCell><Button color='error' variant="contained" onClick={() => { deleteUser(u.uid, u.email)}}>
+                      Delete
+                    </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+            ) : (
+              <h1>No users</h1>
+            )}     
+
 
       {user.length ? (
         user.map((u) => {
@@ -82,6 +99,10 @@ export default function Administration() {
       ) : (
         <h1>No users?</h1>
       )}
+
+        </TableBody>
+      </Table>
+
     </div>
   );
 }

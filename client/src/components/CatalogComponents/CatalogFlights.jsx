@@ -308,7 +308,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         />
                                     </div>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <TextField fullWidth sx={{ m: 1 }}
                                         multiline
                                         name='description'
@@ -319,7 +319,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         id="description"
                                        // defaultValue={dataFlight.description}
                                     />
-                                </div>
+                                </div> */}
                                 <div>
                                     <button className={s.btn} onClick={(e) => handleSave(e)} >Save</button>
                                     <button className={s.btn} onClick={handleClose}>Cancel</button>
