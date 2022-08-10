@@ -4,8 +4,9 @@
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    margin-top: 5rem;
+    margin: 7rem 0;
     height: 100%;
+    padding: 1rem 0;
 }
 
 .title_orders {
@@ -58,6 +59,7 @@
 }
 
 .chart_container {
+    padding: 3rem 0;
     width: 42rem;
     height: 100%;
 }

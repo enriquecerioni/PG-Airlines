@@ -23,7 +23,7 @@ function Sales() {
   const currentAirline = useSelector((state) => state.currentAirlineId);
   const sales = useSelector((state) => state.sales);
   const salesAirline = sales.filter(sale => sale.airlineId === currentAirline)
-  console.log(salesAirline)
+  // console.log(salesAirline)
 
   useEffect(() => {
     dispatch(getSales());
@@ -36,6 +36,8 @@ function Sales() {
     navigate.replace("/");
     window.location.reload();
   }
+
+  
 
   return (
     <div className={style.main_container}>
@@ -54,17 +56,12 @@ function Sales() {
                 <strong>
                   <h5 className={style.subtitles_orders}>Flight id: #{data.idFlight}</h5>
                 </strong>
-                {/* {data.creationdate && (
-                  <h5>Purchase date: {data.creationdate}</h5>
-                )} */}
                 <div className={style.id_container}>
                   <p className={style.moreinfo_subtitles}>Unit Price: $ {data.price}</p>
                   <p className={style.moreinfo_subtitles}>Tickets sold: {data.amount} (units) </p>
                   {data.idFlight && <span className={style.moreinfo_subtitles}>Total sale: $ {data.price * data.amount}</span>}
                 </div>
               </Card>
-
-              <Chart tickets_sold={data.amount} total={data.price * data.amount} />
             </>
           )
         })
@@ -78,6 +75,10 @@ function Sales() {
         </div>
       )}
 
+      {salesAirline?.map(data => {
+        return <Chart total={data.price * data.amount} tickets_sold={data.amount} />
+      })}
+      
     </div>
   );
 }
