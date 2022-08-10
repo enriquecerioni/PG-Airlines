@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getFlightByID, cleanDetails, getAllAirlines, getAllUsers } from "../redux/actions/index.js";
+import { getFlightByID, cleanDetails, getAllAirlines, getAllUsers, getAllComments } from "../redux/actions/index.js";
 import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
 import { CartContext } from "./CartComponents/CartContext";
 import { useContext } from "react";
-import Comments from "./Comments.jsx";
+import FeedBack from "./FeedBack.jsx";
 
 function Details() {
   let { id } = useParams();
@@ -168,7 +168,7 @@ function Details() {
        
             </div> 
 
-              {/* <Comments  />    */}
+            <FeedBack airlineId={details.airlineId} airline={airline} />   
 
           </div>
         ) : null }

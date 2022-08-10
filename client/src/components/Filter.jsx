@@ -46,7 +46,6 @@ function Filter({ handleAvailability, handlePrice, handleAlph, orderPriceSelect,
   return (
     <div className={ darkMode ? style.main_container_dark : style.main_container}>
 
-
         <h2 className={darkMode ? style.textColor_dark : style.textColor}>Filter by:</h2>
         <label className={darkMode ? style.textColor_dark : style.textColor}>Price: </label>
         <Box sx={{ width: 300, color: '#fff' }}>

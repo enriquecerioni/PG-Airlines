@@ -68,10 +68,6 @@ export function Catalog() {
     let currentFlights=Flights?.filter((f)=>f.airlineId===Airlines[0]?.id)
 
 
-
-
-
-
     const allFlights = currentFlights?.map((f) => {
         console.log(f);
         return {
@@ -111,7 +107,7 @@ if(currentUser[0] && airlineFlights ){
                     sx={{ borderRight: 1, borderColor: 'divider' }}
                 >
                     <Tab icon={<FlightTakeoffIcon />} label="Flights" {...a11yProps(0)} />
-                    <Tab icon={<LoyaltyIcon />} label='Offers' {...a11yProps(1)} />
+                    {/* <Tab icon={<LoyaltyIcon />} label='Offers' {...a11yProps(1)} /> */}
 
                 </Tabs>
                 <TabPanel className={style.tab} value={value} index={0} >
@@ -128,9 +124,9 @@ if(currentUser[0] && airlineFlights ){
 
                     </div>
                 </TabPanel>
-                <TabPanel value={value} index={1}>
+                {/* <TabPanel value={value} index={1}>
                     Offers
-                </TabPanel>
+                </TabPanel> */}
             </Box>
         </div>
     )

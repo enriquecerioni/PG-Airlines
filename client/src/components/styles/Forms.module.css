@@ -175,7 +175,7 @@
 /*----------*/
 
 
-.errorTrue {
+/* .errorTrue {
   display: none;
   font-size: 1rem;
   font-weight: bold;
@@ -183,10 +183,24 @@
   color: #ffffff;
   display: none;
   text-align: center;
-  background-color: #e11600;
-}
+  background-color: #cf1b0781;
+} */
 
 .errorFalse {
+  display: block;
+  font-size: .8rem;
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: .4rem;
+  color: #ffffff;
+  /* display: none; */
+  text-align: center;
+  background-color: #ff1900b9;
+  border-radius: 1rem;
+  padding: .1rem 0;
+}
+
+/* .error_final {
   display: block;
   font-size: 1rem;
   font-weight: bold;
@@ -195,7 +209,7 @@
   display: none;
   text-align: center;
   background-color: #e11600;
-}
+} */
 
 .separator {
   width: 20%;

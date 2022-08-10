@@ -20,10 +20,7 @@ function LogIn() {
 
   const [loading, setLoading] = useState(false);
   const [emailLogIn, setEmailLogIn] = useState({ value: "", valid: null });
-  const [passwordLogIn, setPasswordLogIn] = useState({
-    value: "",
-    valid: null,
-  });
+  const [passwordLogIn, setPasswordLogIn] = useState({value: "", valid: null});
 
   const [ emailReset, setEmailReset] = useState('')
 
@@ -49,14 +46,15 @@ function LogIn() {
       })
 
     }
-    
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    if (e.target.emailLogIn.value && e.target.passwordLogIn.value) {
-
+    if (
+      e.target.emailLogIn.value && e.target.passwordLogIn.value &&
+      emailLogIn.valid === 'true'
+      ) {
       let type = await logIn(
         e.target.emailLogIn.value,
         e.target.passwordLogIn.value
@@ -104,6 +102,10 @@ function LogIn() {
     setOpen(false);
   };
 
+  const expression = {
+    email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, //eslint-disable-line
+  };
+
   return (
     <div className={darkMode ?  style.todo_dark : style.todo}>
       <div className={darkMode ? style.container_dark : style.container}>
@@ -119,13 +121,12 @@ function LogIn() {
           <Input
             state={emailLogIn}
             setState={setEmailLogIn}
-            // label="Email"
             id="singup-email"
             name="emailLogIn"
             type="email"
             placeholder="Enter email"
-            // error='This email is not valid'
-            // regularExpression={expression.email}
+            error='This email is not valid'
+            regularExpression={expression.email}
           />
           <label  className={darkMode ? style.letra1_dark : style.letra1} >
             PASWORD
@@ -133,13 +134,10 @@ function LogIn() {
           <Input
             state={passwordLogIn}
             setState={setPasswordLogIn}
-            // label="Pasword"
             id="singup-password"
             name="passwordLogIn"
             type="password"
             placeholder="Enter password"
-            // error='Incorrect password'
-            // regularExpression={expression.password}
           />
 
           {validForm === false && (
@@ -176,9 +174,7 @@ function LogIn() {
         {validForm === true && <span>Welcome back</span>}
       </form> */}
 
-      <br />
       <hr className={style.separator} />
-      <br />
 
       <LoadingButton
         onClick={() => handleClick()}
@@ -190,11 +186,9 @@ function LogIn() {
         Log in with Google
       </LoadingButton>
 
-      <p>
-        <Link className={style.sing} to="/register">
-          Don't have an account? Sing Up
-        </Link>
-      </p>
+      <Link className={style.sing} to="/register">
+        Don't have an account? Sing Up
+      </Link>
 
       <div>
         <Button onClick={handleOpen}>

@@ -108,14 +108,14 @@ export default function NavBar({ toogleTheme }) {
                 Business
               </Link>
             </li>
-            <li id="catalog">
+            {/* <li id="catalog">
               <Link
                 className={darkMode ? s.navLink_dark : s.navLink}
                 to="/catalog"
               >
                 Catalog
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/profile">
                 <img

@@ -6,27 +6,9 @@ import { createComment, getAllComments, getAllUsers, updateReview } from "../red
 import css from './styles/Comments.module.css'
 
 export default function Comments({ detail, orderID,flightId, allStocks}) {
-   console.log('este es detail commets', detail)
-   console.log('este es allStocks', allStocks)
-  console.log('este es flightId', flightId)
-
   const dispatch = useDispatch()
   const user = useSelector(state => state.currentUser)
-  const allComments = useSelector(state => state.comments)
-  const [ comments, updateComments ] = useState([allComments])
 
-  const getData = async () => {
-    updateComments(allComments);
-  }
-
-  useEffect(() => {
-    localStorage.getItem("comments") !== null
-      ? updateComments(JSON.parse(localStorage.getItem("comments")))
-      : getData();
-  }, []);
-
-
-  const airlineComments = comments.filter(e => detail.airlineId === e.airlineId)
   function validate(input) {
     let error = {}
 
@@ -80,19 +62,14 @@ export default function Comments({ detail, orderID,flightId, allStocks}) {
 
  async function handleSubmitComment(e) {
     e.preventDefault()
-    // console.log(input.rating ,input.comment ,input.name)
     if(input.rating && input.comment && input.name) {
-      console.log("este es el input de mierda",input);
+      // console.log("este es el input de mierda",input);
       await dispatch(createComment(input))
-      let updatedComments = [...comments, input]
-      updateComments(updatedComments)
 
       allStocks?.map((stock)=>{
         if(stock.flightId===flightId) stock.review = true
       })
       
-
-
       dispatch(updateReview({orderID, allStocks}))
 
       setInput({
@@ -115,9 +92,9 @@ export default function Comments({ detail, orderID,flightId, allStocks}) {
   }
 
   useEffect(() => {
-    dispatch(getAllComments())
+    // dispatch(getAllComments())
     dispatch(getAllUsers())
-  }, [comments])
+  }, [])
 
   return (
     <div className={css.comments_container}>
