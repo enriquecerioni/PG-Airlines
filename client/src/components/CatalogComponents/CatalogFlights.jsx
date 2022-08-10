@@ -59,12 +59,20 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
     const [valuesPrice, setValuesPrice] = React.useState({ price: '' });
     const realTime = new Date;
     const [DateDeparture, setValueDep] = React.useState(new Date(realTime));
-    const [DateArrival, setValueArriv] = React.useState(new Date(realTime));
+    const [DateArrival, setValueArriv] = React.useState();
     const [dateHour, setHour] = React.useState(new Date(realTime));
     const [dateDepHour, SetDepHour] = React.useState(new Date(realTime));
     const [dateCountriesList, setCountriesList] = React.useState('');
     const [dateCountriesListDest, setCountriesListDest] = React.useState('');
-    
+    const [duration, setDuration] = React.useState('');
+
+    const [error, setError] = React.useState(false)
+    const [merr, setMerr] = React.useState("");
+    const [errDur, setErrDur] = React.useState(false);
+    const [msgErrDur, setMsgErrDur] = React.useState("");
+    const [errorDate, setErrDate] = React.useState(false);
+    const [msgErrDate, setMsgErrDate] = React.useState("");
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -72,7 +80,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
         e.preventDefault();
         debugger
         const dataNew = {
-            id:dataFlight.id,
+            id: dataFlight.id,
             arrivalDate: DateArrival.toISOString().slice(0, 10),
             arrivalHour: dateHour.toTimeString().slice(0, 5),
             departureDate: DateDeparture.toISOString().slice(0, 10),//document.getElementById('depD').value,
@@ -91,21 +99,21 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
         setTimeout(() => (window.location.reload()), 500)
     }
 
-     function  setFormData(data) {
-         const dataFlight = data;
-         
-        let dateDepD = new Date(Date.parse(dataFlight.departureDate + "T00:00:00.420")); 
+    function setFormData(data) {
+        const dataFlight = data;
+
+        let dateDepD = new Date(Date.parse(dataFlight.departureDate + "T00:00:00.420"));
         let dateArrD = new Date(Date.parse(dataFlight.arrivalDate + "T00:00:00.420"));
         let dateDepH = new Date(Date.parse("2022-01-26T" + dataFlight.departureHour + ":00.420"));
         let dateArrH = new Date(Date.parse("2022-01-26T" + dataFlight.arrivalHour + ":00.420"));
-     
-        setValuesPrice({precio:dataFlight.price});
+
+        setValuesPrice({ precio: dataFlight.price });
         setCountriesList(dataFlight.origin);
         setCountriesListDest(dataFlight.destination);
         setValueDep(dateDepD);
         setValueArriv(dateArrD);
         SetDepHour(dateDepH);
-        setHour(dateArrH);        
+        setHour(dateArrH);
         console.log(dataFlight);
     }
 
@@ -122,39 +130,92 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
 
     const handleChangeTime = (e) => {
         const date = e;
-        //console.log(date.toISOString().slice(0, 10))
-        setValueArriv(date);
+        if (date < DateDeparture) {
+            setErrDate(true)
+            setMsgErrDate("Date not allowed")
+        } else {
+            setValueArriv(date);
+            setErrDate(false)
+            setMsgErrDate("")
+        }
     }
+
     const handleChangeHour = (e) => {
         console.log(e);
         setHour(e);
     }
     const handleChangeDepHour = (e) => {
-        console.log(e);    
+        console.log(e);
         SetDepHour(e);
     }
     const handleChangeDepDate = (newValue) => {
-        setValueDep(newValue);
-    }
+        if (newValue > DateArrival) {
+            setErrDate(true)
+            setMsgErrDate("Date not allowed")
+        } else {
+            setValueDep(newValue);
+            setErrDate(false)
+            setMsgErrDate("")
+        }
+    };
+
     const handleCountriesListOrig = (e) => {
-        setCountriesList(e.currentTarget.innerText);
+        const originCountry = e.currentTarget.innerText
+        if (originCountry == dateCountriesListDest) {
+            setError(true)
+            setMerr("Country not allowed")
+        } else {
+            setCountriesList(originCountry);
+            setError(false)
+            setMerr("")
+        }
     }
+
     const handleCountriesListDest = (e) => {
-        console.log(e);
-        setCountriesListDest(e.currentTarget.innerText);
+        const destCountry = e.currentTarget.innerText
+        if (destCountry == dateCountriesList) {
+            setError(true)
+            setMerr("Country not allowed")
+        } else {
+            setCountriesListDest(destCountry);
+            setError(false)
+            setMerr("")
+        }
     }
+
     const handleChangeAdo = (prop) => (event) => {
         setValuesPrice({ ...valuesPrice, [prop]: event.target.value });
     };
+
+    function onChangeDuration(e) {
+        let reg = new RegExp("[0-9:]+$")
+        let hrs = Array.from(e.target.value.replace(':', ''));
+        if (hrs.length == 0) {
+            setDuration(e.target.value);
+            return
+        } else if (reg.test(hrs)) {
+            if (hrs.length == 3) {
+                setDuration(hrs[0] + hrs[1] + ":" + hrs[2]);
+            } else if (hrs.length == 2) {
+                setDuration(hrs[0] + hrs[1]);
+            }
+            else {
+                setDuration(e.target.value);
+            }
+        } else {
+            setErrDur(false)
+            setMsgErrDur("Indicate de duration estimated, please")
+        }
+    }
 
     return [
         <Box sx={{ height: 400, width: '100%' }}>
             {airlineFlights && rows ?
                 <DataGrid
-                    onRowDoubleClick={(params, event) => {                        
+                    onRowDoubleClick={(params, event) => {
                         getData(params?.row);
                         setFormData(params?.row);
-                        setOpen(true);    
+                        setOpen(true);
 
                     }}
                     onSelectionModelChange={(e) => { handleRowSelection(e) }}
@@ -181,7 +242,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                 <Box sx={style} className={s.container}>
                     <button className={s.button} onClick={handleClose}>x</button>
                     <Typography id="modal-modal-title" variant="h6" component="h2" fontWeight='bold'>
-                        Edit flight:
+                        Edit flight ✈️
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }} >
                         <form >
@@ -231,6 +292,8 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                             id="outlined-origin"
                                             handleCountriesList={handleCountriesListOrig}
                                             value={dateCountriesList}
+                                            error={error}
+                                            msgErr={merr}
                                         />
                                     </div>
                                     <div>
@@ -239,6 +302,8 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                             id="outlined-destination"
                                             handleCountriesList={handleCountriesListDest}
                                             value={dateCountriesListDest}
+                                            error={error}
+                                            msgErr={merr}
                                         />
                                     </div>
                                 </div>
@@ -251,6 +316,11 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         id="duration"
                                         variant="standard"
                                         defaultValue={dataFlight.durationEstimated}
+                                        onChange={onChangeDuration}
+                                        inputProps={{ maxLength: 5 }}
+                                        error={errDur}
+                                        msgErr={msgErrDur}
+                                        required
                                     />
                                 </div>
                                 <div className={s.inputCont}>
@@ -259,8 +329,8 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         id="depD"
                                         handleChangeDate={handleChangeDepDate}
                                         value={DateDeparture}
-                                        //defaultValue={dataFlight.departureDate} 
-                                        />
+                                    //defaultValue={dataFlight.departureDate} 
+                                    />
                                     <TimeHour
                                         label={"Departure Hour"}
                                         id="depH"
@@ -275,6 +345,8 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         id="arrD"
                                         handleChangeDate={handleChangeTime}
                                         value={DateArrival}
+                                        error={errorDate}
+                                        msgErr={msgErrDate}
                                     />
                                     <TimeHour
                                         label={"Arrival Hour"}
@@ -286,7 +358,9 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                 </div>
                                 <div className={s.inputCont}>
                                     <div>
-                                        <FormControl variant="filled">
+                                        <FormControl
+                                            variant="filled"
+                                            required>
                                             <InputLabel htmlFor="filled-adornment">Price</InputLabel>
                                             <FilledInput
                                                 id="filled-adornment"
@@ -294,6 +368,8 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                                 onChange={handleChangeAdo('price')}
                                                 startAdornment={<InputAdornment position="start">$</InputAdornment>}
                                                 defaultValue={dataFlight.price}
+                                                type="number"
+                                                inputProps={{ min: 1 }}
                                             />
                                         </FormControl>
                                     </div>
@@ -301,10 +377,12 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         <TextField sx={style.inp}
                                             name='stock'
                                             type="number"
+                                            inputProps={{ min: 1 }}
                                             placeholder='Stock'
                                             id="stock"
                                             variant="standard"
                                             defaultValue={dataFlight.stock}
+                                            required
                                         />
                                     </div>
                                 </div>
@@ -317,7 +395,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         placeholder='Description'
                                         variant="standard"
                                         id="description"
-                                       // defaultValue={dataFlight.description}
+                                    // defaultValue={dataFlight.description}
                                     />
                                 </div>
                                 <div>
