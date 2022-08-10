@@ -106,6 +106,7 @@ export default function AddModal({ setAirlineFlights }) {
         console.log(e);
         SetDepHour(e);
     }
+
     function validation(date){
         if(date == '' ){
           
@@ -121,28 +122,23 @@ export default function AddModal({ setAirlineFlights }) {
         if(validation(dateCountriesList)){
             setErrOrig(true);
             band=true;
-        } 
-        
+        }         
         if(validation(dateCountriesListDest)){
             setErrDest(true);
             band=true;
-        } 
-        
-        if(validation(duration)){
+        }         
+        if(validation(document.getElementById('duration').value)){
             setErrDur(true);
             band=true;
-        } 
-        
+        }         
         if(validation(document.getElementById('stock').value)){
             setErrStock(true);
             band=true;
-        }
-        setErrStock(false);
+        }        
         if(validation(valuesPrice.price)){
             setErrPrice(true);
             band=true;
         }
-
         if(band)
             return
 
@@ -167,8 +163,7 @@ export default function AddModal({ setAirlineFlights }) {
         setAirlineFlights(false)
         window.location.reload()
     }
-    const handleChangeDepDate = (newValue) => {   
-
+    const handleChangeDepDate = (newValue) => {  
         if (DateDeparture.getDate() == DateArrival.getDate())
             setValueArriv(newValue);
         setValueDep(newValue);
@@ -222,10 +217,14 @@ export default function AddModal({ setAirlineFlights }) {
                 setDuration(e.target.value);
             }
         } else {
-            setErrDur(false)
+            setErrDur(true)
             setMsgErrDur("Indicate de duration estimated, please")
         }
         setErrDur(validation(e.target.value)); 
+    }
+
+    function onChangeStock(e) {
+        setErrStock(validation(e.target.value));
     }
 
     useEffect(() => {

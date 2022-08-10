@@ -66,29 +66,76 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
     const [dateCountriesListDest, setCountriesListDest] = React.useState('');
     const [duration, setDuration] = React.useState('');
 
-    const [error, setError] = React.useState(false)
-    const [merr, setMerr] = React.useState("");
+    const [errOrig, setErrOrig] = React.useState(false)
+    const [msgErrOrig, setMsgErrOrig] = React.useState("");
+    const [errDest, setErrDest] = React.useState(false)
+    const [msgErrDest, setMsgErrDest] = React.useState("");
     const [errDur, setErrDur] = React.useState(false);
     const [msgErrDur, setMsgErrDur] = React.useState("");
     const [errorDate, setErrDate] = React.useState(false);
     const [msgErrDate, setMsgErrDate] = React.useState("");
+    const [errorPrice, setErrPrice] = React.useState(false);
+    const [msgErrPrice, setMsgErrPrice] = React.useState("");
+    const [errorStock, setErrStock] = React.useState(false);
+    const [msgErrStock, setMsgErrStock] = React.useState("");
 
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
+    const handleClose = () => {
+        setValueDep(new Date(realTime));
+        setValueArriv(new Date(realTime));
+        setHour(new Date(realTime));
+        SetDepHour(new Date(realTime));
+        setCountriesList('');
+        setCountriesListDest('');
+        setDuration('');
+        setValuesPrice({ price: '' });
+        setErrOrig(false);
+        setErrDest(false);
+        setErrDur(false);
+        setErrDate(false);
+        setErrPrice(false);
+        setErrStock(false);
+        setOpen(false)
+    };
+    
     const handleSave = (e) => {
         e.preventDefault();
-        debugger
+        let band = false;
+        if (validation(dateCountriesList)) {
+            setErrOrig(true);
+            band = true;
+        }
+        if (validation(dateCountriesListDest)) {
+            setErrDest(true);
+            band = true;
+        }
+        if (validation(document.getElementById('duration').value)) {
+            setErrDur(true);
+            band = true;
+        }
+
+        if (validation(document.getElementById('stock').value)) {
+            setErrStock(true);
+            band = true;
+        }
+
+        if (validation(valuesPrice.price)) {
+            setErrPrice(true);
+            band = true;
+        }
+
+        if (band)
+            return
         const dataNew = {
             id: dataFlight.id,
             arrivalDate: DateArrival.toISOString().slice(0, 10),
             arrivalHour: dateHour.toTimeString().slice(0, 5),
             departureDate: DateDeparture.toISOString().slice(0, 10),//document.getElementById('depD').value,
             departureHour: dateDepHour.toTimeString().slice(0, 5),//document.getElementById('depH').value,
-            description: document.getElementById('description').value,
+            //description: document.getElementById('description').value,
             destination: dateCountriesListDest,//document.getElementById('destination').value,
             durationEstimated: document.getElementById('duration').value,
-            logo: document.getElementById('logo').value,
+            logo: currentUser[0]?.image,
             origin: dateCountriesList,// document.getElementById('origin').value,
             price: valuesPrice.price,//document.getElementById('price').value,
             stock: document.getElementById('stock').value
@@ -148,46 +195,55 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
         console.log(e);
         SetDepHour(e);
     }
-    const handleChangeDepDate = (newValue) => {
-        if (newValue > DateArrival) {
-            setErrDate(true)
-            setMsgErrDate("Date not allowed")
+
+    function validation(date) {
+        if (date == '') {
+
+            return true;
         } else {
-            setValueDep(newValue);
-            setErrDate(false)
-            setMsgErrDate("")
+            return false;
         }
+    }
+
+    const handleChangeDepDate = (newValue) => {
+        if (DateDeparture.getDate() == DateArrival.getDate())
+            setValueArriv(newValue);
+        setValueDep(newValue);
     };
 
     const handleCountriesListOrig = (e) => {
         const originCountry = e.currentTarget.innerText
         if (originCountry == dateCountriesListDest) {
-            setError(true)
-            setMerr("Country not allowed")
+            setErrOrig(true)
+            setMsgErrOrig("Country not allowed")
         } else {
             setCountriesList(originCountry);
-            setError(false)
-            setMerr("")
+            setErrOrig(false)
+            setMsgErrOrig("")
         }
+        setCountriesList(originCountry);
     }
 
     const handleCountriesListDest = (e) => {
         const destCountry = e.currentTarget.innerText
         if (destCountry == dateCountriesList) {
-            setError(true)
-            setMerr("Country not allowed")
+            setErrDest(true)
+            setMsgErrDest("Country not allowed")
         } else {
             setCountriesListDest(destCountry);
-            setError(false)
-            setMerr("")
+            setErrDest(false)
+            setMsgErrDest("")
         }
+        setCountriesListDest(destCountry);
     }
 
     const handleChangeAdo = (prop) => (event) => {
+        setErrPrice(validation(event.target.value));
         setValuesPrice({ ...valuesPrice, [prop]: event.target.value });
     };
 
     function onChangeDuration(e) {
+        debugger;
         let reg = new RegExp("[0-9:]+$")
         let hrs = Array.from(e.target.value.replace(':', ''));
         if (hrs.length == 0) {
@@ -203,9 +259,14 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                 setDuration(e.target.value);
             }
         } else {
-            setErrDur(false)
+            setErrDur(true)
             setMsgErrDur("Indicate de duration estimated, please")
         }
+        setErrDur(validation(e.target.value));
+    }
+
+    function onChangeStock(e) {
+        setErrStock(validation(e.target.value));
     }
 
     return [
@@ -245,42 +306,12 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                     <Typography id="modal-modal-description" sx={{ mt: 2 }} >
                         <form >
                             <Stack spacing={1} >
-                                {/* <div>
-                                    {/* <label>Flight: </label> 
-                                        <TextField sx={style.inp}
-                                            type='text'
-                                            label='ID Flight'
-                                            placeholder='Flight'
-                                            name='flight'
-                                            id="flight" 
-                                            variant="standard"
-                                        />
-                                    </div> */}
                                 <div className={s.inputCont}>
                                     <div>
-                                        {/* <TextField
-                                            disabled
-                                            id="outlined-disabled"
-                                            label="Airline"
-                                            defaultValue="Arline"
-                                        /> */}
                                         <label>Airline: {currentUser[0]?.name} </label>
                                     </div>
                                     <div>
-                                        <TextField sx={style.inp}
-                                            name='logo'
-                                            defaultValue={dataFlight.logo}
-                                            type="text"
-                                            size="small"
-                                            // label='Logo'
-                                            placeholder='Logo'
-                                            id="logo"
-                                            variant="standard"
-                                        />
-                                        <IconButton color="primary" aria-label="upload picture" component="label">
-                                            <input hidden accept="image/*" type="file" />
-                                            <ImageSearchIcon />
-                                        </IconButton>
+                                        <img src={currentUser[0]?.image} alt="Img" />
                                     </div>
                                 </div>
                                 <div className={s.inputCont}>
@@ -290,8 +321,8 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                             id="outlined-origin"
                                             handleCountriesList={handleCountriesListOrig}
                                             value={dateCountriesList}
-                                            error={error}
-                                            msgErr={merr}
+                                            error={errOrig}
+                                            msgErr={msgErrOrig}
                                         />
                                     </div>
                                     <div>
@@ -300,8 +331,8 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                             id="outlined-destination"
                                             handleCountriesList={handleCountriesListDest}
                                             value={dateCountriesListDest}
-                                            error={error}
-                                            msgErr={merr}
+                                            error={errDest}
+                                            msgErr={msgErrDest}
                                         />
                                     </div>
                                 </div>
@@ -368,6 +399,8 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                                 defaultValue={dataFlight.price}
                                                 type="number"
                                                 inputProps={{ min: 1 }}
+                                                error={errorPrice}
+                                                msgError={msgErrPrice}
                                             />
                                         </FormControl>
                                     </div>
@@ -379,12 +412,14 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                             placeholder='Stock'
                                             id="stock"
                                             variant="standard"
+                                            onChange={onChangeStock}
                                             defaultValue={dataFlight.stock}
-                                            required
+                                            error={errorStock}
+                                            msgError={msgErrStock}
                                         />
                                     </div>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <TextField fullWidth sx={{ m: 1 }}
                                         multiline
                                         name='description'
@@ -395,7 +430,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         id="description"
                                     // defaultValue={dataFlight.description}
                                     />
-                                </div>
+                                </div> */}
                                 <div>
                                     <button className={s.btn} onClick={(e) => handleSave(e)} >Save</button>
                                     <button className={s.btn} onClick={handleClose}>Cancel</button>
