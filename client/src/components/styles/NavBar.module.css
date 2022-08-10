@@ -373,4 +373,7 @@ NAV BUTTON CSS
   .toggle_dark.active span:nth-child(3) {
     transform: translateX(100px);
   }
+  .navLink_logout {
+    margin-left: 0;
+  }
 }
