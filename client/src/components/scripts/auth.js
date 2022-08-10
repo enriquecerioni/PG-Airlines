@@ -11,6 +11,8 @@ import {
  
 } from "../../redux/actions/index";
 
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyBGr8PQQDvTRK484636fOa1XJVhIJ0lmqA",
   authDomain: "prueba-dcc65.firebaseapp.com",

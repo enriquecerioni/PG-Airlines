@@ -82,7 +82,7 @@ function Cart() {
               confirmButtonColor: "#10408F",
             });
             setTimeout(()=>{history.push("/");
-            window.location.reload();},2000)
+            ;},2000)
           });
       }
     }else{

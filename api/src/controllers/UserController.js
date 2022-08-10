@@ -45,9 +45,9 @@ async function createUser(req, res) {
 async function verificateEmail(req, res) {
   try {
     const { email } = req.body;
-    console.log(email)
+    //console.log(email)
     if (email) {
-      console.log("este mailll"," ",email)
+     // console.log("este mailll"," ",email)
       let user = await User.update(
         {
           emailVerificated: true,
