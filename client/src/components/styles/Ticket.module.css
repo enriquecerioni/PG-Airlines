@@ -212,9 +212,11 @@
     }
     .cards_item{
         width: 90%;
+        margin-top: 2rem;
     }
     .cards_item_dark{
         width: 90%;
+        margin-top: 2rem;
     }
     .button{
         display: none;
