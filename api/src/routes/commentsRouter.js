@@ -9,11 +9,11 @@ commentsRouter.get('/', async (req, res) => {
         const allComments = await Comment.findAll()
 
         allComments.length ? 
-        res.status(200).json(allComments)
-        : res.status(404).send('no hay comentarios')        
+        res.status(200).json(allComments) :
+        res.status(404).send('no hay comentarios')        
 
     } catch (error) {
-        res.status(404).send('No hay comentarios')
+        next(error.message)
     }
 })
 

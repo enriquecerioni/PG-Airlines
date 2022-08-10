@@ -30,6 +30,14 @@ function Favs() {
       draggable: true,
       progress: undefined,
     });
+
+    let items =JSON.parse(localStorage.getItem("fav-list"));
+    items = items.filter((item) => item.id !== id);
+
+    localStorage.setItem("fav-list", JSON.stringify(items));
+    if (items.length === 0) {
+      localStorage.removeItem("fav-list");
+    }
   }
 
   return (

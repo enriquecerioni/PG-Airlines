@@ -8,18 +8,14 @@ import defaultProfilePic from "../styles/defaultProfilePic.png";
 import { logOut } from "../scripts/auth";
 import { toast } from "react-toastify";
 
-
-
-
 export default function ProfileNav() {
   const navigate = useHistory();
   const { darkMode } = useContext(darkModeContext)
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getAllUsers());
-  // }, []);
-
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
 
   async function handleLogOut(e) {
     e.preventDefault();
@@ -45,7 +41,7 @@ export default function ProfileNav() {
 
   const users = useSelector((state) => state.allUsers);
   const currentUser = useSelector((state) => state.currentUser)[0];
-  const profilePic = `"${currentUser.image}"`;
+  const profilePic = `"${currentUser?.image}"`;
   // console.log(profilePic);
 
   var currentlyUsingPic = defaultProfilePic;
@@ -156,7 +152,7 @@ export default function ProfileNav() {
                 <ul className={s.menuLinks}>
                   {AccInfo}
                   {MyAirline}
-                  {OwnFlights}
+                  {/* {OwnFlights} */}
                 </ul>
               ) : (
                 <ul className={s.menuLinks}>

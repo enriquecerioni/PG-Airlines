@@ -63,7 +63,7 @@ async function verificateEmail(req, res) {
       }
     }
   } catch (error) {
-    alert(error);
+    console.log(error);
   }
 }
 
@@ -87,7 +87,7 @@ async function updateToAdmin(req, res) {
       }
     }
   } catch (error) {
-    alert(error);
+    console.log(error);
   }
 }
 
