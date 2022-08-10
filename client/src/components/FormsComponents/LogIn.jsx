@@ -69,11 +69,13 @@ function LogIn() {
         showConfirmButton: false,
         confirmButtonColor: '#10408F',
       })
+      setLoading(false);
       setTimeout(()=>{window.location.reload()},2000)
 
       } else {
         navigate.push("/");
-        //setTimeout(() => {window.location.reload();}, 2500);
+        setTimeout(() => {window.location.reload();}, 1200);
+        
       } 
       
     } else {
