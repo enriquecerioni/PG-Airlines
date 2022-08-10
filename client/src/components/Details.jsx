@@ -18,7 +18,7 @@ function Details() {
   const user = useSelector((state) => state.currentUser);
   const airlines = useSelector((state) => state.airlines);
 
-  const { addProductToCart } = useContext(CartContext);
+  const { addProductToCart,products } = useContext(CartContext);
 
   const handleAddToCart = ({
     id,
@@ -28,7 +28,8 @@ function Details() {
     airline,
     arrivalHour,
     departureHour,
-    tickets
+    tickets,
+    destination
   }) => {
     // console.log({id, origin, price, logo, airline, arrivalHour, departureHour})
     addProductToCart({
@@ -39,18 +40,37 @@ function Details() {
       airline,
       arrivalHour,
       departureHour,
-      tickets
+      tickets,
+      destination
     });
-    toast.info("Added to cart", {
-      icon: "✈️",
-      position: "bottom-left",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    let cant=0;
+    products?.map((p)=>{
+      if(p.id===id)cant++
+      if(p.id===id && p.amount < p.tickets){
+        toast.info("Ticket added to cart", {
+          icon: "✈️",
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
+    })
+    if(!cant) {
+      toast.info("Ticket added to cart", {
+        icon: "✈️",
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
   };
 
   useEffect(() => {
@@ -146,6 +166,8 @@ function Details() {
                         airline: airline,
                         arrivalHour: details.arrivalHour,
                         departureHour: details.departureHour,
+                        tickets:details.tickets,
+                        destination:details.destination
                       })
                     }>Add to cart</button>
                 ) : !user.length ? (
@@ -160,7 +182,8 @@ function Details() {
                         airline: airline,
                         arrivalHour: details.arrivalHour,
                         departureHour: details.departureHour,
-                        tickets:details.tickets
+                        tickets:details.tickets,
+                        destination:details.destination
                       })
                     }>Add to cart</button>
 

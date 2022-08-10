@@ -114,13 +114,14 @@ export default function Display() {
 
   return (
     <div>
-        <div className={style.container_ticket}>
-            <div className={style.ticket_container} >
+        <div className={darkMode ? style.container_ticket_dark : style.container_ticket}>
+            <div className={darkMode ? style.ticket_container_dark : style.ticket_container} >
                 
                 { 
                 filterArray.length !== 0 ? 
                 paginateCards.map(e => {
-                    if(e.tickets)return (<Ticket 
+                    //console.log(e);
+                    if(e.tickets){return (<Ticket 
                         key={e.id}
                         id={e.id}
                         airlineId={e.airlineId}
@@ -132,7 +133,7 @@ export default function Display() {
                         origin={e.origin}
                         destination={e.destination}
                         tickets={e.tickets}              
-                    />) 
+                    />) }
                            
                 }) :
                 <p>Flights not found, search again please!</p>
@@ -153,7 +154,7 @@ export default function Display() {
             }  
             </div>
                            
-            <div className={style.filter_container}>
+            <div className={darkMode ? style.filter_container_dark : style.filter_container}>
                 
                 <Filter
                 handlePrice={handlePrice}

@@ -39,7 +39,7 @@ function Ticket({
 
   const { darkMode } = useContext(darkModeContext)
 
-  const { addProductToCart } = useContext(CartContext);
+  const { addProductToCart,products } = useContext(CartContext);
   const airlines = useSelector((state) => state.airlines);
   
   const dispatch = useDispatch();
@@ -50,19 +50,38 @@ function Ticket({
   // },[])
 
   const handleAddCart = (e) => {
+    console.log("esto es e",id);
     e.preventDefault();
     addProductToCart(item);
-    toast.info("Ticket added to cart", {
-      icon: "✈️",
-      position: "bottom-left",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
+    let cant=0;
+    products?.map((p)=>{
+      if(p.id===id)cant++
+      if(p.id===id && p.amount < p.tickets){
+        toast.info("Ticket added to cart", {
+          icon: "✈️",
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
+    })
+    if(!cant) {
+      toast.info("Ticket added to cart", {
+        icon: "✈️",
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
+};
 
   // Para agregar a favoritos
   let favoriteList = useSelector((state) => state.favoriteList);

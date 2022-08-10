@@ -69,10 +69,11 @@ function LogIn() {
         showConfirmButton: false,
         confirmButtonColor: '#10408F',
       })
+      setTimeout(()=>{window.location.reload()},2000)
 
       } else {
         navigate.push("/");
-        setTimeout(() => {window.location.reload();}, 2500);
+        //setTimeout(() => {window.location.reload();}, 2500);
       } 
       
     } else {
@@ -88,9 +89,9 @@ function LogIn() {
   }
 
   async function handleClick(e) {
-    await ejecutar();
-    navigate.push("/");
-    window.location.reload();
+    await  ejecutar()
+   navigate.push("/")
+    window.location.reload()
   }
 
   const [ open, setOpen ] = useState(false)
@@ -110,6 +111,7 @@ function LogIn() {
     <div className={darkMode ?  style.todo_dark : style.todo}>
       <div className={darkMode ? style.container_dark : style.container}>
         <h1 className={darkMode ? style.letra_dark : style.letra}>Log In</h1>
+        
         <form
           className={darkMode ? style.form_container_dark : style.form_container}
           onSubmit={(e) => handleSubmit(e)}

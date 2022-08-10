@@ -16,8 +16,8 @@ async function getAllUsers(req, res, next) {
 }
 
 async function createUser(req, res) {
-  const { email, name, uid, img } = req.body;
-  console.log(email, name, uid, img);
+  const { email, name, uid, img,emailVerified } = req.body;
+  console.log(email, name, uid, img,emailVerified);
   try {
     if (email && name && uid) {
       let user = await User.findAll({
@@ -31,6 +31,7 @@ async function createUser(req, res) {
           name: name,
           uid: uid,
           image: img,
+          emailVerificated: emailVerified && emailVerified
         });
         return res.status(201).json(userCreated);
       }
@@ -41,6 +42,30 @@ async function createUser(req, res) {
 }
 
 
+async function verificateEmail(req, res) {
+  try {
+    const { email } = req.body;
+    //console.log(email)
+    if (email) {
+     // console.log("este mailll"," ",email)
+      let user = await User.update(
+        {
+          emailVerificated: true,
+        },
+        {
+          where: { email: email },
+        }
+      );
+      if (user[0] === 0) {
+        res.status(404).json({ error: "User not Found" });
+      } else {
+        res.json({ message: "User edited." });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 
 async function updateToAdmin(req, res) {
@@ -62,7 +87,7 @@ async function updateToAdmin(req, res) {
       }
     }
   } catch (error) {
-    alert(error);
+    console.log(error);
   }
 }
 
@@ -135,5 +160,6 @@ module.exports = {
   deleteUserBack,
   deleteUserAuth,
   getAllUsersFirebaseBack,
-  resetPassword
+  resetPassword,
+  verificateEmail
 };

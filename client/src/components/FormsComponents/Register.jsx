@@ -58,24 +58,21 @@ function Register() {
         `${e.target.name.value} ${e.target.surname.value}`
       );
 
-      if (typeof type == "string") {
-        // alert(type)
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-          confirmButtonColor: "#10408F",
-        })
-
-      } else {
-        navigate.push("/");
-        window.location.reload();
-      }    
-      
-      setLoading(false);
+    if (typeof type == "string") {
+      // alert(type)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        confirmButtonColor: "#10408F",
+      });
+    } else {
+      navigate.push("/");
+      //window.location.reload();
     }
-
+    setLoading(false);
   }
+}
 
   // async function handleClick (e){
   //   try {
@@ -234,4 +231,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Register

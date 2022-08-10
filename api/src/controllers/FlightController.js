@@ -169,34 +169,21 @@ async function updateStock(req,res){
 
     const{flightIdAmount}=req.body;
     // console.log(flightIdAmount);
-
     if(flightIdAmount.length){
-      await Promise.all( flightIdAmount.map(async (flight)=>{
+     Promise.all(flightIdAmount.map(async(flight)=>{
+      let flightToUpdate= await Flight.findByPk(flight.id)
 
-        let flightToUpdate=await Flight.findByPk(flight.id)
+         Flight.update(
+        {
+          tickets:flightToUpdate.tickets-flight.amount
+        },
+        {
+          where:{id:flightToUpdate.id}
+        })
 
-        if(flightToUpdate.tickets===flight.amount){
-
-          await Flight.destroy({
-            where:{id:flight.id},
-            force:true
-          })
-
+    })
+      ) 
         }
-        else{
-
-          await Flight.update(
-          {
-            tickets:flightToUpdate.tickets-flight.amount
-          },
-          {
-            where:{id:flightToUpdate.id}
-          }
-
-        )}
-
-    }))
-  } 
     return res.status(200).json({message: "Flight updated"})
     
   } catch (error) {
