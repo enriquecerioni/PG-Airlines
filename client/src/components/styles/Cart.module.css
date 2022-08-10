@@ -195,7 +195,7 @@ span {
     margin-top: 5rem;
     background-color: #121212;
     /* border: 1px solid #5f5f5f; */
-    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */ 
   }
   .payment_container {
     display: flex;
