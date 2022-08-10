@@ -46,20 +46,36 @@ export default function AddModal({ setAirlineFlights }) {
 
     const realTime = new Date;
     const [DateDeparture, setValueDep] = React.useState(new Date(realTime));
-    const [DateArrival, setValueArriv] = React.useState(new Date(realTime));
+    const [DateArrival, setValueArriv] = React.useState();
 
     const [dateHour, setHour] = React.useState(new Date(realTime));
     const [dateDepHour, SetDepHour] = React.useState(new Date(realTime));
     const [dateCountriesList, setCountriesList] = React.useState('');
     const [dateCountriesListDest, setCountriesListDest] = React.useState('');
+    const [duration, setDuration] = React.useState('');
+
+    const [error, setError] = React.useState(false)
+    const [merr, setMerr] = React.useState("");
+    const [errDur, setErrDur] = React.useState(false);
+    const [msgErrDur, setMsgErrDur] = React.useState("");
+    const [errorDate, setErrDate] = React.useState(false);
+    const [msgErrDate, setMsgErrDate] = React.useState("");
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
     const handleChangeTime = (e) => {
         const date = e;
-        console.log(date.toISOString().slice(0, 10))
-        setValueArriv(date);
+        if (date < DateDeparture) {
+            setErrDate(true)
+            setMsgErrDate("Date not allowed")
+        } else {
+            setValueArriv(date);
+            setErrDate(false)
+            setMsgErrDate("")
+        }
     }
+
     const handleChangeHour = (e) => {
         console.log(e);
         setHour(e);
@@ -92,21 +108,64 @@ export default function AddModal({ setAirlineFlights }) {
         window.location.reload()
     }
     const handleChangeDepDate = (newValue) => {
-        setValueDep(newValue);
+        if (newValue > DateArrival) {
+            setErrDate(true)
+            setMsgErrDate("Date not allowed")
+        } else {
+            setValueDep(newValue);
+            setErrDate(false)
+            setMsgErrDate("")
+        }
     };
 
     const handleCountriesListOrig = (e) => {
-        setCountriesList(e.currentTarget.innerText);
+        const originCountry = e.currentTarget.innerText
+        if (originCountry == dateCountriesListDest) {
+            setError(true)
+            setMerr("Country not allowed")
+        } else {
+            setCountriesList(originCountry);
+            setError(false)
+            setMerr("")
+        }
     }
 
     const handleCountriesListDest = (e) => {
-        console.log(e);
-        setCountriesListDest(e.currentTarget.innerText);
+        const destCountry = e.currentTarget.innerText
+        if (destCountry == dateCountriesList) {
+            setError(true)
+            setMerr("Country not allowed")
+        } else {
+            setCountriesListDest(destCountry);
+            setError(false)
+            setMerr("")
+        }
     }
 
     const handleChangeAdo = (prop) => (event) => {
         setValuesPrice({ ...valuesPrice, [prop]: event.target.value });
     };
+
+    function onChangeDuration(e) {
+        let reg = new RegExp("[0-9:]+$")
+        let hrs = Array.from(e.target.value.replace(':', ''));
+        if (hrs.length == 0) {
+            setDuration(e.target.value);
+            return
+        } else if (reg.test(hrs)) {
+            if (hrs.length == 3) {
+                setDuration(hrs[0] + hrs[1] + ":" + hrs[2]);
+            } else if (hrs.length == 2) {
+                setDuration(hrs[0] + hrs[1]);
+            }
+            else {
+                setDuration(e.target.value);
+            }
+        } else {
+            setErrDur(false)
+            setMsgErrDur("Indicate de duration estimated, please")
+        }
+    }
 
     useEffect(() => {
         setOpen();
@@ -127,7 +186,7 @@ export default function AddModal({ setAirlineFlights }) {
                 <Box sx={style} className={s.container} variant="scrollable">
                     <button className={s.button} onClick={handleClose}>x</button>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add new Flight
+                        Add new Flight ✈️
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         <div>
@@ -176,6 +235,8 @@ export default function AddModal({ setAirlineFlights }) {
                                                 label={"Origin"}
                                                 id="outlined-origin"
                                                 handleCountriesList={handleCountriesListOrig}
+                                                error={error}
+                                                msgErr={merr}
                                             />
                                         </div>
                                         <div >
@@ -183,6 +244,8 @@ export default function AddModal({ setAirlineFlights }) {
                                                 label={"Destination"}
                                                 id="outlined-destination"
                                                 handleCountriesList={handleCountriesListDest}
+                                                error={error}
+                                                msgErr={merr}
                                             />
                                         </div>
                                     </div>
@@ -191,9 +254,15 @@ export default function AddModal({ setAirlineFlights }) {
                                             name='duration'
                                             type="text"
                                             // label='Duration'
-                                            placeholder='Duration Estimated'
+                                            label='Duration Estimated'
                                             id="duration"
                                             variant="standard"
+                                            value={duration}
+                                            onChange={onChangeDuration}
+                                            inputProps={{ maxLength: 5 }}
+                                            error={errDur}
+                                            msgErr={msgErrDur}
+                                            required
                                         />
                                     </div>
                                     <div className={s.inputCont}>
@@ -201,7 +270,10 @@ export default function AddModal({ setAirlineFlights }) {
                                             label={"Departure Date"}
                                             id="depD"
                                             handleChangeDate={handleChangeDepDate}
-                                            value={DateDeparture} />
+                                            value={DateDeparture}
+                                        // error={errorDate}
+                                        // msgErr= {msgErrDate} 
+                                        />
                                         <TimeHour
                                             label={"Departure Hour"}
                                             id="depH"
@@ -214,7 +286,9 @@ export default function AddModal({ setAirlineFlights }) {
                                             label={"Arrival Date"}
                                             id="arrD"
                                             handleChangeDate={handleChangeTime}
-                                            value={DateArrival} />
+                                            value={DateArrival}
+                                            error={errorDate}
+                                            msgErr={msgErrDate} />
                                         <TimeHour
                                             label={"Arrival Hour"}
                                             id="arrH"
@@ -224,13 +298,17 @@ export default function AddModal({ setAirlineFlights }) {
                                     </div>
                                     <div className={s.inputCont}>
                                         <div>
-                                            <FormControl variant="filled">
+                                            <FormControl
+                                                variant="filled"                                               
+                                                required>
                                                 <InputLabel htmlFor="filled-adornment">Price</InputLabel>
                                                 <FilledInput
                                                     id="filled-adornment"
                                                     value={valuesPrice.price}
                                                     onChange={handleChangeAdo('price')}
                                                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                                                    type="number"
+                                                    inputProps={{ min: 1 }}
                                                 />
                                             </FormControl>
                                         </div>
@@ -238,9 +316,11 @@ export default function AddModal({ setAirlineFlights }) {
                                             <TextField sx={style.inp}
                                                 name='stock'
                                                 type="number"
-                                                placeholder='Stock'
+                                                inputProps={{ min: 1 }}
+                                                label='Stock'
                                                 id="stock"
-                                                variant="standard"
+                                                variant="filled"
+                                                required
                                             />
                                         </div>
                                     </div>
