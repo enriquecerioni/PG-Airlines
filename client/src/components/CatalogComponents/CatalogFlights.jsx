@@ -243,7 +243,6 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
     };
 
     function onChangeDuration(e) {
-        debugger;
         let reg = new RegExp("[0-9:]+$")
         let hrs = Array.from(e.target.value.replace(':', ''));
         if (hrs.length == 0) {
