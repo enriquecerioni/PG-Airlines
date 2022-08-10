@@ -503,3 +503,15 @@ export function verifyEmail(payload){
     })    
 }
 }
+export function disableUser(payload) {
+  return function () {
+    axios
+      .put("http://localhost:3001/user/disableUser",payload)
+      .then(() => {
+        console.log("user auth firebase disable");
+      })
+      .catch(() => {
+        console.log("error al banear el auth user");
+      });
+  };
+}

@@ -44,7 +44,7 @@ async function createAdmin(
       firebase.app();
     }
     const auth = firebase.auth();
-  
+    
     const dbFirebase = firebase.firestore();
     let hayData = await dbFirebase.collection("users").doc(email).get();
     if (!hayData.data()) {

@@ -1,5 +1,5 @@
 const { User } = require("../db");
-const { deleteAuthUser, resetPasswordFirebase } = require("../db_flight/eliminar");
+const { deleteAuthUser, resetPasswordFirebase,disableAuthUser } = require("../db_flight/eliminar");
 const firebase=require('firebase')
 
 async function getAllUsers(req, res, next) {
@@ -153,6 +153,24 @@ async function resetPassword(req, res) {
   }
 }
 
+async function disableUserAuth(req, res) {
+  const {uid} = req.body 
+  try {
+    if (uid) {
+      // console.log(email)
+      //res.status(200).send(resetPasswordFirebase(email))
+      await disableAuthUser(uid)
+      return res.status(200).send({ msg: "Salio todo bien"})
+    }else{
+      return res.status(400).json({msg: "Falta mail"})
+    }
+  } catch (error) {
+    return res.status(400).send({ error: "Salio mal"})
+  }
+}
+
+
+
 module.exports = {
   createUser,
   updateToAdmin,
@@ -161,5 +179,6 @@ module.exports = {
   deleteUserAuth,
   getAllUsersFirebaseBack,
   resetPassword,
-  verificateEmail
+  verificateEmail,
+  disableUserAuth
 };

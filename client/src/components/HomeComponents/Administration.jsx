@@ -5,23 +5,20 @@ import {
   getAllUsersFirebase,
   crearAerolinea,
   deleteAirline,
+  currentUser,
 } from "../../redux/actions";
 
-import { Delete, makeAdmin } from "../scripts/auth";
+import { disableUserAuth, makeAdmin } from "../scripts/auth";
 
 export default function Administration() {
   const dispatch = useDispatch();
 
   const allUser = useSelector((state) => state.allUsersFirebase);
+  const currentUser=useSelector(state=>state.currentUser)
   const user = allUser.filter(
-    (user) => !user.hasOwnProperty("empresa") && !user.admin
+    (user) => !user.hasOwnProperty("empresa") && !user.admin && user.email!==currentUser[0].email
   );
-  const business = allUser.filter(
-    (user) => user.hasOwnProperty("empresa") && user.empresa
-  );
-  const toBeBusiness = allUser.filter(
-    (user) => user.hasOwnProperty("empresa") && !user.empresa
-  );
+
 
   const [refreshAccounts, setRefreshAccounts] = useState(0);
 
@@ -30,19 +27,16 @@ export default function Administration() {
   // console.log(user);
   // console.log(business);
   // console.log(toBeBusiness);
-  async function acceptRequest(email) {
-    //console.log(e.target.email.value);
-    await makeAdmin(email);
-    dispatch(crearAerolinea({ email }));
-    // window.location.reload()
-    setRefreshAccounts(refreshAccounts + 1);
-  }
+  // async function acceptRequest(email) {
+  //   //console.log(e.target.email.value);
+  //   await makeAdmin(email);
+  //   dispatch(crearAerolinea({ email }));
+  //   // window.location.reload()
+  //   setRefreshAccounts(refreshAccounts + 1);
+  // }
 
-  async function deleteUser(UID, email) {
-    await Delete(email, UID);
-    business.filter((b) => b.email === email).length
-      ? dispatch(deleteAirline(email))
-      : console.log("no esta");
+  async function disableUser(UID, email) {
+    await disableUserAuth(UID,email);
     //  aca va un loader porque las funciones se ejecutan tarde y se rompe con el window.location.reload()
     setRefreshAccounts(refreshAccounts + 1);
   }
@@ -72,13 +66,16 @@ export default function Administration() {
               <div key={u.uid}>
                 email: {u.email},Name: {u.name ? u.name : null}, uid: {u.uid}
               </div>
-              <button
+              {
+              !u.disable ? (<button
                 onClick={() => {
-                  deleteUser(u.uid, u.email);
+                  disableUser(u.uid, u.email);
                 }}
               >
-                Delete User
-              </button>
+                Disable User
+              </button>):
+                <h6>User Disable</h6>
+              }
             </div>
           );
         })
