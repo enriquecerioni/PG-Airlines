@@ -5,41 +5,31 @@ import {
   getAllUsersFirebase,
   crearAerolinea,
   deleteAirline,
+  currentUser,
 } from "../../redux/actions";
+
+
+import { disableUserAuth, makeAdmin } from "../scripts/auth";
 import s from "../styles/UserProfile.module.css";
 import { Delete, makeAdmin } from "../scripts/auth";
 import { Button, Table, TableHead, TableBody, TableCell, TableRow } from '@mui/material'
+
 
 
 export default function Administration() {
   const dispatch = useDispatch();
 
   const allUser = useSelector((state) => state.allUsersFirebase);
+  const currentUser=useSelector(state=>state.currentUser)
   const user = allUser.filter(
-    (user) => !user.hasOwnProperty("empresa") && !user.admin
+    (user) => !user.hasOwnProperty("empresa") && !user.admin && user.email!==currentUser[0].email
   );
-  const business = allUser.filter(
-    (user) => user.hasOwnProperty("empresa") && user.empresa
-  );
-  const toBeBusiness = allUser.filter(
-    (user) => user.hasOwnProperty("empresa") && !user.empresa
-  );
+
 
   const [refreshAccounts, setRefreshAccounts] = useState(0);
 
-  async function acceptRequest(email) {
-    //console.log(e.target.email.value);
-    await makeAdmin(email);
-    dispatch(crearAerolinea({ email }));
-    // window.location.reload()
-    setRefreshAccounts(refreshAccounts + 1);
-  }
-
-  async function deleteUser(UID, email) {
-    await Delete(email, UID);
-    business.filter((b) => b.email === email).length
-      ? dispatch(deleteAirline(email))
-      : console.log("no esta");
+  async function disableUser(UID, email) {
+    await disableUserAuth(UID,email);
     //  aca va un loader porque las funciones se ejecutan tarde y se rompe con el window.location.reload()
     setRefreshAccounts(refreshAccounts + 1);
   }
@@ -83,8 +73,36 @@ export default function Administration() {
               <h1>No users</h1>
             )}     
 
+
+      {user.length ? (
+        user.map((u) => {
+          return (
+            <div key={u.uid}>
+              <br />
+              <br />
+              <div key={u.uid}>
+                email: {u.email},Name: {u.name ? u.name : null}, uid: {u.uid}
+              </div>
+              {
+              !u.disable ? (<button
+                onClick={() => {
+                  disableUser(u.uid, u.email);
+                }}
+              >
+                Disable User
+              </button>):
+                <h6>User Disable</h6>
+              }
+            </div>
+          );
+        })
+      ) : (
+        <h1>No users?</h1>
+      )}
+
         </TableBody>
       </Table>
+
     </div>
   );
 }
