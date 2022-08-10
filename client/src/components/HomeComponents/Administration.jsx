@@ -13,7 +13,6 @@ import {
 
 import { disableUserAuth } from "../scripts/auth";
 import s from "../styles/UserProfile.module.css";
-import { Delete } from "../scripts/auth";
 import { Button, Table, TableHead, TableBody, TableCell, TableRow } from '@mui/material'
 
 
@@ -64,43 +63,19 @@ export default function Administration() {
                     <TableCell>{u.email}</TableCell>
                     <TableCell>{u.name ? u.name : '(empty)'}</TableCell>
                     <TableCell>{u.uid}</TableCell>
-                    <TableCell><Button color='error' variant="contained" onClick={() => { deleteUser(u.uid, u.email)}}>
+                    <TableCell>
+                      {!u.disable ? (
+                        <Button color='error' variant="contained" onClick={() => { disableUser(u.uid, u.email)}}>
                       Delete
                     </Button>
+                      ) : <Button color='error' variant="contained" disabled={u.disable}>Disable</Button> }
                     </TableCell>
                   </TableRow>
                 );
               })
             ) : (
               <h1>No users</h1>
-            )}     
-
-
-      {user.length ? (
-        user.map((u) => {
-          return (
-            <div key={u.uid}>
-              <br />
-              <br />
-              <div key={u.uid}>
-                email: {u.email},Name: {u.name ? u.name : null}, uid: {u.uid}
-              </div>
-              {
-              !u.disable ? (<button
-                onClick={() => {
-                  disableUser(u.uid, u.email);
-                }}
-              >
-                Disable User
-              </button>):
-                <h6>User Disable</h6>
-              }
-            </div>
-          );
-        })
-      ) : (
-        <h1>No users?</h1>
-      )}
+            )}
 
         </TableBody>
       </Table>
