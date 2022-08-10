@@ -43,7 +43,7 @@ function Orders() {
       const [open, setOpen] = useState(false);
 
       const [ openReview, setOpenReview ] = useState(false);
-      console.log(openReview)
+      // console.log(openReview)
 
       const handleOpenReview = () => {
         setOpenReview(true);
@@ -61,18 +61,15 @@ function Orders() {
             }
         })}
 
-
         <TableCell className={darkMode ? style.cell_dark : undefined} key={row.amount}>{row.amount}</TableCell>   
         <TableCell className={darkMode ? style.cell_dark : undefined} key={row.value}>${row.value}</TableCell> 
 
         <TableCell className={darkMode ? style.cell_dark : undefined}>
-
           <Button onClick={handleOpenReview} disabled={row.review === true}>Review</Button>
             <Modal open={openReview} onClose={handleCloseReview}>
-
               <Box className={style.modal_review}>
-                {console.log("aca aparece el row", row, "luego el orderID",orderID)}
-                <Comments detail={row && row} orderID={orderID} flightId={row.flightId} allStocks={allStocks}/>
+                <Button onClick={handleCloseReview}>X</Button>
+                <Comments detail={row && row} orderID={orderID} flightId={row.flightId} allStocks={allStocks} setOpenReview={setOpenReview} />
               </Box>
             </Modal>
 

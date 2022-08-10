@@ -6,6 +6,8 @@ import {
   crearAerolinea,
   deleteAirline,
   currentUser,
+  disableUser,
+  deleteUser
 } from "../../redux/actions";
 
 

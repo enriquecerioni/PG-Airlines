@@ -112,9 +112,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 40rem !important;
-  height: 35rem !important;
+  height: 33rem !important;
   background-color: white;
   border: 1px solid #000;
+  border: 10px solid #4c87bee1;
 }
 
 .id_container {
