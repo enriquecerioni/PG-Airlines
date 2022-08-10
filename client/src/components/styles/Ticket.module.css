@@ -208,14 +208,18 @@
 
 @media (max-width: 450px){
     .cards{
-        width: 100%;
+        width: 100%; 
     }
-    .cards_item{
+    .cards_item{ 
         width: 90%;
-        /* background-color: #3985CB; */
-        /* border: 1px solid #121212; */
+        margin-top: 2rem;
+    }
+    .cards_item_dark{
+        width: 90%;
+        margin-top: 2rem;
     }
     .button{
         display: none;
     }
+
 }
