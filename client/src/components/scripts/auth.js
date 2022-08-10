@@ -6,6 +6,7 @@ import {
   deleteUser,
   deleteUserAuth,
   currentUser,
+  verifyEmail
 
  
 } from "../../redux/actions/index";
@@ -56,6 +57,8 @@ auth.onAuthStateChanged(async (user) => {
       // document.getElementById("MyAirline").style.display = "";
       // document.getElementById("OwnFlights").style.display = "";
     } else if (user.emailVerified) {
+      let email=user.email
+      await store.dispatch(verifyEmail({email}))
       //console.log("user logged-in: ", user.displayName, user.email, user);
       // document.getElementById("btnHomeGuest").style.display = "none";
       console.log("user verificado");
@@ -123,7 +126,7 @@ export async function singUp(email, password, phone,name) {
     //console.log("2", email, name, uid);
 
     console.log(email, name, uid, img);
-    await store.dispatch(createUser({ email, name, uid, img, phone }));
+    await store.dispatch(createUser({ email, name, uid, img, phone}));
     return  dbFirebase.collection("users").doc(email).set({
       name: name,
       email: email,
@@ -132,6 +135,7 @@ export async function singUp(email, password, phone,name) {
       photo: img? img:"",
       uid: uid,
       superAdmin: false,
+      emailVerificated:false
     });
   } catch (error) {
     return `${error.message}`;
@@ -198,13 +202,15 @@ export async function ejecutar() {
 
     let hay = await dbFirebase.collection("users").doc(email).get();
     if (!hay.data()) {
-      await store.dispatch(createUser({ email, name, uid, img }));
+      let emailVerificated=true
+      await store.dispatch(createUser({ email, name, uid, img ,emailVerificated}));
       return dbFirebase.collection("users").doc(email).set({
         email: email,
         admin: false,
         photo: img,
         uid: uid,
         superAdmin: false,
+        emailVerificated:true,
       })
     }else{
 

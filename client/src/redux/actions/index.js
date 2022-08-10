@@ -487,3 +487,19 @@ export function updateReview(payload) {
     .catch(error => console.log(error)) 
   }
 }
+
+export function verifyEmail(payload){
+  return function(dispatch) {
+    axios.put("http://localhost:3001/user/verificateEmail",payload)
+    .then((res) => {
+      console.log( "esta verificado pa")
+      dispatch({
+        type: 'verify',
+        payload: res
+      })
+    }
+    ).catch((error) =>  {
+      console.log(error.message)        
+    })    
+}
+}
