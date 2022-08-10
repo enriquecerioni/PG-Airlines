@@ -46,7 +46,7 @@ export default function AddModal({ setAirlineFlights }) {
 
     const realTime = new Date;
     const [DateDeparture, setValueDep] = React.useState(new Date(realTime));
-    const [DateArrival, setValueArriv] = React.useState();
+    const [DateArrival, setValueArriv] = React.useState(new Date(realTime));
 
     const [dateHour, setHour] = React.useState(new Date(realTime));
     const [dateDepHour, SetDepHour] = React.useState(new Date(realTime));
@@ -60,9 +60,26 @@ export default function AddModal({ setAirlineFlights }) {
     const [msgErrDur, setMsgErrDur] = React.useState("");
     const [errorDate, setErrDate] = React.useState(false);
     const [msgErrDate, setMsgErrDate] = React.useState("");
+    const [errorPrice, setErrPrice] = React.useState(false);
+    const [msgErrPrice, setMsgErrPrice] = React.useState("");
+    const [errorStock, setErrStock] = React.useState(false);
+    const [msgErrStock, setMsgErrStock] = React.useState("");
+    const [errorLogo, setErrLogo] = React.useState(false);
+    const [msgErrLogo, setMsgErrogo] = React.useState("");
+
 
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setValueDep(new Date(realTime));
+        setValueArriv(new Date(realTime));
+        setHour(new Date(realTime));
+        SetDepHour(new Date(realTime));
+        setCountriesList('');
+        setCountriesListDest('');
+        setDuration('');
+        setValuesPrice({ price: '' });
+        setOpen(false)
+    };
 
     const handleChangeTime = (e) => {
         const date = e;
@@ -86,6 +103,28 @@ export default function AddModal({ setAirlineFlights }) {
     }
     const handleAdd = (e) => {
         e.preventDefault();
+        if (dateCountriesList == '') {
+            setError(true);
+            setMerr('Error');
+            if (duration == '') {
+                setErrDur(true);
+                setMsgErrDur('Error')
+            }
+            if (valuesPrice.price == '') {
+                setErrPrice(true);
+                setMsgErrPrice('error');
+            }
+            if (document.getElementById('stock').value == '') {
+                setErrStock(true);
+                setMsgErrStock('Error')
+            }
+            if (document.getElementById('logo').value == '') {
+                setErrLogo(true);
+                setMsgErrogo('Error')
+            }
+            return
+        }
+
         const dataNew = {
             id: currentUser[0]?.id,
             airline: currentUser[0]?.name,
@@ -108,14 +147,21 @@ export default function AddModal({ setAirlineFlights }) {
         window.location.reload()
     }
     const handleChangeDepDate = (newValue) => {
-        if (newValue > DateArrival) {
-            setErrDate(true)
-            setMsgErrDate("Date not allowed")
-        } else {
-            setValueDep(newValue);
-            setErrDate(false)
-            setMsgErrDate("")
-        }
+        // if (newValue > DateArrival) {
+        //     setErrDate(true)
+        //     setMsgErrDate("Date not allowed")
+        // } else {
+        //      if(DateArrival == undefined)
+        //      setValueArriv(newValue);
+
+        //     setValueDep(newValue);
+        //     setErrDate(false)
+        //     setMsgErrDate("")
+        // }      
+
+        if (DateDeparture.getDate() == DateArrival.getDate())
+            setValueArriv(newValue);
+        setValueDep(newValue);
     };
 
     const handleCountriesListOrig = (e) => {
@@ -222,6 +268,8 @@ export default function AddModal({ setAirlineFlights }) {
                                                 placeholder='Logo'
                                                 id="logo"
                                                 variant="standard"
+                                                error={errorLogo}
+                                                msgErr={msgErrLogo}
                                             />
                                             <IconButton color="primary" aria-label="upload picture" component="label">
                                                 <input hidden accept="image/*" type="file" />
@@ -271,8 +319,8 @@ export default function AddModal({ setAirlineFlights }) {
                                             id="depD"
                                             handleChangeDate={handleChangeDepDate}
                                             value={DateDeparture}
-                                        // error={errorDate}
-                                        // msgErr= {msgErrDate} 
+                                            error={errorDate}
+                                            msgErr={msgErrDate}
                                         />
                                         <TimeHour
                                             label={"Departure Hour"}
@@ -288,7 +336,8 @@ export default function AddModal({ setAirlineFlights }) {
                                             handleChangeDate={handleChangeTime}
                                             value={DateArrival}
                                             error={errorDate}
-                                            msgErr={msgErrDate} />
+                                            msgErr={msgErrDate}
+                                        />
                                         <TimeHour
                                             label={"Arrival Hour"}
                                             id="arrH"
@@ -299,7 +348,7 @@ export default function AddModal({ setAirlineFlights }) {
                                     <div className={s.inputCont}>
                                         <div>
                                             <FormControl
-                                                variant="filled"                                               
+                                                variant="filled"
                                                 required>
                                                 <InputLabel htmlFor="filled-adornment">Price</InputLabel>
                                                 <FilledInput
@@ -309,6 +358,8 @@ export default function AddModal({ setAirlineFlights }) {
                                                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
                                                     type="number"
                                                     inputProps={{ min: 1 }}
+                                                    error={errorPrice}
+                                                    msgError={msgErrPrice}
                                                 />
                                             </FormControl>
                                         </div>
@@ -320,7 +371,8 @@ export default function AddModal({ setAirlineFlights }) {
                                                 label='Stock'
                                                 id="stock"
                                                 variant="filled"
-                                                required
+                                                error={errorStock}
+                                                msgError={msgErrStock}
                                             />
                                         </div>
                                     </div>
