@@ -15,16 +15,16 @@
 }
 
 .payment_container {
-  margin-top: 4rem;
-  padding-bottom: 5rem;
-  height: 100%;
+    margin-top: 3rem;
+    padding-bottom: 5rem;
+    height: 100%;
 }
 
 .payment_container_dark {
-  margin-top: 4rem;
-  padding-bottom: 5rem;
-  background-color: #121212;
-  height: 100%;
+    margin-top: 3rem;
+    padding-bottom: 5rem;
+    background-color: #121212;
+    height: 100%;
 }
 
 .main_title {
@@ -151,11 +151,12 @@
 }
 
 .title_orders_dark {
-  font-family: "Rubik", sans-serif;
-  font-size: 2.8rem;
-  padding-top: 1rem;
-  padding-bottom: 2.5rem;
-  color: #ffffff;
+    font-family: 'Rubik', sans-serif;
+    font-size: 2.8rem;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 2.5rem;    
+    color: #FFFFFF;
 }
 
 .card_container {

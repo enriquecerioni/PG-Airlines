@@ -31,7 +31,7 @@ export default function UserProfile() {
         <div className={darkMode ? s.container_dark : s.container}>
           <ProfileNav />
           {/* <h1>image</h1> */}
-          <div className={s.infoContainer}>
+          <div className={darkMode ? s.infoContainer_dark : s.infoContainer}>
             <h1 className={ darkMode ? s.title_dark : s.title}>Account Information</h1>
             <span className={  darkMode ? s.text_dark : s.text}>
               Manage your account settings and other information
