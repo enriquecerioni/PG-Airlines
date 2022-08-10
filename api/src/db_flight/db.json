@@ -2,7 +2,7 @@
     "E23-13":{
         "flight": "E23-13",
         "airline": "Alaska Airlines",
-        "logo": "https://w7.pngwing.com/pngs/539/813/png-transparent-logo-alaska-airlines-boeing-737-brand-5th-may-blue-text-trademark.png",        
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623722782740/Alaska-Airlines-Logo.png?width=1213&height=682",
         "price": 30000,
         "stock": 30,
         "origin": "Alaska",
@@ -31,8 +31,8 @@
     }, 
     "D19-08":{
         "flight": "D19-08",
-        "airline": "Shangai Airlines",
-        "logo": "https://flightscustomerservice.com/wp-content/uploads/2020/03/Shanghai-Airlines-Logo.jpg",
+        "airline": "Shanghai Airlines",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623991201892/Shanghai_Airlines_logo.png?width=1440&height=321",
         "price": 50000,
         "stock": 50,
         "origin": "China",
@@ -62,7 +62,7 @@
     "C16-12":{
         "flight": "C16-12",
         "airline": "LATAM Airlines",
-        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623378833449/logo-latam-airlines.png?width=1440&height=443",
         "price": 45000,
         "stock": 60,
         "origin": "Mexico",
@@ -77,7 +77,7 @@
     "E23-14":{
         "flight": "E23-14",
         "airline": "Alaska Airlines",
-        "logo": "https://w7.pngwing.com/pngs/539/813/png-transparent-logo-alaska-airlines-boeing-737-brand-5th-may-blue-text-trademark.png",        
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623722782740/Alaska-Airlines-Logo.png?width=1213&height=682",
         "price": 47000,
         "stock": 190,
         "origin": "Suecia",
@@ -106,8 +106,8 @@
     }, 
     "D19-09":{
         "flight": "D19-09",
-        "airline": "Shangai Airlines",
-        "logo": "https://flightscustomerservice.com/wp-content/uploads/2020/03/Shanghai-Airlines-Logo.jpg",
+        "airline": "Shanghai Airlines",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623991201892/Shanghai_Airlines_logo.png?width=1440&height=321",
         "price": 49000,
         "stock": 120,
         "origin": "Japon",
@@ -137,7 +137,7 @@
     "C16-13":{
         "flight": "C16-13",
         "airline": "LATAM Airlines",
-        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623378833449/logo-latam-airlines.png?width=1440&height=443",
         "price": 30800,
         "stock": 110,
         "origin": "Colombia",
@@ -152,7 +152,7 @@
     "E23-15":{
         "flight": "E23-15",
         "airline": "Alaska Airlines",
-        "logo": "https://w7.pngwing.com/pngs/539/813/png-transparent-logo-alaska-airlines-boeing-737-brand-5th-may-blue-text-trademark.png",        
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623722782740/Alaska-Airlines-Logo.png?width=1213&height=682",        
         "price": 125000,
         "stock": 100,
         "origin": "Groenlandia",
@@ -181,8 +181,8 @@
     }, 
     "D19-10":{
         "flight": "D19-10",
-        "airline": "Shangai Airlines",
-        "logo": "https://flightscustomerservice.com/wp-content/uploads/2020/03/Shanghai-Airlines-Logo.jpg",
+        "airline": "Shanghai Airlines",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623991201892/Shanghai_Airlines_logo.png?width=1440&height=321",
         "price": 160000,
         "stock": 60,
         "origin": "Ukrania",
@@ -271,8 +271,8 @@
     },
     "LA452":{
         "flight":"LA452",
-        "airline":"Shangai Airlines",
-        "logo": "https://flightscustomerservice.com/wp-content/uploads/2020/03/Shanghai-Airlines-Logo.jpg",
+        "airline":"Shanghai Airlines",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623991201892/Shanghai_Airlines_logo.png?width=1440&height=321",
         "price":153000,
         "stock":137,
         "origin":"Buenos Aires",
@@ -287,7 +287,7 @@
     "AA6957":{
         "flight":"AA6957",
         "airline":"Lufthansa",
-        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
+        "logo":"https://media.discordapp.net/attachments/998724335567118426/1006718624498733206/Lufthansa-Emblem_2.png?width=528&height=528",
         "price":158000,
         "stock":112,
         "origin":"Miami",
@@ -302,7 +302,7 @@
     "IB5646":{
         "flight":"IB5646",
         "airline":"Lufthansa",
-        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
+        "logo":"https://media.discordapp.net/attachments/998724335567118426/1006718624498733206/Lufthansa-Emblem_2.png?width=528&height=528",
         "price":18070,
         "stock":100,
         "origin":"Roma",
@@ -317,7 +317,7 @@
     "AR1369":{
         "flight":"AR1369",
         "airline":"LATAM Airlines",
-        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623378833449/logo-latam-airlines.png?width=1440&height=443",
         "price":80000,
         "stock":76,
         "origin":"Santa Cruz",
@@ -332,7 +332,7 @@
     "AM597":{
         "flight":"AM597",
         "airline":"Lufthansa",
-        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
+        "logo":"https://media.discordapp.net/attachments/998724335567118426/1006718624498733206/Lufthansa-Emblem_2.png?width=528&height=528",
         "price":15000,
         "stock":90,
         "origin":"Cancún",
@@ -362,7 +362,7 @@
     "AM617":{
         "flight":"AM617",
         "airline":"Lufthansa",
-        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
+        "logo":"https://media.discordapp.net/attachments/998724335567118426/1006718624498733206/Lufthansa-Emblem_2.png?width=528&height=528",
         "price":102580,
         "stock":110,
         "origin":"Toronto",
@@ -377,7 +377,7 @@
     "LA2368":{
         "flight":"LA2368",
         "airline":"Lufthansa",
-        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
+        "logo":"https://media.discordapp.net/attachments/998724335567118426/1006718624498733206/Lufthansa-Emblem_2.png?width=528&height=528",
         "price":300000,
         "stock":98,
         "origin":"Buenos Aires",
@@ -392,7 +392,7 @@
     "LH1173":{
         "flight":"LH1173",
         "airline":"Lufthansa",
-        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
+        "logo":"https://media.discordapp.net/attachments/998724335567118426/1006718624498733206/Lufthansa-Emblem_2.png?width=528&height=528",
         "price":200000,
         "stock":67,
         "origin":"Lisboa",
@@ -407,7 +407,7 @@
     "IB3235":{
         "flight":"IB3235 ",
         "airline":"LATAM Airlines",
-        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623378833449/logo-latam-airlines.png?width=1440&height=443",
         "price":116000,
         "stock":84,
         "origin":"Roma",
@@ -422,7 +422,7 @@
     "AR1242":{
         "flight":"AR1242",
         "airline":"LATAM Airlines",
-        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623378833449/logo-latam-airlines.png?width=1440&height=443",
         "price":110495,
         "stock":70,
         "origin":"Buenos Aires",
@@ -437,7 +437,7 @@
     "TP1045":{
         "flight":"TP1045",
         "airline":"LATAM Airlines",
-        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623378833449/logo-latam-airlines.png?width=1440&height=443",
         "price":132099,
         "stock":150,
         "origin":"Barcelona",
@@ -452,7 +452,7 @@
     "RO391":{
         "flight":"RO391 ",
         "airline":"LATAM Airlines",
-        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623378833449/logo-latam-airlines.png?width=1440&height=443",
         "price":122273,
         "stock":45,
         "origin":"Bucarest",
@@ -467,7 +467,7 @@
     "BA611":{
         "flight":"BA611",
         "airline":"LATAM Airlines",
-        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623378833449/logo-latam-airlines.png?width=1440&height=443",
         "price":757523,
         "stock":65,
         "origin":"Italia",
@@ -482,7 +482,7 @@
     "AC8093":{
         "flight":"AC8093",
         "airline":"LATAM Airlines",
-        "logo": "https://logodownload.org/wp-content/uploads/2016/11/latam-logo_.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623378833449/logo-latam-airlines.png?width=1440&height=443",
         "price":235230,
         "stock":94,
         "origin":"Sídney",
@@ -497,7 +497,7 @@
     "AR1281":{
         "flight":"AR1281 ",
         "airline":"Alaska Airlines",
-        "logo": "https://w7.pngwing.com/pngs/539/813/png-transparent-logo-alaska-airlines-boeing-737-brand-5th-may-blue-text-trademark.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623722782740/Alaska-Airlines-Logo.png?width=1213&height=682",
         "price":49007,
         "stock":78,
         "origin":"Santiago de Chile",
@@ -512,7 +512,7 @@
     "H2508":{
         "flight":"H2508 ",
         "airline":"Alaska Airlines",
-        "logo": "https://w7.pngwing.com/pngs/539/813/png-transparent-logo-alaska-airlines-boeing-737-brand-5th-may-blue-text-trademark.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623722782740/Alaska-Airlines-Logo.png?width=1213&height=682",
         "price":166900,
         "stock":140,
         "origin":"Buenos Aires",
@@ -527,7 +527,7 @@
     "LH1983":{
         "flight":"LH1983",
         "airline":"Lufthansa",
-        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
+        "logo":"https://media.discordapp.net/attachments/998724335567118426/1006718624498733206/Lufthansa-Emblem_2.png?width=528&height=528",
         "price":306397,
         "stock":130,
         "origin":"Colonia",
@@ -542,7 +542,7 @@
     "AR1361":{
         "flight":"AR1361",
         "airline":"Alaska Airlines",
-        "logo": "https://w7.pngwing.com/pngs/539/813/png-transparent-logo-alaska-airlines-boeing-737-brand-5th-may-blue-text-trademark.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623722782740/Alaska-Airlines-Logo.png?width=1213&height=682",
         "price":118687,
         "stock":100,
         "origin":"Bogotá",
@@ -557,7 +557,7 @@
     "KL1504":{
         "flight":"KL1504",
         "airline":"Alaska Airlines",
-        "logo": "https://w7.pngwing.com/pngs/539/813/png-transparent-logo-alaska-airlines-boeing-737-brand-5th-may-blue-text-trademark.png",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623722782740/Alaska-Airlines-Logo.png?width=1213&height=682",
         "price":200000,
         "stock":123,
         "origin":"Valencia",
@@ -647,7 +647,7 @@
     "LH965":{
         "flight":"LH965",
         "airline":"Lufthansa",
-        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
+        "logo":"https://media.discordapp.net/attachments/998724335567118426/1006718624498733206/Lufthansa-Emblem_2.png?width=528&height=528",
         "price":74000,
         "stock":86,
         "origin":"Edimburgo",
@@ -661,8 +661,8 @@
     },
     "AF1275":{
         "flight":"AF1275",
-        "airline":"Shangai Airlines",
-        "logo": "https://flightscustomerservice.com/wp-content/uploads/2020/03/Shanghai-Airlines-Logo.jpg",
+        "airline":"Shanghai Airlines",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623991201892/Shanghai_Airlines_logo.png?width=1440&height=321",
         "price":85416,
         "stock":78,
         "origin":"Oslo",
@@ -677,7 +677,7 @@
     "LH6227":{
         "flight":"LH6227",
         "airline":"Lufthansa",
-        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
+        "logo":"https://media.discordapp.net/attachments/998724335567118426/1006718624498733206/Lufthansa-Emblem_2.png?width=528&height=528",
         "price":253932,
         "stock":94,
         "origin":"Estocolmo",
@@ -707,7 +707,7 @@
     "LH1811":{
         "flight":"LH1811",
         "airline":"Lufthansa",
-        "logo":"https://meetingspanama.com/wp-content/uploads/logo-Lufthansa.jpg",
+        "logo":"https://media.discordapp.net/attachments/998724335567118426/1006718624498733206/Lufthansa-Emblem_2.png?width=528&height=528",
         "price":36182,
         "stock":111,
         "origin":"Barcelona",
@@ -721,8 +721,8 @@
     },
     "ET858":{
         "flight":"ET858",
-        "airline":"Shangai Airlines",
-        "logo": "https://flightscustomerservice.com/wp-content/uploads/2020/03/Shanghai-Airlines-Logo.jpg",
+        "airline":"Shanghai Airlines",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623991201892/Shanghai_Airlines_logo.png?width=1440&height=321",
         "price":348700,
         "stock":76,
         "origin":"Johannesburgo",
@@ -736,8 +736,8 @@
     },
     "TK1830":{
         "flight":"TK1830",
-        "airline":"Shangai Airlines",
-        "logo": "https://flightscustomerservice.com/wp-content/uploads/2020/03/Shanghai-Airlines-Logo.jpg",
+        "airline":"Shanghai Airlines",
+        "logo": "https://media.discordapp.net/attachments/998724335567118426/1006718623991201892/Shanghai_Airlines_logo.png?width=1440&height=321",
         "price":226863,
         "stock":119,
         "origin":"París",
