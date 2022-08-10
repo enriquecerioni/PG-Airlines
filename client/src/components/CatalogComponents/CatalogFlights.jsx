@@ -224,9 +224,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                     pageSize={5}
                     rowsPerPageOptions={[5]}
                     checkboxSelection
-
                 />
-
                 : <h2></h2>
             }
         </Box>,

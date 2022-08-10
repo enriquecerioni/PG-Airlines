@@ -54,8 +54,10 @@ export default function AddModal({ setAirlineFlights }) {
     const [dateCountriesListDest, setCountriesListDest] = React.useState('');
     const [duration, setDuration] = React.useState('');
 
-    const [error, setError] = React.useState(false)
-    const [merr, setMerr] = React.useState("");
+    const [errOrig, setErrOrig] = React.useState(false)
+    const [msgErrOrig, setMsgErrOrig] = React.useState("");
+    const [errDest, setErrDest] = React.useState(false)
+    const [msgErrDest, setMsgErrDest] = React.useState("");
     const [errDur, setErrDur] = React.useState(false);
     const [msgErrDur, setMsgErrDur] = React.useState("");
     const [errorDate, setErrDate] = React.useState(false);
@@ -64,10 +66,7 @@ export default function AddModal({ setAirlineFlights }) {
     const [msgErrPrice, setMsgErrPrice] = React.useState("");
     const [errorStock, setErrStock] = React.useState(false);
     const [msgErrStock, setMsgErrStock] = React.useState("");
-    const [errorLogo, setErrLogo] = React.useState(false);
-    const [msgErrLogo, setMsgErrogo] = React.useState("");
-
-
+    
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
         setValueDep(new Date(realTime));
@@ -78,6 +77,12 @@ export default function AddModal({ setAirlineFlights }) {
         setCountriesListDest('');
         setDuration('');
         setValuesPrice({ price: '' });
+        setErrOrig(false);
+        setErrDest(false);
+        setErrDur(false);
+        setErrDate(false);
+        setErrPrice(false);
+        setErrStock(false);
         setOpen(false)
     };
 
@@ -101,29 +106,45 @@ export default function AddModal({ setAirlineFlights }) {
         console.log(e);
         SetDepHour(e);
     }
+    function validation(date){
+        if(date == '' ){
+          
+         return true;
+        }else{
+            return false;
+        }        
+    }
+
     const handleAdd = (e) => {
         e.preventDefault();
-        if (dateCountriesList == '') {
-            setError(true);
-            setMerr('Error');
-            if (duration == '') {
-                setErrDur(true);
-                setMsgErrDur('Error')
-            }
-            if (valuesPrice.price == '') {
-                setErrPrice(true);
-                setMsgErrPrice('error');
-            }
-            if (document.getElementById('stock').value == '') {
-                setErrStock(true);
-                setMsgErrStock('Error')
-            }
-            if (document.getElementById('logo').value == '') {
-                setErrLogo(true);
-                setMsgErrogo('Error')
-            }
-            return
+        let band = false;
+        if(validation(dateCountriesList)){
+            setErrOrig(true);
+            band=true;
+        } 
+        
+        if(validation(dateCountriesListDest)){
+            setErrDest(true);
+            band=true;
+        } 
+        
+        if(validation(duration)){
+            setErrDur(true);
+            band=true;
+        } 
+        
+        if(validation(document.getElementById('stock').value)){
+            setErrStock(true);
+            band=true;
         }
+        setErrStock(false);
+        if(validation(valuesPrice.price)){
+            setErrPrice(true);
+            band=true;
+        }
+
+        if(band)
+            return
 
         const dataNew = {
             id: currentUser[0]?.id,
@@ -132,10 +153,10 @@ export default function AddModal({ setAirlineFlights }) {
             arrivalHour: dateHour.toTimeString().slice(0, 5),
             departureDate: DateDeparture.toISOString().slice(0, 10),//document.getElementById('depD').value,
             departureHour: dateDepHour.toTimeString().slice(0, 5),//document.getElementById('depH').value,
-            description: document.getElementById('description').value,
+            //description: document.getElementById('description').value,
             destination: dateCountriesListDest,//document.getElementById('destination').value,
             durationEstimated: document.getElementById('duration').value,
-            logo: document.getElementById('logo').value,
+            logo: currentUser[0]?.image,
             origin: dateCountriesList,// document.getElementById('origin').value,
             price: valuesPrice.price,//document.getElementById('price').value,
             stock: document.getElementById('stock').value
@@ -146,18 +167,7 @@ export default function AddModal({ setAirlineFlights }) {
         setAirlineFlights(false)
         window.location.reload()
     }
-    const handleChangeDepDate = (newValue) => {
-        // if (newValue > DateArrival) {
-        //     setErrDate(true)
-        //     setMsgErrDate("Date not allowed")
-        // } else {
-        //      if(DateArrival == undefined)
-        //      setValueArriv(newValue);
-
-        //     setValueDep(newValue);
-        //     setErrDate(false)
-        //     setMsgErrDate("")
-        // }      
+    const handleChangeDepDate = (newValue) => {   
 
         if (DateDeparture.getDate() == DateArrival.getDate())
             setValueArriv(newValue);
@@ -167,29 +177,33 @@ export default function AddModal({ setAirlineFlights }) {
     const handleCountriesListOrig = (e) => {
         const originCountry = e.currentTarget.innerText
         if (originCountry == dateCountriesListDest) {
-            setError(true)
-            setMerr("Country not allowed")
+            setErrOrig(true)
+            setMsgErrOrig("Country not allowed")
         } else {
             setCountriesList(originCountry);
-            setError(false)
-            setMerr("")
+            setErrOrig(false)
+            setMsgErrOrig("")
         }
+        setCountriesList(originCountry);
     }
 
     const handleCountriesListDest = (e) => {
         const destCountry = e.currentTarget.innerText
         if (destCountry == dateCountriesList) {
-            setError(true)
-            setMerr("Country not allowed")
+            setErrDest(true)
+            setMsgErrDest("Country not allowed")
         } else {
             setCountriesListDest(destCountry);
-            setError(false)
-            setMerr("")
+            setErrDest(false)
+            setMsgErrDest("")
         }
+        setCountriesListDest(destCountry);
     }
 
     const handleChangeAdo = (prop) => (event) => {
+        setErrPrice(validation(event.target.value)); 
         setValuesPrice({ ...valuesPrice, [prop]: event.target.value });
+       
     };
 
     function onChangeDuration(e) {
@@ -211,6 +225,7 @@ export default function AddModal({ setAirlineFlights }) {
             setErrDur(false)
             setMsgErrDur("Indicate de duration estimated, please")
         }
+        setErrDur(validation(e.target.value)); 
     }
 
     useEffect(() => {
@@ -238,43 +253,12 @@ export default function AddModal({ setAirlineFlights }) {
                         <div>
                             <form >
                                 <Stack spacing={1} >
-                                    {/* <div>
-                                    {/* <label>Flight: </label> 
-                                        <TextField sx={style.inp}
-                                            type='text'
-                                            label='ID Flight'
-                                            placeholder='Flight'
-                                            name='flight'
-                                            id="flight" 
-                                            variant="standard"
-                                        />
-                                    </div> */}
                                     <div className={s.inputCont}>
                                         <div>
-                                            {/* <TextField
-                                            disabled
-                                            id="outlined-disabled"
-                                            label="Airline"
-                                            defaultValue="Arline"
-                                        /> */}
                                             <label>Airline: {currentUser[0]?.name} </label>
                                         </div>
-                                        <div>
-                                            <TextField sx={style.inp}
-                                                name='logo'
-                                                type="text"
-                                                size="small"
-                                                // label='Logo'
-                                                placeholder='Logo'
-                                                id="logo"
-                                                variant="standard"
-                                                error={errorLogo}
-                                                msgErr={msgErrLogo}
-                                            />
-                                            <IconButton color="primary" aria-label="upload picture" component="label">
-                                                <input hidden accept="image/*" type="file" />
-                                                <ImageSearchIcon />
-                                            </IconButton>
+                                        <div>                                           
+                                             <img  src={currentUser[0]?.image} alt="Img" />                                            
                                         </div>
                                     </div>
                                     <div className={s.inputCont}>
@@ -283,8 +267,8 @@ export default function AddModal({ setAirlineFlights }) {
                                                 label={"Origin"}
                                                 id="outlined-origin"
                                                 handleCountriesList={handleCountriesListOrig}
-                                                error={error}
-                                                msgErr={merr}
+                                                error={errOrig}
+                                                msgErr={msgErrOrig}
                                             />
                                         </div>
                                         <div >
@@ -292,8 +276,8 @@ export default function AddModal({ setAirlineFlights }) {
                                                 label={"Destination"}
                                                 id="outlined-destination"
                                                 handleCountriesList={handleCountriesListDest}
-                                                error={error}
-                                                msgErr={merr}
+                                                error={errDest}
+                                                msgErr={msgErrDest}
                                             />
                                         </div>
                                     </div>
@@ -376,7 +360,7 @@ export default function AddModal({ setAirlineFlights }) {
                                             />
                                         </div>
                                     </div>
-                                    <div>
+                                    {/* <div>
                                         <TextField fullWidth sx={{ m: 1 }}
                                             multiline
                                             name='description'
@@ -386,7 +370,7 @@ export default function AddModal({ setAirlineFlights }) {
                                             variant="standard"
                                             id="description"
                                         />
-                                    </div>
+                                    </div> */}
                                     <div>
                                         <button className={s.btn} type='submit' variant="contained" onClick={(e) => handleAdd(e)}>Add Flight</button>
                                         <button className={s.btn} onClick={handleClose}>Cancel</button>
