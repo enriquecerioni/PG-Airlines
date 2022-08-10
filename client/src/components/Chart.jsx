@@ -22,16 +22,6 @@ import {
     Legend
   );
 
-// const options = {
-//     responsive: true,
-//     plugins: {
-//       title: {
-//         display: true,
-//         text: 'Sales Chart',
-//       },
-//     },
-//   };
-
 const options = {
   responsive: true,
   interaction: {
@@ -42,7 +32,7 @@ const options = {
   plugins: {
     title: {
       display: true,
-      text: 'Chart.js Line Chart - Multi Axis',
+      text: 'Sales Chart',
     },
   },
   scales: {
@@ -62,29 +52,32 @@ const options = {
   },
 }
 
-const data = {
-  labels: ['January', 'February', 'March', 'April', 'May'],
-  datasets: [
-    {
-      label: 'Data 1',
-      backgroundColor: 'rgba(75,192,192,1)',
-      borderColor: 'rgba(0,0,0,1)',
-      borderWidth: 2,
-      data: [65, 59, 80, 81, 56],
-      yAxisID: 'y',
-    },
-    {
-      label: 'Data 2',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      borderColor: 'rgb(255, 99, 132)',
-      borderWidth: 2,
-      data: [70, 80, 20, 11, 96],
-      yAxisID: 'y1',
-    },
-  ]
-}
+const labels = ['Day1', 'Day2', 'Day3', 'Day4', 'Day5', 'Day6', 'Day7', 'Day8', 'Day9', 'Day10', 'Day11', 'Day12']
 
-function Chart() {
+function Chart({ total, tickets_sold}) {
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Total Sale',
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: 'rgba(0,0,0,1)',
+        borderWidth: 2,
+        data: [total, 20000, 10000, 15000, 1000],
+        yAxisID: 'y',
+      },
+      {
+        label: 'Tickets sold',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 2,
+        data: [tickets_sold, 10, 5, 2, 1],
+        yAxisID: 'y1',
+      },
+    ]
+  }  
+
   return (
     <div className={style.chart_container}>
         <Line options={options} data={data} />

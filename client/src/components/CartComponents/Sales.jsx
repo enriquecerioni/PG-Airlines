@@ -64,7 +64,7 @@ function Sales() {
                 </div>
               </Card>
 
-              <Chart />
+              <Chart tickets_sold={data.amount} total={data.price * data.amount} />
             </>
           )
         })
