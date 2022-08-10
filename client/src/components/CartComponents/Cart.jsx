@@ -3,7 +3,7 @@ import style from "../styles/Ticket.module.css";
 import css from "../styles/Cart.module.css";
 import { Link, useHistory } from "react-router-dom";
 import { CartContext } from "./CartContext";
-import { deleteFromCart } from "../../redux/actions/index";
+import { deleteFromCart, getAllUsers } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Button, IconButton, Card } from "@mui/material";
@@ -20,7 +20,7 @@ function Cart() {
   const { darkMode } = useContext(darkModeContext);
   const airlines = useSelector((state) => state.airlines);
   // console.log(airlines)
-
+  const currentUser=useSelector(state=>state.currentUser)
   const auth = firebase.auth();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -65,21 +65,15 @@ function Cart() {
           .reduce((previousValue, currentValue) => previousValue + currentValue)
       );
     }
+    dispatch(getAllUsers)
   }, [products]);
 
   function handleCheckout() {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        if (user.emailVerified) {
-          history.push("/payment");
-        } else {
-          // alert("You need to verify you email")
-          //    Swal.fire({
-          //   icon: 'question',
-          //   title: 'Oops...',
-          //   text: 'You need to verify you email',
-          //   confirmButtonColor: '#10408F'
-          // })
+    if(currentUser.length){
+      if (currentUser[0]?.emailVerificated) {
+        history.push("/payment");
+      }
+      else{
           logOut().then(() => {
             Swal.fire({
               icon: "question",
@@ -87,12 +81,12 @@ function Cart() {
               text: "You need to verify you email",
               confirmButtonColor: "#10408F",
             });
-            history.push("/");
-            window.location.reload();
+            setTimeout(()=>{history.push("/");
+            ;},2000)
           });
-        }
-      } else {
-        // alert("You need to be logged to buy")
+      }
+    }else{
+     
         Swal.fire({
           icon: "question",
           title: "Oops...",
@@ -101,7 +95,41 @@ function Cart() {
         });
         history.push("/login");
       }
-    });
+    
+    // auth.onAuthStateChanged((user) => {
+    //   if (user) {
+    //     if (user.emailVerified) {
+    //       history.push("/payment");
+    //     } else {
+    //       // alert("You need to verify you email")
+    //       //    Swal.fire({
+    //       //   icon: 'question',
+    //       //   title: 'Oops...',
+    //       //   text: 'You need to verify you email',
+    //       //   confirmButtonColor: '#10408F'
+    //       // })
+    //       logOut().then(() => {
+    //         Swal.fire({
+    //           icon: "question",
+    //           title: "Oops...",
+    //           text: "You need to verify you email",
+    //           confirmButtonColor: "#10408F",
+    //         });
+    //         history.push("/");
+    //         window.location.reload();
+    //       });
+    //     }
+    //   } else {
+    //     // alert("You need to be logged to buy")
+    //     Swal.fire({
+    //       icon: "question",
+    //       title: "Oops...",
+    //       text: "You need to be logged to buy",
+    //       confirmButtonColor: "#10408F",
+    //     });
+    //     history.push("/login");
+    //   }
+    // });
   }
 
   return (

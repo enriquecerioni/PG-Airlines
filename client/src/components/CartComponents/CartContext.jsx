@@ -3,6 +3,7 @@ import { addToCart } from "../../redux/actions";
 import { store } from "../../redux/store/index";
 import Swal from "sweetalert2";
 
+
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
@@ -52,8 +53,8 @@ const CartProvider = ({ children }) => {
     tickets,
     destination,
   }) => {
-    console.log("tickets", tickets);
-    console.log("esto es el products", products); //
+   // console.log("tickets", tickets);
+    //console.log("esto es el products", products); //
     let inCart = Array.isArray(products) && products.filter((p) => p.id === id);
     //console.log(inCart)
 
@@ -62,6 +63,7 @@ const CartProvider = ({ children }) => {
         products.map((p) => {
           if (p.id === id) {
             if (p.tickets > p.amount) {
+
               return { ...p, amount: p.amount + 1 };
             } else {
               Swal.fire({
