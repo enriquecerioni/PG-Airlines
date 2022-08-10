@@ -255,7 +255,7 @@ const countries = [
     { code: 'ZW', label: 'Zimbabwe' },
 ];
 
-function CountriesList({ label, handleCountriesList, value =""}) {
+function CountriesList({ label, handleCountriesList, value ="", error, msgErr}) {
     let valorLst;
     if (value == "") {
         valorLst = null;
@@ -292,6 +292,9 @@ function CountriesList({ label, handleCountriesList, value =""}) {
                     ...params.inputProps,
                     autoComplete: 'new-password', // disable autocomplete and autofill
                 }}
+                error={error}
+                helperText= {msgErr}
+                required
             />
         )}
     />

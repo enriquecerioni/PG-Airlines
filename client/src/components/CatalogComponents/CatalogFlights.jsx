@@ -59,28 +59,83 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
     const [valuesPrice, setValuesPrice] = React.useState({ price: '' });
     const realTime = new Date;
     const [DateDeparture, setValueDep] = React.useState(new Date(realTime));
-    const [DateArrival, setValueArriv] = React.useState(new Date(realTime));
+    const [DateArrival, setValueArriv] = React.useState();
     const [dateHour, setHour] = React.useState(new Date(realTime));
     const [dateDepHour, SetDepHour] = React.useState(new Date(realTime));
     const [dateCountriesList, setCountriesList] = React.useState('');
     const [dateCountriesListDest, setCountriesListDest] = React.useState('');
-    
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [duration, setDuration] = React.useState('');
 
+    const [errOrig, setErrOrig] = React.useState(false)
+    const [msgErrOrig, setMsgErrOrig] = React.useState("");
+    const [errDest, setErrDest] = React.useState(false)
+    const [msgErrDest, setMsgErrDest] = React.useState("");
+    const [errDur, setErrDur] = React.useState(false);
+    const [msgErrDur, setMsgErrDur] = React.useState("");
+    const [errorDate, setErrDate] = React.useState(false);
+    const [msgErrDate, setMsgErrDate] = React.useState("");
+    const [errorPrice, setErrPrice] = React.useState(false);
+    const [msgErrPrice, setMsgErrPrice] = React.useState("");
+    const [errorStock, setErrStock] = React.useState(false);
+    const [msgErrStock, setMsgErrStock] = React.useState("");
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+        setValueDep(new Date(realTime));
+        setValueArriv(new Date(realTime));
+        setHour(new Date(realTime));
+        SetDepHour(new Date(realTime));
+        setCountriesList('');
+        setCountriesListDest('');
+        setDuration('');
+        setValuesPrice({ price: '' });
+        setErrOrig(false);
+        setErrDest(false);
+        setErrDur(false);
+        setErrDate(false);
+        setErrPrice(false);
+        setErrStock(false);
+        setOpen(false)
+    };
+    
     const handleSave = (e) => {
         e.preventDefault();
-        debugger
+        let band = false;
+        if (validation(dateCountriesList)) {
+            setErrOrig(true);
+            band = true;
+        }
+        if (validation(dateCountriesListDest)) {
+            setErrDest(true);
+            band = true;
+        }
+        if (validation(document.getElementById('duration').value)) {
+            setErrDur(true);
+            band = true;
+        }
+
+        if (validation(document.getElementById('stock').value)) {
+            setErrStock(true);
+            band = true;
+        }
+
+        if (validation(valuesPrice.price)) {
+            setErrPrice(true);
+            band = true;
+        }
+
+        if (band)
+            return
         const dataNew = {
-            id:dataFlight.id,
+            id: dataFlight.id,
             arrivalDate: DateArrival.toISOString().slice(0, 10),
             arrivalHour: dateHour.toTimeString().slice(0, 5),
             departureDate: DateDeparture.toISOString().slice(0, 10),//document.getElementById('depD').value,
             departureHour: dateDepHour.toTimeString().slice(0, 5),//document.getElementById('depH').value,
-            description: document.getElementById('description').value,
+            //description: document.getElementById('description').value,
             destination: dateCountriesListDest,//document.getElementById('destination').value,
             durationEstimated: document.getElementById('duration').value,
-            logo: document.getElementById('logo').value,
+            logo: currentUser[0]?.image,
             origin: dateCountriesList,// document.getElementById('origin').value,
             price: valuesPrice.price,//document.getElementById('price').value,
             stock: document.getElementById('stock').value
@@ -91,21 +146,21 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
         setTimeout(() => (window.location.reload()), 500)
     }
 
-     function  setFormData(data) {
-         const dataFlight = data;
-         
-        let dateDepD = new Date(Date.parse(dataFlight.departureDate + "T00:00:00.420")); 
+    function setFormData(data) {
+        const dataFlight = data;
+
+        let dateDepD = new Date(Date.parse(dataFlight.departureDate + "T00:00:00.420"));
         let dateArrD = new Date(Date.parse(dataFlight.arrivalDate + "T00:00:00.420"));
         let dateDepH = new Date(Date.parse("2022-01-26T" + dataFlight.departureHour + ":00.420"));
         let dateArrH = new Date(Date.parse("2022-01-26T" + dataFlight.arrivalHour + ":00.420"));
-     
-        setValuesPrice({precio:dataFlight.price});
+
+        setValuesPrice({ precio: dataFlight.price });
         setCountriesList(dataFlight.origin);
         setCountriesListDest(dataFlight.destination);
         setValueDep(dateDepD);
         setValueArriv(dateArrD);
         SetDepHour(dateDepH);
-        setHour(dateArrH);        
+        setHour(dateArrH);
         console.log(dataFlight);
     }
 
@@ -122,39 +177,105 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
 
     const handleChangeTime = (e) => {
         const date = e;
-        //console.log(date.toISOString().slice(0, 10))
-        setValueArriv(date);
+        if (date < DateDeparture) {
+            setErrDate(true)
+            setMsgErrDate("Date not allowed")
+        } else {
+            setValueArriv(date);
+            setErrDate(false)
+            setMsgErrDate("")
+        }
     }
+
     const handleChangeHour = (e) => {
         console.log(e);
         setHour(e);
     }
     const handleChangeDepHour = (e) => {
-        console.log(e);    
+        console.log(e);
         SetDepHour(e);
     }
+
+    function validation(date) {
+        if (date == '') {
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     const handleChangeDepDate = (newValue) => {
+        if (DateDeparture.getDate() == DateArrival.getDate())
+            setValueArriv(newValue);
         setValueDep(newValue);
-    }
+    };
+
     const handleCountriesListOrig = (e) => {
-        setCountriesList(e.currentTarget.innerText);
+        const originCountry = e.currentTarget.innerText
+        if (originCountry == dateCountriesListDest) {
+            setErrOrig(true)
+            setMsgErrOrig("Country not allowed")
+        } else {
+            setCountriesList(originCountry);
+            setErrOrig(false)
+            setMsgErrOrig("")
+        }
+        setCountriesList(originCountry);
     }
+
     const handleCountriesListDest = (e) => {
-        console.log(e);
-        setCountriesListDest(e.currentTarget.innerText);
+        const destCountry = e.currentTarget.innerText
+        if (destCountry == dateCountriesList) {
+            setErrDest(true)
+            setMsgErrDest("Country not allowed")
+        } else {
+            setCountriesListDest(destCountry);
+            setErrDest(false)
+            setMsgErrDest("")
+        }
+        setCountriesListDest(destCountry);
     }
+
     const handleChangeAdo = (prop) => (event) => {
+        setErrPrice(validation(event.target.value));
         setValuesPrice({ ...valuesPrice, [prop]: event.target.value });
     };
+
+    function onChangeDuration(e) {
+        let reg = new RegExp("[0-9:]+$")
+        let hrs = Array.from(e.target.value.replace(':', ''));
+        if (hrs.length == 0) {
+            setDuration(e.target.value);
+            return
+        } else if (reg.test(hrs)) {
+            if (hrs.length == 3) {
+                setDuration(hrs[0] + hrs[1] + ":" + hrs[2]);
+            } else if (hrs.length == 2) {
+                setDuration(hrs[0] + hrs[1]);
+            }
+            else {
+                setDuration(e.target.value);
+            }
+        } else {
+            setErrDur(true)
+            setMsgErrDur("Indicate de duration estimated, please")
+        }
+        setErrDur(validation(e.target.value));
+    }
+
+    function onChangeStock(e) {
+        setErrStock(validation(e.target.value));
+    }
 
     return [
         <Box sx={{ height: 400, width: '100%' }}>
             {airlineFlights && rows ?
                 <DataGrid
-                    onRowDoubleClick={(params, event) => {                        
+                    onRowDoubleClick={(params, event) => {
                         getData(params?.row);
                         setFormData(params?.row);
-                        setOpen(true);    
+                        setOpen(true);
 
                     }}
                     onSelectionModelChange={(e) => { handleRowSelection(e) }}
@@ -163,9 +284,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                     pageSize={5}
                     rowsPerPageOptions={[5]}
                     checkboxSelection
-
                 />
-
                 : <h2></h2>
             }
         </Box>,
@@ -181,47 +300,17 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                 <Box sx={style} className={s.container}>
                     <button className={s.button} onClick={handleClose}>x</button>
                     <Typography id="modal-modal-title" variant="h6" component="h2" fontWeight='bold'>
-                        Edit flight:
+                        Edit flight ✈️
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }} >
                         <form >
                             <Stack spacing={1} >
-                                {/* <div>
-                                    {/* <label>Flight: </label> 
-                                        <TextField sx={style.inp}
-                                            type='text'
-                                            label='ID Flight'
-                                            placeholder='Flight'
-                                            name='flight'
-                                            id="flight" 
-                                            variant="standard"
-                                        />
-                                    </div> */}
                                 <div className={s.inputCont}>
                                     <div>
-                                        {/* <TextField
-                                            disabled
-                                            id="outlined-disabled"
-                                            label="Airline"
-                                            defaultValue="Arline"
-                                        /> */}
                                         <label>Airline: {currentUser[0]?.name} </label>
                                     </div>
                                     <div>
-                                        <TextField sx={style.inp}
-                                            name='logo'
-                                            defaultValue={dataFlight.logo}
-                                            type="text"
-                                            size="small"
-                                            // label='Logo'
-                                            placeholder='Logo'
-                                            id="logo"
-                                            variant="standard"
-                                        />
-                                        <IconButton color="primary" aria-label="upload picture" component="label">
-                                            <input hidden accept="image/*" type="file" />
-                                            <ImageSearchIcon />
-                                        </IconButton>
+                                        <img src={currentUser[0]?.image} alt="Img" />
                                     </div>
                                 </div>
                                 <div className={s.inputCont}>
@@ -231,6 +320,8 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                             id="outlined-origin"
                                             handleCountriesList={handleCountriesListOrig}
                                             value={dateCountriesList}
+                                            error={errOrig}
+                                            msgErr={msgErrOrig}
                                         />
                                     </div>
                                     <div>
@@ -239,6 +330,8 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                             id="outlined-destination"
                                             handleCountriesList={handleCountriesListDest}
                                             value={dateCountriesListDest}
+                                            error={errDest}
+                                            msgErr={msgErrDest}
                                         />
                                     </div>
                                 </div>
@@ -251,6 +344,11 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         id="duration"
                                         variant="standard"
                                         defaultValue={dataFlight.durationEstimated}
+                                        onChange={onChangeDuration}
+                                        inputProps={{ maxLength: 5 }}
+                                        error={errDur}
+                                        msgErr={msgErrDur}
+                                        required
                                     />
                                 </div>
                                 <div className={s.inputCont}>
@@ -259,8 +357,8 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         id="depD"
                                         handleChangeDate={handleChangeDepDate}
                                         value={DateDeparture}
-                                        //defaultValue={dataFlight.departureDate} 
-                                        />
+                                    //defaultValue={dataFlight.departureDate} 
+                                    />
                                     <TimeHour
                                         label={"Departure Hour"}
                                         id="depH"
@@ -275,6 +373,8 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         id="arrD"
                                         handleChangeDate={handleChangeTime}
                                         value={DateArrival}
+                                        error={errorDate}
+                                        msgErr={msgErrDate}
                                     />
                                     <TimeHour
                                         label={"Arrival Hour"}
@@ -286,7 +386,9 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                 </div>
                                 <div className={s.inputCont}>
                                     <div>
-                                        <FormControl variant="filled">
+                                        <FormControl
+                                            variant="filled"
+                                            required>
                                             <InputLabel htmlFor="filled-adornment">Price</InputLabel>
                                             <FilledInput
                                                 id="filled-adornment"
@@ -294,6 +396,10 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                                 onChange={handleChangeAdo('price')}
                                                 startAdornment={<InputAdornment position="start">$</InputAdornment>}
                                                 defaultValue={dataFlight.price}
+                                                type="number"
+                                                inputProps={{ min: 1 }}
+                                                error={errorPrice}
+                                                msgError={msgErrPrice}
                                             />
                                         </FormControl>
                                     </div>
@@ -301,10 +407,14 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         <TextField sx={style.inp}
                                             name='stock'
                                             type="number"
+                                            inputProps={{ min: 1 }}
                                             placeholder='Stock'
                                             id="stock"
                                             variant="standard"
+                                            onChange={onChangeStock}
                                             defaultValue={dataFlight.stock}
+                                            error={errorStock}
+                                            msgError={msgErrStock}
                                         />
                                     </div>
                                 </div>
@@ -317,7 +427,7 @@ function CatalogFlights({ rows, airlineFlights, setAirlineFlights }) {
                                         placeholder='Description'
                                         variant="standard"
                                         id="description"
-                                       // defaultValue={dataFlight.description}
+                                    // defaultValue={dataFlight.description}
                                     />
                                 </div> */}
                                 <div>

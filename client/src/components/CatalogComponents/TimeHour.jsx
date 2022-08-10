@@ -12,7 +12,7 @@ function TimeHour({label,handleChangeHour,value}) {
           label={label}
           value={value}
           onChange={handleChangeHour}
-          renderInput={(params) => <TextField size="small" {...params} />}
+          renderInput={(params) => <TextField size="small" {...params} required/>}
         />
     </LocalizationProvider>
     )
