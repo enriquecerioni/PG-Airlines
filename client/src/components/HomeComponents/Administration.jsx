@@ -6,12 +6,14 @@ import {
   crearAerolinea,
   deleteAirline,
   currentUser,
+  disableUser,
+  deleteUser
 } from "../../redux/actions";
 
 
-import { disableUserAuth, makeAdmin } from "../scripts/auth";
+import { disableUserAuth } from "../scripts/auth";
 import s from "../styles/UserProfile.module.css";
-import { Delete, makeAdmin } from "../scripts/auth";
+import { Delete } from "../scripts/auth";
 import { Button, Table, TableHead, TableBody, TableCell, TableRow } from '@mui/material'
 
 

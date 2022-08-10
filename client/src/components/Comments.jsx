@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import { createComment, getAllComments, getAllUsers, updateReview } from "../redux/actions/index.js";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { createComment, updateReview } from "../redux/actions/index.js";
 import css from './styles/Comments.module.css'
+import Swal from "sweetalert2";
 
-export default function Comments({ detail, orderID,flightId, allStocks}) {
+export default function Comments({ detail, orderID,flightId, allStocks, setOpenReview}) {
   const dispatch = useDispatch()
   const user = useSelector(state => state.currentUser)
 
@@ -72,6 +75,14 @@ export default function Comments({ detail, orderID,flightId, allStocks}) {
       
       dispatch(updateReview({orderID, allStocks}))
 
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your feedback has been send!',
+        showConfirmButton: false,
+        timer: 1000
+      })
+
       setInput({
         rating: '',
         comment: '',
@@ -85,73 +96,62 @@ export default function Comments({ detail, orderID,flightId, allStocks}) {
         ],
         airlineId: detail.airlineId,    
       })
+      setOpenReview(false)
 
     } else {
-        console.log('formulario incorrecto')
+      setOpenReview(false)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Complete all fields!",
+        confirmButtonColor: "#10408F",
+      });
     }
   }
 
-  useEffect(() => {
-    // dispatch(getAllComments())
-    dispatch(getAllUsers())
-  }, [])
-
   return (
     <div className={css.comments_container}>
-            <br />
-            <h3>RATING DE LA AEROLINEA</h3>
-            <h3>Publicar comentario y rating</h3>
-            <form onSubmit={handleSubmitComment}>
-            <h3>INPUT DE RATING</h3>
+        <h3 className={css.modal_title}>Give us your feedback!</h3>
 
-            <Box sx={{'& > legend': { mt: 2 },}}>
-                <Rating
-                    type="number"
-                    name='rating'
-                    value={input.rating}
-                    onChange={handleInputChange}
-                />
-            </Box>
-
-            {input.rating}
-            {error.rating && <span>{error.rating}</span>}
-
-            <h5>Input nombre de la persona que quiere hacer comentario</h5>
-            <input
-            type="text"
-            value={input.name}
-            name='name'
-            onChange={handleInputChange}
+        <form className={css.form_container} onSubmit={handleSubmitComment}>
+        <Box sx={{'& > legend': { mt: 2 },}}>
+            <Rating
+                type="number"
+                name='rating'
+                value={input.rating}
+                onChange={handleInputChange}
             />
-            {input.name}
-            {error.name && <span>{error.name}</span>}
+        </Box>
+        {error.rating && <span>{error.rating}</span>}
 
-            <h5>Input nombre del vuelo de donde lo conocen</h5>
-            <input 
-            type="text" 
-            name="flightName"
-            value={input.flightName}
-            onChange={handleInputChange}
-            />
-            {input.flightName}
+        <TextField
+          type="text"
+          id="outlined-uncontrolled"
+          label="Users name"
+          name='name'
+          defaultValue={input.name}
+          focused
+        />
+        {error.name && <span>{error.name}</span>}
 
-            <h3>INPUT DE COMENTARIO</h3>
-            <input 
-            type="text" 
-            name='comment'
-            value={input.comment}
-            onChange={handleInputChange}
-            />
-            {input.comment}
-            {error.comment && <span>{error.comment}</span>}
+        <TextField
+          id="outlined-multiline-static"
+          label="Your comment"
+          multiline
+          rows={4}
+          type="text" 
+          name='comment'
+          value={input.comment}
+          onChange={handleInputChange}
+          focused
+        />
 
-            <br />
-            <button type="submit">Publicar</button>
-            <br />
-            <span>Su comentario puede ser eleminado si es conciderado inapropiado o se demuestra que no tiene relacion con la aerolinea</span>                    
-            </form> 
-            <br />
-            <br /> 
+        {error.comment && <span>{error.comment}</span>}
+
+        <br />
+        <Button type="submit" variant="contained">Publicar</Button>
+        </form> 
+        <br />
     </div>   
   )
 }

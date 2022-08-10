@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllComments, getAllUsers } from "../redux/actions/index.js";
 import css from './styles/Comments.module.css'
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import StarIcon from '@mui/icons-material/Star';
 
 export default function FeedBack({ airlineId, airline }) {
     const dispatch = useDispatch()
@@ -30,10 +33,23 @@ export default function FeedBack({ airlineId, airline }) {
   return (
     <div>
         <h1 className={css.review_title}>Customers Review for: {airline}</h1>
-
         <div className={css.review_container}>
             { airlineComments.length ? airlineComments.map(e => {
-                return console.log(e)
+                return (
+                  <div className={css.reviewer} key={e.id}>
+                    <Box>
+                      <Rating
+                        name="text-feedback"
+                        value={e.rating}
+                        readOnly
+                        precision={1}
+                        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                      />
+                    </Box>
+                    <h5 className={css.text}>User: {e.name}</h5>
+                    <h5 className={css.text}>Comment: "{e.comment}"</h5>
+                  </div>
+                )
             }) 
             : 
             (<div>
