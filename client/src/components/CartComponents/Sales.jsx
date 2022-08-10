@@ -37,7 +37,10 @@ function Sales() {
     window.location.reload();
   }
 
-  
+  const total = salesAirline?.map(data => data.price * data.amount)
+  console.log(total)
+  const ticket_sold = salesAirline?.map(data => data.amount)
+  console.log(ticket_sold)
 
   return (
     <div className={style.main_container}>
@@ -75,9 +78,7 @@ function Sales() {
         </div>
       )}
 
-      {salesAirline?.map(data => {
-        return <Chart total={data.price * data.amount} tickets_sold={data.amount} />
-      })}
+      <Chart total={total} tickets_sold={ticket_sold} />
       
     </div>
   );

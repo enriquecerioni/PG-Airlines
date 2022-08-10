@@ -52,7 +52,7 @@ const options = {
   },
 }
 
-const labels = ['Day1', 'Day2', 'Day3', 'Day4', 'Day5', 'Day6', 'Day7', 'Day8', 'Day9', 'Day10', 'Day11', 'Day12']
+const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
 
 function Chart({ total, tickets_sold}) {
 
@@ -64,7 +64,7 @@ function Chart({ total, tickets_sold}) {
         backgroundColor: 'rgba(75,192,192,1)',
         borderColor: 'rgba(0,0,0,1)',
         borderWidth: 2,
-        data: [total, 20000, 10000, 15000, 1000],
+        data: [...total],
         yAxisID: 'y',
       },
       {
@@ -72,7 +72,7 @@ function Chart({ total, tickets_sold}) {
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
         borderColor: 'rgb(255, 99, 132)',
         borderWidth: 2,
-        data: [tickets_sold, 10, 5, 2, 1],
+        data: [...tickets_sold],
         yAxisID: 'y1',
       },
     ]
