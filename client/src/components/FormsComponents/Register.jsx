@@ -66,10 +66,18 @@ function Register() {
         text: "Something went wrong!",
         confirmButtonColor: "#10408F",
       });
+      setLoading(false);
     } else {
       navigate.push("/");
       //window.location.reload();
     }
+  }else{
+    Swal.fire({
+      icon: "question",
+      title: "Oops...",
+      text: "Complete all fields",
+      confirmButtonColor: "#10408F",
+    });
     setLoading(false);
   }
 }

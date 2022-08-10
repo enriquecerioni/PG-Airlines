@@ -38,7 +38,14 @@ export default function RegisterAirline() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (terminos === true) {
+    if (terminos === true &&
+      name.valid === 'true' &&
+      image.valid === 'true' &&
+      email.valid === 'true' &&
+      phone.valid === 'true' &&
+      password.valid === 'true' &&
+      password2.value === password.value 
+      ) {
       let type = await singUpAirline(
         e.target.email.value,
         e.target.password.value,
@@ -55,6 +62,7 @@ export default function RegisterAirline() {
           text: "Something went wrong!",
           confirmButtonColor: "#10408F",
         });
+
       } else {
         Swal.fire({
           icon: "success",
@@ -65,7 +73,7 @@ export default function RegisterAirline() {
         navigate.push("/");
         window.location.reload();
       }
-    } else {
+    } else if(terminos === false){
       console.log("falta el check");
       Swal.fire({
         icon: "question",
@@ -73,6 +81,15 @@ export default function RegisterAirline() {
         text: "Agree to terms and conditions to sent form",
         confirmButtonColor: "#10408F",
       });
+ 
+    }else{
+      Swal.fire({
+        icon: "question",
+        title: "Oops...",
+        text: "Complete all fields",
+        confirmButtonColor: "#10408F",
+      });
+ 
     }
   }
 
