@@ -342,7 +342,6 @@ export function editToFlights(payload) {
     flight: payload,
   };
   console.log(flight);
-  //    debugger;
   return function (dispatch) {
     axios
       .put("http://localhost:3001/flights/update", flight)
@@ -392,7 +391,6 @@ export function createFlights(payload) {
 
 export function deleteFlights(payload) {
   const flightIds = { flightIds: payload };
-  //  debugger;
   //console.log(flightIds);
   return function (dispatch) {
     axios

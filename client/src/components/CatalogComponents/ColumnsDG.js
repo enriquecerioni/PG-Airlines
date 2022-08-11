@@ -73,12 +73,12 @@
         width: 150,
         editable: true,
     },
-    {
-        field: 'description',
-        headerName: 'Description',
-        width: 150,
-        editable: true,
-    }
+    // {
+    //     field: 'description',
+    //     headerName: 'Description',
+    //     width: 150,
+    //     editable: true,
+    // }
 ];
 
 export default data;
