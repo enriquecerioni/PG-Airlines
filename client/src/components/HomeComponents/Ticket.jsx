@@ -1,34 +1,82 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "../styles/Ticket.module.css";
 import { Link } from "react-router-dom";
 import { addToFavorite } from "../../redux/actions/index";
 import { CartContext } from "../CartComponents/CartContext";
-import { useContext } from "react";
 import { toast } from "react-toastify";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import { IconButton, Chip } from "@mui/material";
+import { darkModeContext } from '../DarkModeContext';
+import Swal from 'sweetalert2'
 
-function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,stock, destination}) {
+function Ticket({
+  id,
+  airlineId,
+  origin,
+  price,
+  logo,
+  arrivalHour,
+  departureHour,
+  tickets,
+  destination,
+}) {
 
-  const item = { id, origin, price, logo, airline, arrivalHour, departureHour,stock, destination }
+  const item = {
+    id,
+    airlineId,
+    origin,
+    price,
+    logo,
+    arrivalHour,
+    departureHour,
+    tickets,
+    destination,
+  };
 
-  const {addProductToCart} = useContext(CartContext)
+  const { darkMode } = useContext(darkModeContext)
+
+  const { addProductToCart,products } = useContext(CartContext);
+  const airlines = useSelector((state) => state.airlines);
+  
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.currentUser);
 
   const handleAddCart = (e) => {
     e.preventDefault();
     addProductToCart(item);
-    toast.info("Ticket added to cart", {
-      icon: "✈️",
-      position: "bottom-left",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
-  const dispatch = useDispatch();
+    let cant=0;
+    products?.map((p)=>{
+      if(p.id===id)cant++
+      if(p.id===id && p.amount < p.tickets){
+        toast.info("Ticket added to cart", {
+          icon: "✈️",
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
+    })
+    if(!cant) {
+      toast.info("Ticket added to cart", {
+        icon: "✈️",
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
+};
 
   // Para agregar a favoritos
   let favoriteList = useSelector((state) => state.favoriteList);
@@ -37,30 +85,55 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
   let listDisabled = saved ? true : false;
 
   function addFav(e) {
-    dispatch(addToFavorite(item));
-    console.log(`agregaste ${id} `);
-    toast.info("Ticket added to favorites", {
-      icon: "✈️",
-      position: "bottom-left",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    if(user.length) {
+      dispatch(addToFavorite(item));
+      toast.info("Ticket added to favorites", {
+        icon: "✈️",
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'Log in to save your favorites!',
+        confirmButtonColor: '#10408F'
+      })
+    }
   }
 
+  useEffect(() => {
+    localStorage.setItem('fav-list', JSON.stringify(favoriteList))
+  }, [favoriteList])
+
   return (
-    <div className={style.cards}>
+  (<div className={ darkMode ? style.cards_dark : style.cards}>
       <li className={style.cards_item}>
-        <button
-          id="mailBTN"
-          disabled={listDisabled}
-          onClick={() => addFav(item)}
-        >
-          Favorite
-        </button>
+        {user.length && !user[0].permissions ? (
+          <IconButton
+            id="mailBTN"
+            color="error"
+            disabled={listDisabled}
+            onClick={() => addFav(item)}
+          >
+          { listDisabled ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
+          </IconButton>
+        ) : !user.length ? (
+          <IconButton
+            id="mailBTN"
+            color="error"
+            disabled={listDisabled}
+            onClick={() => addFav(item)}
+          >
+          { listDisabled ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
+          </IconButton>
+        ) : null}
+
         <div className={style.info}>
           <button className={style.button}>i </button>
           <div className={style.propiedades}>
@@ -70,29 +143,56 @@ function Ticket({id, origin, price, logo, airline, arrivalHour, departureHour,st
             <h5 className={style.a}> {origin} </h5>
           </div>
         </div>
-        <button className={style.btnCart} onClick={handleAddCart}>
-          Add to cart
-        </button>
-        <div className={style.card}>
+
+        {user.length && !user[0].permissions ? (
+          <IconButton
+            id="addToCart"
+            className={style.btnCart}
+            onClick={handleAddCart}
+            color='primary'
+          >
+            <AddShoppingCartIcon color='primary' />
+          </IconButton>
+        ) : !user.length ? (
+          <IconButton
+            id="addToCart"
+            className={style.btnCart}
+            onClick={handleAddCart}
+            color='primary'
+          >
+            <AddShoppingCartIcon color="primary" />
+          </IconButton>
+        ) : null}
+
+          {tickets < 50 ? (
+            <Chip label={`Solo ${tickets} asientos disponibles!`} color="warning" size="small" icon={<NewReleasesIcon />} />
+          ) : (
+            <></>
+          )}
+
+        <div className={darkMode ? style.card_dark : style.card}>
           <div className={style.card_image}>
-            <img src={logo} alt="#" />
+            <img className={style.logo} src={logo} alt="#" />
           </div>
           <div className={style.card_content}>
-            <h2 className={style.card_title}>{airline}</h2>
-            <h5>
+            {airlines.map((airline) => {
+              if(airlineId === airline.id){
+                return <h2 className={darkMode ? style.card_title_dark : style.card_title}>{airline.name}</h2>
+              }
+            })}
+            <h5 className={darkMode ? style.card_desinfo_dark : style.card_desinfo}>
               Origin: {origin} | Destination: {destination}{" "}
             </h5>
           </div>
           <div>
-            <p className={style.card_text}>${price} | price | price</p>
+            <strong><p className={darkMode ? style.card_text_dark : style.card_text}>${price}</p></strong>
             <Link to={`/ticket/${id}`}>
-              <button className={style.btn}>View Deal</button>
+              <button className={darkMode ? style.btn_dark : style.btn}>View Deal</button>
             </Link>
           </div>
         </div>
-        { stock < 40 ? <span>{`Solo ${stock} asientos disponibles`}</span> : <></> }
       </li>
-    </div>
+    </div>)
   );
 }
 

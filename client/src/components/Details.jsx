@@ -1,37 +1,24 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getFlightByID, cleanDetails } from "../redux/actions/index.js";
+import { getFlightByID, cleanDetails, getAllAirlines, getAllUsers, getAllComments } from "../redux/actions/index.js";
 import s from "./styles/Details.module.css";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
-
-// import  addProductToCart  from './CartComponents/CartContext.jsx'
 import { CartContext } from "./CartComponents/CartContext";
 import { useContext } from "react";
+import FeedBack from "./FeedBack.jsx";
 
 function Details() {
-  const { id } = useParams();
+  let { id } = useParams();
+  id = Number(id);
 
   const dispatch = useDispatch();
   const details = useSelector((state) => state.flight);
-  // console.log(details)
+  const user = useSelector((state) => state.currentUser);
+  const airlines = useSelector((state) => state.airlines);
 
-  // const item = details.map(e => {
-  //       let obj = {
-  //         id: e.flight,
-  //         origin: e.origin,
-  //         price: e.price,
-  //         logo: e.logo,
-  //         airline: e.airline,
-  //         arrivalHour: e.arrivalHour,
-  //         departureHour: e.departureHour,
-  //   }
-  //   return obj
-  // })
-  // console.log(item)
-
-  const { addProductToCart } = useContext(CartContext);
+  const { addProductToCart,products } = useContext(CartContext);
 
   const handleAddToCart = ({
     id,
@@ -41,6 +28,8 @@ function Details() {
     airline,
     arrivalHour,
     departureHour,
+    tickets,
+    destination
   }) => {
     // console.log({id, origin, price, logo, airline, arrivalHour, departureHour})
     addProductToCart({
@@ -51,93 +40,162 @@ function Details() {
       airline,
       arrivalHour,
       departureHour,
+      tickets,
+      destination
     });
-    toast.info("Added to cart", {
-      icon: "✈️",
-      position: "bottom-left",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    let cant=0;
+    products?.map((p)=>{
+      if(p.id===id)cant++
+      if(p.id===id && p.amount < p.tickets){
+        toast.info("Ticket added to cart", {
+          icon: "✈️",
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
+    })
+    if(!cant) {
+      toast.info("Ticket added to cart", {
+        icon: "✈️",
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
   };
 
   useEffect(() => {
+    dispatch(getAllUsers())
+  }, [dispatch])
+
+  useEffect(() => {
     dispatch(getFlightByID(id));
+    dispatch(getAllAirlines());
     return () => {
       dispatch(cleanDetails());
     };
   }, [dispatch, id]);
 
+  let airline = airlines.map((airline) => {
+    if (details.airlineId === airline.id) {
+      return airline.name
+    }
+  })
+
   return (
     <div>
       <div className={s.container}>
-        <Link className={s.links} to="/">
-          <button className={s.btnHome}>Go to Home</button>
-        </Link>
 
+        <div className={s.links}>
+          <Link to="/">
+            <button className={s.btnHome}>Go to Home</button>
+          </Link>          
+        </div>
+        
         {details ? (
-          details.map((d) => {
-            return (
-              <div key={d.flight}>
-                <div className={s.detail}>
-                  <input className={s.input} type="checkbox" id="collapsible-checkbox" />
-                  <label className={s.label} for="collapsible-checkbox">
-                  <div className={s.divA}>
-                    <img className={s.logo} src={d.logo} alt="Img" />
-                    <div className={s.airline}>{d.airline}</div>
-                    <div className={s.departureDate}>{d.departureDate}</div>
+          <div key={details.id}>
+            <div className={s.detail}>
 
-                    <div className={s.durationEstimated}>
-                      {d.durationEstimated}h
-                    </div>
-                  </div>
-                  </label>
-                  <div className={s.info}> 
-                  <div className={s.divInfo1}>
+              <input
+                className={s.input}
+                type="checkbox"
+                id="collapsible-checkbox"
+              />
 
-                    <div className={s.departureHour}>Departure Hour: {d.departureHour}</div>
-                    <div className={s.durationEstimated}>
-                      {d.durationEstimated}h
-                    </div>
-                    <div className={s.arrivalHour}>Arrival Hour: {d.arrivalHour}</div>
-                  </div>
-                  <div className={s.divInfo2}>
-                    <div className={s.origin}>Origin: {d.origin}</div>
-                    <div className={s.description}>Description: {d.description}</div>
-                    <div className={s.destination}>Destination: {d.destination}</div>
-                  </div>
+              <label className={s.label} for="collapsible-checkbox">
+                <div className={s.divA}>
+                  <img className={s.logo} src={details.logo} alt="Img" />
+                  <div className={s.airline}>{airline}</div>
+                  <div className={s.departureDate}>{details.departureDate}</div>
+                  <div className={s.durationEstimated}>
+                    {details.durationEstimated}h
                   </div>
                 </div>
-                <div key={d.flight} className={s.divPrices}>
-                  <img className={s.logoPrice} src={d.logo} alt="Img" />
-                  <div className={s.airlinePrice}>{d.airline}</div>
-                  <div className={s.priceP}>${d.price}</div>
+              </label>
+
+              <div className={s.info}>
+
+                <div className={s.divInfo1}>
+                  <div className={s.departureHour}>
+                    Departure Hour: {details.departureHour}
+                  </div>
+                  <div className={s.durationEstimated}>
+                    {details.durationEstimated}h
+                  </div>
+                  <div className={s.arrivalHour}>
+                    Arrival Hour: {details.arrivalHour}
+                  </div>
+                </div>
+
+                <div className={s.divInfo2}>
+                  <div className={s.origin}>Origin: {details.origin}</div>
+                  <div className={s.description}>
+                    Description: {details.description}
+                  </div>
+                  <div className={s.destination}>
+                    Destination: {details.destination}
+                  </div>
+                </div>     
+
+              </div>
+              
+            </div>           
+
+              <div key={details.id} className={s.divPrices}>
+                <img className={s.logoPrice} src={details.logo} alt="Img" />
+                <div className={s.airlinePrice}>{airline}</div>
+                <div className={s.priceP}>${details.price}</div>
+                {user.length && !user[0].permissions ? (
                   <button
                     className={s.btn}
                     onClick={() =>
                       handleAddToCart({
-                        id: d.flight,
-                        origin: d.origin,
-                        price: d.price,
-                        logo: d.logo,
-                        airline: d.airline,
-                        arrivalHour: d.arrivalHour,
-                        departureHour: d.departureHour,
+                        id: details.id,
+                        origin: details.origin,
+                        price: details.price,
+                        logo: details.logo,
+                        airline: airline,
+                        arrivalHour: details.arrivalHour,
+                        departureHour: details.departureHour,
+                        tickets:details.tickets,
+                        destination:details.destination
                       })
-                    }
-                  >
-                    Reservar
-                  </button>
-                </div>
-              </div>
-            );
-          })
-        ) : (
-          <h1>NADA</h1>
-        )}
+                    }>Add to cart</button>
+                ) : !user.length ? (
+                  <button
+                    className={s.btn}
+                    onClick={() =>
+                      handleAddToCart({
+                        id: details.id,
+                        origin: details.origin,
+                        price: details.price,
+                        logo: details.logo,
+                        airline: airline,
+                        arrivalHour: details.arrivalHour,
+                        departureHour: details.departureHour,
+                        tickets:details.tickets,
+                        destination:details.destination
+                      })
+                    }>Add to cart</button>
+
+                ): null }
+       
+            </div> 
+
+            <FeedBack airlineId={details.airlineId} airline={airline} />   
+
+          </div>
+        ) : null }
+        
       </div>
     </div>
   );

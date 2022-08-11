@@ -5,6 +5,7 @@
 html {
   scroll-behavior: smooth;
 }
+
 .sec1 {
   display: flex;
   position: relative;
@@ -17,19 +18,39 @@ html {
   background-size: cover;
   justify-content: space-evenly;
 }
+
+.sec1_dark {
+  display: flex;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #121212;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23202020' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%23FFFFFF'%3E%3Ccircle cx='769' cy='229' r='5'/%3E%3Ccircle cx='539' cy='269' r='5'/%3E%3Ccircle cx='603' cy='493' r='5'/%3E%3Ccircle cx='731' cy='737' r='5'/%3E%3Ccircle cx='520' cy='660' r='5'/%3E%3Ccircle cx='309' cy='538' r='5'/%3E%3Ccircle cx='295' cy='764' r='5'/%3E%3Ccircle cx='40' cy='599' r='5'/%3E%3Ccircle cx='102' cy='382' r='5'/%3E%3Ccircle cx='127' cy='80' r='5'/%3E%3Ccircle cx='370' cy='105' r='5'/%3E%3Ccircle cx='578' cy='42' r='5'/%3E%3Ccircle cx='237' cy='261' r='5'/%3E%3Ccircle cx='390' cy='382' r='5'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.sec2_dark {
+  background-color: #121212;
+}
+
 .divInv {
   padding-top: 80px;
 }
 
-.home {
+.contact {
   display: flex;
-  width: 100%;
-  height: 100vh;
+  justify-content: space-around;
   align-items: center;
-  justify-content: space-between;
-  /* margin-right: 5px;
-    padding-right: 0px;
-    padding-left: 0px; */
+  margin-top: -6rem;
+  height: 20vh;
+}
+.contact_dark {
+  height: 20vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 0rem;
 }
 .contactContainer {
   width: 100%;
@@ -42,7 +63,16 @@ html {
   margin-right: 0px;
   margin-left: 50px;
 }
-
+.text {
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 90px;
+}
+.text_dark {
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 90px;
+}
 .img {
   display: flex;
   height: 90%;
@@ -53,6 +83,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   color: black;
   font-family: "Rubik", sans-serif;
   /* background-color: rgba(0, 0, 0, 0.541); */
@@ -65,22 +96,44 @@ html {
 }
 
 .title {
-  color: black;
+  color: #00283d;
   font-size: 50px;
   font-weight: bolder;
   margin-bottom: 3rem;
   transition: 0.3s ease;
 }
 
+.title_dark {
+  color: #e9dbdb;
+  font-size: 50px;
+  font-weight: bolder;
+  margin-bottom: 3rem;
+  transition: 0.3s ease;
+}
+
+.title_dark:hover {
+  transform: scale(1.1);
+}
+
 .title:hover {
   transform: scale(1.1);
 }
 
-.text {
+.textHome {
   font-size: 24px;
-  color: rgb(19, 19, 19);
+  color: #00283d;
   margin-top: 0px;
   margin-bottom: 2rem;
+}
+
+.textHome_dark {
+  font-size: 24px;
+  color: #e9dbdb;
+  margin-top: 0px;
+  margin-bottom: 2rem;
+}
+.home {
+  width: 100%;
 }
 
 button + button {
@@ -90,7 +143,6 @@ button + button {
 .btn {
   width: 130px;
   height: 50px;
-  margin-top: 40px;
   font-size: 18px;
   border: none;
   border-radius: 10px;
@@ -98,29 +150,54 @@ button + button {
   background-color: #2682d8;
   cursor: pointer;
   transition: 0.5s ease;
+  left: 45%;
+  margin-top: -4rem;
+  position: absolute;
 }
 
 .btn:hover {
   background-color: rgb(220, 224, 255);
   color: rgb(32, 32, 32);
 }
+
 .scrollText {
   position: absolute;
   margin-left: 10vw;
   bottom: 80px;
-  color: black;
+  color: #535353;
   font-family: "Rubik", sans-serif;
 }
+
+.scrollText_dark {
+  position: absolute;
+  margin-left: 10vw;
+  bottom: 80px;
+  color: #ffffff;
+  font-family: "Rubik", sans-serif;
+}
+
 .scrollDown {
   height: 50px;
   width: 30px;
-  border: 2px solid black;
+  border: 2px solid #535353;
   position: absolute;
   left: 50%;
   bottom: 20px;
   border-radius: 50px;
   cursor: pointer;
 }
+
+.scrollDown_dark {
+  height: 50px;
+  width: 30px;
+  border: 2px solid #ffffff;
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
 .scrollDown::before,
 .scrollDown::after {
   content: "";
@@ -130,16 +207,61 @@ button + button {
   height: 10px;
   width: 10px;
   transform: translate(-50%, -100%) rotate(45deg);
-  border: 2px solid black;
+  border: 2px solid #535353;
   border-top: transparent;
   border-left: transparent;
   animation: scroll-down 1s ease-in-out infinite;
 }
+
+.scrollDown_dark::before,
+.scrollDown_dark::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  height: 10px;
+  width: 10px;
+  transform: translate(-50%, -100%) rotate(45deg);
+  border: 2px solid #ffffff;
+  border-top: transparent;
+  border-left: transparent;
+  animation: scroll-down 1s ease-in-out infinite;
+}
+
 .scrollDown::before {
   top: 30%;
   animation-delay: 0.3s;
   /* animation: scroll-down 1s ease-in-out infinite; */
 }
+
+.scrollDown_dark::before {
+  top: 30%;
+  animation-delay: 0.3s;
+  /* animation: scroll-down 1s ease-in-out infinite; */
+}
+
+/* .whatsapp{
+  width: 100%;
+  top: 80vh;
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  font-family: "Raleway", sans-serif;
+} */
+.planeInput {
+  height: 5rem;
+}
+.dealInput {
+  height: 7rem;
+  width: 11rem;
+}
+.text_dark {
+  color: white;
+}
+.contactContainer {
+  margin-top: 7rem;
+}
+
 @keyframes scroll-down {
   0% {
     /* top:20%; */
@@ -156,9 +278,152 @@ button + button {
     opacity: 0;
   }
 }
-@media screen and (max-width: 800px) {
-    
-    .scrollText {
-        margin-left: 4vw;
-    }
+
+@media (max-width: 450px) {
+  /* body{
+    max-width: 450px;
+    height: 100vh;
+  } */
+
+  /* SEC 1 */
+  .textHome {
+    font-size: 20px;
+    color: #00283d;
+    margin-top: 54px;
+    margin-bottom: 5rem;
+  }
+  .textHome_dark {
+    font-size: 20px;
+    color: #e9dbdb;
+    margin-top: 54px;
+    margin-bottom: 5rem;
+  }
+  .sec1 {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .sec1_dark {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .Home {
+    width: 100%;
+    height: 100vh;
+  }
+  .Home_dark {
+    width: 100%;
+    height: 100vh;
+  }
+  .divImg {
+    margin-left: 0;
+  }
+  .img {
+    width: 22rem;
+  }
+
+  .container {
+    margin-left: 0;
+    width: 324px;
+    height: 290px;
+  }
+
+  .title {
+    width: 20rem;
+    height: 6rem;
+    font-size: 2rem;
+    margin-top: 20px;
+  }
+  .title_dark {
+    width: 20rem;
+    height: 6rem;
+    font-size: 2rem;
+    margin-top: 20px;
+  }
+
+  .text {
+    font-size: 2rem;
+    margin-top: 30px;
+    margin-bottom: 90px;
+  }
+  .text_dark {
+    font-size: 2rem;
+    margin-top: 30px;
+    margin-bottom: 90px;
+  }
+
+  .scrollText {
+    margin-left: -30vw;
+    bottom: 50px;
+    font-size: 13px;
+  }
+
+  .scrollText_dark {
+    margin-left: -30vw;
+    bottom: 50px;
+    font-size: 13px;
+  }
+
+  .scrollDown {
+    height: 25px;
+    width: 32px;
+    left: 45%;
+  }
+  .scrollDown_dark {
+    height: 25px;
+    width: 32px;
+    left: 45%;
+  }
+
+  /* ------------------- */
+
+  /* SEC 2 */
+
+  .sec2 {
+    width: 100%;
+  }
+  .sec2_dark {
+    width: 100%;
+    /* height: 100vh; */
+  }
+  .contact {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column-reverse;
+    /* height: 0; */
+    background-color: #ffffff00;
+    margin-top: 12rem;
+  }
+  .contact_dark {
+    /* height: 0; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column-reverse;
+    background-color: #121212;
+    margin-top: 12rem;
+  }
+  .contactContainer {
+    margin-top: 4rem;
+    background-color: #ffffff;
+    height: 45vh;
+  }
+  .contactContainer_dark {
+    margin-top: 4rem;
+    background-color: #121212;
+    height: 45vh;
+  }
+  /* .text_dark {
+    font-size: 2rem;
+  } */
+  .btn {
+    margin-top: -2.5rem;
+    left: 33%;
+    position: absolute;
+  }
+  /* ------------------- */
+
+  /* .whatsapp{
+    width: 78%;
+  } */
 }

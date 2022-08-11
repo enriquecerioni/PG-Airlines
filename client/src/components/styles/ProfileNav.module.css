@@ -1,0 +1,619 @@
+  /* -------ASIDE-------- */
+  /* aside{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #3985CB;
+    font-weight: 700;
+    color: white;
+    width: 30%;
+    height: 100%;
+    margin-right: 3%;
+    box-shadow: 5px 5px 30px 10px  rgba(9, 9, 9, 0.486) inset;
+    padding-top: 5rem;
+  }
+  
+  .imgProfile{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: 1rem;
+  
+    
+  }
+  
+  figcaption.fig1, .fig2{
+    text-align: center;
+    line-height: 1.5em;
+    letter-spacing:2px;
+    color: white;
+    margin-bottom: 2rem;
+    font-weight: 700;
+
+  }
+  
+  .fig2{
+    font-size: 20px;
+  
+  }
+
+  .span{
+    text-decoration: none;
+    color: white;
+  }
+  
+  .divLi{
+    display: flex;
+    width: 100%;
+    margin-top: 10rem;
+    text-decoration: none;
+    color: #E6F4F1;
+  }
+  
+  .divLi li{
+    margin-bottom: 2rem;
+    width: 19.6vw;
+    padding: 10px;
+    color: #E6F4F1;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: .5s ease;
+
+  }
+  
+  .divLi li:hover{
+    background-color: #002760;
+    transform: scale(1.1);
+  
+  } */
+
+/* -------------------- */
+  
+:root{
+  /* ===== Colors ===== */
+  --body-color: #E4E9F7;
+  --sidebar-color: #FFF;
+  --sidebar-color_dark: #121212f9;;
+  --primary-color: #3985CB;
+  --primary-color-light: #F6F5FF;
+  --primary-color-dark: #030303;
+  --toggle-color: #DDD;
+  --toggle-color-dark: #DDD;
+  --text-color: #707070;
+  --text-color_dark: #313131;
+
+  /* ====== Transition ====== */
+  --tran-03: all 0.2s ease;
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.3s ease;
+  --tran-05: all 0.3s ease;
+}
+
+
+::selection{
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* ===== Sidebar ===== */
+/* ---------------------------------------- */
+
+.links{
+  text-decoration: none;
+  color: var(--text-color);
+  padding-left: 0rem;
+}
+.links_dark{
+  text-decoration: none;
+  color: var(--text-color);
+  padding-left: 0rem;
+}
+
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar:hover .navLink:hover .links:hover{
+  color: white;
+  padding-left: 1rem;
+}
+
+.sidebar_dark .navLink_dark:hover .links_dark:hover{
+  color: white;
+  padding-left: 1rem;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 4rem;
+  padding: 5rem 14px 10rem 14px;
+  background: var(--sidebar-color);
+  transition: all .8s ease;
+  z-index: 100;
+  margin-right: 5rem;
+}
+
+.sidebar_dark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 4rem;
+  padding: 5rem 14px 10rem 14px;
+  background: var(--sidebar-color_dark);
+  transition: all .8s ease;
+  z-index: 100;
+  margin-right: 5rem;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+
+.sidebar figure{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+.sidebar_dark figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+
+.sidebar:hover figure{
+  opacity: 1;
+}
+.sidebar_dark:hover figure {
+  opacity: 1;
+}
+/* ---------------------------------------- */
+
+
+.imgProfile{
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  /* margin: 0 auto; */
+  
+}
+
+figcaption.fig1, .fig2{
+  text-align: center;
+  line-height: 1.4em;
+  letter-spacing:2px;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-weight: 700;
+  /* border-bottom: 1px solid gainsboro; */
+}
+
+.fig2{
+  font-size: 20px;
+  transition: var(--tran-05);
+}
+
+.fig2:hover{
+  transform: scale(1.1);
+}
+/* .sidebar.close{
+  width: 88px;
+} */
+
+/* ---------------------------------------- */
+.sidebar:hover{
+  width: 20rem;
+}
+.sidebar_dark:hover{
+  width: 20rem;
+}
+/* ---------------------------------------- */
+
+
+/* ===== Reusable code - Here ===== */
+/* ---------------------------------------- */
+.sidebar .navLink{
+  height: 50px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.sidebar_dark .navLink_dark{
+  height: 50px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar header .image,
+.sidebar .bx{
+  min-width: 60px;
+  border-radius: 6px;
+}
+.sidebar_dark header .image,
+.sidebar_dark .bx{
+  min-width: 60px;
+  border-radius: 6px;
+}
+
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar .bx{
+  min-width: 60px;
+  background-color: red;
+  border-radius: 6px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.sidebar_dark .bx{
+  min-width: 60px;
+  background-color: red;
+  border-radius: 6px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar .text,
+.sidebar .bx{
+  color: var(--text-color);
+  transition: var(--tran-03);
+}
+.sidebar_dark .text,
+.sidebar_dark .bx{
+  color: var( --text-color);
+  transition: var(--tran-03);
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar .text{
+  opacity: 0;
+  transition: all .3s ease;
+}
+.sidebar_dark .text{
+  opacity: 0;
+  transition: all .3s ease;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+
+.sidebar:hover .text{
+  font-size: 17px;
+  font-weight: 500;
+  padding-left: 1rem;
+  white-space: nowrap;
+  opacity: 1;
+}
+.sidebar_dark:hover .text{
+  font-size: 17px;
+  font-weight: 500;
+  padding-left: 1rem;
+  white-space: nowrap;
+  opacity: 1;
+}
+/* ---------------------------------------- */
+
+/* =========================== */
+
+/* ---------------------------------------- */
+.sidebar header{
+  position: relative;
+}
+.sidebar_dark header{
+  position: relative;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar header .imageText{
+  display: flex;
+  align-items: center;
+}
+.sidebar_dark header .imageText{
+  display: flex;
+  align-items: center;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar header .logo-text{
+  display: flex;
+  flex-direction: column;
+}
+.sidebar_dark header .logo-text{
+  display: flex;
+  flex-direction: column;
+}
+/* ---------------------------------------- */
+
+
+
+header .imageText .name {
+  margin-top: 2px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+header .imageText .profession{
+  font-size: 16px;
+  margin-top: -2px;
+  display: block;
+}
+
+
+/* ---------------------------------------- */
+.sidebar header .image{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sidebar_dark header .image{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar header .image img{
+  width: 40px;
+  border-radius: 6px;
+}
+.sidebar_dark header .image img{
+  width: 40px;
+  border-radius: 6px;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar header .toggle{
+  position: absolute;
+  top: 20rem;
+  right: -12px;
+  transform: translateY(50%) rotate(0deg);
+  height: 20px;
+  width: 20px;
+  background-color: #3985CB;
+  color: #3985CB;
+  border-radius: 50%;
+  background:  url("arrow.svg") no-repeat 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+  transition: var(--tran-05);
+}
+
+.sidebar_dark header .toggle{
+  position: absolute;
+  top: 20rem;
+  right: -12px;
+  transform: translateY(50%) rotate(0deg);
+  height: 20px;
+  width: 20px;
+  background-color: #3985CB;
+  color: #3985CB;
+  border-radius: 50%;
+  background:  url("arrow.svg") no-repeat 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+  transition: var(--tran-05);
+}
+/* ---------------------------------------- */
+
+
+/* ---------------------------------------- */
+.sidebar:hover .toggle{
+  transform: translateY(-50%) rotate(180deg);
+}
+.sidebar_dark:hover .toggle{
+  transform: translateY(-50%) rotate(180deg);
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar .menu{
+  margin-top: 40px;
+}
+.sidebar_dark .menu{
+  margin-top: 40px;
+}
+/* ---------------------------------------- */
+
+
+/* ---------------------------------------- */
+.sidebar li.search-box{
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--tran-05);
+}
+.sidebar_dark li.search-box{
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--tran-05);
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar .navLink.search-box input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  background-color: var(--primary-color-light);
+  color: white;
+  border-radius: 6px;
+  font-size: 17px;
+  font-weight: 500;
+  transition: var(--tran-05);
+}
+.sidebar_dark .navLink_dark .search-box input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  background-color: var(--primary-color-light);
+  color: white;
+  border-radius: 6px;
+  font-size: 17px;
+  font-weight: 500;
+  transition: var(--tran-05);
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar .navLink .links{
+  list-style: none;
+  height: 100%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 90%;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: var(--tran-03);
+}
+.sidebar_dark .navLink_dark .links_dark{
+  list-style: none;
+  height: 100%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 90%;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: var(--tran-03);
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar .navLink .links:hover{
+  background-color: var(--primary-color);
+}
+.sidebar_dark .navLink_dark .links_dark:hover{
+  background-color: var(--primary-color);
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar .navLink .links:hover .bx,
+.sidebar .navLink .links:hover .text{
+  color: white;
+}
+.sidebar_dark .navLink_dark .links_dark:hover .bx,
+.sidebar_dark .navLink_dark .links_dark:hover .text{
+  color: black;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+.sidebar .menuBar{
+  height: calc(100% - 55px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: scroll;
+}
+.sidebar_dark .menuBar{
+  height: calc(100% - 55px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: scroll;
+}
+/* ---------------------------------------- */
+
+
+.menuBar::-webkit-scrollbar{
+  display: none;
+}
+
+/* ---------------------------------------- */
+
+.sidebar .menuBar .mode{
+  border-radius: 6px;
+  background-color: var(--primary-color-light);
+  position: relative;
+  transition: var(--tran-05);
+}
+
+.sidebar_dark .menuBar .mode{
+  border-radius: 6px;
+  background-color: var(--primary-color-light );
+  position: relative;
+  transition: var(--tran-05);
+}
+/* ---------------------------------------- */
+
+.menuBar .mode .sun-moon{
+  height: 50px;
+  width: 60px;
+}
+
+
+
+/* .menuBar .bottomContent .toggle-switch{
+  position: absolute;
+  right: 0;
+  height: 100%;
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  cursor: pointer;
+} */
+
+.home{
+  position: absolute;
+  top: 0;
+  top: 0;
+  left: 250px;
+  height: 100vh;
+  width: calc(100% - 250px);
+  background-color: var(--body-color);
+  transition: var(--tran-05);
+}
+
+.home .text{
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--text-color);
+  padding: 12px 60px;
+}

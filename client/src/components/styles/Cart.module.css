@@ -1,3 +1,240 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+
+* {
+  text-decoration: none;
+}
+
 .cart_container {
+  padding-top: 6rem;
+  margin-top: 2rem;
+  height: 96.6vh;
+}
+
+.cart_container li {
+  list-style: none;
+}
+
+.cart_container_dark {
+  padding-top: 6rem;
+  margin-top: 2rem;
+  background-color: #121212;
+  height: 96.6vh;
+}
+
+.cart_container_dark li {
+  list-style: none;
+}
+
+.empty_cart {
+  padding-top: 2rem;
+  margin-top: 1rem;
+}
+
+.empty_cart_dark {
+  padding-top: 2rem;
+  margin-top: 1rem;
+  background-color: #121212;
+}
+
+.title {
+  font-family: "Rubik", sans-serif;
+  font-size: 2.5rem;
+}
+
+.title_dark {
+  font-family: "Rubik", sans-serif;
+  font-size: 2.5rem;
+  color: #ffffff;
+}
+
+/* .empty_cart img {
+  margin-top: 1rem;
+  width: 35rem;
+  height: 100%;
+} */
+
+.card {
+  margin-top: 0rem;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.card_dark {
+  margin-top: 0rem;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  background-color: #121212;
+}
+
+.containerAll{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerAll_dark{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
+}
+
+.payment_container {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  /* margin: 0 auto;
+  row-gap: 0.7rem; */
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+  border: 1px solid #5f5f5f59;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.payment_container_dark {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  /* margin: 0 auto; */
+  /* row-gap: 0.7rem; */
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+  background: #121212;
+  border: 1px solid #5f5f5f;
+  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+}
+
+.title_summary {
+  font-family: "Rubik", sans-serif;
+}
+
+.title_summary_dark {
+  font-family: "Rubik", sans-serif;
+  color: #ffffff;
+}
+
+.payment_container h4,
+span {
+  font-family: "Roboto", sans-serif;
+}
+
+.text_summary {
+  font-family: "Roboto", sans-serif;
+}
+
+.text_summary_dark {
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+}
+
+.amount_display {
+  padding: 0.7rem;
+}
+
+.amount_display_dark {
+  padding: 0.7rem;
+  color: #ffffff;
+}
+
+.card_content {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  row-gap: 0.7rem;
+}
+.amountBtn {
+  display: flex;
+  flex-direction: row;
+}
+
+.card_content_dark{
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  row-gap: 0.7rem;
+  background-color: #121212;
+}
+
+@media screen and (max-width: 450px) {
+  .card {
+    margin-top: 0rem;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    /* background-color: #121212; */
+  }
+
+  .card_dark {
+    margin-top: 0rem;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    background-color: #121212;
+  }
+  .payment_container_dark {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    /* margin: 0 auto;
+    row-gap: 0.7rem; */
     margin-top: 5rem;
+    background-color: #121212;
+    /* border: 1px solid #5f5f5f; */
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */ 
+  }
+  .payment_container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    /* margin: 0 auto;
+    row-gap: 0.7rem; */
+    margin-top: 5rem;
+    border: 1px solid #5f5f5f;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  .cart_container {
+    height: 110vh;
+  }
+  .cart_container_dark {
+    height: 100%;
+  }
+
+  .empty_cart {
+    padding-top: 2rem;
+    margin-top: 1rem;
+    height: 100vh;
+  }
+  
+  .empty_cart_dark {
+    padding-top: 2rem;
+    margin-top: 1rem;
+    height: 100vh;
+    background-color: #121212;
+  }
+
+  .imgEmpty{
+    width: 23rem;
+    height: 250px;
+  }
+
+  .imgEmpty_dark{
+    width: 23rem;
+    height: 250px;
+  }
+
 }

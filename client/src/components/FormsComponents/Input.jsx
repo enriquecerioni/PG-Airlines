@@ -41,11 +41,12 @@ function Input({state, setState, type, label, placeholder, name, error, regularE
                 valid={state.valid}
             />
 
-        {state.valid === 'false' && error ? <span valid={state.valid}>{error}</span>
-        :
-        state.valid === 'true' && error && <span valid={state.valid} className={state.valid ==='false' ? style.errorFalse : style.errorTrue }>{error}</span>}
+        {state.valid === 'false' && error ? <span className={style.errorFalse} valid={state.valid}>{error}</span>
+        : <></>}
     </div>
   )
 }
 
 export default Input
+
+/* className={state.valid ==='false' ? style.errorFalse : style.errorTrue} */

@@ -86,7 +86,7 @@ const { Admin, Airline, Flight, Order, User ,Cart , Comment} = sequelize.models;
 User.hasMany(Order,{foreignKey:"userId"});
 Order.belongsTo(User,{foreignKey:"userId"});
 
-Airline.hasMany(User,{foreignKey:"userId"});
+Airline.hasOne(User,{foreignKey:"userId"});
 User.belongsTo(Airline,{foreignKey:"userId"});
 
 
@@ -107,9 +107,8 @@ Cart.hasMany(Order, {foreignKey:"cartId"});
 Order.belongsTo(Cart, {foreignKey:"cartId"});
 
 
-Comment.belongsTo(Flight, {foreignKey:"flightId"});
-Flight.hasMany(Comment, {foreignKey:"flightId"});
-
+Comment.belongsTo(Airline, {foreignKey:"airlineId"});
+Airline.hasMany(Comment, {foreignKey:"airlineId"});
 
 
 module.exports = {

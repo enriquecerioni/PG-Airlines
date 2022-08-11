@@ -1,5 +1,5 @@
 ::-webkit-scrollbar {
-  width: 2.2vh;
+  width: 1.5vh;
 }
 
 ::-webkit-scrollbar-track {
@@ -24,6 +24,8 @@
 }
 
 .links {
+  width: 2rem;
+  height: 2rem;
   text-decoration: none;
 }
 
@@ -236,10 +238,6 @@
   display: flex;
   font-family: "Roboto", sans-serif;
 }
-.departureDate {
-  display: flex;
-  font-family: "Roboto", sans-serif;
-}
 .departureHour {
   display: flex;
   font-family: "Roboto", sans-serif;
@@ -358,4 +356,65 @@
     rgb(253, 107, 39) 0%,
     rgb(253, 107, 39) 100%
   );
+}
+
+
+/* DETAIL RESPONSIVE */
+
+@media (max-width: 450px){
+  .btnHome{
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .detail{
+    width: 81%;
+    margin-left: 10%;
+    /* background-color: #1150ad; */
+    max-height: 400px;
+    margin-top: 50px;
+    margin-bottom: 4rem;
+
+  }
+
+  .departureDate{
+    margin-right: 20px;
+  }
+
+  .durationEstimated{
+    font-size: 13px;
+  }
+
+  .detail .label:after {
+    right: 1vh;
+  }
+
+  .divPrices{
+    width: 81%;
+    margin-left: 10%;
+    max-height: 400px;
+    /* background-color: #1150ad; */ 
+  }
+
+  .airlinePrice{
+    margin-right: 10px;
+    font-size: 14px;
+  }
+
+  .logoPrice{
+    width: 80px;
+    max-width: 100px;
+    height: 60px;
+  }
+
+  .priceP{
+    margin-left: 0px;
+    font-size: 13px;
+  }
+
+  .btn{
+    font-size: 12px;
+    font-weight: 400;
+  }
 }

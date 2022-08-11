@@ -12,6 +12,18 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    uid:{
+      type:DataTypes.STRING,
+      allowNull:true,
+    },
+    superAdmin:{
+      type:DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    emailVerificated:{
+      type:DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     phone: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -28,6 +40,8 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+  },{
+    timestamps: false,
   });
 };
 

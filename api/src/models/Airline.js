@@ -15,7 +15,6 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     headquarters: {
       type: DataTypes.STRING,
@@ -33,5 +32,7 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+  },{
+    timestamps: false,
   });
 };

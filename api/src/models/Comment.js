@@ -8,13 +8,25 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement:true,
     },
-    flightId:{
+    airlineId:{
       type:DataTypes.INTEGER,
-      allowNull:false
+      allowNull: false
     },
     comment: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    rating: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    moreInfo: {
+      type: DataTypes.ARRAY(DataTypes.JSON),
+      allowNull: true
     }
   },{
     timestamps: false,

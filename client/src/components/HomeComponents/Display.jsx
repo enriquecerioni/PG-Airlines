@@ -1,35 +1,40 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Ticket from './Ticket'
 import style from '../styles/Display.module.css'
 import Paginate from './Paginate';
-import Filter from '../Filter'
-// import Filter from './Filter'
-import { getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines} from '../../redux/actions/index'
+import Filter from '../Filter';
+import { orderByAvailability, getAllFlights, orderByPrice, orderAlphabetically, filterPrice, filterByAirlines, getAllUsers, currentUser, getAllAirlines} from '../../redux/actions/index'
+import { darkModeContext } from "../DarkModeContext";
 
 export default function Display() {
-// console.log(details)
+
+    const { darkMode } = useContext(darkModeContext)
+
     const dispatch = useDispatch()
+    const airlinesState=useSelector(state=>state.airlines)
 
     const details = useSelector((state) => state.flights)
-    // console.log(details)
     const filterArray = useSelector(s => s.currrentFilter)
+    console.log(filterArray)
     const orderState = useSelector(state => state.orderState)
 
     const orderPriceSelect = useRef('')
     const orderAlpSelect = useRef('')
+    const orderAvailabilitySelect = useRef('')
 
     useEffect(() => {
-        // if(filterArray.length !== 0) return filterArray
-        // else 
+        dispatch(getAllAirlines())
         dispatch(getAllFlights())
         setTimeout(() => {
             dispatch(filterPrice('all'));
         }, 1000)
 
         orderPriceSelect.current.value = orderState
-        orderAlpSelect.current.value = orderState        
-    }, [])
+        orderAlpSelect.current.value = orderState  
+        orderAvailabilitySelect.current.value = orderState
+
+    }, [dispatch, /*orderState*/])
 
     // PAGINATE
     const [currentPage, setCurrentPage] = useState(1)
@@ -49,7 +54,8 @@ export default function Display() {
     // FILTER AND ORDER
 
     let [airlinesData, setAirlines] = useState([]);
-
+     
+     
     function handleAlph(e) {
         e.preventDefault()
         dispatch(orderAlphabetically(e.target.value))
@@ -57,10 +63,16 @@ export default function Display() {
     }
 
     function handlePrice(e) {
-         e.preventDefault()
+        e.preventDefault()
         dispatch(orderByPrice(e.target.value))
         setCurrentPage(1)
     }   
+
+    function handleAvailability(e) {
+        e.preventDefault()
+        dispatch(orderByAvailability(e.target.value))
+        setCurrentPage(1)
+    }
 
     function handleFilterPrice(e) {
         e.preventDefault()
@@ -84,51 +96,41 @@ export default function Display() {
         }
     }
 
-    function handleClick(e) {
-        e.preventDefault();
-         dispatch(filterByAirlines(e.target.value));
-        document.getElementById('search').value = e.target.value;
-        setAirlines([]);
-    }
-
-    function handleSearchAirlines(e) {
-        e.preventDefault();      
-        const allAirlines = filterArray.map(f => f.airline);
-        let airlines = allAirlines.filter((v, i) => {
-            return allAirlines.indexOf(v) === i;
-        })
-        if (e.target.value !== '') {
-            airlines = airlines.filter(f => f.toLowerCase().includes(e.target.value.toLowerCase()));
-            setAirlines(airlines);
-        } else {
-               dispatch(filterByAirlines('all'));
-               setAirlines([]);
+    function handleClick(value){
+        if(value == undefined){
+         dispatch(filterByAirlines("all"));
+         return
         }
-    }
+         const data = airlinesState.find(f=> f.name == value);
+         dispatch(filterByAirlines(data.id));
+     }
+
+
 
   return (
     <div>
-        <div className={style.container_ticket}>
-            <div className={style.ticket_container} >
+        <div className={darkMode ? style.container_ticket_dark : style.container_ticket}>
+            <div className={darkMode ? style.ticket_container_dark : style.ticket_container} >
                 
                 { 
                 filterArray.length !== 0 ? 
                 paginateCards.map(e => {
-                    if(e.stock)return (<Ticket 
-                        key={e.flight}
-                        id={e.flight}
-                        airline={e.airline}
+                    if(e.tickets) {return (<Ticket 
+                        key={e.id}
+                        id={e.id}
+                        airlineId={e.airlineId}
+                        // airline={e.airline}
                         logo={e.logo}
                         price={e.price}
                         departureHour={e.departureHour}
                         arrivalHour={e.arrivalHour}
                         origin={e.origin}
                         destination={e.destination}
-                        stock={e.stock}              
-                    />) 
+                        tickets={e.tickets}              
+                    />) }
                            
                 }) :
-                <p>Vuelos no encontrados, te invitamos a volver a buscar!</p>
+                <p>Flights not found, search again please!</p>
                 // paginateCards
                 // .map(e => {
                 //     return (<Ticket 
@@ -146,17 +148,19 @@ export default function Display() {
             }  
             </div>
                            
-            <div className={style.filter_container}>
+            <div className={darkMode ? style.filter_container_dark : style.filter_container}>
                 
                 <Filter
                 handlePrice={handlePrice}
                 handleAlph={handleAlph} 
+                handleAvailability={handleAvailability}
                 orderPriceSelect={orderPriceSelect}
                 orderAlpSelect={orderAlpSelect}
+                orderAvailabilitySelect={orderAvailabilitySelect}
                 handleFilterPrice={handleFilterPrice}
                 handleClick={handleClick}
-                handleSearchAirlines={handleSearchAirlines}
-                airlinesData={airlinesData}
+              //  handleSearchAirlines={handleSearchAirlines}
+                airlinesData={airlinesState}
                 />
 
             </div>
