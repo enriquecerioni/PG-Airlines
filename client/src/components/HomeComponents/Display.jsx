@@ -13,12 +13,10 @@ export default function Display() {
 
     const dispatch = useDispatch()
     const airlinesState=useSelector(state=>state.airlines)
-    //console.log("airlinesss",airlines);
-    // const [price, setPrice] = React.useState('');
 
     const details = useSelector((state) => state.flights)
-    // console.log(details)
     const filterArray = useSelector(s => s.currrentFilter)
+    console.log(filterArray)
     const orderState = useSelector(state => state.orderState)
 
     const orderPriceSelect = useRef('')
@@ -26,9 +24,6 @@ export default function Display() {
     const orderAvailabilitySelect = useRef('')
 
     useEffect(() => {
-        // if(filterArray.length !== 0) return filterArray
-        // else 
-        //dispatch(getAllUsers());
         dispatch(getAllAirlines())
         dispatch(getAllFlights())
         setTimeout(() => {
@@ -120,8 +115,7 @@ export default function Display() {
                 { 
                 filterArray.length !== 0 ? 
                 paginateCards.map(e => {
-                    //console.log(e);
-                    if(e.tickets){return (<Ticket 
+                    if(e.tickets) {return (<Ticket 
                         key={e.id}
                         id={e.id}
                         airlineId={e.airlineId}

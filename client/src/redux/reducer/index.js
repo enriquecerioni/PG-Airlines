@@ -65,11 +65,12 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_FLIGHTS: {
-      // console.log("que es action.payload",action.payload)
+      let arr = action.payload?.filter(e => e.tickets)
+
       return {
         ...state,
-        flights: action.payload,
-        copy: action.payload,
+        flights: arr,
+        copy: arr,
         currrentFilter: [],
       };
     }
@@ -176,7 +177,6 @@ const rootReducer = (state = initialState, action) => {
       }
 
     case FILTER_BY_ORIGIN: {
-      //console.log(action.payload);
       const searchFlightByOrigin = state.flights.filter((e) =>{
           
      for (const f of action.payload.origin) {

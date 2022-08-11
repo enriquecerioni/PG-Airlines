@@ -74,8 +74,7 @@ function LogIn() {
 
       } else {
         navigate.push("/");
-        setTimeout(() => {window.location.reload();}, 1200);
-        
+        setTimeout(() => {window.location.reload();}, 1300);
       } 
       
     } else {

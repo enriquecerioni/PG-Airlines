@@ -25,6 +25,7 @@ function Register() {
   const [email, setEmail] = useState({ value: "", valid: null });
   const [password, setPassword] = useState({ value: "", valid: null });
   const [password2, setPassword2] = useState({ value: "", valid: null });
+  const [image, setImage] = useState({ value: "", valid: null });
 
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +36,8 @@ function Register() {
     phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/, //eslint-disable-line
     password:
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-    // Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character (*)
+    // Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character (*),
+    image: /^(ftp|http|https):\/\/[^ "]+$/,
   };
 
   async function handleSubmit(e) {
@@ -44,6 +46,7 @@ function Register() {
 
     if(
       name.valid === 'true' &&
+      image.valid === 'true' &&
       surname.valid === 'true' &&
       email.valid === 'true' &&
       phone.valid === 'true' &&
@@ -54,7 +57,8 @@ function Register() {
       let type = await singUp(
         e.target.email.value,
         e.target.password.value,
-        e.target.phone.value,
+        e.target.phone.value, 
+        e.target.image.value,
         `${e.target.name.value} ${e.target.surname.value}`
       );
 
@@ -81,15 +85,6 @@ function Register() {
     setLoading(false);
   }
 }
-
-  // async function handleClick (e){
-  //   try {
-
-  //     singUp(e.target.email.value, e.target.password.value)
-  //   } catch (error) {
-  //     alert('Usuario ya registrado')
-  //   }
-  // }
 
   async function handleClick(e) {
     try {
@@ -145,6 +140,17 @@ function Register() {
             error="Your last name cannot contain numbers or special characters"
             regularExpression={expression.surname}
           />
+
+          <Input
+            state={image}
+            setState={setImage}
+            name="image"
+            type="text"
+            label="Image"
+            placeholder="Image URL"
+            error="Please provide an image"
+            regularExpression={expression.image}
+          />
             <label  className={darkMode ? style.letra3_dark : style.letra3} >
             E-mail
             </label>
@@ -174,6 +180,7 @@ function Register() {
             <label  className={darkMode ? style.letra3_dark : style.letra3} >
             Password
             </label>
+
           <Input
             state={password}
             setState={setPassword}

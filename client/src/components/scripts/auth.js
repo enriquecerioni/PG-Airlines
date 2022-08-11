@@ -118,24 +118,24 @@ auth.onAuthStateChanged(async (user) => {
 
 //--------------------------------------------------------
 
-export async function singUp(email, password, phone,name) {
+export async function singUp(email, password, phone, image, name) {
   try {
     let cred = await auth.createUserWithEmailAndPassword(email, password);
     let uid = cred.user.uid;
-    let img = cred.user.photoURL;
+    let img = cred.user.photoURL ? cred.user.photoURL : image;
     
     //console.log("1", email, name, uid);
     await cred.user.sendEmailVerification();
     //console.log("2", email, name, uid);
 
-    console.log(email, name, uid, img);
+    // console.log(email, name, uid, img);
     await store.dispatch(createUser({ email, name, uid, img, phone}));
     return  dbFirebase.collection("users").doc(email).set({
       name: name,
       email: email,
       admin: false,
       phone: phone,
-      photo: img? img:"",
+      photo: img ? img : "",
       uid: uid,
       superAdmin: false,
       emailVerificated:false,

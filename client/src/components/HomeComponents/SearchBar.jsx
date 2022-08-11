@@ -25,10 +25,9 @@ export default function SearchBar() {
         setlistOrigin(countriesOrig);
         setOrigin(countriesOrig)
       } else {
-        setlistOrigin([]);
+        setlistOrigin('');
       }
     }
-    
     
     if (e.target.name === "destination") {
       const allDestinations = flights.map(f => f.destination);
@@ -40,19 +39,20 @@ export default function SearchBar() {
         setlistDestination(countriesDest);
         setDestination(countriesDest)
       } else {
-        setlistDestination([]);
+        setlistDestination('');
       }
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log("SEARCH BAR",origin,destination);
     dispatch(getFlightInfo({ origin: origin, destination: destination }));
-    setOrigin("");
-    setDestination("");
-    // document.getElementById('origin').value = "";
-    // document.getElementById('destination').value = "";
+    setOrigin([]);
+    setDestination([]);
+    setlistOrigin([])
+    setlistDestination([]);
+    document.getElementById('origin').value = "";
+    document.getElementById('destination').value = "";
   };
 
   function handleClick(e) {

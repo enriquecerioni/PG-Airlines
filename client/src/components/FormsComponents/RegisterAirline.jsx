@@ -122,14 +122,13 @@ export default function RegisterAirline() {
             regularExpression={expression.name}
           />
 
-          {/* Con la misma lógica de que la empresa debe tener su número propio, debería tener su email propio */}
           <Input
             state={image}
             setState={setImage}
             name="image"
             type="text"
             label="Image"
-            placeholder="image"
+            placeholder="Image URL"
             error="Please provide an image for your airline"
             regularExpression={expression.image}
           />

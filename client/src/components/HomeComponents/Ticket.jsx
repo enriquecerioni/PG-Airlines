@@ -44,13 +44,8 @@ function Ticket({
   
   const dispatch = useDispatch();
   const user = useSelector((state) => state.currentUser);
-  //console.log(user.permissions);
-  // useEffect(()=>{
-  //   dispatch(currentUser())
-  // },[])
 
   const handleAddCart = (e) => {
-    console.log("esto es e",id);
     e.preventDefault();
     addProductToCart(item);
     let cant=0;
@@ -117,7 +112,7 @@ function Ticket({
   }, [favoriteList])
 
   return (
-    <div className={ darkMode ? style.cards_dark : style.cards}>
+  (<div className={ darkMode ? style.cards_dark : style.cards}>
       <li className={style.cards_item}>
         {user.length && !user[0].permissions ? (
           <IconButton
@@ -197,7 +192,7 @@ function Ticket({
           </div>
         </div>
       </li>
-    </div>
+    </div>)
   );
 }
 

@@ -10,7 +10,6 @@ export default function FeedBack({ airlineId, airline }) {
     const dispatch = useDispatch()
     const user = useSelector(state => state.currentUser)
     const allComments = useSelector(state => state.comments)
-    console.log(allComments)
     const [ comments, updateComments ] = useState([allComments])
 
     const airlineComments = comments.filter(e => airlineId === e.airlineId)
@@ -25,15 +24,35 @@ export default function FeedBack({ airlineId, airline }) {
         : getData();
     }, []);
 
+    const rating = airlineComments?.map(e => e.rating)
+
+    const sumaRating = rating?.reduce((e, a) => e + Number(a), 0)
+
+    const totalRating = (sumaRating/(airlineComments.length))
+
     useEffect(() => {
         dispatch(getAllUsers())
         dispatch(getAllComments())
     }, [dispatch])
 
   return (
-    <div>
-        <h1 className={css.review_title}>Customers Review for: {airline}</h1>
+    <div className={css.container_feedback}>
+      <div className={css.title_main}>
+        <h1 className={css.review_title}>{airline}</h1>
+        <Box>
+          <Rating
+            name="text-feedback"
+            value={totalRating}
+            readOnly
+            precision={0.5}
+            emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+          />
+        </Box>        
+      </div>
+
         <div className={css.review_container}>
+        <h1 className={css.review_title}>Customers Review:</h1>
+        <br />
             { airlineComments.length ? airlineComments.map(e => {
                 return (
                   <div className={css.reviewer} key={e.id}>
