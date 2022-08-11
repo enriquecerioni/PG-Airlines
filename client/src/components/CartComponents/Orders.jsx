@@ -22,7 +22,7 @@ function Orders() {
     const user = useSelector(state=>state.currentUser)
 
     let userOrders = ordersArr?.filter((data) => user.length && data.userId === user[0].id)
-    // console.log(userOrders)
+    console.log(userOrders)
 
     useEffect(() => {
       dispatch(getOrders())
