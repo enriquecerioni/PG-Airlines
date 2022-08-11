@@ -167,7 +167,6 @@ function Payment() {
                 amount: e.amount,
                 value: e.price,
                 airlineId: e.airlineId,
-
                 moreinfo: {
                   origin: e.origin,
                   destination: e.destination,
@@ -183,7 +182,7 @@ function Payment() {
             idpurchase: id,
             creationdate: new Date(),
           }
-
+          console.log(sendOrder)
             
           dispatch(createOrder(sendOrder));
 
